@@ -89,7 +89,7 @@ const I18N = {
     shortlistTitle: "选刊候选清单",
     shortlistCopy: "先给出 6 个高匹配候选；筛选或搜索后会实时更新。",
     scatterTitle: "JIF 与 JCI 分布",
-    scatterCopy: "每个点是一份教育学 JCR 期刊，横轴为 JIF，纵轴为 JCI；颜色表示 JCR 分区。",
+    scatterCopy: "每个点是一份教育学 JCR 期刊，横轴为 JIF，纵轴为 JCI；颜色表示 JCR 分区，点大小表示 2025 年发文量。",
     speedTitle: "审稿速度",
     speedCopy: "First decision 与 review time 的可用数据对比。",
     speedCoverage: "First decision {first}/{total}；Review time {review}/{total}；Submission to acceptance {accept}/{total}",
@@ -115,6 +115,15 @@ const I18N = {
     colTag: "分区 / 标签",
     colPublisher: "出版社",
     colEvidence: "官网证据",
+    colPublicationVolume: "年发文量",
+    publicationVolume: "年发文量",
+    publicationVolume2025: "2025 年发文量",
+    publicationVolumeExcel: "Excel 年发文量",
+    publicationTrend: "年度发文量",
+    publicationTrendNote: "来自 Excel 的 2022-2025 发文量，用于判断期刊容量与投稿拥挤度。",
+    noPublicationVolume: "暂无发文量",
+    publicationsCount: "{value} 篇",
+    pointSizeLegend: "点大小 = 2025 年发文量",
     methodTitle: "数据说明",
     methodCopy: "期刊基础数据来自本地工作簿 Education_JCR_latest_refresh_2026-06-26.xlsx 的总表与本轮更新日志。网页只发布公开指标、官网链接、抓取状态和可引用片段；ModelScope / AI token、访问口令和限额配置只属于阿里云轻量服务器环境变量。",
     footer: "AIED Journal Radar 用于选刊与研究网络理解；最终投稿前仍需回到期刊官网确认最新 scope、格式要求和审稿政策。",
@@ -126,6 +135,7 @@ const I18N = {
     medianJif: "JIF 中位数",
     medianJci: "JCI 中位数",
     medianFirstDecision: "First decision 中位数",
+    medianPublicationVolume: "2025 发文量中位数",
     markedOnly: "仅统计已标注期刊",
     evidenceCoverage: "证据覆盖",
     articleSamples: "文章样本 {ok}/{total}",
@@ -261,7 +271,7 @@ const I18N = {
     shortlistTitle: "Journal shortlist",
     shortlistCopy: "Shows 6 high-fit candidates first; filters and search update it live.",
     scatterTitle: "JIF and JCI distribution",
-    scatterCopy: "Each point is an education JCR journal. X = JIF, Y = JCI; color = JCR quartile.",
+    scatterCopy: "Each point is an education JCR journal. X = JIF, Y = JCI; color = JCR quartile; point size = 2025 publication volume.",
     speedTitle: "Review speed",
     speedCopy: "Compares available first-decision and review-time data.",
     speedCoverage: "First decision {first}/{total}; review time {review}/{total}; submission to acceptance {accept}/{total}",
@@ -287,6 +297,15 @@ const I18N = {
     colTag: "Quartile / tag",
     colPublisher: "Publisher",
     colEvidence: "Evidence",
+    colPublicationVolume: "Annual volume",
+    publicationVolume: "Annual volume",
+    publicationVolume2025: "2025 publication volume",
+    publicationVolumeExcel: "Excel publication volume",
+    publicationTrend: "Annual publication volume",
+    publicationTrendNote: "2022-2025 publication counts from the Excel workbook, useful for judging journal capacity and submission crowding.",
+    noPublicationVolume: "No publication volume",
+    publicationsCount: "{value} articles",
+    pointSizeLegend: "Point size = 2025 publication volume",
     methodTitle: "Data notes",
     methodCopy: "Journal data comes from the local workbook Education_JCR_latest_refresh_2026-06-26.xlsx. The static site publishes only public metrics, source links, crawl status, and citeable snippets; ModelScope / AI tokens, access codes, and quotas belong only in server environment variables.",
     footer: "AIED Journal Radar supports journal selection and research-network interpretation; always confirm current scope, formatting, and review policies on the journal website before submission.",
@@ -298,6 +317,7 @@ const I18N = {
     medianJif: "Median JIF",
     medianJci: "Median JCI",
     medianFirstDecision: "Median first decision",
+    medianPublicationVolume: "Median 2025 volume",
     markedOnly: "Only journals with available data",
     evidenceCoverage: "Evidence coverage",
     articleSamples: "Article samples {ok}/{total}",
@@ -436,6 +456,35 @@ function number(value) {
 function fmt(value, digits = 1) {
   const parsed = number(value);
   return parsed === null ? t("missing") : parsed.toFixed(digits).replace(/\.0$/, "");
+}
+
+function integerValue(value) {
+  const parsed = number(value);
+  return parsed === null ? null : Math.round(parsed);
+}
+
+function publicationVolume(journal, year = "2025") {
+  return integerValue(journal?.publications?.[year]);
+}
+
+function publicationLabel(journal, year = "2025") {
+  const value = publicationVolume(journal, year);
+  return value === null ? t("noPublicationVolume") : t("publicationsCount", { value });
+}
+
+function publicationSeries(journal) {
+  return ["2022", "2023", "2024", "2025"]
+    .map((year) => ({ year, value: publicationVolume(journal, year) }))
+    .filter((item) => item.value !== null);
+}
+
+function stableOffset(seed, axis, amplitude) {
+  const text = `${seed}-${axis}`;
+  let hash = 0;
+  for (let index = 0; index < text.length; index += 1) {
+    hash = (hash * 31 + text.charCodeAt(index)) % 9973;
+  }
+  return ((hash / 9973) * 2 - 1) * amplitude;
 }
 
 function median(values) {
@@ -611,6 +660,7 @@ function recommendationScore(journal) {
   });
   score += Math.min(18, (number(journal.jif_2025) || 0) * 1.2);
   score += Math.min(12, (number(journal.jci_2025) || 0) * 2);
+  score += Math.min(5, (publicationVolume(journal, "2025") || 0) / 30);
   if (number(journal.first_decision_days) !== null) score += Math.max(0, 12 - journal.first_decision_days / 7);
   if ((journal.source_pages_crawled || 0) > 0) score += 2;
   if ((journal.article_count_crawled || 0) > 0) score += 3;
@@ -628,6 +678,7 @@ function renderKpis(journals) {
     [t("medianJif"), fmt(median(journals.map((journal) => journal.jif_2025))), "2025 Journal Impact Factor"],
     [t("medianJci"), fmt(median(journals.map((journal) => journal.jci_2025))), "2025 Journal Citation Indicator"],
     [t("medianFirstDecision"), t("days", { value: fmt(median(journals.map((journal) => journal.first_decision_days)), 0) }), t("markedOnly")],
+    [t("medianPublicationVolume"), publicationLabel({ publications: { 2025: median(journals.map((journal) => journal.publications?.["2025"])) } }, "2025"), t("publicationVolumeExcel")],
     [t("evidenceCoverage"), `${sourcePages.ok || 0}/${sourcePages.total || 0}`, t("articleSamples", { ok: articles.ok || 0, total: articles.total || 0 })],
   ];
   els.kpis.innerHTML = kpis
@@ -668,22 +719,40 @@ function renderScatter(journals) {
     return;
   }
 
-  const width = 980;
-  const height = 430;
-  const margin = { top: 34, right: 34, bottom: 54, left: 64 };
+  const width = 1280;
+  const height = 560;
+  const margin = { top: 44, right: 80, bottom: 70, left: 76 };
   const chart = svg(width, height);
   const maxX = Math.log1p(Math.max(...data.map((journal) => number(journal.jif_2025))) * 1.05);
   const maxY = Math.log1p(Math.max(...data.map((journal) => number(journal.jci_2025))) * 1.08);
   const x = (value) => margin.left + (Math.log1p(value) / maxX) * (width - margin.left - margin.right);
   const y = (value) => height - margin.bottom - (Math.log1p(value) / maxY) * (height - margin.top - margin.bottom);
+  const maxPublications = Math.max(...data.map((journal) => publicationVolume(journal, "2025") || 0), 1);
+  const pointRadius = (journal) => {
+    const publications = publicationVolume(journal, "2025") || 0;
+    return Math.max(3.4, Math.min(10.2, 3.6 + Math.sqrt(publications / maxPublications) * 6.6));
+  };
+  const positioned = data.map((journal) => {
+    const jitter = data.length > 80 ? 13 : 7;
+    return {
+      journal,
+      x: Math.max(margin.left + 4, Math.min(width - margin.right - 4, x(journal.jif_2025) + stableOffset(journal.id, "x", jitter))),
+      y: Math.max(margin.top + 4, Math.min(height - margin.bottom - 4, y(journal.jci_2025) + stableOffset(journal.id, "y", jitter))),
+      radius: pointRadius(journal),
+    };
+  });
   const medJif = median(data.map((journal) => journal.jif_2025));
   const medJci = median(data.map((journal) => journal.jci_2025));
   const quartiles = ["Q1", "Q2", "Q3", "Q4"].filter((quartile) => data.some((journal) => journal.quartile === quartile));
   const quartileColor = (quartile) => QUARTILE_COLORS[quartile] || COLORS.muted;
   const labelIds = new Set(
     [...data]
-      .sort((a, b) => (number(b.jif_2025) || 0) - (number(a.jif_2025) || 0))
-      .slice(0, 7)
+      .sort((a, b) => {
+        const aScore = (number(a.jif_2025) || 0) * 1.4 + (number(a.jci_2025) || 0) * 4 + (publicationVolume(a, "2025") || 0) / 60;
+        const bScore = (number(b.jif_2025) || 0) * 1.4 + (number(b.jci_2025) || 0) * 4 + (publicationVolume(b, "2025") || 0) / 60;
+        return bScore - aScore;
+      })
+      .slice(0, 6)
       .map((journal) => journal.id)
   );
 
@@ -704,23 +773,23 @@ function renderScatter(journals) {
     chart.append(medianLabel);
   }
 
-  data.forEach((journal) => {
+  positioned.forEach(({ journal, x: pointX, y: pointY, radius }) => {
     const circle = svgNode("circle", {
-      cx: x(journal.jif_2025),
-      cy: y(journal.jci_2025),
-      r: Math.max(3.1, Math.min(8.2, 3 + Math.sqrt(number(journal.publications?.["2025"]) || 30) / 5.2)),
+      cx: pointX,
+      cy: pointY,
+      r: radius,
       fill: quartileColor(journal.quartile),
-      "fill-opacity": journal.quartile === "Q1" ? "0.72" : "0.58",
+      "fill-opacity": journal.quartile === "Q1" ? "0.64" : "0.46",
       tabindex: "0",
     });
     circle.append(svgNode("title"));
-    circle.querySelector("title").textContent = `${journal.name}\n${journal.quartile} · JIF ${fmt(journal.jif_2025)} · JCI ${fmt(journal.jci_2025)}\n${journal.main_tag}`;
+    circle.querySelector("title").textContent = `${journal.name}\n${journal.quartile} · JIF ${fmt(journal.jif_2025)} · JCI ${fmt(journal.jci_2025)} · ${t("publicationVolume2025")} ${publicationLabel(journal, "2025")}\n${journal.main_tag}`;
     circle.addEventListener("click", () => navigateToJournal(journal.id));
     chart.append(circle);
     if (labelIds.has(journal.id)) {
       const label = svgNode("text", {
-        x: x(journal.jif_2025) + 8,
-        y: y(journal.jci_2025) - 7,
+        x: pointX + radius + 5,
+        y: pointY - radius - 3,
         class: "point-label",
       });
       label.textContent = (journal.abbreviation || journal.name).slice(0, 24);
@@ -745,7 +814,7 @@ function renderScatter(journals) {
   legend.className = "tag-legend";
   legend.innerHTML = quartiles
     .map((quartile) => `<span><i style="background:${quartileColor(quartile)}"></i>${escapeHtml(quartile)}</span>`)
-    .join("");
+    .join("") + `<span class="size-legend">${escapeHtml(t("pointSizeLegend"))}</span>`;
   els.scatter.append(legend);
 }
 
@@ -885,6 +954,49 @@ function cell(className, text) {
   return node;
 }
 
+function compactNetworkLinks(rawLinks) {
+  const compacted = new Map();
+  rawLinks.forEach((link) => {
+    const source = link.source < link.target ? link.source : link.target;
+    const target = link.source < link.target ? link.target : link.source;
+    const key = `${source}|${target}|${link.relation || ""}`;
+    const existing = compacted.get(key);
+    if (!existing || (number(link.weight) || 1) > (number(existing.weight) || 1)) {
+      compacted.set(key, link);
+    }
+  });
+  return [...compacted.values()];
+}
+
+function limitNetworkLinks(rawLinks, expanded = false) {
+  const deduped = compactNetworkLinks(rawLinks);
+  const grouped = new Map();
+  deduped.forEach((link) => {
+    const journalId = String(link.source).startsWith("journal-") ? link.source : String(link.target).startsWith("journal-") ? link.target : "";
+    if (!journalId) return;
+    if (!grouped.has(journalId)) grouped.set(journalId, []);
+    grouped.get(journalId).push(link);
+  });
+  const relationLimits = expanded
+    ? { publisher: 1, jcr_tag: 1, text_topic: 5, method_or_theme: 3 }
+    : { publisher: 1, jcr_tag: 1, text_topic: 3, method_or_theme: 2 };
+  const kept = [];
+  grouped.forEach((links) => {
+    const buckets = new Map();
+    links
+      .sort((a, b) => (number(b.weight) || 1) - (number(a.weight) || 1))
+      .forEach((link) => {
+        const relation = link.relation || "other";
+        if (!buckets.has(relation)) buckets.set(relation, []);
+        buckets.get(relation).push(link);
+      });
+    Object.entries(relationLimits).forEach(([relation, limit]) => {
+      kept.push(...(buckets.get(relation) || []).slice(0, limit));
+    });
+  });
+  return kept;
+}
+
 function renderNetwork(journals) {
   clear(els.network);
   els.network.classList.toggle("is-expanded", state.networkExpanded);
@@ -894,9 +1006,12 @@ function renderNetwork(journals) {
     els.quartile.value !== "all" ||
     els.publisher.value !== "all" ||
     els.speed.value !== "all";
-  const visibleLimit = state.networkExpanded ? 60 : hasActiveFilter ? 36 : 24;
+  const visibleLimit = state.networkExpanded ? 44 : hasActiveFilter ? 30 : 18;
   const visibleJournalIds = new Set(journals.slice(0, visibleLimit).map((journal) => journal.id));
-  const links = state.network.links.filter((link) => visibleJournalIds.has(link.source) || visibleJournalIds.has(link.target));
+  const links = limitNetworkLinks(
+    state.network.links.filter((link) => visibleJournalIds.has(link.source) || visibleJournalIds.has(link.target)),
+    state.networkExpanded
+  );
   const needed = new Set();
   links.forEach((link) => {
     needed.add(link.source);
@@ -908,23 +1023,23 @@ function renderNetwork(journals) {
     return;
   }
 
-  const width = state.networkExpanded ? 1480 : 1320;
-  const height = state.networkExpanded ? 820 : 680;
+  const width = state.networkExpanded ? 1380 : 1120;
+  const height = state.networkExpanded ? 980 : 820;
   const chart = svg(width, height);
   const nodeMap = new Map(nodes.map((node) => [node.id, { ...node }]));
   const center = { x: width / 2, y: height / 2 };
   const typeAnchors = {
-    journal: { x: width * 0.51, y: height * 0.58 },
-    topic: { x: width * 0.52, y: height * 0.18 },
-    publisher: { x: width * 0.16, y: height * 0.66 },
-    method_or_theme: { x: width * 0.86, y: height * 0.66 },
+    journal: { x: width * 0.53, y: height * 0.58 },
+    topic: { x: width * 0.54, y: height * 0.18 },
+    publisher: { x: width * 0.13, y: height * 0.56 },
+    method_or_theme: { x: width * 0.88, y: height * 0.62 },
   };
 
   [...nodeMap.values()].forEach((node, index) => {
     const anchor = typeAnchors[node.type] || center;
     const angle = (index / Math.max(1, nodes.length)) * Math.PI * 2;
-    node.x = anchor.x + Math.cos(angle) * (node.type === "journal" ? 140 : 100);
-    node.y = anchor.y + Math.sin(angle) * (node.type === "journal" ? 96 : 68);
+    node.x = anchor.x + Math.cos(angle) * (node.type === "journal" ? 150 : 92);
+    node.y = anchor.y + Math.sin(angle) * (node.type === "journal" ? 118 : 74);
     node.vx = 0;
     node.vy = 0;
   });
@@ -933,13 +1048,13 @@ function renderNetwork(journals) {
     .map((link) => ({ ...link, sourceNode: nodeMap.get(link.source), targetNode: nodeMap.get(link.target) }))
     .filter((link) => link.sourceNode && link.targetNode);
 
-  for (let tick = 0; tick < 150; tick += 1) {
+  for (let tick = 0; tick < 230; tick += 1) {
     simLinks.forEach((link) => {
       const dx = link.targetNode.x - link.sourceNode.x;
       const dy = link.targetNode.y - link.sourceNode.y;
       const distance = Math.max(1, Math.hypot(dx, dy));
-      const desired = link.relation === "publisher" ? 230 : 170;
-      const force = (distance - desired) * 0.0026 * Math.min(3, link.weight || 1);
+      const desired = link.relation === "publisher" ? 285 : link.relation === "method_or_theme" ? 265 : 230;
+      const force = (distance - desired) * 0.0017 * Math.min(2.4, link.weight || 1);
       const fx = (dx / distance) * force;
       const fy = (dy / distance) * force;
       link.sourceNode.vx += fx;
@@ -956,8 +1071,8 @@ function renderNetwork(journals) {
         const dx = b.x - a.x;
         const dy = b.y - a.y;
         const distance = Math.max(8, Math.hypot(dx, dy));
-        if (distance > 230) continue;
-        const force = 130 / (distance * distance);
+        if (distance > 285) continue;
+        const force = 220 / (distance * distance);
         const fx = (dx / distance) * force;
         const fy = (dy / distance) * force;
         a.vx -= fx;
@@ -969,14 +1084,36 @@ function renderNetwork(journals) {
 
     allNodes.forEach((node) => {
       const anchor = typeAnchors[node.type] || center;
-      node.vx += (anchor.x - node.x) * 0.0012;
-      node.vy += (anchor.y - node.y) * 0.0012;
-      node.x = Math.max(38, Math.min(width - 38, node.x + node.vx));
-      node.y = Math.max(38, Math.min(height - 38, node.y + node.vy));
-      node.vx *= 0.74;
-      node.vy *= 0.74;
+      const anchorStrength = node.type === "journal" ? 0.0018 : 0.004;
+      node.vx += (anchor.x - node.x) * anchorStrength;
+      node.vy += (anchor.y - node.y) * anchorStrength;
+      node.x = Math.max(56, Math.min(width - 56, node.x + node.vx));
+      node.y = Math.max(56, Math.min(height - 56, node.y + node.vy));
+      node.vx *= 0.7;
+      node.vy *= 0.7;
     });
   }
+
+  const journalLabelIds = new Set(
+    [...nodeMap.values()]
+      .filter((node) => node.type === "journal")
+      .sort((a, b) => (number(b.jif) || 0) - (number(a.jif) || 0))
+      .slice(0, state.networkExpanded ? 10 : 4)
+      .map((node) => node.id)
+  );
+  const nodeStrength = new Map();
+  simLinks.forEach((link) => {
+    const weight = number(link.weight) || 1;
+    nodeStrength.set(link.sourceNode.id, (nodeStrength.get(link.sourceNode.id) || 0) + weight);
+    nodeStrength.set(link.targetNode.id, (nodeStrength.get(link.targetNode.id) || 0) + weight);
+  });
+  const nonJournalLabelIds = new Set(
+    [...nodeMap.values()]
+      .filter((node) => node.type !== "journal")
+      .sort((a, b) => (nodeStrength.get(b.id) || 0) - (nodeStrength.get(a.id) || 0))
+      .slice(0, state.networkExpanded ? 18 : 10)
+      .map((node) => node.id)
+  );
 
   simLinks.forEach((link) => {
     chart.append(
@@ -991,6 +1128,7 @@ function renderNetwork(journals) {
     );
   });
 
+  const placedLabels = [];
   [...nodeMap.values()].forEach((node) => {
     const radius = node.type === "journal" ? Math.max(4.6, Math.min(10.5, 4 + (number(node.jif) || 2) / 3.4)) : 8;
     const circle = svgNode("circle", {
@@ -1007,14 +1145,36 @@ function renderNetwork(journals) {
     }
     chart.append(circle);
 
-    if (node.type !== "journal" || number(node.jif) >= 10 || state.networkExpanded) {
+    const shouldLabel =
+      (node.type === "journal" && journalLabelIds.has(node.id)) ||
+      node.type === "publisher" ||
+      (node.type !== "journal" && nonJournalLabelIds.has(node.id));
+    if (shouldLabel) {
+      const limit = node.type === "journal" ? 26 : 30;
+      const text = node.label.length > limit ? `${node.label.slice(0, limit - 1)}…` : node.label;
+      const xPos = node.x + radius + 4;
+      const yPos = node.y + 4;
+      const box = {
+        x: xPos,
+        y: yPos - 13,
+        width: Math.max(32, text.length * 6.8),
+        height: 17,
+      };
+      const overlaps = placedLabels.some(
+        (item) =>
+          box.x < item.x + item.width &&
+          box.x + box.width > item.x &&
+          box.y < item.y + item.height &&
+          box.y + box.height > item.y
+      );
+      if (overlaps) return;
+      placedLabels.push(box);
       const label = svgNode("text", {
-        x: node.x + radius + 4,
-        y: node.y + 4,
+        x: xPos,
+        y: yPos,
         class: "point-label",
       });
-      const limit = node.type === "journal" ? 26 : 34;
-      label.textContent = node.label.length > limit ? `${node.label.slice(0, limit - 1)}…` : node.label;
+      label.textContent = text;
       chart.append(label);
     }
   });
@@ -1045,6 +1205,7 @@ function renderRecommendations(journals) {
             <span>${escapeHtml(journal.quartile || "JCR")}</span>
             <span>JIF ${fmt(journal.jif_2025)}</span>
             <span>JCI ${fmt(journal.jci_2025)}</span>
+            <span>${escapeHtml(t("publicationVolume2025"))} ${escapeHtml(publicationLabel(journal, "2025"))}</span>
             <span>${escapeHtml(speed)}</span>
             <span>${escapeHtml(journal.publisher_family)}</span>
           </div>
@@ -1069,6 +1230,7 @@ function renderTable(journals) {
           <td>${escapeHtml(journal.quartile || t("missing"))} · ${escapeHtml(journal.tag_path || journal.main_tag || t("missing"))}</td>
           <td>${fmt(journal.jif_2025)}</td>
           <td>${fmt(journal.jci_2025)}</td>
+          <td>${escapeHtml(publicationLabel(journal, "2025"))}</td>
           <td>${number(journal.first_decision_days) === null ? t("missing") : t("days", { value: journal.first_decision_days })}</td>
           <td>${escapeHtml(journal.publisher_family || journal.publisher || t("missing"))}</td>
           <td>${t("pagesArticles", { pages: journal.source_pages_crawled || 0, articles: journal.article_count_crawled || 0 })}</td>
@@ -1196,6 +1358,12 @@ function navigateToJournal(journalId) {
   }
 }
 
+function scrollToPageTop() {
+  window.requestAnimationFrame(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: "auto" });
+  });
+}
+
 function showDashboard() {
   state.selectedJournalId = "";
   els.dashboard.hidden = false;
@@ -1209,9 +1377,11 @@ function renderRoute() {
   const match = window.location.hash.match(/^#journal=([^&]+)/);
   if (!match) {
     showDashboard();
+    scrollToPageTop();
     return;
   }
   renderJournalDetail(decodeURIComponent(match[1]));
+  scrollToPageTop();
 }
 
 function profileRows(journalId) {
@@ -1584,10 +1754,39 @@ function submissionRequirementsHtml(journal, dayValue) {
       </div>
       <div class="requirement-block">
         <div class="requirement-block-title">
+          <span>${t("publicationTrend")}</span>
+          <small>${t("publicationTrendNote")}</small>
+        </div>
+        ${publicationTrendHtml(journal)}
+      </div>
+      <div class="requirement-block">
+        <div class="requirement-block-title">
           <span>${t("keySubmissionSources")}</span>
         </div>
         ${requirementLinksHtml(journal)}
       </div>
+    </div>
+  `;
+}
+
+function publicationTrendHtml(journal) {
+  const series = publicationSeries(journal);
+  if (!series.length) return `<div class="requirement-empty">${t("noPublicationVolume")}</div>`;
+  const maxValue = Math.max(...series.map((item) => item.value), 1);
+  return `
+    <div class="publication-trend">
+      ${series
+        .map((item) => {
+          const height = Math.max(14, Math.round((item.value / maxValue) * 68));
+          return `
+            <div class="publication-trend-item">
+              <span>${escapeHtml(t("publicationsCount", { value: item.value }))}</span>
+              <i style="height:${height}px"></i>
+              <b>${escapeHtml(item.year)}</b>
+            </div>
+          `;
+        })
+        .join("")}
     </div>
   `;
 }
@@ -1621,7 +1820,7 @@ function latestIssueSignalHtml(preference) {
   `;
 }
 
-function scheduleThemeMapRender(journalId, sliceKey) {
+function renderThemeMapSlice(journalId, sliceKey) {
   const container = els.detailContent.querySelector("#journalThemeMap");
   const evidence = els.detailContent.querySelector("#themeEvidence");
   const meta = els.detailContent.querySelector("#themeRangeMeta");
@@ -1663,6 +1862,7 @@ function renderJournalDetail(journalId) {
         <span>${escapeHtml(journal.quartile || "JCR")}</span>
         <span>JIF ${fmt(journal.jif_2025)}</span>
         <span>JCI ${fmt(journal.jci_2025)}</span>
+        <span>${escapeHtml(t("publicationVolume2025"))} ${escapeHtml(publicationLabel(journal, "2025"))}</span>
         <span>${escapeHtml(journal.main_tag || t("missing"))}</span>
         <span>${escapeHtml(journal.publisher_family || t("missing"))}</span>
       </div>
@@ -1726,7 +1926,7 @@ function renderJournalDetail(journalId) {
     els.chatQuestion.focus();
   });
   const sliceSelect = els.detailContent.querySelector("#themeTimeSlice");
-  sliceSelect?.addEventListener("change", () => scheduleThemeMapRender(journalId, sliceSelect.value));
+  sliceSelect?.addEventListener("change", () => renderThemeMapSlice(journalId, sliceSelect.value));
   const editorRoleFilter = els.detailContent.querySelector("#editorRoleFilter");
   editorRoleFilter?.addEventListener("change", () => {
     els.detailContent.querySelectorAll("[data-editor-role]").forEach((row) => {
@@ -1751,13 +1951,18 @@ function renderAll() {
 
 function downloadVisibleCsv() {
   const journals = filteredJournals();
-  const headers = ["name", "quartile", "main_tag", "secondary_tag", "jif_2025", "jci_2025", "first_decision_days", "publisher_family", "source_url"];
+  const headers = ["name", "quartile", "main_tag", "secondary_tag", "jif_2025", "jci_2025", "publications_2022", "publications_2023", "publications_2024", "publications_2025", "first_decision_days", "publisher_family", "source_url"];
   const lines = [
     headers.join(","),
     ...journals.map((journal) =>
       headers
         .map((field) => {
-          const value = field === "source_url" ? (journal.source_urls || [])[0] || "" : journal[field] ?? "";
+          const publicationMatch = field.match(/^publications_(\d{4})$/);
+          const value = publicationMatch
+            ? journal.publications?.[publicationMatch[1]] ?? ""
+            : field === "source_url"
+              ? (journal.source_urls || [])[0] || ""
+              : journal[field] ?? "";
           return `"${String(value).replaceAll('"', '""')}"`;
         })
         .join(",")
