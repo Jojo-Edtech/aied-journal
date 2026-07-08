@@ -187,8 +187,24 @@ const I18N = {
     latestArticles: "Latest issue / 近期文章",
     articleSamplesTitle: "文章样本",
     askAiAboutJournal: "用 AI 助手询问这本期刊",
-    submissionSpeed: "投稿与速度",
+    submissionSpeed: "投稿要求",
+    speedAndWorkflow: "流程与速度",
+    manuscriptRequirements: "稿件要求",
+    manuscriptLength: "稿件长度",
+    submissionSystem: "投稿系统",
+    firstDecision: "首次决定",
+    reviewTime: "评审用时",
+    acceptanceTime: "接收到录用",
+    keySubmissionSources: "关键投稿来源",
+    submissionGuidelines: "投稿指南",
+    authorInfo: "作者说明",
+    journalHomepage: "期刊主页",
+    journalMetrics: "期刊指标",
+    articleSample: "文章样本",
+    officialVerificationNote: "投稿前请回官网确认最新格式、栏目、开放获取和审稿政策。",
+    noRequirementLinks: "暂无可识别的投稿来源链接。",
     topicNetworkClues: "主题网络线索",
+    topicPositioning: "主题定位",
     journalSources: "官网来源",
     noSources: "暂无官网链接。",
     crawlStatus: "抓取状态",
@@ -343,8 +359,24 @@ const I18N = {
     latestArticles: "Latest issue / recent articles",
     articleSamplesTitle: "Article samples",
     askAiAboutJournal: "Ask AI about this journal",
-    submissionSpeed: "Submission and speed",
+    submissionSpeed: "Submission requirements",
+    speedAndWorkflow: "Workflow and speed",
+    manuscriptRequirements: "Manuscript requirements",
+    manuscriptLength: "Manuscript length",
+    submissionSystem: "Submission system",
+    firstDecision: "First decision",
+    reviewTime: "Review time",
+    acceptanceTime: "Submission to acceptance",
+    keySubmissionSources: "Key submission sources",
+    submissionGuidelines: "Submission guidelines",
+    authorInfo: "Author information",
+    journalHomepage: "Journal homepage",
+    journalMetrics: "Journal metrics",
+    articleSample: "Article sample",
+    officialVerificationNote: "Confirm the latest formatting, article types, open-access, and review policies on the official journal site before submission.",
+    noRequirementLinks: "No recognizable submission source links yet.",
     topicNetworkClues: "Topic-network clues",
+    topicPositioning: "Topic positioning",
     journalSources: "Journal sources",
     noSources: "No source links yet.",
     crawlStatus: "Crawl status",
@@ -1477,6 +1509,118 @@ function renderThemeMap(journalId, sliceKey = "all", options = {}) {
   }, 360);
 }
 
+function sourceUrlMeta(url) {
+  const lower = String(url || "").toLowerCase();
+  if (/submission-guidelines|guide-for-authors|author-guidelines|instructions-for-authors|for-authors|submit|manuscript/.test(lower)) {
+    return { label: t("submissionGuidelines"), priority: 1 };
+  }
+  if (/how-to-publish|publish-with-us|author-information|author-services|authors/.test(lower)) {
+    return { label: t("authorInfo"), priority: 2 };
+  }
+  if (/metrics|journal-metrics|about|aims|scope/.test(lower)) {
+    return { label: t("journalMetrics"), priority: 3 };
+  }
+  if (/\/article\/|doi\.org|\/content\//.test(lower)) {
+    return { label: t("articleSample"), priority: 5 };
+  }
+  return { label: t("journalHomepage"), priority: 4 };
+}
+
+function requirementLinksHtml(journal) {
+  const seen = new Set();
+  const links = (journal.source_urls || [])
+    .map((url) => ({ url, ...sourceUrlMeta(url) }))
+    .filter((item) => {
+      if (!item.url || seen.has(item.url)) return false;
+      seen.add(item.url);
+      return true;
+    })
+    .sort((a, b) => a.priority - b.priority)
+    .slice(0, 5);
+
+  if (!links.length) return `<div class="requirement-empty">${t("noRequirementLinks")}</div>`;
+  return `
+    <div class="requirement-links">
+      ${links
+        .map((item) => `<a href="${escapeHtml(item.url)}" target="_blank" rel="noreferrer">${escapeHtml(item.label)}</a>`)
+        .join("")}
+    </div>
+  `;
+}
+
+function requirementItemHtml(label, value, options = {}) {
+  const className = ["requirement-item", options.wide ? "is-wide" : "", options.compact ? "is-compact" : ""].filter(Boolean).join(" ");
+  const displayValue = value ? escapeHtml(value) : t("pendingVerification");
+  return `
+    <div class="${className}">
+      <span>${escapeHtml(label)}</span>
+      <strong>${displayValue}</strong>
+    </div>
+  `;
+}
+
+function submissionRequirementsHtml(journal, dayValue) {
+  return `
+    <div class="submission-requirements">
+      <div class="requirement-block">
+        <div class="requirement-block-title">
+          <span>${t("speedAndWorkflow")}</span>
+          <small>${t("officialVerificationNote")}</small>
+        </div>
+        <div class="requirement-grid">
+          ${requirementItemHtml(t("firstDecision"), dayValue(journal.first_decision_days), { compact: true })}
+          ${requirementItemHtml(t("reviewTime"), dayValue(journal.review_time_days), { compact: true })}
+          ${requirementItemHtml(t("acceptanceTime"), dayValue(journal.submission_to_accept_days), { compact: true })}
+          ${requirementItemHtml(t("submissionSystem"), journal.submission_system || "", { compact: true })}
+        </div>
+      </div>
+      <div class="requirement-block">
+        <div class="requirement-block-title">
+          <span>${t("manuscriptRequirements")}</span>
+        </div>
+        <div class="requirement-grid">
+          ${requirementItemHtml(t("manuscriptLength"), journal.word_limit || "", { wide: true })}
+        </div>
+      </div>
+      <div class="requirement-block">
+        <div class="requirement-block-title">
+          <span>${t("keySubmissionSources")}</span>
+        </div>
+        ${requirementLinksHtml(journal)}
+      </div>
+    </div>
+  `;
+}
+
+function topicCluesHtml(topicClues) {
+  const items = String(topicClues || "")
+    .split(state.language === "zh" ? "、" : ",")
+    .map((item) => item.trim())
+    .filter(Boolean)
+    .slice(0, 10);
+  if (!items.length) return `<p>${t("noExtraTopic")}.</p>`;
+  return `
+    <div class="topic-clue-list">
+      ${items.map((item) => `<span>${escapeHtml(item)}</span>`).join("")}
+    </div>
+  `;
+}
+
+function latestIssueSignalHtml(preference) {
+  const latestCount = preference?.slices?.latest_issue?.sample_count || 0;
+  const allCount = preference?.slices?.all?.sample_count || 0;
+  const latestLabel = latestIssueSummary(preference);
+  return `
+    <div class="latest-signal">
+      <div class="latest-signal-main">${escapeHtml(latestLabel)}</div>
+      <div class="latest-signal-stats">
+        <span>${escapeHtml(t("rangeSampleMeta", { count: latestCount, description: t("latestIssue") }))}</span>
+        <span>${escapeHtml(t("rangeSampleMeta", { count: allCount, description: t("allYears") }))}</span>
+      </div>
+    </div>
+  `;
+}
+
 function scheduleThemeMapRender(journalId, sliceKey) {
   const container = els.detailContent.querySelector("#journalThemeMap");
   const evidence = els.detailContent.querySelector("#themeEvidence");
@@ -1523,19 +1667,19 @@ function renderJournalDetail(journalId) {
         <span>${escapeHtml(journal.publisher_family || t("missing"))}</span>
       </div>
     </section>
-    <section class="detail-grid">
-      <article class="detail-card">
+    <section class="detail-grid detail-grid-submission">
+      <article class="detail-card submission-requirements-card">
         <h3>${t("submissionSpeed")}</h3>
-        <p>First decision: ${dayValue(journal.first_decision_days)}<br>Review time: ${dayValue(journal.review_time_days)}<br>Submission to acceptance: ${dayValue(journal.submission_to_accept_days)}</p>
-        <p>Submission system: ${escapeHtml(journal.submission_system || t("missing"))}<br>Word limit: ${escapeHtml(journal.word_limit || t("missing"))}</p>
+        ${submissionRequirementsHtml(journal, dayValue)}
       </article>
-      <article class="detail-card">
-        <h3>${t("topicNetworkClues")}</h3>
-        <p>${escapeHtml(topicClues)}.</p>
+      <article class="detail-card topic-clues-card">
+        <h3>${t("topicPositioning")}</h3>
+        <p>${t("topicNetworkClues")}</p>
+        ${topicCluesHtml(topicClues)}
       </article>
-      <article class="detail-card">
+      <article class="detail-card latest-signal-card">
         <h3>${t("latestIssue")}</h3>
-        <p>${escapeHtml(t("latestIssueText", { label: latestIssueSummary(preference), count: preference?.slices?.latest_issue?.sample_count || 0 }))}</p>
+        ${latestIssueSignalHtml(preference)}
       </article>
     </section>
     <section class="detail-card theme-map-card">
