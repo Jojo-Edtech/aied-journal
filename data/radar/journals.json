@@ -2110,13 +2110,13 @@
     },
     "topic_hits": {
       "Higher education": 26,
-      "Language learning": 104,
+      "Language learning": 103,
       "Assessment": 29,
       "Motivation and wellbeing": 18,
       "Generative AI": 15,
-      "STEM education": 23,
-      "Equity and policy": 13,
-      "Curriculum and pedagogy": 26,
+      "STEM education": 22,
+      "Equity and policy": 12,
+      "Curriculum and pedagogy": 25,
       "Educational technology": 12,
       "AI literacy": 3,
       "Teacher education": 4,
@@ -3409,16 +3409,16 @@
           "The adaptivity of classroom teaching: Comments from a teaching quality perspective",
           "On the challenges of investigating lasting learning: A commentary",
           "Sense of belonging and professional identity in first year students’ peer networks",
-          "Understanding peer feedback uptake: The role of perceived peer feedback literacy and situational factors",
           "Thinking beyond boundaries: Epistemic curiosity predicting creative problem finding through semantic networks",
+          "Understanding peer feedback uptake: The role of perceived peer feedback literacy and situational factors",
           "Feedback complexities interact with prior knowledge"
         ]
       }
     },
     "topic_hits": {
       "Language learning": 4,
-      "Assessment": 7,
       "STEM education": 4,
+      "Assessment": 7,
       "Educational technology": 1,
       "Motivation and wellbeing": 7,
       "Curriculum and pedagogy": 12,
@@ -6175,7 +6175,7 @@
     "article_preferences": {
       "article_sample_count": 80,
       "topic_counts": {
-        "Teacher education": 11,
+        "Teacher education": 12,
         "Motivation and wellbeing": 10,
         "Higher education": 5,
         "Equity and policy": 5,
@@ -6196,7 +6196,7 @@
         {
           "year": "2026",
           "topics": {
-            "Teacher education": 11,
+            "Teacher education": 12,
             "Motivation and wellbeing": 10,
             "Higher education": 5,
             "Equity and policy": 5,
@@ -6210,7 +6210,7 @@
         "issue": "",
         "article_count": 51,
         "top_topics": {
-          "Teacher education": 6,
+          "Teacher education": 7,
           "Motivation and wellbeing": 6,
           "Equity and policy": 5,
           "Higher education": 2,
@@ -6229,7 +6229,7 @@
     },
     "topic_hits": {
       "Higher education": 5,
-      "Teacher education": 12,
+      "Teacher education": 13,
       "Equity and policy": 5,
       "Motivation and wellbeing": 10,
       "STEM education": 3,
@@ -8500,8 +8500,8 @@
           "An Investigation Into Resilience, Metacognition, and L2 Listening Comprehension",
           "From Feedback Appraisal to Pronunciation Performance: A Longitudinal Study of Learner Responses to Artificial Intelligence‐Based Pronunciation Feedback",
           "Diving Into Language Teacher Beliefs: Experience and Contexts in Plurilingual Classrooms",
-          "Negotiating Transnational Islamic Authority in Arabic Language Education: Teachers’ Practices in Indonesian Madrasahs",
           "Challenging the Monolith: Ambivalence, the Native‐Speaker Ideal and Teacher Preparation in Multilingual South Africa",
+          "Negotiating Transnational Islamic Authority in Arabic Language Education: Teachers’ Practices in Indonesian Madrasahs",
           "The Relationship Among Motivational Disposition, Self‐Efficacy, and L2 Achievement of EFL Learners: A Regulatory Focus Theory Perspective"
         ]
       }
@@ -8511,9 +8511,9 @@
       "Higher education": 36,
       "Teacher education": 4,
       "Assessment": 31,
+      "Equity and policy": 9,
       "STEM education": 12,
       "Curriculum and pedagogy": 23,
-      "Equity and policy": 9,
       "Motivation and wellbeing": 28,
       "Generative AI": 14,
       "Educational technology": 2,
@@ -16389,23 +16389,90 @@
       "note": ""
     },
     "article_preferences": {
-      "article_sample_count": 0,
-      "topic_counts": {},
-      "method_counts": {},
-      "yearly_topics": [],
+      "article_sample_count": 80,
+      "topic_counts": {
+        "Higher education": 82,
+        "Equity and policy": 44,
+        "STEM education": 24,
+        "Motivation and wellbeing": 16,
+        "Generative AI": 5,
+        "Assessment": 4,
+        "Curriculum and pedagogy": 3
+      },
+      "method_counts": {
+        "Mixed methods": 31,
+        "RAG": 13,
+        "Learning analytics": 2,
+        "Experiment": 1
+      },
+      "yearly_topics": [
+        {
+          "year": "2099",
+          "topics": {
+            "Generative AI": 1,
+            "Higher education": 1
+          }
+        },
+        {
+          "year": "2026",
+          "topics": {
+            "Higher education": 22,
+            "Equity and policy": 12,
+            "Motivation and wellbeing": 5,
+            "STEM education": 5
+          }
+        },
+        {
+          "year": "2025",
+          "topics": {
+            "Higher education": 44,
+            "Equity and policy": 26,
+            "STEM education": 15,
+            "Motivation and wellbeing": 8,
+            "Generative AI": 4
+          }
+        },
+        {
+          "year": "2024",
+          "topics": {
+            "Higher education": 15,
+            "Equity and policy": 6,
+            "STEM education": 4,
+            "Motivation and wellbeing": 3,
+            "Assessment": 2
+          }
+        }
+      ],
       "latest_issue": {
-        "year": "",
+        "year": "2099",
         "volume": "",
         "issue": "",
-        "article_count": 0,
-        "top_topics": {},
-        "sample_titles": []
+        "article_count": 1,
+        "top_topics": {
+          "Generative AI": 1,
+          "Higher education": 1
+        },
+        "sample_titles": [
+          "Exploring Geographic Differences in High School Math Curricula, College Enrollment, and Postsecondary Math Remediation"
+        ]
       }
     },
-    "article_api_error": "HTTP 429",
-    "topic_hits": {},
-    "method_hits": {},
-    "article_count_crawled": 0,
+    "topic_hits": {
+      "Generative AI": 5,
+      "Higher education": 82,
+      "Equity and policy": 47,
+      "Motivation and wellbeing": 16,
+      "STEM education": 24,
+      "Assessment": 6,
+      "Curriculum and pedagogy": 3
+    },
+    "method_hits": {
+      "Experiment": 2,
+      "RAG": 13,
+      "Mixed methods": 31,
+      "Learning analytics": 2
+    },
+    "article_count_crawled": 80,
     "source_pages_crawled": 0
   },
   {
@@ -18029,23 +18096,67 @@
       "note": ""
     },
     "article_preferences": {
-      "article_sample_count": 0,
-      "topic_counts": {},
-      "method_counts": {},
-      "yearly_topics": [],
+      "article_sample_count": 80,
+      "topic_counts": {
+        "Higher education": 8,
+        "Equity and policy": 7,
+        "STEM education": 5,
+        "Curriculum and pedagogy": 4,
+        "Language learning": 2
+      },
+      "method_counts": {
+        "Review": 1
+      },
+      "yearly_topics": [
+        {
+          "year": "2026",
+          "topics": {
+            "Higher education": 5,
+            "Equity and policy": 3,
+            "STEM education": 1,
+            "Curriculum and pedagogy": 1
+          }
+        },
+        {
+          "year": "2025",
+          "topics": {
+            "Equity and policy": 4,
+            "STEM education": 4,
+            "Higher education": 3,
+            "Curriculum and pedagogy": 3,
+            "Language learning": 2
+          }
+        }
+      ],
       "latest_issue": {
-        "year": "",
+        "year": "2026",
         "volume": "",
         "issue": "",
-        "article_count": 0,
-        "top_topics": {},
-        "sample_titles": []
+        "article_count": 11,
+        "top_topics": {
+          "Curriculum and pedagogy": 1
+        },
+        "sample_titles": [
+          "Introduction: Special Issue on Manfluencers, masculinities and misogyny in educational contexts (Part 1)",
+          "Daring to be ordinary: the potential of ‘ordinariness’ for LGBTQ+ lives in schools",
+          "Post-masculinity and reframing multi-layered boyness: from ethno-nationalist past to pedagogical future",
+          "‘We’re not supposed to bring our sexuality in, right?': gender, sexuality, and the embodied work of sexuality education",
+          "Doing gender in the playground: an intersectional lens on newly arrived migrant students’ practices",
+          "Queer bodies in school spaces: dis/orienting practicum in Aotearoa New Zealand"
+        ]
       }
     },
-    "article_api_error": "HTTP 429",
-    "topic_hits": {},
-    "method_hits": {},
-    "article_count_crawled": 0,
+    "topic_hits": {
+      "Higher education": 8,
+      "Equity and policy": 7,
+      "STEM education": 5,
+      "Curriculum and pedagogy": 4,
+      "Language learning": 2
+    },
+    "method_hits": {
+      "Review": 1
+    },
+    "article_count_crawled": 80,
     "source_pages_crawled": 0
   },
   {
@@ -32984,8 +33095,8 @@
           "Validazione italiana e proprietà psicometriche dello Short Self-Regulation Questionnaire (SSRQ): l'autoregolazione in adolescenza",
           "Competenze valutative degli insegnanti e recupero delle carenze: uno studio esplorativo nella scuola secondaria superiore della provincia autonoma di Trento",
           "Molte pratiche e poca teoria (Editoriale)",
-          "Dal curricolo alla pratica: disallineamenti e punti di frattura nella mediazione collegiale",
           "Abstracts",
+          "Dal curricolo alla pratica: disallineamenti e punti di frattura nella mediazione collegiale",
           "Enhancing teacher professional development through micro-credentials: emerging insights and challenges"
         ]
       }

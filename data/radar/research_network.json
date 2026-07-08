@@ -12160,6 +12160,66 @@
       "relation": "jcr_tag"
     },
     {
+      "source": "journal-130-review-of-higher-education",
+      "target": "topic-higher-education",
+      "weight": 6.0,
+      "relation": "text_topic"
+    },
+    {
+      "source": "journal-130-review-of-higher-education",
+      "target": "topic-equity-and-policy",
+      "weight": 6.0,
+      "relation": "text_topic"
+    },
+    {
+      "source": "journal-130-review-of-higher-education",
+      "target": "topic-stem-education",
+      "weight": 6.0,
+      "relation": "text_topic"
+    },
+    {
+      "source": "journal-130-review-of-higher-education",
+      "target": "topic-motivation-and-wellbeing",
+      "weight": 6.0,
+      "relation": "text_topic"
+    },
+    {
+      "source": "journal-130-review-of-higher-education",
+      "target": "topic-assessment",
+      "weight": 6.0,
+      "relation": "text_topic"
+    },
+    {
+      "source": "journal-130-review-of-higher-education",
+      "target": "topic-generative-ai",
+      "weight": 6.0,
+      "relation": "text_topic"
+    },
+    {
+      "source": "journal-130-review-of-higher-education",
+      "target": "method-mixed-methods",
+      "weight": 5.0,
+      "relation": "method_or_theme"
+    },
+    {
+      "source": "journal-130-review-of-higher-education",
+      "target": "method-rag",
+      "weight": 5.0,
+      "relation": "method_or_theme"
+    },
+    {
+      "source": "journal-130-review-of-higher-education",
+      "target": "method-experiment",
+      "weight": 3.0,
+      "relation": "method_or_theme"
+    },
+    {
+      "source": "journal-130-review-of-higher-education",
+      "target": "method-learning-analytics",
+      "weight": 3.0,
+      "relation": "method_or_theme"
+    },
+    {
       "source": "journal-131-journal-of-marketing-for-higher-education",
       "target": "publisher-taylor-francis",
       "weight": 1.0,
@@ -13058,6 +13118,42 @@
       "target": "topic-topic",
       "weight": 2.0,
       "relation": "jcr_tag"
+    },
+    {
+      "source": "journal-144-gender-and-education",
+      "target": "topic-higher-education",
+      "weight": 6.0,
+      "relation": "text_topic"
+    },
+    {
+      "source": "journal-144-gender-and-education",
+      "target": "topic-equity-and-policy",
+      "weight": 6.0,
+      "relation": "text_topic"
+    },
+    {
+      "source": "journal-144-gender-and-education",
+      "target": "topic-stem-education",
+      "weight": 6.0,
+      "relation": "text_topic"
+    },
+    {
+      "source": "journal-144-gender-and-education",
+      "target": "topic-curriculum-and-pedagogy",
+      "weight": 5.0,
+      "relation": "text_topic"
+    },
+    {
+      "source": "journal-144-gender-and-education",
+      "target": "topic-language-learning",
+      "weight": 3.0,
+      "relation": "text_topic"
+    },
+    {
+      "source": "journal-144-gender-and-education",
+      "target": "method-review",
+      "weight": 2.0,
+      "relation": "method_or_theme"
     },
     {
       "source": "journal-145-vocations-and-learning",
