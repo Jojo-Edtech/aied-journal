@@ -22,7 +22,7 @@ from pydantic import BaseModel, Field
 APP_ROOT = Path(__file__).resolve().parents[1]
 DATA_DIR = Path(os.getenv("RADAR_DATA_DIR", str(APP_ROOT / "data" / "radar"))).expanduser()
 DEFAULT_PROVIDER = "modelscope"
-DEFAULT_MODELSCOPE_MODEL = "Qwen/Qwen3-4B"
+DEFAULT_MODELSCOPE_MODEL = "Qwen/Qwen3-30B-A3B-Instruct-2507"
 DEFAULT_MODELSCOPE_API_BASE = "https://api-inference.modelscope.cn/v1"
 DEFAULT_DEEPSEEK_MODEL = "deepseek-v4-flash"
 DEFAULT_DEEPSEEK_API_BASE = "https://api.deepseek.com/chat/completions"
@@ -437,7 +437,11 @@ def call_llm(question: str, results: list[tuple[Document, float]]) -> str:
     try:
         with urlopen(request, timeout=settings["timeout"]) as response:
             data = json.loads(response.read().decode("utf-8"))
-        return data["choices"][0]["message"]["content"].strip()
+        choices = data.get("choices") or []
+        content = (choices[0].get("message", {}).get("content", "") if choices else "").strip()
+        if not content:
+            raise HTTPException(status_code=502, detail="ModelScope API 没有返回可用回答。")
+        return content
     except HTTPError as error:
         provider_name = "ModelScope" if settings["provider"] == "modelscope" else "DeepSeek"
         try:
@@ -450,6 +454,8 @@ def call_llm(question: str, results: list[tuple[Document, float]]) -> str:
                 raise HTTPException(status_code=429, detail="魔搭免费额度可能已用完，今日已停止继续调用。")
             raise HTTPException(status_code=429, detail="AI 模型服务额度可能已用完，今日已停止继续调用。")
         raise HTTPException(status_code=502, detail=f"{provider_name} API 暂时不可用：HTTP {error.code}。")
+    except HTTPException:
+        raise
     except (OSError, URLError, KeyError, IndexError, TypeError, json.JSONDecodeError):
         provider_name = "ModelScope" if settings["provider"] == "modelscope" else "DeepSeek"
         raise HTTPException(status_code=502, detail=f"{provider_name} API 返回暂时无法解析。")

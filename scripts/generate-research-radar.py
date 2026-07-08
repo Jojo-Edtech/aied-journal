@@ -1763,7 +1763,7 @@ def main() -> int:
             "api_base_url": "",
             "access_mode": "semi_public_code",
             "llm_provider": "modelscope",
-            "model_hint": "Qwen/Qwen3-4B",
+            "model_hint": "Qwen/Qwen3-30B-A3B-Instruct-2507",
             "pages_url": "https://jojo-edtech.github.io/aied-journal/",
         },
     )

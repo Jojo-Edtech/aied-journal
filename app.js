@@ -73,8 +73,11 @@ const I18N = {
     chatTitle: "AI助手",
     chatLoading: "正在读取后端配置...",
     chatReady: "已配置服务器端 AI 代理；token 仅应存在服务器环境变量。",
+    chatConnected: "AI 已连接：{provider} / {model}；今日剩余额度 {quota}。",
+    chatQuotaStopped: "AI 已暂停：模型免费额度可能已用完，今日停止继续调用。",
     chatOffline: "后端未连接；静态雷达可用，AI 助手待连接 ModelScope 代理。",
     chatIdle: "后端未连接时，这里只显示安全状态；配置服务器端 ModelScope 代理后可生成带来源的选刊建议。",
+    chatHealthFailed: "后端地址已配置，但健康检查暂时失败；请稍后重试。",
     accessCode: "访问口令",
     accessPlaceholder: "由服务器环境变量配置",
     questionLabel: "你的论文/选刊问题",
@@ -226,8 +229,11 @@ const I18N = {
     chatTitle: "AI Advisor",
     chatLoading: "Loading backend configuration...",
     chatReady: "Server-side AI proxy configured; tokens should only exist in server environment variables.",
+    chatConnected: "AI connected: {provider} / {model}; remaining quota today {quota}.",
+    chatQuotaStopped: "AI paused: model free quota may be exhausted, so calls stop for today.",
     chatOffline: "Backend not connected; static radar is available while the ModelScope proxy is pending.",
     chatIdle: "When the backend is not connected, this panel only shows a safe status. Deploy the server-side ModelScope proxy to generate source-backed advice.",
+    chatHealthFailed: "Backend URL is configured, but the health check is temporarily unavailable.",
     accessCode: "Access code",
     accessPlaceholder: "Configured as a server environment variable",
     questionLabel: "Your manuscript / journal-fit question",
@@ -496,12 +502,42 @@ function applyTranslations() {
   });
 }
 
-function updateChatStatus() {
+async function updateChatStatus() {
   if (!els.chatStatus) return;
-  els.chatStatus.textContent = state.config.api_base_url ? t("chatReady") : t("chatOffline");
+  const apiBase = String(state.config.api_base_url || "").replace(/\/+$/, "");
+  if (!apiBase) {
+    els.chatStatus.textContent = t("chatOffline");
+    if (els.chatAnswer && (!els.chatAnswer.textContent || els.chatAnswer.dataset.idle === "true")) {
+      els.chatAnswer.dataset.idle = "true";
+      els.chatAnswer.textContent = t("chatIdle");
+    }
+    return;
+  }
+
+  els.chatStatus.textContent = t("chatReady");
   if (els.chatAnswer && (!els.chatAnswer.textContent || els.chatAnswer.dataset.idle === "true")) {
     els.chatAnswer.dataset.idle = "true";
-    els.chatAnswer.textContent = state.config.api_base_url ? "" : t("chatIdle");
+    els.chatAnswer.textContent = "";
+  }
+
+  try {
+    const response = await fetch(`${apiBase}/api/health`, { cache: "no-store" });
+    if (!response.ok) throw new Error("health check failed");
+    const health = await response.json();
+    if (health.provider_quota_exhausted) {
+      els.chatStatus.textContent = t("chatQuotaStopped");
+      return;
+    }
+    els.chatStatus.textContent = t("chatConnected", {
+      provider: health.llm_provider || "AI",
+      model: health.llm_model || t("missing"),
+      quota: health.remaining_quota ?? t("missing"),
+    });
+    if (!health.llm_configured) {
+      els.chatStatus.textContent = t("chatReady");
+    }
+  } catch (error) {
+    els.chatStatus.textContent = t("chatHealthFailed");
   }
 }
 

@@ -14,6 +14,35 @@
   <body>
     <a class="skip-link" href="#radarDashboard" data-i18n="skip">跳到选刊工作台</a>
 
+    <div class="dashboard-shell">
+      <aside class="dashboard-sidebar" aria-label="AIED Journal Radar navigation">
+        <div class="sidebar-brand">
+          <span class="brand-mark">JR</span>
+          <div>
+            <strong>AIED Journal</strong>
+            <small>Research Radar</small>
+          </div>
+        </div>
+        <nav class="sidebar-nav" aria-label="Dashboard sections">
+          <a href="#radarDashboard" class="is-active">Dashboard</a>
+          <a href="#journalTable">Journals</a>
+          <a href="#researchNetwork">Network</a>
+          <a href="#radarChatForm">AI Advisor</a>
+          <a href="#tagHeatmap">Themes</a>
+        </nav>
+        <div class="sidebar-stack">
+          <p>Research lanes</p>
+          <div class="avatar-row" aria-hidden="true">
+            <span>AI</span><span>HE</span><span>TE</span><span>LL</span><span>EP</span>
+          </div>
+        </div>
+        <div class="sidebar-callout">
+          <strong>Selection lab</strong>
+          <span>JCR metrics, topics, editors, latest issue signals.</span>
+        </div>
+      </aside>
+
+      <div class="dashboard-content">
     <header class="site-header">
       <div class="header-inner">
         <div class="header-title">
@@ -37,6 +66,37 @@
     </header>
 
     <main class="radar-main" id="radarDashboard">
+      <section class="dashboard-hero" aria-label="AIED Journal Radar overview">
+        <article class="hero-panel">
+          <div>
+            <p class="eyebrow">Research Workspace</p>
+            <h2>Good researching, Jojo</h2>
+            <p>Map education JCR journals, inspect latest issue preferences, and ask evidence-backed selection questions.</p>
+            <div class="hero-actions">
+              <a class="button button-light" href="#radarChatForm">Ask AI</a>
+              <a class="button button-glass" href="#journalTable">Browse journals</a>
+            </div>
+          </div>
+          <div class="hero-visual" aria-hidden="true">
+            <span></span><span></span><span></span>
+          </div>
+        </article>
+        <aside class="hero-side-panel" aria-label="Update calendar">
+          <div class="mini-calendar">
+            <strong>July 2026</strong>
+            <div class="calendar-grid" aria-hidden="true">
+              <span>M</span><span>T</span><span>W</span><span>T</span><span>F</span><span>S</span><span>S</span>
+              <i>6</i><i>7</i><i class="is-today">8</i><i>9</i><i>10</i><i>11</i><i>12</i>
+            </div>
+          </div>
+          <div class="schedule-card">
+            <small>Daily refresh</small>
+            <strong>06:20 HKT</strong>
+            <span>Public data only</span>
+          </div>
+        </aside>
+      </section>
+
       <section class="radar-control-band" aria-label="Journal radar filters">
         <div>
           <p class="eyebrow">Journal Intelligence</p>
@@ -212,6 +272,8 @@
     <footer class="site-footer">
       <p data-i18n="footer">AIED Journal Radar 用于选刊与研究网络理解；最终投稿前仍需回到期刊官网确认最新 scope、格式要求和审稿政策。</p>
     </footer>
+      </div>
+    </div>
 
     <script src="app.js?v=20260709"></script>
   </body>
