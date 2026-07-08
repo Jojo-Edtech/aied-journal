@@ -3905,7 +3905,7 @@
     },
     {
       "source": "journal-014-language-teaching",
-      "target": "topic-equity-and-policy",
+      "target": "topic-higher-education",
       "weight": 6.0,
       "relation": "text_topic"
     },
@@ -4103,57 +4103,15 @@
     },
     {
       "source": "journal-017-assessing-writing",
-      "target": "topic-language-learning",
-      "weight": 6.0,
-      "relation": "text_topic"
-    },
-    {
-      "source": "journal-017-assessing-writing",
-      "target": "topic-assessment",
-      "weight": 6.0,
-      "relation": "text_topic"
-    },
-    {
-      "source": "journal-017-assessing-writing",
-      "target": "topic-generative-ai",
-      "weight": 6.0,
-      "relation": "text_topic"
-    },
-    {
-      "source": "journal-017-assessing-writing",
-      "target": "topic-motivation-and-wellbeing",
-      "weight": 6.0,
-      "relation": "text_topic"
-    },
-    {
-      "source": "journal-017-assessing-writing",
       "target": "topic-stem-education",
-      "weight": 6.0,
-      "relation": "text_topic"
-    },
-    {
-      "source": "journal-017-assessing-writing",
-      "target": "topic-higher-education",
-      "weight": 4.0,
-      "relation": "text_topic"
-    },
-    {
-      "source": "journal-017-assessing-writing",
-      "target": "method-review",
-      "weight": 5.0,
-      "relation": "method_or_theme"
-    },
-    {
-      "source": "journal-017-assessing-writing",
-      "target": "method-experiment",
-      "weight": 4.0,
-      "relation": "method_or_theme"
-    },
-    {
-      "source": "journal-017-assessing-writing",
-      "target": "method-mixed-methods",
       "weight": 2.0,
-      "relation": "method_or_theme"
+      "relation": "text_topic"
+    },
+    {
+      "source": "journal-017-assessing-writing",
+      "target": "topic-language-learning",
+      "weight": 2.0,
+      "relation": "text_topic"
     },
     {
       "source": "journal-018-ieee-transactions-on-learning-technologies",
@@ -6101,19 +6059,7 @@
     },
     {
       "source": "journal-045-international-review-of-research-in-open-and-dis",
-      "target": "topic-higher-education",
-      "weight": 6.0,
-      "relation": "text_topic"
-    },
-    {
-      "source": "journal-045-international-review-of-research-in-open-and-dis",
       "target": "topic-equity-and-policy",
-      "weight": 6.0,
-      "relation": "text_topic"
-    },
-    {
-      "source": "journal-045-international-review-of-research-in-open-and-dis",
-      "target": "topic-stem-education",
       "weight": 6.0,
       "relation": "text_topic"
     },
@@ -6125,21 +6071,27 @@
     },
     {
       "source": "journal-045-international-review-of-research-in-open-and-dis",
+      "target": "topic-higher-education",
+      "weight": 6.0,
+      "relation": "text_topic"
+    },
+    {
+      "source": "journal-045-international-review-of-research-in-open-and-dis",
       "target": "topic-motivation-and-wellbeing",
       "weight": 6.0,
       "relation": "text_topic"
     },
     {
       "source": "journal-045-international-review-of-research-in-open-and-dis",
-      "target": "topic-educational-technology",
+      "target": "topic-stem-education",
       "weight": 6.0,
       "relation": "text_topic"
     },
     {
       "source": "journal-045-international-review-of-research-in-open-and-dis",
-      "target": "method-mixed-methods",
-      "weight": 5.0,
-      "relation": "method_or_theme"
+      "target": "topic-assessment",
+      "weight": 6.0,
+      "relation": "text_topic"
     },
     {
       "source": "journal-045-international-review-of-research-in-open-and-dis",
@@ -6150,6 +6102,12 @@
     {
       "source": "journal-045-international-review-of-research-in-open-and-dis",
       "target": "method-review",
+      "weight": 5.0,
+      "relation": "method_or_theme"
+    },
+    {
+      "source": "journal-045-international-review-of-research-in-open-and-dis",
+      "target": "method-mixed-methods",
       "weight": 5.0,
       "relation": "method_or_theme"
     },
