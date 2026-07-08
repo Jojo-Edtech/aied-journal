@@ -1,0 +1,15 @@
+{
+  "name": "aied-journal-radar",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build:static": "node scripts/build-static-site.mjs",
+    "radar:generate": "python3 scripts/generate-research-radar.py",
+    "radar:generate:quick": "python3 scripts/generate-research-radar.py --skip-crawl",
+    "validate:data": "node scripts/validate-data.mjs"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

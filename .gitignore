@@ -1,0 +1,10 @@
+dist/
+.DS_Store
+__pycache__/
+*.pyc
+.venv/
+node_modules/
+.env
+.env.*
+!.env.example
+!research_radar_api/.env.example

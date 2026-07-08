@@ -1,0 +1,218 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>AIED Journal Radar | AIED选刊</title>
+    <meta
+      name="description"
+      content="AIED Journal Radar is a bilingual research-oriented journal selection workspace for education JCR journals, topic preferences, latest issues, evidence, and RAG-assisted recommendations."
+    >
+    <link rel="icon" href="data:,">
+    <link rel="stylesheet" href="styles.css?v=20260709">
+  </head>
+  <body>
+    <a class="skip-link" href="#radarDashboard" data-i18n="skip">跳到选刊工作台</a>
+
+    <header class="site-header">
+      <div class="header-inner">
+        <div class="header-title">
+          <p class="eyebrow">AIED Journal Radar</p>
+          <h1>AIED Journal Radar</h1>
+          <p class="subtitle" data-i18n="subtitle">AIED选刊：教育学 JCR 期刊研究与投稿定位工作台</p>
+        </div>
+        <div class="header-actions" aria-label="Site actions">
+          <label class="language-switcher" for="languageSelect">
+            <span data-i18n="language">语言</span>
+            <select id="languageSelect">
+              <option value="zh">中文</option>
+              <option value="en">English</option>
+            </select>
+          </label>
+          <a class="button button-secondary" href="data/radar/journals.json" download data-i18n="downloadData">期刊数据</a>
+          <a class="button button-secondary" href="data/radar/crawl_report.json" download data-i18n="downloadReport">抓取报告</a>
+          <a class="button button-primary" href="https://github.com/Jojo-Edtech/aied-journal" target="_blank" rel="noreferrer">GitHub</a>
+        </div>
+      </div>
+    </header>
+
+    <main class="radar-main" id="radarDashboard">
+      <section class="radar-control-band" aria-label="Journal radar filters">
+        <div>
+          <p class="eyebrow">Journal Intelligence</p>
+          <h2 data-i18n="controlTitle">从期刊指标到研究主题网络</h2>
+        </div>
+        <div class="radar-controls">
+          <label>
+            <span data-i18n="topicSearch">研究主题</span>
+            <input id="radarSearch" type="search" data-i18n-placeholder="topicPlaceholder" placeholder="例如：generative AI、teacher education、language learning">
+          </label>
+          <label>
+            <span data-i18n="mainTag">主标签</span>
+            <select id="radarTagFilter"></select>
+          </label>
+          <label>
+            <span data-i18n="quartile">JCR 分区</span>
+            <select id="radarQuartileFilter"></select>
+          </label>
+          <label>
+            <span data-i18n="publisher">出版社</span>
+            <select id="radarPublisherFilter"></select>
+          </label>
+          <label>
+            <span data-i18n="speed">审稿速度</span>
+            <select id="radarSpeedFilter">
+              <option value="all" data-i18n="all">全部</option>
+              <option value="fast" data-i18n="fastDecision">First decision ≤ 14 天</option>
+              <option value="known" data-i18n="knownSpeed">有审稿时间数据</option>
+            </select>
+          </label>
+        </div>
+      </section>
+
+      <section class="radar-top-workbench">
+        <article class="radar-card chatbot-card">
+          <div class="radar-card-header">
+            <div>
+              <h3 data-i18n="chatTitle">AI助手</h3>
+              <p id="chatStatus" data-i18n="chatLoading">正在读取后端配置...</p>
+            </div>
+          </div>
+          <form class="chat-form" id="radarChatForm">
+            <label>
+              <span data-i18n="accessCode">访问口令</span>
+              <input id="radarAccessCode" type="password" autocomplete="off" data-i18n-placeholder="accessPlaceholder" placeholder="由服务器环境变量配置">
+            </label>
+            <label>
+              <span data-i18n="questionLabel">你的论文/选刊问题</span>
+              <textarea id="radarQuestion" rows="4" maxlength="1200" data-i18n-placeholder="questionPlaceholder" placeholder="例如：我做中学英语教师使用生成式AI进行反馈的混合方法研究，哪些期刊更合适？"></textarea>
+            </label>
+            <div class="chat-examples" aria-label="Example questions">
+              <button type="button" data-example-zh="我做生成式AI辅助教师反馈的混合方法研究，研究对象是中学英语教师，哪些期刊更合适？请区分冲 Q1 和稳妥投稿。" data-example-en="I am studying generative AI-supported teacher feedback with secondary English teachers using mixed methods. Which journals fit, separating Q1 stretch targets and safer options?" data-i18n="exampleFeedback">教师反馈</button>
+              <button type="button" data-example-zh="我做高等教育场景下学习分析和AI素养的量化研究，推荐哪些教育学 JCR 期刊？" data-example-en="I am conducting a quantitative study on learning analytics and AI literacy in higher education. Which education JCR journals should I consider?" data-i18n="exampleAnalytics">学习分析</button>
+              <button type="button" data-example-zh="我做教师AI competence、teacher wellbeing 和政策采纳的研究，哪些期刊匹配度高？" data-example-en="I study teacher AI competence, teacher wellbeing, and policy adoption. Which journals are the strongest matches?" data-i18n="exampleTeacherDev">教师发展</button>
+            </div>
+            <button class="button button-primary" type="submit" data-i18n="generateAdvice">生成选刊建议</button>
+          </form>
+          <div class="chat-answer" id="chatAnswer" aria-live="polite"></div>
+        </article>
+
+        <article class="radar-card">
+          <div class="radar-card-header">
+            <div>
+              <h3 data-i18n="shortlistTitle">选刊候选清单</h3>
+              <p data-i18n="shortlistCopy">先给出 6 个高匹配候选；筛选或搜索后会实时更新。</p>
+            </div>
+          </div>
+          <div class="recommendation-list recommendation-list-compact" id="recommendationList"></div>
+        </article>
+      </section>
+
+      <section class="radar-kpis" id="radarKpis" aria-label="Journal overview"></section>
+
+      <section class="radar-grid" aria-label="Journal radar charts">
+        <article class="radar-card radar-card-wide">
+          <div class="radar-card-header">
+            <div>
+              <h3 data-i18n="scatterTitle">JIF 与 JCI 分布</h3>
+              <p data-i18n="scatterCopy">每个点是一份教育学 JCR 期刊，横轴为 JIF，纵轴为 JCI；颜色表示 JCR 分区。</p>
+            </div>
+          </div>
+          <div class="chart-shell chart-shell-tall" id="jifJciScatter"></div>
+        </article>
+
+        <article class="radar-card">
+          <div class="radar-card-header">
+            <div>
+              <h3 data-i18n="speedTitle">审稿速度</h3>
+              <p data-i18n="speedCopy">First decision 与 review time 的可用数据对比。</p>
+            </div>
+          </div>
+          <div class="chart-shell" id="speedChart"></div>
+        </article>
+
+        <article class="radar-card">
+          <div class="radar-card-header">
+            <div>
+              <h3 data-i18n="publisherTitle">出版社分布</h3>
+              <p data-i18n="publisherCopy">按 publisher family 汇总当前筛选期刊数量。</p>
+            </div>
+          </div>
+          <div class="chart-shell" id="publisherChart"></div>
+        </article>
+
+        <article class="radar-card radar-card-wide">
+          <div class="radar-card-header">
+            <div>
+              <h3 data-i18n="heatmapTitle">主副标签热力图</h3>
+              <p data-i18n="heatmapCopy">横向是副标签，纵向是主标签；颜色越深表示组合越常见。</p>
+            </div>
+          </div>
+          <div class="heatmap-shell" id="tagHeatmap"></div>
+        </article>
+      </section>
+
+      <section class="radar-card network-card" aria-label="Journal research network">
+        <div class="radar-card-header">
+          <div>
+            <h3 data-i18n="networkTitle">期刊-主题-出版社网络</h3>
+            <p id="networkNote" data-i18n="networkNote">默认显示筛选后的高信号节点。点击期刊节点可查看详情。</p>
+          </div>
+          <div class="network-actions">
+            <div class="network-legend" aria-label="Network legend">
+              <span><i class="legend-journal"></i><span data-i18n="legendJournal">期刊</span></span>
+              <span><i class="legend-topic"></i><span data-i18n="legendTopic">主题</span></span>
+              <span><i class="legend-publisher"></i><span data-i18n="legendPublisher">出版社</span></span>
+              <span><i class="legend-method"></i><span data-i18n="legendMethod">方法/主题</span></span>
+            </div>
+            <button class="button button-secondary network-toggle" id="toggleNetwork" type="button" data-i18n="expandNetwork">展开网络</button>
+          </div>
+        </div>
+        <div class="network-shell" id="researchNetwork"></div>
+      </section>
+
+      <section class="radar-card" aria-label="Journal detail table">
+        <div class="radar-card-header">
+          <div>
+            <h3 data-i18n="tableTitle">期刊明细</h3>
+            <p id="tableMeta" data-i18n="loadingData">正在读取数据...</p>
+          </div>
+          <button class="button button-secondary" id="downloadVisible" type="button" data-i18n="exportCurrent">导出当前筛选</button>
+        </div>
+        <div class="journal-table-wrap">
+          <table class="journal-table" id="journalTable">
+            <thead>
+              <tr>
+                <th data-i18n="colJournal">期刊</th>
+                <th data-i18n="colTag">分区 / 标签</th>
+                <th>JIF</th>
+                <th>JCI</th>
+                <th>First decision</th>
+                <th data-i18n="colPublisher">出版社</th>
+                <th data-i18n="colEvidence">官网证据</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="radar-methodology">
+        <h2 data-i18n="methodTitle">数据说明</h2>
+        <p data-i18n="methodCopy">
+          期刊基础数据来自本地工作簿 Education_JCR_latest_refresh_2026-06-26.xlsx 的总表与本轮更新日志。网页只发布公开指标、官网链接、抓取状态和可引用片段；ModelScope / AI token、访问口令和限额配置只属于阿里云轻量服务器环境变量。
+        </p>
+      </section>
+    </main>
+
+    <main class="journal-detail-main" id="journalDetailPage" hidden>
+      <div id="journalDetailContent"></div>
+    </main>
+
+    <footer class="site-footer">
+      <p data-i18n="footer">AIED Journal Radar 用于选刊与研究网络理解；最终投稿前仍需回到期刊官网确认最新 scope、格式要求和审稿政策。</p>
+    </footer>
+
+    <script src="app.js?v=20260709"></script>
+  </body>
+</html>

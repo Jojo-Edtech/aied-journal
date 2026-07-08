@@ -1,0 +1,218 @@
+{
+  "generated_at": "2026-07-08T17:26:19+00:00",
+  "expected_journal_count": 268,
+  "journal_count": 268,
+  "journal_count_matches_expected": true,
+  "expected_q1_count": 135,
+  "q1_count": 135,
+  "q1_count_matches_expected": true,
+  "journals_with_source_urls": 257,
+  "source_pages": {
+    "total": 491,
+    "ok": 349,
+    "failed": 142,
+    "content_too_short": 0
+  },
+  "articles": {
+    "total": 5238,
+    "ok": 5234,
+    "failed": 2,
+    "content_too_short": 2
+  },
+  "editors": {
+    "journals_with_editor_names": 23,
+    "journals_without_editor_names": 245
+  },
+  "speed_coverage": {
+    "first_decision_days": 201,
+    "review_time_days": 116,
+    "submission_to_accept_days": 35,
+    "total": 268
+  },
+  "editor_profile_coverage": {
+    "profiles": 941,
+    "with_affiliation": 780,
+    "with_country_or_region": 732,
+    "pending_verification": 161
+  },
+  "preference_coverage": {
+    "journals_with_any_articles": 261,
+    "journals_with_latest_issue": 261,
+    "range_slices": {
+      "recent_3_issues": 261,
+      "latest_issue": 261,
+      "rolling_1y": 261,
+      "rolling_2y": 261,
+      "rolling_3y": 261,
+      "rolling_5y": 261,
+      "all": 261
+    },
+    "total": 268
+  },
+  "rag_documents": 5590,
+  "missing_fields": {
+    "jif_2025": {
+      "missing": 1,
+      "total": 268,
+      "rate": 0.0037
+    },
+    "jci_2025": {
+      "missing": 0,
+      "total": 268,
+      "rate": 0.0
+    },
+    "main_tag": {
+      "missing": 0,
+      "total": 268,
+      "rate": 0.0
+    },
+    "publisher": {
+      "missing": 0,
+      "total": 268,
+      "rate": 0.0
+    },
+    "issn": {
+      "missing": 4,
+      "total": 268,
+      "rate": 0.0149
+    },
+    "eissn": {
+      "missing": 7,
+      "total": 268,
+      "rate": 0.0261
+    },
+    "source_urls": {
+      "missing": 0,
+      "total": 268,
+      "rate": 0.0
+    },
+    "first_decision_days": {
+      "missing": 67,
+      "total": 268,
+      "rate": 0.25
+    },
+    "review_time_days": {
+      "missing": 152,
+      "total": 268,
+      "rate": 0.5672
+    }
+  },
+  "quartiles": [
+    [
+      "Q1",
+      135
+    ],
+    [
+      "Q2",
+      95
+    ],
+    [
+      "Q3",
+      26
+    ],
+    [
+      "Q4",
+      12
+    ]
+  ],
+  "top_publishers": [
+    [
+      "Taylor & Francis",
+      94
+    ],
+    [
+      "Springer Nature",
+      57
+    ],
+    [
+      "SAGE",
+      37
+    ],
+    [
+      "Elsevier",
+      30
+    ],
+    [
+      "Wiley",
+      26
+    ],
+    [
+      "Cambridge",
+      3
+    ],
+    [
+      "IEEE",
+      2
+    ],
+    [
+      "OXFORD UNIV PRESS",
+      2
+    ],
+    [
+      "ACAD MANAGEMENT",
+      1
+    ],
+    [
+      "ATHABASCA UNIV PRESS",
+      1
+    ],
+    [
+      "UNIV NACIONAL EDUCACION DISTANCIA",
+      1
+    ],
+    [
+      "ASOCIACION IBEROAMERICANA EDUCACION SUPERIOR & DISTANCIA - AIESAD",
+      1
+    ]
+  ],
+  "top_main_tags": [
+    [
+      "学科教育",
+      48
+    ],
+    [
+      "综合教育期刊",
+      45
+    ],
+    [
+      "语言教育与语言习得",
+      38
+    ],
+    [
+      "教育政策与社会问题",
+      35
+    ],
+    [
+      "教育技术",
+      21
+    ],
+    [
+      "高等教育",
+      20
+    ],
+    [
+      "教育心理",
+      16
+    ],
+    [
+      "教师教育与教师发展",
+      12
+    ],
+    [
+      "职业与继续教育",
+      9
+    ],
+    [
+      "儿童与早期教育",
+      9
+    ],
+    [
+      "教育管理与领导力",
+      6
+    ],
+    [
+      "综述期刊",
+      4
+    ]
+  ]
+}
