@@ -4103,15 +4103,57 @@
     },
     {
       "source": "journal-017-assessing-writing",
-      "target": "topic-stem-education",
-      "weight": 2.0,
+      "target": "topic-language-learning",
+      "weight": 6.0,
       "relation": "text_topic"
     },
     {
       "source": "journal-017-assessing-writing",
-      "target": "topic-language-learning",
-      "weight": 2.0,
+      "target": "topic-assessment",
+      "weight": 6.0,
       "relation": "text_topic"
+    },
+    {
+      "source": "journal-017-assessing-writing",
+      "target": "topic-generative-ai",
+      "weight": 6.0,
+      "relation": "text_topic"
+    },
+    {
+      "source": "journal-017-assessing-writing",
+      "target": "topic-motivation-and-wellbeing",
+      "weight": 6.0,
+      "relation": "text_topic"
+    },
+    {
+      "source": "journal-017-assessing-writing",
+      "target": "topic-stem-education",
+      "weight": 6.0,
+      "relation": "text_topic"
+    },
+    {
+      "source": "journal-017-assessing-writing",
+      "target": "topic-higher-education",
+      "weight": 4.0,
+      "relation": "text_topic"
+    },
+    {
+      "source": "journal-017-assessing-writing",
+      "target": "method-review",
+      "weight": 5.0,
+      "relation": "method_or_theme"
+    },
+    {
+      "source": "journal-017-assessing-writing",
+      "target": "method-experiment",
+      "weight": 4.0,
+      "relation": "method_or_theme"
+    },
+    {
+      "source": "journal-017-assessing-writing",
+      "target": "method-mixed-methods",
+      "weight": 2.0,
+      "relation": "method_or_theme"
     },
     {
       "source": "journal-018-ieee-transactions-on-learning-technologies",
@@ -6059,25 +6101,13 @@
     },
     {
       "source": "journal-045-international-review-of-research-in-open-and-dis",
-      "target": "topic-equity-and-policy",
-      "weight": 6.0,
-      "relation": "text_topic"
-    },
-    {
-      "source": "journal-045-international-review-of-research-in-open-and-dis",
-      "target": "topic-curriculum-and-pedagogy",
-      "weight": 6.0,
-      "relation": "text_topic"
-    },
-    {
-      "source": "journal-045-international-review-of-research-in-open-and-dis",
       "target": "topic-higher-education",
       "weight": 6.0,
       "relation": "text_topic"
     },
     {
       "source": "journal-045-international-review-of-research-in-open-and-dis",
-      "target": "topic-motivation-and-wellbeing",
+      "target": "topic-equity-and-policy",
       "weight": 6.0,
       "relation": "text_topic"
     },
@@ -6089,9 +6119,27 @@
     },
     {
       "source": "journal-045-international-review-of-research-in-open-and-dis",
-      "target": "topic-assessment",
+      "target": "topic-curriculum-and-pedagogy",
       "weight": 6.0,
       "relation": "text_topic"
+    },
+    {
+      "source": "journal-045-international-review-of-research-in-open-and-dis",
+      "target": "topic-motivation-and-wellbeing",
+      "weight": 6.0,
+      "relation": "text_topic"
+    },
+    {
+      "source": "journal-045-international-review-of-research-in-open-and-dis",
+      "target": "topic-educational-technology",
+      "weight": 6.0,
+      "relation": "text_topic"
+    },
+    {
+      "source": "journal-045-international-review-of-research-in-open-and-dis",
+      "target": "method-mixed-methods",
+      "weight": 5.0,
+      "relation": "method_or_theme"
     },
     {
       "source": "journal-045-international-review-of-research-in-open-and-dis",
@@ -6102,12 +6150,6 @@
     {
       "source": "journal-045-international-review-of-research-in-open-and-dis",
       "target": "method-review",
-      "weight": 5.0,
-      "relation": "method_or_theme"
-    },
-    {
-      "source": "journal-045-international-review-of-research-in-open-and-dis",
-      "target": "method-mixed-methods",
       "weight": 5.0,
       "relation": "method_or_theme"
     },
@@ -21320,48 +21362,6 @@
       "target": "topic-topic",
       "weight": 2.0,
       "relation": "jcr_tag"
-    },
-    {
-      "source": "journal-268-zeitschrift-fur-soziologie-der-erziehung-und-soz",
-      "target": "topic-stem-education",
-      "weight": 6.0,
-      "relation": "text_topic"
-    },
-    {
-      "source": "journal-268-zeitschrift-fur-soziologie-der-erziehung-und-soz",
-      "target": "topic-motivation-and-wellbeing",
-      "weight": 5.0,
-      "relation": "text_topic"
-    },
-    {
-      "source": "journal-268-zeitschrift-fur-soziologie-der-erziehung-und-soz",
-      "target": "topic-equity-and-policy",
-      "weight": 4.0,
-      "relation": "text_topic"
-    },
-    {
-      "source": "journal-268-zeitschrift-fur-soziologie-der-erziehung-und-soz",
-      "target": "method-rag",
-      "weight": 5.0,
-      "relation": "method_or_theme"
-    },
-    {
-      "source": "journal-268-zeitschrift-fur-soziologie-der-erziehung-und-soz",
-      "target": "method-mixed-methods",
-      "weight": 5.0,
-      "relation": "method_or_theme"
-    },
-    {
-      "source": "journal-268-zeitschrift-fur-soziologie-der-erziehung-und-soz",
-      "target": "method-review",
-      "weight": 2.0,
-      "relation": "method_or_theme"
-    },
-    {
-      "source": "journal-268-zeitschrift-fur-soziologie-der-erziehung-und-soz",
-      "target": "method-experiment",
-      "weight": 2.0,
-      "relation": "method_or_theme"
     }
   ]
 }
