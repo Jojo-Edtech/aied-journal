@@ -1630,6 +1630,14 @@ def write_json(path: Path, data: object) -> None:
     path.write_text(json.dumps(data, ensure_ascii=False, indent=2), encoding="utf-8")
 
 
+def read_json(path: Path) -> dict:
+    try:
+        data = json.loads(path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError):
+        return {}
+    return data if isinstance(data, dict) else {}
+
+
 def write_jsonl(path: Path, records: Iterable[dict]) -> None:
     with path.open("w", encoding="utf-8") as handle:
         for record in records:
@@ -1757,10 +1765,12 @@ def main() -> int:
     write_json(args.output / "journal_preferences.json", journal_preferences)
     write_json(args.output / "editor_profiles.json", editor_profiles)
     write_json(args.output / "crawl_report.json", summarize(journals, sources, articles, docs, captured_at, editor_profiles, journal_preferences))
+    config_path = args.output / "radar-config.json"
+    existing_config = read_json(config_path) if config_path.exists() else {}
     write_json(
-        args.output / "radar-config.json",
+        config_path,
         {
-            "api_base_url": "",
+            "api_base_url": existing_config.get("api_base_url", ""),
             "access_mode": "semi_public_code",
             "llm_provider": "modelscope",
             "model_hint": "Qwen/Qwen3-30B-A3B-Instruct-2507",
