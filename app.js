@@ -236,6 +236,11 @@ const I18N = {
     questionMissing: "请先输入论文主题或选刊问题。",
     chatWorking: "正在检索期刊证据并调用 AI 模型...",
     modelUsed: "模型：{provider} / {model}",
+    answerTitle: "选刊建议",
+    answerSubtitle: "基于雷达数据、投稿信息和公开来源生成",
+    answerMeta: "回答信息",
+    sourceCount: "引用来源（{count}）",
+    openSource: "打开来源",
     requestFailed: "请求失败：HTTP {status}",
     noAnswer: "没有生成回答。",
     quota: "剩余额度：{quota}",
@@ -425,6 +430,11 @@ const I18N = {
     questionMissing: "Please enter a manuscript topic or journal-fit question first.",
     chatWorking: "Retrieving journal evidence and calling the AI model...",
     modelUsed: "Model: {provider} / {model}",
+    answerTitle: "Journal-fit advice",
+    answerSubtitle: "Generated from radar data, submission clues, and public sources",
+    answerMeta: "Response info",
+    sourceCount: "Sources ({count})",
+    openSource: "Open source",
     requestFailed: "Request failed: HTTP {status}",
     noAnswer: "No answer was generated.",
     quota: "Remaining quota: {quota}",
@@ -535,6 +545,250 @@ function quotaMessage(daily, total, userDaily) {
   const userValue = userDaily ?? dailyValue;
   if (total === undefined || total === null) return t("quota", { quota: dailyValue });
   return t("quotaWithTotal", { quota: dailyValue, total, userQuota: userValue });
+}
+
+function escapeHtml(value) {
+  return String(value ?? "")
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#39;");
+}
+
+function inlineMarkdown(value) {
+  return escapeHtml(value)
+    .replace(/\*\*([^*]+)\*\*/g, "<strong>$1</strong>")
+    .replace(/`([^`]+)`/g, "<code>$1</code>");
+}
+
+function markdownCells(line) {
+  return line
+    .trim()
+    .replace(/^\|/, "")
+    .replace(/\|$/, "")
+    .split("|")
+    .map((cell) => cell.trim());
+}
+
+function isTableSeparator(line) {
+  const cells = markdownCells(line);
+  return cells.length > 1 && cells.every((cell) => /^:?-{3,}:?$/.test(cell.replace(/\s/g, "")));
+}
+
+function appendParagraph(container, lines) {
+  const paragraph = document.createElement("p");
+  paragraph.innerHTML = inlineMarkdown(lines.join(" ").trim());
+  container.append(paragraph);
+}
+
+function appendList(container, lines, ordered = false) {
+  const list = document.createElement(ordered ? "ol" : "ul");
+  list.className = "chat-list";
+  lines.forEach((line) => {
+    const item = document.createElement("li");
+    item.innerHTML = inlineMarkdown(line.replace(ordered ? /^\d+\.\s*/ : /^[-*]\s*/, ""));
+    list.append(item);
+  });
+  container.append(list);
+}
+
+function appendTable(container, rows) {
+  const tableWrap = document.createElement("div");
+  tableWrap.className = "chat-table-wrap";
+  const table = document.createElement("table");
+  table.className = "ai-result-table";
+  const header = rows[0] || [];
+  const bodyRows = rows.slice(2);
+  const thead = document.createElement("thead");
+  const headRow = document.createElement("tr");
+  header.forEach((cell) => {
+    const th = document.createElement("th");
+    th.innerHTML = inlineMarkdown(cell);
+    headRow.append(th);
+  });
+  thead.append(headRow);
+  table.append(thead);
+
+  const tbody = document.createElement("tbody");
+  bodyRows.forEach((row) => {
+    const tr = document.createElement("tr");
+    header.forEach((_, cellIndex) => {
+      const td = document.createElement("td");
+      td.dataset.label = header[cellIndex] || "";
+      td.innerHTML = inlineMarkdown(row[cellIndex] || "");
+      tr.append(td);
+    });
+    tbody.append(tr);
+  });
+  table.append(tbody);
+  tableWrap.append(table);
+  container.append(tableWrap);
+}
+
+function renderMarkdownContent(text) {
+  const container = document.createElement("div");
+  container.className = "chat-markdown";
+  const lines = String(text || "").replace(/\r\n/g, "\n").split("\n");
+  let index = 0;
+
+  while (index < lines.length) {
+    const line = lines[index].trim();
+    if (!line) {
+      index += 1;
+      continue;
+    }
+
+    if (line.startsWith("|") && lines[index + 1] && isTableSeparator(lines[index + 1])) {
+      const tableLines = [];
+      while (index < lines.length && lines[index].trim().startsWith("|")) {
+        tableLines.push(markdownCells(lines[index]));
+        index += 1;
+      }
+      appendTable(container, tableLines);
+      continue;
+    }
+
+    if (line.startsWith(">")) {
+      const note = document.createElement("div");
+      note.className = "chat-note";
+      const quoteLines = [];
+      while (index < lines.length && lines[index].trim().startsWith(">")) {
+        quoteLines.push(lines[index].trim().replace(/^>\s?/, ""));
+        index += 1;
+      }
+      appendParagraph(note, quoteLines);
+      container.append(note);
+      continue;
+    }
+
+    if (/^[-*]\s+/.test(line)) {
+      const items = [];
+      while (index < lines.length && /^[-*]\s+/.test(lines[index].trim())) {
+        items.push(lines[index].trim());
+        index += 1;
+      }
+      appendList(container, items, false);
+      continue;
+    }
+
+    if (/^\d+\.\s+/.test(line)) {
+      const items = [];
+      while (index < lines.length && /^\d+\.\s+/.test(lines[index].trim())) {
+        items.push(lines[index].trim());
+        index += 1;
+      }
+      appendList(container, items, true);
+      continue;
+    }
+
+    const paragraphLines = [];
+    while (
+      index < lines.length &&
+      lines[index].trim() &&
+      !lines[index].trim().startsWith("|") &&
+      !lines[index].trim().startsWith(">") &&
+      !/^[-*]\s+/.test(lines[index].trim()) &&
+      !/^\d+\.\s+/.test(lines[index].trim())
+    ) {
+      paragraphLines.push(lines[index].trim());
+      index += 1;
+    }
+    appendParagraph(container, paragraphLines);
+  }
+
+  if (!container.children.length) appendParagraph(container, [t("noAnswer")]);
+  return container;
+}
+
+function setChatStatusMessage(message, type = "info") {
+  els.chatAnswer.dataset.idle = type === "idle" ? "true" : "false";
+  els.chatAnswer.replaceChildren();
+  const stateBox = document.createElement("div");
+  stateBox.className = `chat-state chat-state-${type}`;
+  const dot = document.createElement("span");
+  dot.className = "chat-state-dot";
+  const text = document.createElement("p");
+  text.textContent = message;
+  stateBox.append(dot, text);
+  els.chatAnswer.append(stateBox);
+}
+
+function safeUrl(value) {
+  const text = String(value || "");
+  return /^https?:\/\//i.test(text) ? text : "";
+}
+
+function renderChatResponse(data) {
+  els.chatAnswer.dataset.idle = "false";
+  els.chatAnswer.replaceChildren();
+
+  const response = document.createElement("div");
+  response.className = "chat-response";
+
+  const header = document.createElement("div");
+  header.className = "chat-response-header";
+  header.innerHTML = `
+    <div class="chat-ai-badge">AI</div>
+    <div>
+      <h4>${escapeHtml(t("answerTitle"))}</h4>
+      <p>${escapeHtml(t("answerSubtitle"))}</p>
+    </div>
+  `;
+
+  const body = document.createElement("div");
+  body.className = "chat-response-body";
+  body.append(renderMarkdownContent(data.answer || t("noAnswer")));
+
+  const meta = document.createElement("div");
+  meta.className = "chat-meta-grid";
+  const metaItems = [
+    quotaMessage(data.remaining_quota, data.remaining_total_quota, data.remaining_user_quota),
+    data.provider || data.model ? t("modelUsed", { provider: data.provider || t("missing"), model: data.model || t("missing") }) : "",
+    data.stores_chat_history === false ? t("privacyLine") : "",
+  ].filter(Boolean);
+  metaItems.forEach((item) => {
+    const chip = document.createElement("span");
+    chip.textContent = item;
+    meta.append(chip);
+  });
+
+  const sources = Array.isArray(data.sources) ? data.sources : [];
+  const details = document.createElement("details");
+  details.className = "chat-sources";
+  if (sources.length) details.open = true;
+  const summary = document.createElement("summary");
+  summary.textContent = t("sourceCount", { count: sources.length });
+  details.append(summary);
+  const list = document.createElement("div");
+  list.className = "chat-source-grid";
+  if (!sources.length) {
+    const empty = document.createElement("p");
+    empty.className = "chat-source-empty";
+    empty.textContent = t("noSourcesShort");
+    list.append(empty);
+  } else {
+    sources.forEach((source, index) => {
+      const item = document.createElement("article");
+      item.className = "chat-source-card";
+      const url = safeUrl(source.source_url);
+      const title = document.createElement(url ? "a" : "strong");
+      if (url) {
+        title.href = url;
+        title.target = "_blank";
+        title.rel = "noopener noreferrer";
+      }
+      title.textContent = `${index + 1}. ${source.journal_name || source.title || t("missing")}`;
+      const type = document.createElement("span");
+      type.textContent = source.source_type || t("missing");
+      item.append(title, type);
+      list.append(item);
+    });
+  }
+  details.append(list);
+
+  response.append(header, body, meta, details);
+  els.chatAnswer.append(response);
 }
 
 function integerValue(value) {
@@ -669,16 +923,14 @@ async function updateChatStatus() {
   if (!apiBase) {
     els.chatStatus.textContent = t("chatOffline");
     if (els.chatAnswer && (!els.chatAnswer.textContent || els.chatAnswer.dataset.idle === "true")) {
-      els.chatAnswer.dataset.idle = "true";
-      els.chatAnswer.textContent = t("chatIdle");
+      setChatStatusMessage(t("chatIdle"), "idle");
     }
     return;
   }
 
   els.chatStatus.textContent = t("chatReady");
   if (els.chatAnswer && (!els.chatAnswer.textContent || els.chatAnswer.dataset.idle === "true")) {
-    els.chatAnswer.dataset.idle = "true";
-    els.chatAnswer.textContent = "";
+    setChatStatusMessage(t("chatIdle"), "idle");
   }
 
   try {
@@ -1328,14 +1580,6 @@ function renderTable(journals) {
   els.tableBody.querySelectorAll("[data-open-journal]").forEach((button) => {
     button.addEventListener("click", () => navigateToJournal(button.dataset.openJournal));
   });
-}
-
-function escapeHtml(value) {
-  return String(value ?? "")
-    .replaceAll("&", "&amp;")
-    .replaceAll("<", "&lt;")
-    .replaceAll(">", "&gt;")
-    .replaceAll('"', "&quot;");
 }
 
 function objectEntries(object = {}) {
@@ -2068,23 +2312,23 @@ async function submitChat(event) {
   els.chatAnswer.dataset.idle = "false";
   const apiBase = String(state.config.api_base_url || "").replace(/\/+$/, "");
   if (!apiBase) {
-    els.chatAnswer.textContent = t("apiMissing");
+    setChatStatusMessage(t("apiMissing"), "error");
     return;
   }
   const question = els.chatQuestion.value.trim();
   if (!question) {
-    els.chatAnswer.textContent = t("questionMissing");
+    setChatStatusMessage(t("questionMissing"), "error");
     return;
   }
   const accessCode = state.accessRequired ? els.chatCode.value.trim() : "";
   if (state.accessRequired && !accessCode) {
     markAccessCodeInvalid(true);
     els.chatCode.focus();
-    els.chatAnswer.textContent = t("accessMissing");
+    setChatStatusMessage(t("accessMissing"), "error");
     return;
   }
   markAccessCodeInvalid(false);
-  els.chatAnswer.textContent = t("chatWorking");
+  setChatStatusMessage(t("chatWorking"), "loading");
   try {
     const body = {
       question,
@@ -2099,18 +2343,13 @@ async function submitChat(event) {
     const data = await response.json().catch(() => ({}));
     if (!response.ok) {
       if (response.status === 401 && state.accessRequired) markAccessCodeInvalid(true);
-      els.chatAnswer.textContent = chatErrorMessage(response.status, data);
+      setChatStatusMessage(chatErrorMessage(response.status, data), "error");
       return;
     }
     if (state.accessRequired) rememberAccessCode(accessCode);
-    const sources = (data.sources || [])
-      .map((source, index) => `${index + 1}. ${source.journal_name || source.title}\n   ${source.source_url || ""}`)
-      .join("\n");
-    const modelLine = data.provider || data.model ? `\n${t("modelUsed", { provider: data.provider || t("missing"), model: data.model || t("missing") })}` : "";
-    const privacyLine = data.stores_chat_history === false ? `\n${t("privacyLine")}` : "";
-    els.chatAnswer.textContent = `${data.answer || t("noAnswer")}\n\n${quotaMessage(data.remaining_quota, data.remaining_total_quota, data.remaining_user_quota)}${modelLine}${privacyLine}\n\n${t("sources")}\n${sources || t("noSourcesShort")}`;
+    renderChatResponse(data);
   } catch (error) {
-    els.chatAnswer.textContent = t("backendUnreachable");
+    setChatStatusMessage(t("backendUnreachable"), "error");
   }
 }
 
@@ -2173,6 +2412,11 @@ els.networkToggle?.addEventListener("click", () => {
 els.download.addEventListener("click", downloadVisibleCsv);
 els.chatForm.addEventListener("submit", submitChat);
 els.chatCode?.addEventListener("input", () => markAccessCodeInvalid(false));
+els.chatQuestion?.addEventListener("keydown", (event) => {
+  if (event.key !== "Enter" || event.shiftKey || event.isComposing) return;
+  event.preventDefault();
+  els.chatForm.requestSubmit();
+});
 document.querySelectorAll("[data-example-zh]").forEach((button) => {
   button.addEventListener("click", () => {
     const key = state.language === "en" ? "exampleEn" : "exampleZh";
