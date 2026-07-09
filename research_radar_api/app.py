@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import hmac
 import json
 import math
 import os
@@ -298,11 +299,14 @@ def provider_quota_signal(provider: str, status_code: int, body: str) -> bool:
 
 
 def require_access_code(code: str) -> None:
-    expected = os.getenv("RADAR_ACCESS_CODE", "")
+    expected = os.getenv("RADAR_ACCESS_CODE", "").strip()
+    submitted = (code or "").strip()
     if not expected:
         raise HTTPException(status_code=503, detail="服务器尚未配置访问口令。")
-    if code != expected:
-        raise HTTPException(status_code=401, detail="访问口令不正确。")
+    if not submitted:
+        raise HTTPException(status_code=401, detail="请先输入访问口令。")
+    if not hmac.compare_digest(submitted, expected):
+        raise HTTPException(status_code=401, detail="访问口令未通过验证。")
 
 
 def require_rate_limit(request: FastAPIRequest) -> None:

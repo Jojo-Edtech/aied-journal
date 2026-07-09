@@ -126,7 +126,8 @@
           <form class="chat-form" id="radarChatForm">
             <label>
               <span data-i18n="accessCode">访问口令</span>
-              <input id="radarAccessCode" type="password" autocomplete="off" data-i18n-placeholder="accessPlaceholder" placeholder="由服务器环境变量配置">
+              <input id="radarAccessCode" type="password" autocomplete="off" spellcheck="false" data-i18n-placeholder="accessPlaceholder" placeholder="输入站点访问口令">
+              <small class="form-hint" data-i18n="accessHint">口令由站点管理员提供，不是 ModelScope token；不会写入 GitHub。</small>
             </label>
             <label>
               <span data-i18n="questionLabel">你的论文/选刊问题</span>

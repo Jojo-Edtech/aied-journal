@@ -261,6 +261,13 @@ h1 {
   font-weight: 750;
 }
 
+.form-hint {
+  color: #788195;
+  font-size: 0.74rem;
+  font-weight: 700;
+  line-height: 1.35;
+}
+
 .radar-controls input,
 .radar-controls select,
 .chat-form input,
@@ -286,6 +293,12 @@ h1 {
   border-color: rgba(37, 99, 168, 0.55);
   background: #fff;
   box-shadow: 0 0 0 3px rgba(37, 99, 168, 0.12), 0 1px 0 rgba(255,255,255,0.95) inset;
+}
+
+.chat-form input.is-invalid {
+  border-color: rgba(208, 71, 68, 0.82);
+  background: #fffafa;
+  box-shadow: 0 0 0 3px rgba(208, 71, 68, 0.12), 0 1px 0 rgba(255,255,255,0.95) inset;
 }
 
 .radar-controls select {

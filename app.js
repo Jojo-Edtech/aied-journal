@@ -8,6 +8,8 @@ const RADAR_URLS = {
   editorProfiles: "data/radar/editor_profiles.json",
 };
 
+const ACCESS_CODE_STORAGE_KEY = "ajr-access-code";
+
 const state = {
   journals: [],
   sourcesByJournal: new Map(),
@@ -79,7 +81,11 @@ const I18N = {
     chatIdle: "后端未连接时，这里只显示安全状态；配置服务器端 ModelScope 代理后可生成带来源的选刊建议。",
     chatHealthFailed: "后端地址已配置，但健康检查暂时失败；请稍后重试。",
     accessCode: "访问口令",
-    accessPlaceholder: "由服务器环境变量配置",
+    accessPlaceholder: "输入站点访问口令",
+    accessHint: "口令由站点管理员提供，不是 ModelScope token；不会写入 GitHub。",
+    accessMissing: "请先输入访问口令。这个口令由站点管理员提供，不是 ModelScope token。",
+    accessInvalid: "访问口令未通过验证。请检查是否复制了多余空格，或联系站点管理员确认当前口令。",
+    accessUnconfigured: "服务器尚未配置访问口令，AI 助手暂时不可用。",
     questionLabel: "你的论文/选刊问题",
     questionPlaceholder: "例如：我做中学英语教师使用生成式AI进行反馈的混合方法研究，哪些期刊更合适？",
     exampleFeedback: "教师反馈",
@@ -261,7 +267,11 @@ const I18N = {
     chatIdle: "When the backend is not connected, this panel only shows a safe status. Deploy the server-side ModelScope proxy to generate source-backed advice.",
     chatHealthFailed: "Backend URL is configured, but the health check is temporarily unavailable.",
     accessCode: "Access code",
-    accessPlaceholder: "Configured as a server environment variable",
+    accessPlaceholder: "Enter the site access code",
+    accessHint: "Provided by the site admin; this is not a ModelScope token and is not stored in GitHub.",
+    accessMissing: "Please enter the site access code first. It is provided by the site admin, not your ModelScope token.",
+    accessInvalid: "The access code was not accepted. Check for extra spaces or ask the site admin for the current code.",
+    accessUnconfigured: "The server has not configured an access code, so the AI Advisor is temporarily unavailable.",
     questionLabel: "Your manuscript / journal-fit question",
     questionPlaceholder: "e.g., I study generative AI-supported feedback with secondary English teachers. Which journals fit?",
     exampleFeedback: "Teacher feedback",
@@ -456,6 +466,35 @@ function number(value) {
 function fmt(value, digits = 1) {
   const parsed = number(value);
   return parsed === null ? t("missing") : parsed.toFixed(digits).replace(/\.0$/, "");
+}
+
+function storedAccessCode() {
+  try {
+    return sessionStorage.getItem(ACCESS_CODE_STORAGE_KEY) || "";
+  } catch (error) {
+    return "";
+  }
+}
+
+function rememberAccessCode(code) {
+  try {
+    if (code) sessionStorage.setItem(ACCESS_CODE_STORAGE_KEY, code);
+  } catch (error) {
+    // Session storage can be blocked in strict privacy modes; the form still works.
+  }
+}
+
+function markAccessCodeInvalid(invalid) {
+  els.chatCode?.classList.toggle("is-invalid", invalid);
+}
+
+function chatErrorMessage(status, data = {}) {
+  const detail = typeof data.detail === "string" ? data.detail : "";
+  const error = typeof data.error === "string" ? data.error : "";
+  const message = detail || error;
+  if (status === 401) return t("accessInvalid");
+  if (status === 503 && message.includes("访问口令")) return t("accessUnconfigured");
+  return message || t("requestFailed", { status });
 }
 
 function integerValue(value) {
@@ -1989,6 +2028,14 @@ async function submitChat(event) {
     els.chatAnswer.textContent = t("questionMissing");
     return;
   }
+  const accessCode = els.chatCode.value.trim();
+  if (!accessCode) {
+    markAccessCodeInvalid(true);
+    els.chatCode.focus();
+    els.chatAnswer.textContent = t("accessMissing");
+    return;
+  }
+  markAccessCodeInvalid(false);
   els.chatAnswer.textContent = t("chatWorking");
   try {
     const response = await fetch(`${apiBase}/api/chat`, {
@@ -1996,15 +2043,17 @@ async function submitChat(event) {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         question,
-        access_code: els.chatCode.value,
+        access_code: accessCode,
         top_k: 8,
       }),
     });
     const data = await response.json().catch(() => ({}));
     if (!response.ok) {
-      els.chatAnswer.textContent = data.detail || data.error || t("requestFailed", { status: response.status });
+      if (response.status === 401) markAccessCodeInvalid(true);
+      els.chatAnswer.textContent = chatErrorMessage(response.status, data);
       return;
     }
+    rememberAccessCode(accessCode);
     const sources = (data.sources || [])
       .map((source, index) => `${index + 1}. ${source.journal_name || source.title}\n   ${source.source_url || ""}`)
       .join("\n");
@@ -2017,6 +2066,9 @@ async function submitChat(event) {
 
 async function init() {
   applyTranslations();
+  if (els.chatCode && !els.chatCode.value) {
+    els.chatCode.value = storedAccessCode();
+  }
   try {
     const [journals, sources, network, report, config, preferences, editorProfiles] = await Promise.all([
       fetchJson(RADAR_URLS.journals),
@@ -2069,6 +2121,7 @@ els.networkToggle?.addEventListener("click", () => {
 });
 els.download.addEventListener("click", downloadVisibleCsv);
 els.chatForm.addEventListener("submit", submitChat);
+els.chatCode?.addEventListener("input", () => markAccessCodeInvalid(false));
 document.querySelectorAll("[data-example-zh]").forEach((button) => {
   button.addEventListener("click", () => {
     const key = state.language === "en" ? "exampleEn" : "exampleZh";
