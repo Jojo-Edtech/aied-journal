@@ -23,7 +23,7 @@ from pydantic import BaseModel, Field
 APP_ROOT = Path(__file__).resolve().parents[1]
 DATA_DIR = Path(os.getenv("RADAR_DATA_DIR", str(APP_ROOT / "data" / "radar"))).expanduser()
 DEFAULT_PROVIDER = "modelscope"
-DEFAULT_MODELSCOPE_MODEL = "Qwen/Qwen3-30B-A3B-Instruct-2507"
+DEFAULT_MODELSCOPE_MODEL = "Qwen/Qwen3-4B"
 DEFAULT_MODELSCOPE_API_BASE = "https://api-inference.modelscope.cn/v1"
 DEFAULT_DEEPSEEK_MODEL = "deepseek-v4-flash"
 DEFAULT_DEEPSEEK_API_BASE = "https://api.deepseek.com/chat/completions"
@@ -31,6 +31,7 @@ MAX_QUESTION_CHARS = int(os.getenv("RADAR_MAX_QUESTION_CHARS", "1200"))
 TOP_K_DEFAULT = int(os.getenv("RADAR_TOP_K", "8"))
 MAX_CONTEXT_CHARS = int(os.getenv("RADAR_MAX_CONTEXT_CHARS", "11000"))
 DAILY_LIMIT = int(os.getenv("RAG_DAILY_LIMIT", "60"))
+TOTAL_LIMIT = int(os.getenv("RAG_TOTAL_LIMIT", "1990"))
 RATE_LIMIT_PER_MIN = int(os.getenv("RADAR_RATE_LIMIT_PER_MIN", "12"))
 QUOTA_FILE = Path(os.getenv("RADAR_QUOTA_FILE", str(Path(tempfile.gettempdir()) / "aied_research_radar_quota.json")))
 PROVIDER_QUOTA_FILE = Path(
@@ -39,6 +40,7 @@ PROVIDER_QUOTA_FILE = Path(
         str(Path(tempfile.gettempdir()) / "aied_research_radar_provider_quota.json"),
     )
 )
+REQUIRE_ACCESS_CODE = os.getenv("RADAR_REQUIRE_ACCESS_CODE", "false").strip().lower() in {"1", "true", "yes", "on"}
 
 
 def allowed_origins() -> list[str]:
@@ -203,38 +205,55 @@ def read_quota() -> dict[str, Any]:
     try:
         return json.loads(QUOTA_FILE.read_text(encoding="utf-8"))
     except (OSError, json.JSONDecodeError):
-        return {"date": date.today().isoformat(), "used": 0}
+        return {"date": date.today().isoformat(), "used": 0, "total_used": 0}
+
+
+def normalize_quota_state(state: dict[str, Any]) -> dict[str, Any]:
+    today = date.today().isoformat()
+    total_used = int(state.get("total_used", 0))
+    if state.get("date") != today:
+        return {"date": today, "used": 0, "total_used": total_used}
+    return {"date": today, "used": int(state.get("used", 0)), "total_used": total_used}
 
 
 def claim_quota() -> int:
-    if DAILY_LIMIT <= 0:
-        return -1
-    today = date.today().isoformat()
-    state = read_quota()
-    if state.get("date") != today:
-        state = {"date": today, "used": 0}
+    state = normalize_quota_state(read_quota())
     used = int(state.get("used", 0))
-    if used >= DAILY_LIMIT:
+    total_used = int(state.get("total_used", 0))
+    if DAILY_LIMIT > 0 and used >= DAILY_LIMIT:
         raise HTTPException(status_code=429, detail="今日公开试用额度已用完。")
+    if TOTAL_LIMIT > 0 and total_used >= TOTAL_LIMIT:
+        raise HTTPException(status_code=429, detail="公开试用总额度已用完。")
     state["used"] = used + 1
+    state["total_used"] = total_used + 1
     try:
         QUOTA_FILE.write_text(json.dumps(state, ensure_ascii=False), encoding="utf-8")
     except OSError:
         raise HTTPException(status_code=503, detail="额度状态文件暂时不可写。")
-    return max(0, DAILY_LIMIT - int(state["used"]))
+    return remaining_quota(state)
 
 
-def remaining_quota() -> int:
+def remaining_quota(state: dict[str, Any] | None = None) -> int:
     if DAILY_LIMIT <= 0:
         return -1
-    state = read_quota()
-    used = int(state.get("used", 0)) if state.get("date") == date.today().isoformat() else 0
+    state = normalize_quota_state(state or read_quota())
+    used = int(state.get("used", 0))
     return max(0, DAILY_LIMIT - used)
+
+
+def remaining_total_quota(state: dict[str, Any] | None = None) -> int:
+    if TOTAL_LIMIT <= 0:
+        return -1
+    state = normalize_quota_state(state or read_quota())
+    total_used = int(state.get("total_used", 0))
+    return max(0, TOTAL_LIMIT - total_used)
 
 
 def ensure_quota_available() -> None:
     if DAILY_LIMIT > 0 and remaining_quota() <= 0:
         raise HTTPException(status_code=429, detail="今日公开试用额度已用完。")
+    if TOTAL_LIMIT > 0 and remaining_total_quota() <= 0:
+        raise HTTPException(status_code=429, detail="公开试用总额度已用完。")
 
 
 def read_provider_quota_state() -> dict[str, Any]:
@@ -299,6 +318,8 @@ def provider_quota_signal(provider: str, status_code: int, body: str) -> bool:
 
 
 def require_access_code(code: str) -> None:
+    if not REQUIRE_ACCESS_CODE:
+        return
     expected = os.getenv("RADAR_ACCESS_CODE", "").strip()
     submitted = (code or "").strip()
     if not expected:
@@ -487,9 +508,13 @@ def health() -> dict[str, Any]:
         "deepseek_configured": bool(os.getenv("DEEPSEEK_API_KEY")),
         "provider_quota_exhausted": model_quota_exhausted,
         "provider_quota_reason": model_quota_reason if model_quota_exhausted else "",
+        "access_required": REQUIRE_ACCESS_CODE,
+        "access_mode": "semi_public_code" if REQUIRE_ACCESS_CODE else "public_limited",
         "access_code_configured": bool(os.getenv("RADAR_ACCESS_CODE")),
         "daily_limit": DAILY_LIMIT,
+        "total_limit": TOTAL_LIMIT,
         "remaining_quota": remaining_quota(),
+        "remaining_total_quota": remaining_total_quota(),
         "index_error": INDEX_ERROR,
     }
 
@@ -518,6 +543,7 @@ def chat(payload: ChatRequest, request: FastAPIRequest) -> dict[str, Any]:
             "answer": "当前雷达资料不足。请补充研究主题、方法、学段、研究对象或目标期刊类型。",
             "sources": public_sources(results),
             "remaining_quota": remaining_quota(),
+            "remaining_total_quota": remaining_total_quota(),
         }
     if not llm_configured():
         raise HTTPException(status_code=503, detail=llm_missing_message())
@@ -530,6 +556,7 @@ def chat(payload: ChatRequest, request: FastAPIRequest) -> dict[str, Any]:
         "answer": answer,
         "sources": public_sources(results),
         "remaining_quota": remaining,
+        "remaining_total_quota": remaining_total_quota(),
         "provider": settings["provider"],
         "model": settings["model"],
     }

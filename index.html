@@ -9,7 +9,7 @@
       content="AIED Journal Radar is a bilingual research-oriented journal selection workspace for education JCR journals, topic preferences, latest issues, evidence, and RAG-assisted recommendations."
     >
     <link rel="icon" href="data:,">
-    <link rel="stylesheet" href="styles.css?v=20260709-access">
+    <link rel="stylesheet" href="styles.css?v=20260709-public">
   </head>
   <body>
     <a class="skip-link" href="#radarDashboard" data-i18n="skip">跳到选刊工作台</a>
@@ -124,7 +124,7 @@
             </div>
           </div>
           <form class="chat-form" id="radarChatForm">
-            <label>
+            <label class="access-code-field is-hidden" id="accessCodeField">
               <span data-i18n="accessCode">访问口令</span>
               <input id="radarAccessCode" type="password" autocomplete="off" spellcheck="false" data-i18n-placeholder="accessPlaceholder" placeholder="输入站点访问口令">
               <small class="form-hint" data-i18n="accessHint">口令由站点管理员提供，不是 ModelScope token；不会写入 GitHub。</small>
@@ -262,6 +262,6 @@
       </div>
     </div>
 
-    <script src="app.js?v=20260709-access"></script>
+    <script src="app.js?v=20260709-public"></script>
   </body>
 </html>

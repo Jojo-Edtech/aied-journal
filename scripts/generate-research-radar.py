@@ -1771,9 +1771,9 @@ def main() -> int:
         config_path,
         {
             "api_base_url": existing_config.get("api_base_url", ""),
-            "access_mode": "semi_public_code",
-            "llm_provider": "modelscope",
-            "model_hint": "Qwen/Qwen3-30B-A3B-Instruct-2507",
+            "access_mode": existing_config.get("access_mode", "public_limited"),
+            "llm_provider": existing_config.get("llm_provider", "modelscope"),
+            "model_hint": existing_config.get("model_hint", "Qwen/Qwen3-4B"),
             "pages_url": "https://jojo-edtech.github.io/aied-journal/",
         },
     )

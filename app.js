@@ -21,6 +21,7 @@ const state = {
   selectedJournalId: "",
   networkExpanded: false,
   themeRenderTimer: 0,
+  accessRequired: false,
   ready: false,
   language: localStorage.getItem("ajr-language") || "zh",
 };
@@ -49,6 +50,7 @@ const els = {
   detailContent: document.querySelector("#journalDetailContent"),
   chatStatus: document.querySelector("#chatStatus"),
   chatForm: document.querySelector("#radarChatForm"),
+  accessField: document.querySelector("#accessCodeField"),
   chatCode: document.querySelector("#radarAccessCode"),
   chatQuestion: document.querySelector("#radarQuestion"),
   chatAnswer: document.querySelector("#chatAnswer"),
@@ -75,10 +77,10 @@ const I18N = {
     chatTitle: "AI助手",
     chatLoading: "正在读取后端配置...",
     chatReady: "已配置服务器端 AI 代理；token 仅应存在服务器环境变量。",
-    chatConnected: "AI 已连接：{provider} / {model}；今日剩余额度 {quota}。",
+    chatConnected: "AI 已连接：{provider} / {model}；今日剩余 {quota}，公开总剩余 {total}。",
     chatQuotaStopped: "AI 已暂停：模型免费额度可能已用完，今日停止继续调用。",
     chatOffline: "后端未连接；静态雷达可用，AI 助手待连接 ModelScope 代理。",
-    chatIdle: "后端未连接时，这里只显示安全状态；配置服务器端 ModelScope 代理后可生成带来源的选刊建议。",
+    chatIdle: "公开试用开启后，访问者只需要输入选刊问题；ModelScope token 只保存在服务器环境变量中。",
     chatHealthFailed: "后端地址已配置，但健康检查暂时失败；请稍后重试。",
     accessCode: "访问口令",
     accessPlaceholder: "输入站点访问口令",
@@ -86,6 +88,7 @@ const I18N = {
     accessMissing: "请先输入访问口令。这个口令由站点管理员提供，不是 ModelScope token。",
     accessInvalid: "访问口令未通过验证。请检查是否复制了多余空格，或联系站点管理员确认当前口令。",
     accessUnconfigured: "服务器尚未配置访问口令，AI 助手暂时不可用。",
+    publicBackendNeedsRestart: "前端已切换为公开限额模式，但当前服务器仍在旧口令模式。请等待后端重启后再试。",
     questionLabel: "你的论文/选刊问题",
     questionPlaceholder: "例如：我做中学英语教师使用生成式AI进行反馈的混合方法研究，哪些期刊更合适？",
     exampleFeedback: "教师反馈",
@@ -235,6 +238,7 @@ const I18N = {
     requestFailed: "请求失败：HTTP {status}",
     noAnswer: "没有生成回答。",
     quota: "剩余额度：{quota}",
+    quotaWithTotal: "剩余额度：今日 {quota} / 公开总额 {total}",
     sources: "引用来源：",
     noSourcesShort: "无",
     backendUnreachable: "后端暂时无法访问。请确认服务器服务已启动、CORS 允许当前域名，并且没有把 token 放到前端。",
@@ -261,10 +265,10 @@ const I18N = {
     chatTitle: "AI Advisor",
     chatLoading: "Loading backend configuration...",
     chatReady: "Server-side AI proxy configured; tokens should only exist in server environment variables.",
-    chatConnected: "AI connected: {provider} / {model}; remaining quota today {quota}.",
+    chatConnected: "AI connected: {provider} / {model}; today {quota}, public total {total}.",
     chatQuotaStopped: "AI paused: model free quota may be exhausted, so calls stop for today.",
     chatOffline: "Backend not connected; static radar is available while the ModelScope proxy is pending.",
-    chatIdle: "When the backend is not connected, this panel only shows a safe status. Deploy the server-side ModelScope proxy to generate source-backed advice.",
+    chatIdle: "In public limited mode, visitors only enter a journal-fit question; the ModelScope token stays in server environment variables.",
     chatHealthFailed: "Backend URL is configured, but the health check is temporarily unavailable.",
     accessCode: "Access code",
     accessPlaceholder: "Enter the site access code",
@@ -272,6 +276,7 @@ const I18N = {
     accessMissing: "Please enter the site access code first. It is provided by the site admin, not your ModelScope token.",
     accessInvalid: "The access code was not accepted. Check for extra spaces or ask the site admin for the current code.",
     accessUnconfigured: "The server has not configured an access code, so the AI Advisor is temporarily unavailable.",
+    publicBackendNeedsRestart: "The frontend is now in public limited mode, but the running server is still using the old access-code mode. Please retry after the backend restarts.",
     questionLabel: "Your manuscript / journal-fit question",
     questionPlaceholder: "e.g., I study generative AI-supported feedback with secondary English teachers. Which journals fit?",
     exampleFeedback: "Teacher feedback",
@@ -421,6 +426,7 @@ const I18N = {
     requestFailed: "Request failed: HTTP {status}",
     noAnswer: "No answer was generated.",
     quota: "Remaining quota: {quota}",
+    quotaWithTotal: "Remaining quota: today {quota} / public total {total}",
     sources: "Sources:",
     noSourcesShort: "None",
     backendUnreachable: "Backend is temporarily unreachable. Check the server service, CORS origin, and keep tokens out of frontend code.",
@@ -488,13 +494,29 @@ function markAccessCodeInvalid(invalid) {
   els.chatCode?.classList.toggle("is-invalid", invalid);
 }
 
+function updateAccessMode(required) {
+  state.accessRequired = Boolean(required);
+  els.accessField?.classList.toggle("is-hidden", !state.accessRequired);
+  if (!state.accessRequired) {
+    markAccessCodeInvalid(false);
+    if (els.chatCode) els.chatCode.value = "";
+  }
+}
+
 function chatErrorMessage(status, data = {}) {
   const detail = typeof data.detail === "string" ? data.detail : "";
   const error = typeof data.error === "string" ? data.error : "";
   const message = detail || error;
+  if (status === 401 && !state.accessRequired) return t("publicBackendNeedsRestart");
   if (status === 401) return t("accessInvalid");
   if (status === 503 && message.includes("访问口令")) return t("accessUnconfigured");
   return message || t("requestFailed", { status });
+}
+
+function quotaMessage(daily, total) {
+  const dailyValue = daily ?? t("missing");
+  if (total === undefined || total === null) return t("quota", { quota: dailyValue });
+  return t("quotaWithTotal", { quota: dailyValue, total });
 }
 
 function integerValue(value) {
@@ -625,6 +647,7 @@ function applyTranslations() {
 async function updateChatStatus() {
   if (!els.chatStatus) return;
   const apiBase = String(state.config.api_base_url || "").replace(/\/+$/, "");
+  updateAccessMode((state.config.access_mode || "") === "semi_public_code");
   if (!apiBase) {
     els.chatStatus.textContent = t("chatOffline");
     if (els.chatAnswer && (!els.chatAnswer.textContent || els.chatAnswer.dataset.idle === "true")) {
@@ -644,6 +667,7 @@ async function updateChatStatus() {
     const response = await fetch(`${apiBase}/api/health`, { cache: "no-store" });
     if (!response.ok) throw new Error("health check failed");
     const health = await response.json();
+    updateAccessMode(Object.prototype.hasOwnProperty.call(health, "access_required") ? Boolean(health.access_required) : state.accessRequired);
     if (health.provider_quota_exhausted) {
       els.chatStatus.textContent = t("chatQuotaStopped");
       return;
@@ -652,6 +676,7 @@ async function updateChatStatus() {
       provider: health.llm_provider || "AI",
       model: health.llm_model || t("missing"),
       quota: health.remaining_quota ?? t("missing"),
+      total: health.remaining_total_quota ?? t("missing"),
     });
     if (!health.llm_configured) {
       els.chatStatus.textContent = t("chatReady");
@@ -1017,8 +1042,8 @@ function limitNetworkLinks(rawLinks, expanded = false) {
     grouped.get(journalId).push(link);
   });
   const relationLimits = expanded
-    ? { publisher: 1, jcr_tag: 1, text_topic: 5, method_or_theme: 3 }
-    : { publisher: 1, jcr_tag: 1, text_topic: 3, method_or_theme: 2 };
+    ? { publisher: 1, jcr_tag: 1, text_topic: 4, method_or_theme: 2 }
+    : { publisher: 1, jcr_tag: 1, text_topic: 2, method_or_theme: 1 };
   const kept = [];
   grouped.forEach((links) => {
     const buckets = new Map();
@@ -1045,7 +1070,7 @@ function renderNetwork(journals) {
     els.quartile.value !== "all" ||
     els.publisher.value !== "all" ||
     els.speed.value !== "all";
-  const visibleLimit = state.networkExpanded ? 44 : hasActiveFilter ? 30 : 18;
+  const visibleLimit = state.networkExpanded ? 32 : hasActiveFilter ? 20 : 12;
   const visibleJournalIds = new Set(journals.slice(0, visibleLimit).map((journal) => journal.id));
   const links = limitNetworkLinks(
     state.network.links.filter((link) => visibleJournalIds.has(link.source) || visibleJournalIds.has(link.target)),
@@ -1062,23 +1087,23 @@ function renderNetwork(journals) {
     return;
   }
 
-  const width = state.networkExpanded ? 1380 : 1120;
-  const height = state.networkExpanded ? 980 : 820;
+  const width = state.networkExpanded ? 1480 : 1280;
+  const height = state.networkExpanded ? 1020 : 860;
   const chart = svg(width, height);
   const nodeMap = new Map(nodes.map((node) => [node.id, { ...node }]));
   const center = { x: width / 2, y: height / 2 };
   const typeAnchors = {
-    journal: { x: width * 0.53, y: height * 0.58 },
-    topic: { x: width * 0.54, y: height * 0.18 },
-    publisher: { x: width * 0.13, y: height * 0.56 },
-    method_or_theme: { x: width * 0.88, y: height * 0.62 },
+    journal: { x: width * 0.52, y: height * 0.60 },
+    topic: { x: width * 0.50, y: height * 0.18 },
+    publisher: { x: width * 0.16, y: height * 0.60 },
+    method_or_theme: { x: width * 0.84, y: height * 0.66 },
   };
 
   [...nodeMap.values()].forEach((node, index) => {
     const anchor = typeAnchors[node.type] || center;
     const angle = (index / Math.max(1, nodes.length)) * Math.PI * 2;
-    node.x = anchor.x + Math.cos(angle) * (node.type === "journal" ? 150 : 92);
-    node.y = anchor.y + Math.sin(angle) * (node.type === "journal" ? 118 : 74);
+    node.x = anchor.x + Math.cos(angle) * (node.type === "journal" ? 190 : 128);
+    node.y = anchor.y + Math.sin(angle) * (node.type === "journal" ? 145 : 96);
     node.vx = 0;
     node.vy = 0;
   });
@@ -1092,8 +1117,8 @@ function renderNetwork(journals) {
       const dx = link.targetNode.x - link.sourceNode.x;
       const dy = link.targetNode.y - link.sourceNode.y;
       const distance = Math.max(1, Math.hypot(dx, dy));
-      const desired = link.relation === "publisher" ? 285 : link.relation === "method_or_theme" ? 265 : 230;
-      const force = (distance - desired) * 0.0017 * Math.min(2.4, link.weight || 1);
+      const desired = link.relation === "publisher" ? 365 : link.relation === "method_or_theme" ? 335 : 300;
+      const force = (distance - desired) * 0.00135 * Math.min(2, link.weight || 1);
       const fx = (dx / distance) * force;
       const fy = (dy / distance) * force;
       link.sourceNode.vx += fx;
@@ -1110,8 +1135,8 @@ function renderNetwork(journals) {
         const dx = b.x - a.x;
         const dy = b.y - a.y;
         const distance = Math.max(8, Math.hypot(dx, dy));
-        if (distance > 285) continue;
-        const force = 220 / (distance * distance);
+        if (distance > 340) continue;
+        const force = 280 / (distance * distance);
         const fx = (dx / distance) * force;
         const fy = (dy / distance) * force;
         a.vx -= fx;
@@ -1123,7 +1148,7 @@ function renderNetwork(journals) {
 
     allNodes.forEach((node) => {
       const anchor = typeAnchors[node.type] || center;
-      const anchorStrength = node.type === "journal" ? 0.0018 : 0.004;
+      const anchorStrength = node.type === "journal" ? 0.00135 : 0.0032;
       node.vx += (anchor.x - node.x) * anchorStrength;
       node.vy += (anchor.y - node.y) * anchorStrength;
       node.x = Math.max(56, Math.min(width - 56, node.x + node.vx));
@@ -1137,7 +1162,7 @@ function renderNetwork(journals) {
     [...nodeMap.values()]
       .filter((node) => node.type === "journal")
       .sort((a, b) => (number(b.jif) || 0) - (number(a.jif) || 0))
-      .slice(0, state.networkExpanded ? 10 : 4)
+      .slice(0, state.networkExpanded ? 8 : 2)
       .map((node) => node.id)
   );
   const nodeStrength = new Map();
@@ -1150,7 +1175,7 @@ function renderNetwork(journals) {
     [...nodeMap.values()]
       .filter((node) => node.type !== "journal")
       .sort((a, b) => (nodeStrength.get(b.id) || 0) - (nodeStrength.get(a.id) || 0))
-      .slice(0, state.networkExpanded ? 18 : 10)
+      .slice(0, state.networkExpanded ? 14 : 7)
       .map((node) => node.id)
   );
 
@@ -1162,7 +1187,7 @@ function renderNetwork(journals) {
         x2: link.targetNode.x,
         y2: link.targetNode.y,
         class: "network-link",
-        "stroke-width": Math.max(0.8, Math.min(4, link.weight || 1)),
+        "stroke-width": Math.max(0.45, Math.min(state.networkExpanded ? 2.8 : 2.1, Math.sqrt(link.weight || 1))),
       })
     );
   });
@@ -2028,8 +2053,8 @@ async function submitChat(event) {
     els.chatAnswer.textContent = t("questionMissing");
     return;
   }
-  const accessCode = els.chatCode.value.trim();
-  if (!accessCode) {
+  const accessCode = state.accessRequired ? els.chatCode.value.trim() : "";
+  if (state.accessRequired && !accessCode) {
     markAccessCodeInvalid(true);
     els.chatCode.focus();
     els.chatAnswer.textContent = t("accessMissing");
@@ -2038,27 +2063,28 @@ async function submitChat(event) {
   markAccessCodeInvalid(false);
   els.chatAnswer.textContent = t("chatWorking");
   try {
+    const body = {
+      question,
+      top_k: 8,
+    };
+    if (accessCode) body.access_code = accessCode;
     const response = await fetch(`${apiBase}/api/chat`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        question,
-        access_code: accessCode,
-        top_k: 8,
-      }),
+      body: JSON.stringify(body),
     });
     const data = await response.json().catch(() => ({}));
     if (!response.ok) {
-      if (response.status === 401) markAccessCodeInvalid(true);
+      if (response.status === 401 && state.accessRequired) markAccessCodeInvalid(true);
       els.chatAnswer.textContent = chatErrorMessage(response.status, data);
       return;
     }
-    rememberAccessCode(accessCode);
+    if (state.accessRequired) rememberAccessCode(accessCode);
     const sources = (data.sources || [])
       .map((source, index) => `${index + 1}. ${source.journal_name || source.title}\n   ${source.source_url || ""}`)
       .join("\n");
     const modelLine = data.provider || data.model ? `\n${t("modelUsed", { provider: data.provider || t("missing"), model: data.model || t("missing") })}` : "";
-    els.chatAnswer.textContent = `${data.answer || t("noAnswer")}\n\n${t("quota", { quota: data.remaining_quota ?? t("missing") })}${modelLine}\n\n${t("sources")}\n${sources || t("noSourcesShort")}`;
+    els.chatAnswer.textContent = `${data.answer || t("noAnswer")}\n\n${quotaMessage(data.remaining_quota, data.remaining_total_quota)}${modelLine}\n\n${t("sources")}\n${sources || t("noSourcesShort")}`;
   } catch (error) {
     els.chatAnswer.textContent = t("backendUnreachable");
   }
@@ -2066,9 +2092,6 @@ async function submitChat(event) {
 
 async function init() {
   applyTranslations();
-  if (els.chatCode && !els.chatCode.value) {
-    els.chatCode.value = storedAccessCode();
-  }
   try {
     const [journals, sources, network, report, config, preferences, editorProfiles] = await Promise.all([
       fetchJson(RADAR_URLS.journals),
@@ -2083,6 +2106,10 @@ async function init() {
     state.network = network;
     state.report = report;
     state.config = config || { api_base_url: "" };
+    updateAccessMode((state.config.access_mode || "") === "semi_public_code");
+    if (state.accessRequired && els.chatCode && !els.chatCode.value) {
+      els.chatCode.value = storedAccessCode();
+    }
     state.preferencesByJournal = new Map((preferences || []).map((record) => [record.journal_id, record]));
     state.editorProfilesByJournal = new Map((editorProfiles || []).map((record) => [record.journal_id, record]));
     sources.forEach((source) => {
