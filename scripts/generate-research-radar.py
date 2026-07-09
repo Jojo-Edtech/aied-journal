@@ -1115,7 +1115,10 @@ def should_approximate_issues_by_month(sorted_articles: list[dict]) -> bool:
     if not groups:
         return False
     latest_key, latest_group = groups[0]
-    if latest_key and latest_key[0] not in {"issue", "volume"}:
+    # A real issue number is authoritative even when its online publication
+    # dates span several months. Month grouping is only a fallback for
+    # continuous-publication journals that expose a volume but no issue.
+    if latest_key and latest_key[0] != "volume":
         return False
     return len(latest_group.get("months", set())) > 1 and len(latest_group.get("articles", [])) >= 6
 
@@ -1638,10 +1641,44 @@ def read_json(path: Path) -> dict:
     return data if isinstance(data, dict) else {}
 
 
+def read_json_value(path: Path, fallback: object) -> object:
+    try:
+        return json.loads(path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError):
+        return fallback
+
+
+def read_jsonl(path: Path) -> list[dict]:
+    records: list[dict] = []
+    try:
+        with path.open("r", encoding="utf-8") as handle:
+            for line in handle:
+                if not line.strip():
+                    continue
+                try:
+                    record = json.loads(line)
+                except json.JSONDecodeError:
+                    continue
+                if isinstance(record, dict):
+                    records.append(record)
+    except OSError:
+        pass
+    return records
+
+
 def write_jsonl(path: Path, records: Iterable[dict]) -> None:
     with path.open("w", encoding="utf-8") as handle:
         for record in records:
             handle.write(json.dumps(record, ensure_ascii=False) + "\n")
+
+
+def dedupe_records(records: Iterable[dict], key_fields: tuple[str, ...]) -> list[dict]:
+    deduped: dict[tuple, dict] = {}
+    for record in records:
+        key = tuple(clean(record.get(field)) for field in key_fields)
+        if any(key):
+            deduped[key] = record
+    return list(deduped.values())
 
 
 def main() -> int:
@@ -1655,7 +1692,8 @@ def main() -> int:
     parser.add_argument("--max-editor-pages", type=int, default=1)
     parser.add_argument("--max-articles-per-journal", type=int, default=50)
     parser.add_argument("--crossref-from-pub-date", default="2021-01-01", help="Earliest Crossref publication date to request.")
-    parser.add_argument("--crawl-journal-limit", type=int, default=0, help="Crawl only the first N journals; 0 means all.")
+    parser.add_argument("--crawl-journal-limit", type=int, default=0, help="Crawl N journals in this run; 0 means all.")
+    parser.add_argument("--crawl-journal-offset", type=int, default=0, help="Zero-based start of the rotating crawl window.")
     parser.add_argument("--timeout", type=int, default=10)
     parser.add_argument("--min-text-chars", type=int, default=220)
     parser.add_argument("--snippet-chars", type=int, default=1400)
@@ -1675,9 +1713,42 @@ def main() -> int:
         print(f"Excel workbook not found and no snapshot exists: {args.excel}", file=sys.stderr)
         return 1
 
-    sources: list[dict] = []
+    journal_count = len(journals)
+    crawl_limit = max(0, args.crawl_journal_limit)
+    crawl_offset = 0
+    if args.skip_crawl:
+        crawl_indexes: set[int] = set()
+    elif crawl_limit <= 0 or crawl_limit >= journal_count:
+        crawl_indexes = set(range(journal_count))
+    else:
+        crawl_offset = args.crawl_journal_offset % journal_count
+        crawl_indexes = {(crawl_offset + step) % journal_count for step in range(crawl_limit)}
+    crawled_journal_ids = {journals[index]["id"] for index in crawl_indexes}
+
+    previous_journals = read_json_value(args.output / "journals.json", [])
+    previous_journals_by_id = {
+        item.get("id"): item
+        for item in previous_journals
+        if isinstance(item, dict) and item.get("id")
+    } if isinstance(previous_journals, list) else {}
+    for journal in journals:
+        previous = previous_journals_by_id.get(journal["id"], {})
+        if previous.get("editors"):
+            journal["editors"] = previous["editors"]
+
+    previous_sources = read_json_value(args.output / "journal_sources.json", [])
+    sources: list[dict] = [
+        source
+        for source in previous_sources
+        if isinstance(source, dict)
+        and source.get("source_type") != "article_metadata_api"
+    ] if isinstance(previous_sources, list) else []
     articles: list[dict] = []
-    docs: list[dict] = []
+    docs: list[dict] = [
+        doc
+        for doc in read_jsonl(args.output / "rag_documents.jsonl")
+        if doc.get("source_type") not in {"jcr_workbook", "article_metadata"}
+    ]
     journal_topics: dict[str, Counter] = defaultdict(Counter)
     journal_methods: dict[str, Counter] = defaultdict(Counter)
     articles_by_journal: dict[str, list[dict]] = defaultdict(list)
@@ -1723,7 +1794,7 @@ def main() -> int:
             journal_topics[journal["id"]].update(topics)
             journal_methods[journal["id"]].update(methods)
 
-        should_crawl = not args.skip_crawl and (args.crawl_journal_limit <= 0 or index <= args.crawl_journal_limit)
+        should_crawl = (index - 1) in crawl_indexes
         if should_crawl:
             journal_sources, journal_articles, journal_docs, topics, methods, editor_info = crawl_journal(journal, args, captured_at)
             sources.extend(journal_sources)
@@ -1758,13 +1829,14 @@ def main() -> int:
     q1_journals = [journal for journal in journals if clean(journal.get("quartile")).upper() == "Q1"]
     journal_preferences = [build_preference_record(journal, articles_by_journal.get(journal["id"], [])) for journal in journals]
     editor_profiles = [build_editor_profile_record(journal) for journal in journals]
+    sources = dedupe_records(sources, ("journal_id", "source_type", "url"))
+    docs = dedupe_records(docs, ("doc_id",))
     write_json(args.output / "journals.json", journals)
     write_json(args.output / "journals_q1.json", q1_journals)
     write_json(args.output / "journal_sources.json", sources)
     write_json(args.output / "research_network.json", build_network(journals, journal_topics, journal_methods))
     write_json(args.output / "journal_preferences.json", journal_preferences)
     write_json(args.output / "editor_profiles.json", editor_profiles)
-    write_json(args.output / "crawl_report.json", summarize(journals, sources, articles, docs, captured_at, editor_profiles, journal_preferences))
     config_path = args.output / "radar-config.json"
     existing_config = read_json(config_path) if config_path.exists() else {}
     write_json(
@@ -1781,6 +1853,15 @@ def main() -> int:
     write_jsonl(args.output / "rag_documents.jsonl", docs)
 
     report = summarize(journals, sources, articles, docs, captured_at, editor_profiles, journal_preferences)
+    report["refresh_policy"] = {
+        "article_metadata": "all_journals_daily" if not args.skip_article_api and not args.skip_crawl else "skipped",
+        "official_page_crawl": "rotating_batch" if 0 < len(crawl_indexes) < journal_count else ("all_journals" if crawl_indexes else "skipped"),
+        "official_page_batch_size": len(crawl_indexes),
+        "official_page_batch_offset": crawl_offset if crawl_indexes else None,
+        "crossref_from_pub_date": args.crossref_from_pub_date,
+        "latest_issue_rule": "volume_and_issue; month fallback only when issue metadata is absent",
+    }
+    write_json(args.output / "crawl_report.json", report)
     print(
         json.dumps(
             {

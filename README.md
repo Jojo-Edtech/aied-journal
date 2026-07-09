@@ -82,4 +82,11 @@ RADAR_PROVIDER_QUOTA_FILE=/var/tmp/aied-journal-provider-quota.json
 
 ## 自动更新
 
-`.github/workflows/daily-research-radar-update.yml` 每天香港时间 06:20 刷新公开期刊数据、文章样本、编辑页来源和 RAG 文档。官网深爬只使用公开可访问页面；被登录、付费墙、反爬或动态页面拦截时记录失败原因。
+`.github/workflows/daily-research-radar-update.yml` 每天香港/北京时间 06:00 自动运行：
+
+- 为全部 268 本期刊刷新 Crossref 近期文章元数据，并重新计算 Latest issue、近 3 期、近 1/2/3/5 年主题与关键词偏好。
+- 每天轮换深爬约 80 本期刊的公开官网页面，约 4 天覆盖全表；未轮到的期刊保留上次已验证的官网与编辑资料。
+- 重新生成期刊网络、RAG 文档和抓取报告，通过数据校验后提交到 `main`，再由 Pages 工作流自动发布。
+- 有明确卷期号时，Latest issue 严格按 `year + volume + issue` 识别；仅在没有 issue 元数据的连续出版期刊中使用月份近似，并在数据中标注 fallback。
+
+官网深爬只使用公开可访问页面；被登录、付费墙、反爬或动态页面拦截时记录失败原因。ModelScope token、AI 额度文件和访问配置不参与 GitHub Actions，也不会写入公开数据。
