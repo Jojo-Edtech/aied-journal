@@ -26,7 +26,6 @@
         <nav class="sidebar-nav" aria-label="Dashboard sections">
           <a href="#radarDashboard" class="is-active">Dashboard</a>
           <a href="#journalTable">Journals</a>
-          <a href="#researchNetwork">Network</a>
           <a href="#radarChatForm">AI Advisor</a>
           <a href="#tagHeatmap">Themes</a>
         </nav>
@@ -196,25 +195,6 @@
           </div>
           <div class="heatmap-shell" id="tagHeatmap"></div>
         </article>
-      </section>
-
-      <section class="radar-card network-card" aria-label="Journal research network">
-        <div class="radar-card-header">
-          <div>
-            <h3 data-i18n="networkTitle">期刊-主题-出版社网络</h3>
-            <p id="networkNote" data-i18n="networkNote">默认显示筛选后的高信号节点。点击期刊节点可查看详情。</p>
-          </div>
-          <div class="network-actions">
-            <div class="network-legend" aria-label="Network legend">
-              <span><i class="legend-journal"></i><span data-i18n="legendJournal">期刊</span></span>
-              <span><i class="legend-topic"></i><span data-i18n="legendTopic">主题</span></span>
-              <span><i class="legend-publisher"></i><span data-i18n="legendPublisher">出版社</span></span>
-              <span><i class="legend-method"></i><span data-i18n="legendMethod">方法/主题</span></span>
-            </div>
-            <button class="button button-secondary network-toggle" id="toggleNetwork" type="button" data-i18n="expandNetwork">展开网络</button>
-          </div>
-        </div>
-        <div class="network-shell" id="researchNetwork"></div>
       </section>
 
       <section class="radar-card" aria-label="Journal detail table">

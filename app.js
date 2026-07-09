@@ -1062,6 +1062,7 @@ function limitNetworkLinks(rawLinks, expanded = false) {
 }
 
 function renderNetwork(journals) {
+  if (!els.network) return;
   clear(els.network);
   els.network.classList.toggle("is-expanded", state.networkExpanded);
   const hasActiveFilter =
