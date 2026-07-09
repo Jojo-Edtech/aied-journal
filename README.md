@@ -76,7 +76,9 @@ RADAR_PROVIDER_QUOTA_FILE=/var/tmp/aied-journal-provider-quota.json
 
 默认模型 `Qwen/Qwen3-30B-A3B-Instruct-2507` 已通过魔搭 OpenAI-compatible API 实测可返回。更小的 Qwen/Qwen2.5 候选在当前 API 下返回 `no provider supported` 或空响应，因此不作为默认模型。若你在魔搭后台发现其他支持 API-Inference 的快速模型额度可用，可只改 `MODELSCOPE_MODEL`。
 
-额度保护：公开站点不要求访问口令，但只有 AI 成功返回后才扣 `RAG_DAILY_LIMIT` 和 `RAG_TOTAL_LIMIT`；总额度默认 1990 次，达到后即停。如果魔搭返回额度耗尽或限流信号，后端会把 `RADAR_PROVIDER_QUOTA_FILE` 标记为当天已熔断，当天后续请求直接停止调用模型。
+额度保护：公开站点不要求访问口令，但只有 AI 成功返回后才扣额度；Cloudflare Worker 版本按匿名浏览器访客隔离个人额度，并同时维护全站每日额度和 1990 次公开总额度，达到后即停。如果魔搭返回额度耗尽或限流信号，后端会标记当天已熔断，当天后续请求直接停止调用模型。
+
+隐私边界：AI 请求是 stateless 的。后端不保存聊天记录，不提供历史记录接口；额度计数只保存匿名哈希/随机访客 ID 的数字计数，不保存问题、回答或来源文本。
 
 ## 自动更新
 

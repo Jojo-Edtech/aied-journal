@@ -47,6 +47,8 @@ DEEPSEEK_MODEL=deepseek-v4-flash
 - `MODELSCOPE_MAX_TOKENS=900`：单次最大输出，省 token。
 - `RADAR_MAX_QUESTION_CHARS=1200`：问题长度限制。
 
+线上 Cloudflare Worker 会按匿名浏览器访客隔离个人额度，并且不保存聊天记录。FastAPI 版本也只做一次性问答，不提供历史记录接口；生产日志不要记录用户问题全文。
+
 ## 本地运行
 
 ```bash

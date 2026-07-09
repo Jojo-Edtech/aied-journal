@@ -9,6 +9,7 @@ const RADAR_URLS = {
 };
 
 const ACCESS_CODE_STORAGE_KEY = "ajr-access-code";
+const CLIENT_ID_STORAGE_KEY = "ajr-client-id";
 
 const state = {
   journals: [],
@@ -77,7 +78,7 @@ const I18N = {
     chatTitle: "AI助手",
     chatLoading: "正在读取后端配置...",
     chatReady: "已配置服务器端 AI 代理；token 仅应存在服务器环境变量。",
-    chatConnected: "AI 已连接：{provider} / {model}；今日剩余 {quota}，公开总剩余 {total}。每次提问独立处理，不保存聊天记录。",
+    chatConnected: "AI 已连接：{provider} / {model}；你的今日剩余 {userQuota}，全站今日剩余 {quota}，公开总剩余 {total}。每次提问独立处理，不保存聊天记录。",
     chatQuotaStopped: "AI 已暂停：模型免费额度可能已用完，今日停止继续调用。",
     chatOffline: "后端未连接；静态雷达可用，AI 助手待连接 ModelScope 代理。",
     chatIdle: "公开试用开启后，访问者只需要输入选刊问题；ModelScope token 只保存在服务器环境变量中；页面不保存或展示其他人的聊天记录。",
@@ -238,7 +239,7 @@ const I18N = {
     requestFailed: "请求失败：HTTP {status}",
     noAnswer: "没有生成回答。",
     quota: "剩余额度：{quota}",
-    quotaWithTotal: "剩余额度：今日 {quota} / 公开总额 {total}",
+    quotaWithTotal: "剩余额度：你的今日 {userQuota} / 全站今日 {quota} / 公开总额 {total}",
     privacyLine: "隐私：本次提问独立处理，不保存或展示其他人的聊天记录。",
     sources: "引用来源：",
     noSourcesShort: "无",
@@ -266,7 +267,7 @@ const I18N = {
     chatTitle: "AI Advisor",
     chatLoading: "Loading backend configuration...",
     chatReady: "Server-side AI proxy configured; tokens should only exist in server environment variables.",
-    chatConnected: "AI connected: {provider} / {model}; today {quota}, public total {total}. Each request is stateless; chat history is not stored.",
+    chatConnected: "AI connected: {provider} / {model}; your today {userQuota}, site today {quota}, public total {total}. Each request is stateless; chat history is not stored.",
     chatQuotaStopped: "AI paused: model free quota may be exhausted, so calls stop for today.",
     chatOffline: "Backend not connected; static radar is available while the ModelScope proxy is pending.",
     chatIdle: "In public limited mode, visitors only enter a journal-fit question; the ModelScope token stays in server environment variables; other users' chats are never shown.",
@@ -427,7 +428,7 @@ const I18N = {
     requestFailed: "Request failed: HTTP {status}",
     noAnswer: "No answer was generated.",
     quota: "Remaining quota: {quota}",
-    quotaWithTotal: "Remaining quota: today {quota} / public total {total}",
+    quotaWithTotal: "Remaining quota: your today {userQuota} / site today {quota} / public total {total}",
     privacyLine: "Privacy: this request is stateless; other users' chats are not stored or shown.",
     sources: "Sources:",
     noSourcesShort: "None",
@@ -492,6 +493,20 @@ function rememberAccessCode(code) {
   }
 }
 
+function clientId() {
+  try {
+    let id = localStorage.getItem(CLIENT_ID_STORAGE_KEY);
+    if (!id) {
+      const random = crypto?.randomUUID ? crypto.randomUUID() : `${Date.now()}-${Math.random().toString(36).slice(2)}`;
+      id = `visitor-${random}`.replace(/[^a-zA-Z0-9_-]/g, "-").slice(0, 80);
+      localStorage.setItem(CLIENT_ID_STORAGE_KEY, id);
+    }
+    return id;
+  } catch (error) {
+    return "visitor-session";
+  }
+}
+
 function markAccessCodeInvalid(invalid) {
   els.chatCode?.classList.toggle("is-invalid", invalid);
 }
@@ -515,10 +530,11 @@ function chatErrorMessage(status, data = {}) {
   return message || t("requestFailed", { status });
 }
 
-function quotaMessage(daily, total) {
+function quotaMessage(daily, total, userDaily) {
   const dailyValue = daily ?? t("missing");
+  const userValue = userDaily ?? dailyValue;
   if (total === undefined || total === null) return t("quota", { quota: dailyValue });
-  return t("quotaWithTotal", { quota: dailyValue, total });
+  return t("quotaWithTotal", { quota: dailyValue, total, userQuota: userValue });
 }
 
 function integerValue(value) {
@@ -666,7 +682,10 @@ async function updateChatStatus() {
   }
 
   try {
-    const response = await fetch(`${apiBase}/api/health`, { cache: "no-store" });
+    const response = await fetch(`${apiBase}/api/health`, {
+      cache: "no-store",
+      headers: { "X-AIED-Client": clientId() },
+    });
     if (!response.ok) throw new Error("health check failed");
     const health = await response.json();
     updateAccessMode(Object.prototype.hasOwnProperty.call(health, "access_required") ? Boolean(health.access_required) : state.accessRequired);
@@ -679,6 +698,7 @@ async function updateChatStatus() {
       model: health.llm_model || t("missing"),
       quota: health.remaining_quota ?? t("missing"),
       total: health.remaining_total_quota ?? t("missing"),
+      userQuota: health.remaining_user_quota ?? health.remaining_quota ?? t("missing"),
     });
     if (!health.llm_configured) {
       els.chatStatus.textContent = t("chatReady");
@@ -2073,7 +2093,7 @@ async function submitChat(event) {
     if (accessCode) body.access_code = accessCode;
     const response = await fetch(`${apiBase}/api/chat`, {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: { "Content-Type": "application/json", "X-AIED-Client": clientId() },
       body: JSON.stringify(body),
     });
     const data = await response.json().catch(() => ({}));
@@ -2088,7 +2108,7 @@ async function submitChat(event) {
       .join("\n");
     const modelLine = data.provider || data.model ? `\n${t("modelUsed", { provider: data.provider || t("missing"), model: data.model || t("missing") })}` : "";
     const privacyLine = data.stores_chat_history === false ? `\n${t("privacyLine")}` : "";
-    els.chatAnswer.textContent = `${data.answer || t("noAnswer")}\n\n${quotaMessage(data.remaining_quota, data.remaining_total_quota)}${modelLine}${privacyLine}\n\n${t("sources")}\n${sources || t("noSourcesShort")}`;
+    els.chatAnswer.textContent = `${data.answer || t("noAnswer")}\n\n${quotaMessage(data.remaining_quota, data.remaining_total_quota, data.remaining_user_quota)}${modelLine}${privacyLine}\n\n${t("sources")}\n${sources || t("noSourcesShort")}`;
   } catch (error) {
     els.chatAnswer.textContent = t("backendUnreachable");
   }

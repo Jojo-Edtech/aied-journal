@@ -56,6 +56,10 @@ async function health(request, env) {
     total_limit: usage.limits.total,
     remaining_quota: usage.remainingGlobalDay,
     remaining_total_quota: usage.remainingTotal,
+    user_daily_limit: usage.limits.userDay,
+    user_hourly_limit: usage.limits.userHour,
+    remaining_user_quota: usage.remainingUserDay,
+    remaining_user_hour_quota: usage.remainingUserHour,
     privacy_mode: "stateless_no_chat_history",
     stores_chat_history: false,
   });
@@ -96,6 +100,8 @@ async function chat(request, env) {
       sources: [],
       remaining_quota: usage.remainingGlobalDay,
       remaining_total_quota: usage.remainingTotal,
+      remaining_user_quota: usage.remainingUserDay,
+      remaining_user_hour_quota: usage.remainingUserHour,
       privacy_mode: "stateless_no_chat_history",
       stores_chat_history: false,
     });
@@ -113,6 +119,8 @@ async function chat(request, env) {
     sources: ranked.flatMap((item) => sourcePayload(item)).slice(0, 12),
     remaining_quota: after.remainingGlobalDay,
     remaining_total_quota: after.remainingTotal,
+    remaining_user_quota: after.remainingUserDay,
+    remaining_user_hour_quota: after.remainingUserHour,
     provider: "modelscope",
     model: modelName(env),
     privacy_mode: "stateless_no_chat_history",
@@ -325,6 +333,8 @@ async function readUsage(env, request) {
     userHour,
     remainingGlobalDay: remaining(limits.globalDay, globalDay),
     remainingTotal: remaining(limits.total, total),
+    remainingUserDay: remaining(limits.userDay, userDay),
+    remainingUserHour: remaining(limits.userHour, userHour),
   };
 }
 
@@ -373,7 +383,11 @@ async function kvIncrement(env, key, ttl) {
 }
 
 async function userKey(request) {
+  const client = String(request.headers.get("X-AIED-Client") || "")
+    .replace(/[^a-zA-Z0-9_-]/g, "")
+    .slice(0, 80);
   const raw = [
+    client ? `client:${client}` : "client:missing",
     request.headers.get("CF-Connecting-IP") || request.headers.get("X-Forwarded-For") || "unknown",
     request.headers.get("User-Agent") || "unknown",
   ].join("|");
@@ -432,7 +446,7 @@ function corsHeaders(request, env) {
   return {
     "Access-Control-Allow-Origin": allowOrigin,
     "Access-Control-Allow-Methods": "GET,POST,OPTIONS",
-    "Access-Control-Allow-Headers": "Content-Type",
+    "Access-Control-Allow-Headers": "Content-Type, X-AIED-Client",
     "Vary": "Origin",
   };
 }
