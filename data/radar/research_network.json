@@ -4325,13 +4325,13 @@
     },
     {
       "source": "journal-020-education-and-information-technologies",
-      "target": "topic-motivation-and-wellbeing",
+      "target": "topic-stem-education",
       "weight": 6.0,
       "relation": "text_topic"
     },
     {
       "source": "journal-020-education-and-information-technologies",
-      "target": "topic-stem-education",
+      "target": "topic-motivation-and-wellbeing",
       "weight": 6.0,
       "relation": "text_topic"
     },
@@ -6101,25 +6101,13 @@
     },
     {
       "source": "journal-045-international-review-of-research-in-open-and-dis",
-      "target": "topic-equity-and-policy",
-      "weight": 6.0,
-      "relation": "text_topic"
-    },
-    {
-      "source": "journal-045-international-review-of-research-in-open-and-dis",
-      "target": "topic-curriculum-and-pedagogy",
-      "weight": 6.0,
-      "relation": "text_topic"
-    },
-    {
-      "source": "journal-045-international-review-of-research-in-open-and-dis",
       "target": "topic-higher-education",
       "weight": 6.0,
       "relation": "text_topic"
     },
     {
       "source": "journal-045-international-review-of-research-in-open-and-dis",
-      "target": "topic-motivation-and-wellbeing",
+      "target": "topic-equity-and-policy",
       "weight": 6.0,
       "relation": "text_topic"
     },
@@ -6131,9 +6119,27 @@
     },
     {
       "source": "journal-045-international-review-of-research-in-open-and-dis",
-      "target": "topic-assessment",
+      "target": "topic-curriculum-and-pedagogy",
       "weight": 6.0,
       "relation": "text_topic"
+    },
+    {
+      "source": "journal-045-international-review-of-research-in-open-and-dis",
+      "target": "topic-motivation-and-wellbeing",
+      "weight": 6.0,
+      "relation": "text_topic"
+    },
+    {
+      "source": "journal-045-international-review-of-research-in-open-and-dis",
+      "target": "topic-educational-technology",
+      "weight": 6.0,
+      "relation": "text_topic"
+    },
+    {
+      "source": "journal-045-international-review-of-research-in-open-and-dis",
+      "target": "method-mixed-methods",
+      "weight": 5.0,
+      "relation": "method_or_theme"
     },
     {
       "source": "journal-045-international-review-of-research-in-open-and-dis",
@@ -6144,12 +6150,6 @@
     {
       "source": "journal-045-international-review-of-research-in-open-and-dis",
       "target": "method-review",
-      "weight": 5.0,
-      "relation": "method_or_theme"
-    },
-    {
-      "source": "journal-045-international-review-of-research-in-open-and-dis",
-      "target": "method-mixed-methods",
       "weight": 5.0,
       "relation": "method_or_theme"
     },
@@ -10187,13 +10187,13 @@
     },
     {
       "source": "journal-102-international-journal-of-technology-and-design-e",
-      "target": "topic-equity-and-policy",
+      "target": "topic-assessment",
       "weight": 6.0,
       "relation": "text_topic"
     },
     {
       "source": "journal-102-international-journal-of-technology-and-design-e",
-      "target": "topic-assessment",
+      "target": "topic-equity-and-policy",
       "weight": 6.0,
       "relation": "text_topic"
     },
@@ -15437,14 +15437,14 @@
     },
     {
       "source": "journal-177-journal-of-educational-and-behavioral-statistics",
-      "target": "topic-language-learning",
+      "target": "topic-curriculum-and-pedagogy",
       "weight": 3.0,
       "relation": "text_topic"
     },
     {
       "source": "journal-177-journal-of-educational-and-behavioral-statistics",
-      "target": "topic-curriculum-and-pedagogy",
-      "weight": 2.0,
+      "target": "topic-language-learning",
+      "weight": 3.0,
       "relation": "text_topic"
     },
     {

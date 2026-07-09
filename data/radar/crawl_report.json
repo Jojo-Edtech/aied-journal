@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-08T23:33:06+00:00",
+  "generated_at": "2026-07-09T07:53:09+00:00",
   "expected_journal_count": 268,
   "journal_count": 268,
   "journal_count_matches_expected": true,
@@ -8,16 +8,16 @@
   "q1_count_matches_expected": true,
   "journals_with_source_urls": 257,
   "source_pages": {
-    "total": 412,
-    "ok": 318,
-    "failed": 94,
+    "total": 413,
+    "ok": 321,
+    "failed": 92,
     "content_too_short": 0
   },
   "articles": {
-    "total": 20831,
-    "ok": 20830,
+    "total": 20875,
+    "ok": 20871,
     "failed": 1,
-    "content_too_short": 0
+    "content_too_short": 3
   },
   "editors": {
     "journals_with_editor_names": 0,
@@ -49,7 +49,7 @@
     },
     "total": 268
   },
-  "rag_documents": 21155,
+  "rag_documents": 21199,
   "missing_fields": {
     "jif_2025": {
       "missing": 1,
