@@ -7,7 +7,7 @@
 ```text
 RADAR_LLM_PROVIDER=modelscope
 MODELSCOPE_API_KEY=你的魔搭 API token
-MODELSCOPE_MODEL=Qwen/Qwen3-4B
+MODELSCOPE_MODEL=Qwen/Qwen3-30B-A3B-Instruct-2507
 RADAR_REQUIRE_ACCESS_CODE=false
 RADAR_ACCESS_CODE=
 RAG_DAILY_LIMIT=60
@@ -21,7 +21,7 @@ RADAR_QUOTA_FILE=/var/tmp/aied-journal-quota.json
 RADAR_PROVIDER_QUOTA_FILE=/var/tmp/aied-journal-provider-quota.json
 ```
 
-默认 provider 是 `modelscope`，默认模型是 `Qwen/Qwen3-4B`，默认接口是 `https://api-inference.modelscope.cn/v1/chat/completions`。这个模型支持魔搭 API 推理，参数量更小，优先速度和免费额度消耗控制。
+默认 provider 是 `modelscope`，默认模型是 `Qwen/Qwen3-30B-A3B-Instruct-2507`，默认接口是 `https://api-inference.modelscope.cn/v1/chat/completions`。这个模型已通过当前魔搭 API 实测可返回；更小的 Qwen/Qwen2.5 候选在当前 API 下不可用或空返回，因此不作为默认模型。
 
 如果你在魔搭后台发现这个模型免费额度已用过，可以只改模型名，例如：
 

@@ -1,0 +1,20 @@
+name = "aied-journal-radar-api"
+main = "index.mjs"
+compatibility_date = "2026-07-01"
+workers_dev = true
+preview_urls = false
+
+[vars]
+MODELSCOPE_MODEL = "Qwen/Qwen3-30B-A3B-Instruct-2507"
+MODELSCOPE_API_BASE = "https://api-inference.modelscope.cn/v1"
+MODELSCOPE_MAX_TOKENS = "1100"
+MAX_REQUESTS_PER_USER_HOUR = "5"
+MAX_REQUESTS_PER_USER_DAY = "20"
+MAX_GLOBAL_REQUESTS_PER_DAY = "60"
+MODELSCOPE_FREE_TOTAL_CALLS = "1990"
+ALLOWED_ORIGINS = "https://jojo-edtech.github.io,http://localhost:4183,http://127.0.0.1:4183"
+PUBLIC_DATA_BASE = "https://jojo-edtech.github.io/aied-journal/data/radar"
+
+[[kv_namespaces]]
+binding = "AIED_JOURNAL_RADAR_KV"
+id = "500947722faa4237a9b34423ac20f7c9"

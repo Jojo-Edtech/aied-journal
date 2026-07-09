@@ -62,7 +62,7 @@ npm run build:static
 ```text
 RADAR_LLM_PROVIDER=modelscope
 MODELSCOPE_API_KEY=你的魔搭 API token
-MODELSCOPE_MODEL=Qwen/Qwen3-4B
+MODELSCOPE_MODEL=Qwen/Qwen3-30B-A3B-Instruct-2507
 RADAR_REQUIRE_ACCESS_CODE=false
 RADAR_ACCESS_CODE=
 RAG_DAILY_LIMIT=60
@@ -74,7 +74,7 @@ RADAR_QUOTA_FILE=/var/tmp/aied-journal-quota.json
 RADAR_PROVIDER_QUOTA_FILE=/var/tmp/aied-journal-provider-quota.json
 ```
 
-默认模型 `Qwen/Qwen3-4B` 支持魔搭 API 推理，优先速度和免费额度消耗控制。若你在魔搭后台发现该模型额度已用过，可把 `MODELSCOPE_MODEL` 换成另一个支持 API-Inference 的快速模型。
+默认模型 `Qwen/Qwen3-30B-A3B-Instruct-2507` 已通过魔搭 OpenAI-compatible API 实测可返回。更小的 Qwen/Qwen2.5 候选在当前 API 下返回 `no provider supported` 或空响应，因此不作为默认模型。若你在魔搭后台发现其他支持 API-Inference 的快速模型额度可用，可只改 `MODELSCOPE_MODEL`。
 
 额度保护：公开站点不要求访问口令，但只有 AI 成功返回后才扣 `RAG_DAILY_LIMIT` 和 `RAG_TOTAL_LIMIT`；总额度默认 1990 次，达到后即停。如果魔搭返回额度耗尽或限流信号，后端会把 `RADAR_PROVIDER_QUOTA_FILE` 标记为当天已熔断，当天后续请求直接停止调用模型。
 

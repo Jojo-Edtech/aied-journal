@@ -23,7 +23,7 @@ from pydantic import BaseModel, Field
 APP_ROOT = Path(__file__).resolve().parents[1]
 DATA_DIR = Path(os.getenv("RADAR_DATA_DIR", str(APP_ROOT / "data" / "radar"))).expanduser()
 DEFAULT_PROVIDER = "modelscope"
-DEFAULT_MODELSCOPE_MODEL = "Qwen/Qwen3-4B"
+DEFAULT_MODELSCOPE_MODEL = "Qwen/Qwen3-30B-A3B-Instruct-2507"
 DEFAULT_MODELSCOPE_API_BASE = "https://api-inference.modelscope.cn/v1"
 DEFAULT_DEEPSEEK_MODEL = "deepseek-v4-flash"
 DEFAULT_DEEPSEEK_API_BASE = "https://api.deepseek.com/chat/completions"
@@ -59,6 +59,16 @@ app.add_middleware(
     allow_methods=["GET", "POST", "OPTIONS"],
     allow_headers=["Content-Type"],
 )
+
+
+@app.middleware("http")
+async def no_store_api_responses(request: FastAPIRequest, call_next):
+    response = await call_next(request)
+    if request.url.path.startswith("/api/"):
+        response.headers["Cache-Control"] = "no-store, private"
+        response.headers["X-Conversation-Mode"] = "stateless"
+        response.headers["X-Chat-History-Stored"] = "false"
+    return response
 
 
 @dataclass
@@ -515,6 +525,8 @@ def health() -> dict[str, Any]:
         "total_limit": TOTAL_LIMIT,
         "remaining_quota": remaining_quota(),
         "remaining_total_quota": remaining_total_quota(),
+        "privacy_mode": "stateless_no_chat_history",
+        "stores_chat_history": False,
         "index_error": INDEX_ERROR,
     }
 
@@ -544,6 +556,8 @@ def chat(payload: ChatRequest, request: FastAPIRequest) -> dict[str, Any]:
             "sources": public_sources(results),
             "remaining_quota": remaining_quota(),
             "remaining_total_quota": remaining_total_quota(),
+            "privacy_mode": "stateless_no_chat_history",
+            "stores_chat_history": False,
         }
     if not llm_configured():
         raise HTTPException(status_code=503, detail=llm_missing_message())
@@ -559,4 +573,6 @@ def chat(payload: ChatRequest, request: FastAPIRequest) -> dict[str, Any]:
         "remaining_total_quota": remaining_total_quota(),
         "provider": settings["provider"],
         "model": settings["model"],
+        "privacy_mode": "stateless_no_chat_history",
+        "stores_chat_history": False,
     }

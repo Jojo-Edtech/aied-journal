@@ -77,10 +77,10 @@ const I18N = {
     chatTitle: "AI助手",
     chatLoading: "正在读取后端配置...",
     chatReady: "已配置服务器端 AI 代理；token 仅应存在服务器环境变量。",
-    chatConnected: "AI 已连接：{provider} / {model}；今日剩余 {quota}，公开总剩余 {total}。",
+    chatConnected: "AI 已连接：{provider} / {model}；今日剩余 {quota}，公开总剩余 {total}。每次提问独立处理，不保存聊天记录。",
     chatQuotaStopped: "AI 已暂停：模型免费额度可能已用完，今日停止继续调用。",
     chatOffline: "后端未连接；静态雷达可用，AI 助手待连接 ModelScope 代理。",
-    chatIdle: "公开试用开启后，访问者只需要输入选刊问题；ModelScope token 只保存在服务器环境变量中。",
+    chatIdle: "公开试用开启后，访问者只需要输入选刊问题；ModelScope token 只保存在服务器环境变量中；页面不保存或展示其他人的聊天记录。",
     chatHealthFailed: "后端地址已配置，但健康检查暂时失败；请稍后重试。",
     accessCode: "访问口令",
     accessPlaceholder: "输入站点访问口令",
@@ -239,6 +239,7 @@ const I18N = {
     noAnswer: "没有生成回答。",
     quota: "剩余额度：{quota}",
     quotaWithTotal: "剩余额度：今日 {quota} / 公开总额 {total}",
+    privacyLine: "隐私：本次提问独立处理，不保存或展示其他人的聊天记录。",
     sources: "引用来源：",
     noSourcesShort: "无",
     backendUnreachable: "后端暂时无法访问。请确认服务器服务已启动、CORS 允许当前域名，并且没有把 token 放到前端。",
@@ -265,10 +266,10 @@ const I18N = {
     chatTitle: "AI Advisor",
     chatLoading: "Loading backend configuration...",
     chatReady: "Server-side AI proxy configured; tokens should only exist in server environment variables.",
-    chatConnected: "AI connected: {provider} / {model}; today {quota}, public total {total}.",
+    chatConnected: "AI connected: {provider} / {model}; today {quota}, public total {total}. Each request is stateless; chat history is not stored.",
     chatQuotaStopped: "AI paused: model free quota may be exhausted, so calls stop for today.",
     chatOffline: "Backend not connected; static radar is available while the ModelScope proxy is pending.",
-    chatIdle: "In public limited mode, visitors only enter a journal-fit question; the ModelScope token stays in server environment variables.",
+    chatIdle: "In public limited mode, visitors only enter a journal-fit question; the ModelScope token stays in server environment variables; other users' chats are never shown.",
     chatHealthFailed: "Backend URL is configured, but the health check is temporarily unavailable.",
     accessCode: "Access code",
     accessPlaceholder: "Enter the site access code",
@@ -427,6 +428,7 @@ const I18N = {
     noAnswer: "No answer was generated.",
     quota: "Remaining quota: {quota}",
     quotaWithTotal: "Remaining quota: today {quota} / public total {total}",
+    privacyLine: "Privacy: this request is stateless; other users' chats are not stored or shown.",
     sources: "Sources:",
     noSourcesShort: "None",
     backendUnreachable: "Backend is temporarily unreachable. Check the server service, CORS origin, and keep tokens out of frontend code.",
@@ -2085,7 +2087,8 @@ async function submitChat(event) {
       .map((source, index) => `${index + 1}. ${source.journal_name || source.title}\n   ${source.source_url || ""}`)
       .join("\n");
     const modelLine = data.provider || data.model ? `\n${t("modelUsed", { provider: data.provider || t("missing"), model: data.model || t("missing") })}` : "";
-    els.chatAnswer.textContent = `${data.answer || t("noAnswer")}\n\n${quotaMessage(data.remaining_quota, data.remaining_total_quota)}${modelLine}\n\n${t("sources")}\n${sources || t("noSourcesShort")}`;
+    const privacyLine = data.stores_chat_history === false ? `\n${t("privacyLine")}` : "";
+    els.chatAnswer.textContent = `${data.answer || t("noAnswer")}\n\n${quotaMessage(data.remaining_quota, data.remaining_total_quota)}${modelLine}${privacyLine}\n\n${t("sources")}\n${sources || t("noSourcesShort")}`;
   } catch (error) {
     els.chatAnswer.textContent = t("backendUnreachable");
   }
