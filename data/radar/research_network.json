@@ -4331,13 +4331,13 @@
     },
     {
       "source": "journal-020-education-and-information-technologies",
-      "target": "topic-motivation-and-wellbeing",
+      "target": "topic-curriculum-and-pedagogy",
       "weight": 6.0,
       "relation": "text_topic"
     },
     {
       "source": "journal-020-education-and-information-technologies",
-      "target": "topic-curriculum-and-pedagogy",
+      "target": "topic-motivation-and-wellbeing",
       "weight": 6.0,
       "relation": "text_topic"
     },
@@ -5597,13 +5597,13 @@
     },
     {
       "source": "journal-038-studies-in-higher-education",
-      "target": "topic-stem-education",
+      "target": "topic-motivation-and-wellbeing",
       "weight": 6.0,
       "relation": "text_topic"
     },
     {
       "source": "journal-038-studies-in-higher-education",
-      "target": "topic-motivation-and-wellbeing",
+      "target": "topic-stem-education",
       "weight": 6.0,
       "relation": "text_topic"
     },
@@ -6480,7 +6480,7 @@
     {
       "source": "journal-050-npj-science-of-learning",
       "target": "topic-motivation-and-wellbeing",
-      "weight": 6.0,
+      "weight": 5.0,
       "relation": "text_topic"
     },
     {
@@ -6767,13 +6767,13 @@
     },
     {
       "source": "journal-055-bmc-medical-education",
-      "target": "topic-assessment",
+      "target": "topic-higher-education",
       "weight": 6.0,
       "relation": "text_topic"
     },
     {
       "source": "journal-055-bmc-medical-education",
-      "target": "topic-higher-education",
+      "target": "topic-assessment",
       "weight": 6.0,
       "relation": "text_topic"
     },
@@ -7601,13 +7601,13 @@
     },
     {
       "source": "journal-066-reading-research-quarterly",
-      "target": "topic-motivation-and-wellbeing",
+      "target": "topic-assessment",
       "weight": 6.0,
       "relation": "text_topic"
     },
     {
       "source": "journal-066-reading-research-quarterly",
-      "target": "topic-assessment",
+      "target": "topic-motivation-and-wellbeing",
       "weight": 6.0,
       "relation": "text_topic"
     },
@@ -7661,13 +7661,13 @@
     },
     {
       "source": "journal-067-international-journal-of-applied-linguistics",
-      "target": "topic-assessment",
+      "target": "topic-motivation-and-wellbeing",
       "weight": 6.0,
       "relation": "text_topic"
     },
     {
       "source": "journal-067-international-journal-of-applied-linguistics",
-      "target": "topic-motivation-and-wellbeing",
+      "target": "topic-assessment",
       "weight": 6.0,
       "relation": "text_topic"
     },
@@ -7704,7 +7704,7 @@
     {
       "source": "journal-067-international-journal-of-applied-linguistics",
       "target": "method-chatbot",
-      "weight": 3.0,
+      "weight": 4.0,
       "relation": "method_or_theme"
     },
     {
@@ -14136,7 +14136,7 @@
     {
       "source": "journal-158-research-papers-in-education",
       "target": "method-mixed-methods",
-      "weight": 2.0,
+      "weight": 3.0,
       "relation": "method_or_theme"
     },
     {
@@ -17189,20 +17189,26 @@
     },
     {
       "source": "journal-202-educational-studies",
-      "target": "topic-curriculum-and-pedagogy",
-      "weight": 6.0,
-      "relation": "text_topic"
-    },
-    {
-      "source": "journal-202-educational-studies",
       "target": "topic-stem-education",
       "weight": 6.0,
       "relation": "text_topic"
     },
     {
       "source": "journal-202-educational-studies",
+      "target": "topic-curriculum-and-pedagogy",
+      "weight": 6.0,
+      "relation": "text_topic"
+    },
+    {
+      "source": "journal-202-educational-studies",
+      "target": "topic-language-learning",
+      "weight": 6.0,
+      "relation": "text_topic"
+    },
+    {
+      "source": "journal-202-educational-studies",
       "target": "topic-assessment",
-      "weight": 5.0,
+      "weight": 6.0,
       "relation": "text_topic"
     },
     {
@@ -17213,20 +17219,14 @@
     },
     {
       "source": "journal-202-educational-studies",
-      "target": "topic-equity-and-policy",
-      "weight": 3.0,
-      "relation": "text_topic"
-    },
-    {
-      "source": "journal-202-educational-studies",
-      "target": "method-mixed-methods",
+      "target": "method-review",
       "weight": 4.0,
       "relation": "method_or_theme"
     },
     {
       "source": "journal-202-educational-studies",
-      "target": "method-review",
-      "weight": 3.0,
+      "target": "method-mixed-methods",
+      "weight": 4.0,
       "relation": "method_or_theme"
     },
     {
