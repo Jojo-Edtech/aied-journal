@@ -98,9 +98,9 @@ main,
 .eyebrow {
   margin: 0 0 4px;
   color: var(--green-dark);
-  font-size: 0.78rem;
+  font-size: 0.75rem;
   font-weight: 700;
-  letter-spacing: 0;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
 }
 
@@ -113,9 +113,9 @@ h1 {
 }
 
 .subtitle {
-  margin: 8px 0 0;
+  margin: 5px 0 0;
   color: var(--muted);
-  font-size: 1rem;
+  font-size: 0.92rem;
 }
 
 .header-actions {
@@ -239,7 +239,8 @@ h1 {
 
 .radar-control-band h2 {
   margin: 0;
-  font-size: 1.35rem;
+  font-size: 1.12rem;
+  line-height: 1.5;
 }
 
 .radar-controls {
@@ -354,8 +355,8 @@ h1 {
 
 .radar-kpi strong {
   display: block;
-  font-size: 1.65rem;
-  line-height: 1.05;
+  font-size: 1.5rem;
+  line-height: 1.15;
 }
 
 .radar-kpi span {
@@ -408,7 +409,8 @@ h1 {
 
 .radar-card-header h3 {
   margin: 0;
-  font-size: 1.05rem;
+  font-size: 1rem;
+  line-height: 1.5;
 }
 
 .radar-card-header p {
@@ -1197,7 +1199,8 @@ h1 {
 
 .radar-methodology h2 {
   margin: 0 0 8px;
-  font-size: 1.1rem;
+  font-size: 1rem;
+  line-height: 1.5;
 }
 
 .radar-methodology p {
@@ -1238,8 +1241,8 @@ h1 {
 
 .detail-hero h2 {
   margin: 0;
-  font-size: clamp(1.55rem, 3vw, 2.25rem);
-  line-height: 1.15;
+  font-size: clamp(1.25rem, 2.1vw, 1.6rem);
+  line-height: 1.4;
 }
 
 .detail-meta {
@@ -2171,7 +2174,8 @@ main,
 }
 
 .header-title h1 {
-  font-size: clamp(1.7rem, 2.8vw, 2.5rem);
+  font-size: clamp(1.3rem, 2vw, 1.6rem);
+  line-height: 1.25;
 }
 
 .language-switcher,
@@ -2200,8 +2204,8 @@ main,
 .hero-panel {
   display: grid;
   grid-template-columns: minmax(0, 1fr) 240px;
-  min-height: 210px;
-  padding: 28px;
+  min-height: 176px;
+  padding: 26px 28px;
   background:
     linear-gradient(135deg, rgba(84, 46, 205, 0.96), rgba(112, 62, 235, 0.94) 52%, rgba(35, 159, 198, 0.92)),
     #6d5dfc;
@@ -2213,22 +2217,25 @@ main,
 }
 
 .hero-panel h2 {
-  margin: 4px 0 8px;
-  font-size: clamp(1.7rem, 3vw, 2.45rem);
-  line-height: 1.05;
+  margin: 6px 0 10px;
+  font-size: clamp(1.3rem, 2.1vw, 1.7rem);
+  line-height: 1.4;
+  letter-spacing: 0.01em;
 }
 
 .hero-panel p {
   max-width: 620px;
   margin: 0;
   color: rgba(255,255,255,0.85);
+  font-size: 0.95rem;
+  line-height: 1.75;
 }
 
 .hero-actions {
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
-  margin-top: 22px;
+  margin-top: 16px;
 }
 
 .button-light {
