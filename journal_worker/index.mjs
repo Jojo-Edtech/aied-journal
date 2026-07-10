@@ -96,7 +96,12 @@ async function chat(request, env) {
 
   const data = await loadRadarData(env);
   const allRanked = rankJournals(question, data);
-  const ranked = allRanked.slice(0, MAX_CONTEXT_JOURNALS);
+  let ranked = allRanked.slice(0, MAX_CONTEXT_JOURNALS);
+  let genericFallback = false;
+  if (!ranked.length && journalSeekingIntent(question)) {
+    ranked = fallbackJournals(data);
+    genericFallback = true;
+  }
   if (!ranked.length) {
     return json(request, env, {
       answer: "当前雷达资料不足。请补充研究主题、方法、学段、研究对象或目标期刊类型。",
@@ -113,7 +118,7 @@ async function chat(request, env) {
     });
   }
 
-  const result = await callModelScope(env, question, ranked, data.journals.length);
+  const result = await callModelScope(env, question, ranked, data.journals.length, { genericFallback });
   if (!result.ok) {
     if (result.quotaStopped) await pauseProvider(env, result.message);
     return json(request, env, { error: result.error, detail: result.message }, result.status || 502);
@@ -122,7 +127,7 @@ async function chat(request, env) {
   const after = await recordSuccessfulUse(env, request);
   return json(request, env, {
     answer: result.answer,
-    sources: ranked.flatMap((item) => sourcePayload(item)).slice(0, 12),
+    sources: ranked.flatMap((item) => sourcePayload(item)).slice(0, 16),
     remaining_quota: after.remainingGlobalDay,
     remaining_total_quota: after.remainingTotal,
     remaining_user_quota: after.remainingUserDay,
@@ -137,7 +142,7 @@ async function chat(request, env) {
   });
 }
 
-async function callModelScope(env, question, ranked, searchedJournalCount) {
+async function callModelScope(env, question, ranked, searchedJournalCount, options = {}) {
   const context = ranked
     .map(({ journal, sources }, index) => {
       const topicHints = [
@@ -153,9 +158,9 @@ async function callModelScope(env, question, ranked, searchedJournalCount) {
       const publicationSeries = ["2022", "2023", "2024", "2025"]
         .map((year) => `${year}: ${publications[year] ?? "unknown"}`)
         .join("; ");
-      const sourceLines = orderedSources(sources)
+      const sourceLines = displaySources(sources, journal)
         .slice(0, 3)
-        .map((source) => `${source.source_type || "source"}: ${source.source_url || source.url || ""}`)
+        .map((source) => `${source.source_type || "source"}: ${source.source_url || ""}`)
         .join(" | ");
       return [
         `${index + 1}. ${journal.name} (${journal.abbreviation || "no abbreviation"})`,
@@ -177,7 +182,11 @@ Answer in the user's language. If the user asks a factual question about a named
 For journal-selection questions, recommend 3-6 journals in a compact Markdown table, then add 2-3 short caveats.
 For each recommended journal include fit, main risk, annual publication volume, review speed if available, and what needs official verification.
 Avoid long introductions, star ratings, or generic praise.
-This is a stateless request. Do not refer to previous chat history.`;
+This is a stateless request. Do not refer to previous chat history.${
+    options.genericFallback
+      ? "\nNote: retrieval found no topic-specific match for this question, so the context lists the highest-impact journals overall. Say so briefly, answer with what the context supports, and ask the user for their research topic to narrow the list."
+      : ""
+  }`;
 
   const response = await fetch(`${apiBase(env)}/chat/completions`, {
     method: "POST",
@@ -279,7 +288,7 @@ function expandQueryTerms(question) {
     [/反馈|feedback/, ["feedback", "teacher feedback", "formative feedback"]],
     [/高等|大学|higher/, ["higher education", "university", "college"]],
     [/语言|英语|language|english/, ["language learning", "language teaching", "english", "second language"]],
-    [/生成式|generative|genai|大模型|llm/, ["generative ai", "genai", "large language models", "ai literacy"]],
+    [/生成式|generative|genai|大模型|llm|chatgpt/, ["generative ai", "genai", "large language models", "ai literacy"]],
     [/学习分析|analytics/, ["learning analytics", "educational data mining"]],
     [/政策|治理|policy/, ["policy", "governance", "equity and policy"]],
     [/教师发展|professional development/, ["teacher development", "professional development"]],
@@ -288,6 +297,18 @@ function expandQueryTerms(question) {
     [/心理|motivation|wellbeing|well-being/, ["educational psychology", "motivation and wellbeing"]],
     [/混合方法|mixed/, ["mixed methods"]],
     [/实验|experiment/, ["experiment", "quasi-experiment"]],
+    [/edtech|教育科技|教育技术|技术增强|数字化学习/, ["educational technology", "technology enhanced", "e-learning", "digital learning", "computer assisted", "教育技术"]],
+    [/\baied\b|智能教育|教育人工智能|智慧教育/, ["artificial intelligence", "intelligent tutoring", "generative ai", "educational technology"]],
+    [/人工智能|\bai\b/, ["artificial intelligence", "ai literacy", "generative ai"]],
+    [/在线|远程|网络学习|online|distance|mooc/, ["online learning", "distance education", "open learning", "mooc", "e-learning"]],
+    [/stem|科学教育|物理|化学|生物/, ["stem education", "science education", "科学教育"]],
+    [/特殊教育|融合教育|special education|inclusive/, ["special education", "inclusive education"]],
+    [/幼儿|早期|学前|early childhood|preschool/, ["early childhood", "childhood education"]],
+    [/职业教育|vocational/, ["vocational education", "career education"]],
+    [/阅读|读写|素养|literacy|reading/, ["literacy", "reading", "writing"]],
+    [/游戏|game/, ["game-based learning", "gamification", "educational games"]],
+    [/移动学习|mobile/, ["mobile learning", "ubiquitous learning"]],
+    [/课程|curriculum/, ["curriculum", "curriculum studies"]],
   ];
   synonyms.forEach(([pattern, values]) => {
     if (pattern.test(lower)) values.forEach((value) => terms.add(value));
@@ -315,6 +336,45 @@ function directJournalMatchScore(journal, question, normalizedQuestion, latinQue
   return score;
 }
 
+function journalSeekingIntent(question) {
+  return /期刊|选刊|投稿|发表|顶刊|杂志|journal|publish|submit|recommend|推荐/i.test(question || "");
+}
+
+function fallbackJournals(data) {
+  const sourceMap = data.sourcesByJournal;
+  return [...data.journals]
+    .sort((a, b) => (Number(b.jif_2025) || 0) - (Number(a.jif_2025) || 0))
+    .slice(0, MAX_CONTEXT_JOURNALS)
+    .map((journal) => ({
+      journal,
+      sources: sourceMap.get(journal.id) || [],
+      score: Number(journal.jif_2025) || 0,
+      relevanceScore: 0,
+      directMatch: false,
+    }));
+}
+
+function isMachineUrl(url) {
+  return /api\.crossref\.org|\bapi\./i.test(String(url || ""));
+}
+
+function displaySources(sources, journal) {
+  const readable = orderedSources(sources).filter((source) => {
+    const url = source.source_url || source.url || "";
+    return source.source_type !== "article_metadata_api" && url && !isMachineUrl(url);
+  });
+  if (readable.length) {
+    return readable.map((source) => ({
+      source_url: source.source_url || source.url || "",
+      source_type: source.source_type || "source",
+      captured_at: source.captured_at || "",
+      text_snippet: source.text_snippet || source.status || "",
+    }));
+  }
+  const homepage = (journal.source_urls || []).find((url) => url && !isMachineUrl(url)) || "";
+  return homepage ? [{ source_url: homepage, source_type: "journal_homepage", captured_at: "", text_snippet: "" }] : [];
+}
+
 function sourcePayload(item) {
   const workbookSource = {
     journal_name: item.journal.name,
@@ -323,15 +383,10 @@ function sourcePayload(item) {
     captured_at: "",
     text_snippet: "JCR indicators and annual publication volume from the radar workbook",
   };
-  const base = item.sources.length
-    ? orderedSources(item.sources).slice(0, 2)
-    : [{ journal_name: item.journal.name, source_url: (item.journal.source_urls || [])[0] || "", source_type: "journal_homepage" }];
+  const base = displaySources(item.sources, item.journal).slice(0, 2);
   return [workbookSource, ...base.map((source) => ({
     journal_name: item.journal.name,
-    source_url: source.source_url || source.url || "",
-    source_type: source.source_type || "source",
-    captured_at: source.captured_at || "",
-    text_snippet: source.text_snippet || source.status || "",
+    ...source,
   }))];
 }
 
@@ -529,4 +584,4 @@ function json(request, env, body, status = 200) {
   });
 }
 
-export { expandQueryTerms, rankJournals };
+export { expandQueryTerms, rankJournals, journalSeekingIntent, fallbackJournals, displaySources };

@@ -273,6 +273,16 @@ const I18N = {
     privacyLine: "隐私：本次提问独立处理，不保存或展示其他人的聊天记录。",
     sources: "引用来源：",
     noSourcesShort: "无",
+    openJournalDetail: "查看期刊详情",
+    openWebsite: "官网 ↗",
+    st_jcr_workbook: "期刊数据表",
+    st_article_metadata_api: "文章元数据",
+    st_author_guidelines: "投稿指南",
+    st_editorial_board: "编辑团队",
+    st_journal_metrics: "期刊指标",
+    st_journal_page: "期刊页面",
+    st_journal_homepage: "期刊主页",
+    st_article: "文章样本",
     backendUnreachable: "后端暂时无法访问。请确认服务器服务已启动、CORS 允许当前域名，并且没有把 token 放到前端。",
     loadFailed: "AIED Journal Radar 数据读取失败：{message}",
     csvName: "aied-journal-radar-filtered-journals.csv",
@@ -485,6 +495,16 @@ const I18N = {
     privacyLine: "Privacy: this request is stateless; other users' chats are not stored or shown.",
     sources: "Sources:",
     noSourcesShort: "None",
+    openJournalDetail: "Open journal detail",
+    openWebsite: "Website ↗",
+    st_jcr_workbook: "JCR workbook",
+    st_article_metadata_api: "Article metadata",
+    st_author_guidelines: "Author guidelines",
+    st_editorial_board: "Editorial board",
+    st_journal_metrics: "Journal metrics",
+    st_journal_page: "Journal page",
+    st_journal_homepage: "Journal homepage",
+    st_article: "Article sample",
     backendUnreachable: "Backend is temporarily unreachable. Check the server service, CORS origin, and keep tokens out of frontend code.",
     loadFailed: "AIED Journal Radar data failed to load: {message}",
     csvName: "aied-journal-radar-filtered-journals.csv",
@@ -762,6 +782,40 @@ function safeUrl(value) {
   return /^https?:\/\//i.test(text) ? text : "";
 }
 
+function isMachineUrl(value) {
+  return /api\.crossref\.org|\bapi\./i.test(String(value || ""));
+}
+
+function sourceTypeLabel(type) {
+  const key = `st_${type}`;
+  const label = t(key);
+  return label === key ? type : label;
+}
+
+function findJournalByName(name) {
+  const target = String(name || "").trim().toLowerCase();
+  if (!target) return null;
+  return state.journals.find((journal) => String(journal.name || "").trim().toLowerCase() === target) || null;
+}
+
+function groupSourcesByJournal(sources) {
+  const groups = new Map();
+  sources.forEach((source) => {
+    const journalName = source.journal_name || source.title || "";
+    if (!groups.has(journalName)) {
+      groups.set(journalName, { journalName, types: [], externalUrl: "" });
+    }
+    const group = groups.get(journalName);
+    const type = source.source_type || "";
+    if (type && !group.types.includes(type)) group.types.push(type);
+    const url = safeUrl(source.source_url);
+    if (url && !group.externalUrl && !isMachineUrl(url) && type !== "article_metadata_api") {
+      group.externalUrl = url;
+    }
+  });
+  return [...groups.values()];
+}
+
 function renderChatResponse(data) {
   els.chatAnswer.dataset.idle = "false";
   els.chatAnswer.replaceChildren();
@@ -800,34 +854,45 @@ function renderChatResponse(data) {
   });
 
   const sources = Array.isArray(data.sources) ? data.sources : [];
+  const grouped = groupSourcesByJournal(sources);
   const details = document.createElement("details");
   details.className = "chat-sources";
-  if (sources.length) details.open = true;
+  if (grouped.length) details.open = true;
   const summary = document.createElement("summary");
-  summary.textContent = t("sourceCount", { count: sources.length });
+  summary.textContent = t("sourceCount", { count: grouped.length });
   details.append(summary);
   const list = document.createElement("div");
   list.className = "chat-source-grid";
-  if (!sources.length) {
+  if (!grouped.length) {
     const empty = document.createElement("p");
     empty.className = "chat-source-empty";
     empty.textContent = t("noSourcesShort");
     list.append(empty);
   } else {
-    sources.forEach((source, index) => {
+    grouped.forEach((group, index) => {
       const item = document.createElement("article");
       item.className = "chat-source-card";
-      const url = safeUrl(source.source_url);
-      const title = document.createElement(url ? "a" : "strong");
-      if (url) {
-        title.href = url;
-        title.target = "_blank";
-        title.rel = "noopener noreferrer";
+      const journal = findJournalByName(group.journalName);
+      const title = document.createElement(journal ? "a" : "strong");
+      if (journal) {
+        title.href = `#journal=${journal.id}`;
+        title.title = t("openJournalDetail");
       }
-      title.textContent = `${index + 1}. ${source.journal_name || source.title || t("missing")}`;
-      const type = document.createElement("span");
-      type.textContent = source.source_type || t("missing");
-      item.append(title, type);
+      title.className = "chat-source-title";
+      title.textContent = `${index + 1}. ${group.journalName || t("missing")}`;
+      const typeRow = document.createElement("span");
+      typeRow.className = "chat-source-types";
+      typeRow.textContent = group.types.map((type) => sourceTypeLabel(type)).join(" · ");
+      item.append(title, typeRow);
+      if (group.externalUrl) {
+        const external = document.createElement("a");
+        external.className = "chat-source-external";
+        external.href = group.externalUrl;
+        external.target = "_blank";
+        external.rel = "noopener noreferrer";
+        external.textContent = t("openWebsite");
+        item.append(external);
+      }
       list.append(item);
     });
   }
