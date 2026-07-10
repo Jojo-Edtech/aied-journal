@@ -27,7 +27,7 @@
           <span class="brand-mark">JR</span>
           <div>
             <strong>AIED Journal</strong>
-            <small>Research Radar</small>
+            <small data-i18n="brandTagline">选刊雷达</small>
           </div>
         </div>
         <nav class="sidebar-nav" aria-label="Dashboard sections">
@@ -37,14 +37,14 @@
           <a href="#tagHeatmap" data-i18n="navThemes">Themes</a>
         </nav>
         <div class="sidebar-stack">
-          <p>Topic lenses</p>
+          <p data-i18n="topicLenses">主题镜头</p>
           <div class="avatar-row" aria-hidden="true">
             <span>AI</span><span>HE</span><span>TE</span><span>LL</span><span>EP</span>
           </div>
         </div>
         <div class="sidebar-callout">
-          <strong>Journal signals</strong>
-          <span>JCR metrics, topics, editors, latest issue signals.</span>
+          <strong data-i18n="signalsTitle">期刊信号</strong>
+          <span data-i18n="signalsCopy">JCR 指标、研究主题、编辑团队与最新卷期动态。</span>
         </div>
       </aside>
 
@@ -73,7 +73,7 @@
       <section class="dashboard-hero dashboard-hero-solo" aria-label="AIED Journal Radar overview">
         <article class="hero-panel">
           <div>
-            <p class="eyebrow" data-i18n="heroEyebrow">Research Workspace</p>
+            <p class="eyebrow" data-i18n="heroEyebrow">研究工作台</p>
             <h2 data-i18n="heroTitle">为你的下一篇论文找到匹配的期刊</h2>
             <p data-i18n="heroCopy">对比教育学 JCR 期刊的指标、发文量与审稿信号，并用有证据支撑的 AI 建议定位投稿目标。</p>
             <div class="hero-actions">
@@ -89,7 +89,7 @@
 
       <section class="radar-control-band" aria-label="Journal radar filters">
         <div>
-          <p class="eyebrow">Journal Intelligence</p>
+          <p class="eyebrow" data-i18n="controlEyebrow">期刊情报</p>
           <h2 data-i18n="controlTitle">从期刊指标到研究主题网络</h2>
         </div>
         <div class="radar-controls">
@@ -113,7 +113,7 @@
             <span data-i18n="speed">审稿速度</span>
             <select id="radarSpeedFilter">
               <option value="all" data-i18n="all">全部</option>
-              <option value="fast" data-i18n="fastDecision">First decision ≤ 14 天</option>
+              <option value="fast" data-i18n="fastDecision">一审 ≤ 14 天</option>
               <option value="known" data-i18n="knownSpeed">有审稿时间数据</option>
             </select>
           </label>
@@ -220,7 +220,7 @@
                 <th data-sort-key="jif"><button type="button" class="th-sort">JIF</button></th>
                 <th data-sort-key="jci"><button type="button" class="th-sort">JCI</button></th>
                 <th data-sort-key="volume"><button type="button" class="th-sort" data-i18n="colPublicationVolume">年发文量</button></th>
-                <th data-sort-key="decision"><button type="button" class="th-sort">First decision</button></th>
+                <th data-sort-key="decision"><button type="button" class="th-sort" data-i18n="colDecision">一审时长</button></th>
                 <th data-sort-key="publisher"><button type="button" class="th-sort" data-i18n="colPublisher">出版社</button></th>
                 <th data-i18n="colEvidence">官网证据</th>
               </tr>
@@ -253,6 +253,6 @@
 
     <button class="back-to-top" id="backToTop" type="button" hidden aria-label="Back to top">↑</button>
 
-    <script src="app.js?v=20260710-optimize"></script>
+    <script src="app.js?v=20260711-zh-ui"></script>
   </body>
 </html>
