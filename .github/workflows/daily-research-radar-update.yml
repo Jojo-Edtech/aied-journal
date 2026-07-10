@@ -98,5 +98,5 @@ jobs:
             git push origin main
           fi
 
-      # The data commit triggers deploy-pages.yml, which validates, builds and
-      # publishes the refreshed site once. Keeping one publisher avoids races.
+      # deploy-pages.yml listens for this workflow to complete successfully,
+      # then validates, builds and publishes the latest main branch once.
