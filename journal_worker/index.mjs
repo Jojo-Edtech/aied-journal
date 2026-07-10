@@ -3,7 +3,7 @@ const DEFAULT_BASE_URL = "https://api-inference.modelscope.cn/v1";
 const DEFAULT_DATA_BASE = "https://jojo-edtech.github.io/aied-journal/data/radar";
 const KEY_PREFIX = "ajr:";
 const DATA_TTL_MS = 10 * 60 * 1000;
-const MAX_CONTEXT_JOURNALS = 6;
+const MAX_CONTEXT_JOURNALS = 8;
 
 let dataCache = null;
 
@@ -40,6 +40,8 @@ async function health(request, env) {
   return json(request, env, {
     ok: data.journals.length > 0,
     documents: data.journals.length,
+    journal_count: data.journals.length,
+    retrieval_scope: "full_journal_database",
     network_nodes: 0,
     network_links: 0,
     llm_provider: "modelscope",
@@ -93,7 +95,8 @@ async function chat(request, env) {
   if (!usage.ok) return json(request, env, { error: "usage_limit_reached", detail: usage.message }, 429);
 
   const data = await loadRadarData(env);
-  const ranked = rankJournals(question, data).slice(0, MAX_CONTEXT_JOURNALS);
+  const allRanked = rankJournals(question, data);
+  const ranked = allRanked.slice(0, MAX_CONTEXT_JOURNALS);
   if (!ranked.length) {
     return json(request, env, {
       answer: "当前雷达资料不足。请补充研究主题、方法、学段、研究对象或目标期刊类型。",
@@ -104,10 +107,13 @@ async function chat(request, env) {
       remaining_user_hour_quota: usage.remainingUserHour,
       privacy_mode: "stateless_no_chat_history",
       stores_chat_history: false,
+      retrieval_scope: "full_journal_database",
+      searched_journal_count: data.journals.length,
+      matched_journal_count: 0,
     });
   }
 
-  const result = await callModelScope(env, question, ranked);
+  const result = await callModelScope(env, question, ranked, data.journals.length);
   if (!result.ok) {
     if (result.quotaStopped) await pauseProvider(env, result.message);
     return json(request, env, { error: result.error, detail: result.message }, result.status || 502);
@@ -123,12 +129,15 @@ async function chat(request, env) {
     remaining_user_hour_quota: after.remainingUserHour,
     provider: "modelscope",
     model: modelName(env),
+    retrieval_scope: "full_journal_database",
+    searched_journal_count: data.journals.length,
+    matched_journal_count: allRanked.length,
     privacy_mode: "stateless_no_chat_history",
     stores_chat_history: false,
   });
 }
 
-async function callModelScope(env, question, ranked) {
+async function callModelScope(env, question, ranked, searchedJournalCount) {
   const context = ranked
     .map(({ journal, sources }, index) => {
       const topicHints = [
@@ -141,13 +150,17 @@ async function callModelScope(env, question, ranked) {
         .filter(Boolean)
         .join("; ");
       const publications = journal.publications || {};
+      const publicationSeries = ["2022", "2023", "2024", "2025"]
+        .map((year) => `${year}: ${publications[year] ?? "unknown"}`)
+        .join("; ");
       const sourceLines = orderedSources(sources)
         .slice(0, 3)
         .map((source) => `${source.source_type || "source"}: ${source.source_url || source.url || ""}`)
         .join(" | ");
       return [
         `${index + 1}. ${journal.name} (${journal.abbreviation || "no abbreviation"})`,
-        `JCR: ${journal.quartile || "unknown"}; JIF: ${journal.jif_2025 ?? "unknown"}; JCI: ${journal.jci_2025 ?? "unknown"}; 2025 articles: ${publications["2025"] ?? "unknown"}`,
+        `JCR: ${journal.quartile || "unknown"}; JIF: ${journal.jif_2025 ?? "unknown"}; JCI: ${journal.jci_2025 ?? "unknown"}`,
+        `Annual publication volume from the radar workbook: ${publicationSeries}`,
         `Publisher: ${journal.publisher_family || journal.publisher || "unknown"}; first decision: ${journal.first_decision_days ?? "pending"} days; review time: ${journal.review_time_days ?? "pending"} days`,
         `Themes: ${topicHints || "pending"}`,
         `Submission clue: ${journal.word_limit || "pending official verification"}`,
@@ -157,9 +170,12 @@ async function callModelScope(env, question, ranked) {
     .join("\n\n");
 
   const system = `You are AIED Journal Radar, an evidence-backed education JCR journal-selection advisor.
-Use only the radar context provided below. Do not invent journal requirements. If evidence is insufficient, say 当前雷达资料不足.
-Answer in the user's language. Keep it concise: recommend 3-6 journals in a compact Markdown table, then add 2-3 short caveats.
-For each journal include fit, main risk, 2025 publication volume, review speed if available, and what needs official verification.
+The retrieval stage scanned the complete database of ${searchedJournalCount} journals. It did not use the frontend shortlist or current dashboard filters.
+Use only the retrieved radar context below. Do not invent journal requirements. If evidence is insufficient, say 当前雷达资料不足.
+Annual publication volumes labelled as coming from the radar workbook are recorded workbook values, not forecasts. Do not call them predicted values.
+Answer in the user's language. If the user asks a factual question about a named journal, answer that journal directly and do not force a recommendation table.
+For journal-selection questions, recommend 3-6 journals in a compact Markdown table, then add 2-3 short caveats.
+For each recommended journal include fit, main risk, annual publication volume, review speed if available, and what needs official verification.
 Avoid long introductions, star ratings, or generic praise.
 This is a stateless request. Do not refer to previous chat history.`;
 
@@ -203,39 +219,61 @@ This is a stateless request. Do not refer to previous chat history.`;
 function rankJournals(question, data) {
   const queryTerms = expandQueryTerms(question);
   const sourceMap = data.sourcesByJournal;
+  const normalizedQuestion = normalizeLookupText(question);
+  const latinQuestionTokens = new Set((question.toLowerCase().match(/[a-z0-9]+(?:[-.&+][a-z0-9]+)*/g) || []).map(normalizeLookupText));
   return data.journals
     .map((journal) => {
+      const articlePreferences = journal.article_preferences || {};
       const pieces = {
         name: [journal.name, journal.abbreviation].join(" "),
         tags: [journal.main_tag, journal.secondary_tag, journal.tag_path].join(" "),
-        topics: [Object.keys(journal.topic_hits || {}).join(" "), Object.keys(journal.method_hits || {}).join(" ")].join(" "),
+        topics: [
+          Object.keys(journal.topic_hits || {}).join(" "),
+          Object.keys(journal.method_hits || {}).join(" "),
+          Object.keys(articlePreferences.topic_counts || {}).join(" "),
+          Object.keys(articlePreferences.method_counts || {}).join(" "),
+        ].join(" "),
         publisher: [journal.publisher, journal.publisher_family, journal.submission_system].join(" "),
         requirements: String(journal.word_limit || ""),
+        identifiers: [journal.issn, journal.eissn].join(" "),
       };
       const lower = Object.fromEntries(Object.entries(pieces).map(([key, value]) => [key, String(value).toLowerCase()]));
-      let score = 0;
+      const directScore = directJournalMatchScore(journal, question, normalizedQuestion, latinQuestionTokens);
+      let relevanceScore = directScore;
       queryTerms.forEach((term) => {
-        if (lower.name.includes(term)) score += 8;
-        if (lower.tags.includes(term)) score += 7;
-        if (lower.topics.includes(term)) score += 9;
-        if (lower.requirements.includes(term)) score += 3;
-        if (lower.publisher.includes(term)) score += 2;
+        if (lower.name.includes(term)) relevanceScore += 10;
+        if (lower.tags.includes(term)) relevanceScore += 8;
+        if (lower.topics.includes(term)) relevanceScore += 9;
+        if (lower.requirements.includes(term)) relevanceScore += 3;
+        if (lower.publisher.includes(term)) relevanceScore += 2;
+        if (lower.identifiers.includes(term)) relevanceScore += 20;
       });
+      if (relevanceScore <= 0) return null;
+
+      let score = relevanceScore;
       if (/q1|一区|top|高影响/i.test(question) && journal.quartile === "Q1") score += 8;
+      if (/q2|二区/i.test(question) && journal.quartile === "Q2") score += 8;
       if (/稳妥|safer|保底|容易|快/i.test(question) && Number(journal.first_decision_days || 999) <= 30) score += 4;
       score += journal.quartile === "Q1" ? 2.5 : journal.quartile === "Q2" ? 1.4 : 0;
       score += Math.min(2.5, Number(journal.jci_2025 || 0));
       const sources = sourceMap.get(journal.id) || [];
       if (sources.length) score += 0.8;
-      return { journal, sources, score };
+      return { journal, sources, score, relevanceScore, directMatch: directScore > 0 };
     })
-    .filter((item) => item.score > 0)
-    .sort((a, b) => b.score - a.score);
+    .filter(Boolean)
+    .sort((a, b) => Number(b.directMatch) - Number(a.directMatch) || b.score - a.score);
 }
 
 function expandQueryTerms(question) {
   const lower = question.toLowerCase();
-  const terms = new Set((lower.match(/[\p{L}\p{N}]+/gu) || []).filter((term) => term.length >= 2));
+  const terms = new Set((lower.match(/[a-z0-9]+(?:[-.&+][a-z0-9]+)*/g) || []).filter((term) => term.length >= 2));
+  const chinesePhrases = [
+    "教师教育", "教师发展", "教育技术", "高等教育", "语言教育", "语言学习", "教育政策",
+    "学习分析", "生成式人工智能", "人工智能", "混合方法", "教育心理", "课程教学", "科学教育", "数学教育",
+  ];
+  chinesePhrases.forEach((phrase) => {
+    if (lower.includes(phrase)) terms.add(phrase);
+  });
   const synonyms = [
     [/教师|teacher/, ["teacher", "teacher education", "teacher development", "teacher feedback"]],
     [/反馈|feedback/, ["feedback", "teacher feedback", "formative feedback"]],
@@ -257,17 +295,44 @@ function expandQueryTerms(question) {
   return [...terms].map((term) => term.toLowerCase());
 }
 
+function normalizeLookupText(value) {
+  return String(value || "")
+    .normalize("NFKC")
+    .toLowerCase()
+    .replace(/[^\p{L}\p{N}]+/gu, "");
+}
+
+function directJournalMatchScore(journal, question, normalizedQuestion, latinQuestionTokens) {
+  const name = normalizeLookupText(journal.name);
+  const abbreviation = normalizeLookupText(journal.abbreviation);
+  const rawQuestion = String(question || "").toLowerCase();
+  let score = 0;
+  if (name.length >= 6 && normalizedQuestion.includes(name)) score += 120;
+  if (abbreviation.length >= 2 && latinQuestionTokens.has(abbreviation)) score += 100;
+  [journal.issn, journal.eissn].filter(Boolean).forEach((identifier) => {
+    if (rawQuestion.includes(String(identifier).toLowerCase())) score += 120;
+  });
+  return score;
+}
+
 function sourcePayload(item) {
+  const workbookSource = {
+    journal_name: item.journal.name,
+    source_url: "",
+    source_type: "jcr_workbook",
+    captured_at: "",
+    text_snippet: "JCR indicators and annual publication volume from the radar workbook",
+  };
   const base = item.sources.length
     ? orderedSources(item.sources).slice(0, 2)
     : [{ journal_name: item.journal.name, source_url: (item.journal.source_urls || [])[0] || "", source_type: "journal_homepage" }];
-  return base.map((source) => ({
+  return [workbookSource, ...base.map((source) => ({
     journal_name: item.journal.name,
     source_url: source.source_url || source.url || "",
     source_type: source.source_type || "source",
     captured_at: source.captured_at || "",
     text_snippet: source.text_snippet || source.status || "",
-  }));
+  }))];
 }
 
 function orderedSources(sources) {
@@ -463,3 +528,5 @@ function json(request, env, body, status = 200) {
     },
   });
 }
+
+export { expandQueryTerms, rankJournals };

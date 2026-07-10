@@ -188,7 +188,11 @@ def load_documents() -> RadarIndex:
                     continue
                 item = json.loads(line)
                 text = item.get("text_snippet", "")
-                tokens = tokenize(f"{item.get('journal_name', '')}\n{item.get('title', '')}\n{text}")
+                journal = journals.get(item.get("journal_id", ""), {})
+                tokens = tokenize(
+                    f"{item.get('journal_name', '')}\n{journal.get('abbreviation', '')}\n"
+                    f"{journal.get('issn', '')} {journal.get('eissn', '')}\n{item.get('title', '')}\n{text}"
+                )
                 docs.append(
                     Document(
                         doc_id=item.get("doc_id", ""),
@@ -436,7 +440,9 @@ def call_llm(question: str, results: list[tuple[Document, float]]) -> str:
         "你是 AIED Journal Radar 的选刊助手。你的边界是帮助用户理解教育学 JCR 期刊、"
         "研究主题网络、投稿匹配和风险，不代写论文。只能根据给定资料回答；"
         "资料不足时必须说“当前雷达资料不足”。每个推荐期刊都要给出引用编号。"
-        "回答要简洁、可操作，优先给 3-5 本最匹配期刊。"
+        "检索范围是全部期刊总库，不使用网页右侧候选清单或当前筛选。"
+        "若用户询问指定期刊的事实，直接回答该期刊；选刊问题才推荐 3-5 本。"
+        "回答要简洁、可操作。"
     )
     payload = {
         "model": settings["model"],
@@ -509,6 +515,8 @@ def health() -> dict[str, Any]:
     return {
         "ok": document_count > 0,
         "documents": document_count,
+        "journal_count": len(load_json(DATA_DIR / "journals.json", [])),
+        "retrieval_scope": "full_journal_database",
         "network_nodes": len(network.get("nodes", [])),
         "network_links": len(network.get("links", [])),
         "llm_provider": settings["provider"],
@@ -558,6 +566,8 @@ def chat(payload: ChatRequest, request: FastAPIRequest) -> dict[str, Any]:
             "remaining_total_quota": remaining_total_quota(),
             "privacy_mode": "stateless_no_chat_history",
             "stores_chat_history": False,
+            "retrieval_scope": "full_journal_database",
+            "searched_journal_count": len(index.journals),
         }
     if not llm_configured():
         raise HTTPException(status_code=503, detail=llm_missing_message())
@@ -573,6 +583,8 @@ def chat(payload: ChatRequest, request: FastAPIRequest) -> dict[str, Any]:
         "remaining_total_quota": remaining_total_quota(),
         "provider": settings["provider"],
         "model": settings["model"],
+        "retrieval_scope": "full_journal_database",
+        "searched_journal_count": len(index.journals),
         "privacy_mode": "stateless_no_chat_history",
         "stores_chat_history": False,
     }
