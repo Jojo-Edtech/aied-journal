@@ -1076,7 +1076,9 @@ h1 {
 }
 
 .journal-table-wrap {
-  overflow-x: auto;
+  overflow: auto;
+  max-height: 72vh;
+  border-radius: 12px;
 }
 
 .journal-table {
@@ -1098,6 +1100,84 @@ h1 {
   color: var(--muted);
   font-size: 0.78rem;
   font-weight: 800;
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  background: #fff;
+  box-shadow: 0 1px 0 #e6eae3;
+}
+
+.journal-table th .th-sort {
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+  text-align: left;
+}
+
+.journal-table th[data-sort-key] .th-sort::after {
+  content: "↕";
+  margin-left: 4px;
+  opacity: 0.35;
+  font-size: 0.72rem;
+}
+
+.journal-table th[data-sort-key].is-sorted .th-sort::after {
+  content: "↑";
+  opacity: 1;
+  color: var(--blue);
+}
+
+.journal-table th[data-sort-key].is-sorted.is-desc .th-sort::after {
+  content: "↓";
+}
+
+.table-actions {
+  display: flex;
+  justify-content: center;
+  padding-top: 12px;
+}
+
+.chat-retry {
+  margin-left: 6px;
+  padding: 2px 10px;
+  border: 1px solid var(--blue);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--blue);
+  font: inherit;
+  font-size: 0.8rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.chat-retry:hover {
+  background: var(--blue);
+  color: #fff;
+}
+
+.back-to-top {
+  position: fixed;
+  right: 22px;
+  bottom: 24px;
+  z-index: 40;
+  width: 44px;
+  height: 44px;
+  border: 0;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #7c5cff, #4f8df7);
+  color: #fff;
+  font-size: 1.2rem;
+  font-weight: 800;
+  cursor: pointer;
+  box-shadow: 0 10px 24px rgba(88, 80, 236, 0.35);
+  transition: transform 0.15s ease;
+}
+
+.back-to-top:hover {
+  transform: translateY(-3px);
 }
 
 .journal-table button {

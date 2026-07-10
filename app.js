@@ -25,7 +25,11 @@ const state = {
   accessRequired: false,
   ready: false,
   language: localStorage.getItem("ajr-language") || "zh",
+  tableSort: { key: "", dir: 1 },
+  tableExpanded: false,
 };
+
+const TABLE_ROW_LIMIT = 120;
 
 const els = {
   language: document.querySelector("#languageSelect"),
@@ -44,7 +48,10 @@ const els = {
   networkToggle: document.querySelector("#toggleNetwork"),
   recommendations: document.querySelector("#recommendationList"),
   tableMeta: document.querySelector("#tableMeta"),
+  tableHead: document.querySelector("#journalTable thead"),
   tableBody: document.querySelector("#journalTable tbody"),
+  toggleRows: document.querySelector("#toggleTableRows"),
+  backToTop: document.querySelector("#backToTop"),
   download: document.querySelector("#downloadVisible"),
   dashboard: document.querySelector("#radarDashboard"),
   detailPage: document.querySelector("#journalDetailPage"),
@@ -60,6 +67,19 @@ const els = {
 const I18N = {
   zh: {
     skip: "跳到选刊工作台",
+    navDashboard: "工作台",
+    navJournals: "期刊明细",
+    navAdvisor: "AI 助手",
+    navThemes: "主题热力",
+    heroEyebrow: "Research Workspace",
+    heroTitle: "为你的下一篇论文找到匹配的期刊",
+    heroCopy: "对比教育学 JCR 期刊的指标、发文量与审稿信号，并用有证据支撑的 AI 建议定位投稿目标。",
+    heroAsk: "问 AI 助手",
+    heroBrowse: "浏览期刊",
+    showAllRows: "显示全部 {total} 本",
+    showFewerRows: "收起，只看前 {limit} 本",
+    sortHint: "点击列标题可排序",
+    retry: "重试",
     subtitle: "AIED选刊：教育学 JCR 期刊研究与投稿定位工作台",
     language: "语言",
     downloadData: "期刊数据",
@@ -255,6 +275,19 @@ const I18N = {
   },
   en: {
     skip: "Skip to journal radar",
+    navDashboard: "Dashboard",
+    navJournals: "Journals",
+    navAdvisor: "AI Advisor",
+    navThemes: "Themes",
+    heroEyebrow: "Research Workspace",
+    heroTitle: "Find the right journal for your next paper",
+    heroCopy: "Compare metrics, publication volume, and review signals across education JCR journals, then position your submission with evidence-backed AI advice.",
+    heroAsk: "Ask AI",
+    heroBrowse: "Browse journals",
+    showAllRows: "Show all {total} journals",
+    showFewerRows: "Collapse to top {limit}",
+    sortHint: "Click a column header to sort",
+    retry: "Retry",
     subtitle: "A research-oriented journal selection workspace for education JCR journals",
     language: "Language",
     downloadData: "Journal data",
@@ -963,6 +996,15 @@ async function updateChatStatus() {
     }
   } catch (error) {
     els.chatStatus.textContent = t("chatHealthFailed");
+    const retry = document.createElement("button");
+    retry.type = "button";
+    retry.className = "chat-retry";
+    retry.textContent = t("retry");
+    retry.addEventListener("click", () => {
+      els.chatStatus.textContent = t("chatLoading");
+      updateChatStatus();
+    });
+    els.chatStatus.append(" ", retry);
   }
 }
 
@@ -1564,9 +1606,47 @@ function renderRecommendations(journals) {
   });
 }
 
+const TABLE_SORTERS = {
+  name: { value: (journal) => journal.name || "", numeric: false },
+  quartile: { value: (journal) => journal.quartile || "￿", numeric: false },
+  jif: { value: (journal) => number(journal.jif_2025), numeric: true },
+  jci: { value: (journal) => number(journal.jci_2025), numeric: true },
+  volume: { value: (journal) => publicationVolume(journal, "2025"), numeric: true },
+  decision: { value: (journal) => number(journal.first_decision_days), numeric: true },
+  publisher: { value: (journal) => journal.publisher_family || journal.publisher || "￿", numeric: false },
+};
+
+function sortedTableJournals(journals) {
+  const sorter = TABLE_SORTERS[state.tableSort.key];
+  if (!sorter) return journals;
+  const dir = state.tableSort.dir;
+  return [...journals].sort((a, b) => {
+    const va = sorter.value(a);
+    const vb = sorter.value(b);
+    if (sorter.numeric) {
+      if (va === null && vb === null) return 0;
+      if (va === null) return 1;
+      if (vb === null) return -1;
+      return (va - vb) * dir;
+    }
+    return String(va).localeCompare(String(vb), "en") * dir;
+  });
+}
+
+function updateSortIndicators() {
+  if (!els.tableHead) return;
+  els.tableHead.querySelectorAll("th[data-sort-key]").forEach((th) => {
+    const active = th.dataset.sortKey === state.tableSort.key;
+    th.setAttribute("aria-sort", active ? (state.tableSort.dir === 1 ? "ascending" : "descending") : "none");
+    th.classList.toggle("is-sorted", active);
+    th.classList.toggle("is-desc", active && state.tableSort.dir === -1);
+  });
+}
+
 function renderTable(journals) {
-  const rows = journals.slice(0, 120);
-  els.tableMeta.textContent = t("tableMeta", { shown: rows.length, filtered: journals.length, total: state.journals.length });
+  const ordered = sortedTableJournals(journals);
+  const rows = state.tableExpanded ? ordered : ordered.slice(0, TABLE_ROW_LIMIT);
+  els.tableMeta.textContent = `${t("tableMeta", { shown: rows.length, filtered: journals.length, total: state.journals.length })} ${t("sortHint")}`;
   els.tableBody.innerHTML = rows
     .map(
       (journal) => `
@@ -1583,9 +1663,17 @@ function renderTable(journals) {
       `
     )
     .join("");
-  els.tableBody.querySelectorAll("[data-open-journal]").forEach((button) => {
-    button.addEventListener("click", () => navigateToJournal(button.dataset.openJournal));
-  });
+  updateSortIndicators();
+  if (els.toggleRows) {
+    if (journals.length > TABLE_ROW_LIMIT) {
+      els.toggleRows.hidden = false;
+      els.toggleRows.textContent = state.tableExpanded
+        ? t("showFewerRows", { limit: TABLE_ROW_LIMIT })
+        : t("showAllRows", { total: journals.length });
+    } else {
+      els.toggleRows.hidden = true;
+    }
+  }
 }
 
 function objectEntries(object = {}) {
@@ -2430,6 +2518,39 @@ document.querySelectorAll("[data-example-zh]").forEach((button) => {
     els.chatQuestion.focus();
   });
 });
+els.tableBody?.addEventListener("click", (event) => {
+  const button = event.target.closest("[data-open-journal]");
+  if (button) navigateToJournal(button.dataset.openJournal);
+});
+els.tableHead?.addEventListener("click", (event) => {
+  const th = event.target.closest("th[data-sort-key]");
+  if (!th) return;
+  const key = th.dataset.sortKey;
+  if (state.tableSort.key === key) {
+    state.tableSort.dir *= -1;
+  } else {
+    const numeric = TABLE_SORTERS[key]?.numeric;
+    state.tableSort = { key, dir: numeric ? -1 : 1 };
+  }
+  renderTable(filteredJournals());
+});
+els.toggleRows?.addEventListener("click", () => {
+  state.tableExpanded = !state.tableExpanded;
+  renderTable(filteredJournals());
+  if (!state.tableExpanded) {
+    document.querySelector("#journalTable")?.scrollIntoView({ behavior: "smooth", block: "start" });
+  }
+});
+if (els.backToTop) {
+  window.addEventListener(
+    "scroll",
+    () => {
+      els.backToTop.hidden = window.scrollY < 600;
+    },
+    { passive: true }
+  );
+  els.backToTop.addEventListener("click", () => window.scrollTo({ top: 0, behavior: "smooth" }));
+}
 window.addEventListener("resize", () => {
   if (state.ready) renderNetwork(filteredJournals());
 });
