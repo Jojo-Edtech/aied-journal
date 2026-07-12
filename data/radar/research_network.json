@@ -8994,7 +8994,7 @@
     {
       "source": "journal-085-international-journal-of-educational-research",
       "target": "topic-language-learning",
-      "weight": 4.0,
+      "weight": 3.0,
       "relation": "text_topic"
     },
     {
@@ -10181,13 +10181,13 @@
     },
     {
       "source": "journal-102-international-journal-of-technology-and-design-e",
-      "target": "topic-equity-and-policy",
+      "target": "topic-assessment",
       "weight": 6.0,
       "relation": "text_topic"
     },
     {
       "source": "journal-102-international-journal-of-technology-and-design-e",
-      "target": "topic-assessment",
+      "target": "topic-equity-and-policy",
       "weight": 6.0,
       "relation": "text_topic"
     },
@@ -10649,13 +10649,13 @@
     },
     {
       "source": "journal-109-language-culture-and-curriculum",
-      "target": "topic-curriculum-and-pedagogy",
+      "target": "topic-language-learning",
       "weight": 6.0,
       "relation": "text_topic"
     },
     {
       "source": "journal-109-language-culture-and-curriculum",
-      "target": "topic-language-learning",
+      "target": "topic-curriculum-and-pedagogy",
       "weight": 6.0,
       "relation": "text_topic"
     },
@@ -14093,13 +14093,13 @@
     },
     {
       "source": "journal-158-research-papers-in-education",
-      "target": "topic-equity-and-policy",
+      "target": "topic-higher-education",
       "weight": 6.0,
       "relation": "text_topic"
     },
     {
       "source": "journal-158-research-papers-in-education",
-      "target": "topic-higher-education",
+      "target": "topic-equity-and-policy",
       "weight": 6.0,
       "relation": "text_topic"
     },
@@ -15551,13 +15551,13 @@
     },
     {
       "source": "journal-179-early-childhood-education-journal",
-      "target": "topic-motivation-and-wellbeing",
+      "target": "topic-curriculum-and-pedagogy",
       "weight": 6.0,
       "relation": "text_topic"
     },
     {
       "source": "journal-179-early-childhood-education-journal",
-      "target": "topic-curriculum-and-pedagogy",
+      "target": "topic-motivation-and-wellbeing",
       "weight": 6.0,
       "relation": "text_topic"
     },
@@ -16932,7 +16932,7 @@
     {
       "source": "journal-198-international-journal-for-educational-and-vocati",
       "target": "topic-curriculum-and-pedagogy",
-      "weight": 3.0,
+      "weight": 4.0,
       "relation": "text_topic"
     },
     {
@@ -17524,6 +17524,54 @@
       "relation": "jcr_tag"
     },
     {
+      "source": "journal-207-revista-de-educacion",
+      "target": "topic-stem-education",
+      "weight": 6.0,
+      "relation": "text_topic"
+    },
+    {
+      "source": "journal-207-revista-de-educacion",
+      "target": "topic-motivation-and-wellbeing",
+      "weight": 6.0,
+      "relation": "text_topic"
+    },
+    {
+      "source": "journal-207-revista-de-educacion",
+      "target": "topic-higher-education",
+      "weight": 3.0,
+      "relation": "text_topic"
+    },
+    {
+      "source": "journal-207-revista-de-educacion",
+      "target": "topic-language-learning",
+      "weight": 3.0,
+      "relation": "text_topic"
+    },
+    {
+      "source": "journal-207-revista-de-educacion",
+      "target": "method-mixed-methods",
+      "weight": 5.0,
+      "relation": "method_or_theme"
+    },
+    {
+      "source": "journal-207-revista-de-educacion",
+      "target": "method-rag",
+      "weight": 3.0,
+      "relation": "method_or_theme"
+    },
+    {
+      "source": "journal-207-revista-de-educacion",
+      "target": "method-review",
+      "weight": 2.0,
+      "relation": "method_or_theme"
+    },
+    {
+      "source": "journal-207-revista-de-educacion",
+      "target": "method-experiment",
+      "weight": 2.0,
+      "relation": "method_or_theme"
+    },
+    {
       "source": "journal-208-research-in-the-teaching-of-english",
       "target": "publisher-sage",
       "weight": 1.0,
@@ -17567,7 +17615,7 @@
     },
     {
       "source": "journal-208-research-in-the-teaching-of-english",
-      "target": "topic-motivation-and-wellbeing",
+      "target": "topic-assessment",
       "weight": 6.0,
       "relation": "text_topic"
     },
@@ -18401,14 +18449,14 @@
     },
     {
       "source": "journal-220-reading-writing-quarterly",
-      "target": "topic-stem-education",
+      "target": "topic-equity-and-policy",
       "weight": 3.0,
       "relation": "text_topic"
     },
     {
       "source": "journal-220-reading-writing-quarterly",
-      "target": "topic-equity-and-policy",
-      "weight": 2.0,
+      "target": "topic-stem-education",
+      "weight": 3.0,
       "relation": "text_topic"
     },
     {
@@ -18563,14 +18611,14 @@
     },
     {
       "source": "journal-222-journal-of-adolescent-adult-literacy",
-      "target": "method-experiment",
+      "target": "method-review",
       "weight": 3.0,
       "relation": "method_or_theme"
     },
     {
       "source": "journal-222-journal-of-adolescent-adult-literacy",
-      "target": "method-review",
-      "weight": 2.0,
+      "target": "method-experiment",
+      "weight": 3.0,
       "relation": "method_or_theme"
     },
     {
