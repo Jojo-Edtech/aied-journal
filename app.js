@@ -24,7 +24,7 @@ const state = {
   themeRenderTimer: 0,
   accessRequired: false,
   ready: false,
-  language: localStorage.getItem("ajr-language") || "zh",
+  language: localStorage.getItem("ajr-language") || "en",
   tableSort: { key: "", dir: 1 },
   tableExpanded: false,
 };
@@ -516,6 +516,113 @@ function t(key, vars = {}) {
   return Object.entries(vars).reduce((text, [name, value]) => text.replaceAll(`{${name}}`, value), template);
 }
 
+// English display names for the Chinese workbook tags, so the English UI is fully English.
+const TAG_EN = {
+  "儿童与早期教育": "Early Childhood Education",
+  "医学教育": "Medical Education",
+  "学科教育": "Subject Education",
+  "教师教育与教师发展": "Teacher Education & Development",
+  "教育心理": "Educational Psychology",
+  "教育技术": "Educational Technology",
+  "教育政策与社会问题": "Education Policy & Society",
+  "教育管理与领导力": "Educational Management & Leadership",
+  "特殊教育": "Special Education",
+  "综合教育期刊": "General Education",
+  "综述期刊": "Review Journals",
+  "职业与继续教育": "Vocational & Continuing Education",
+  "语言教育与语言习得": "Language Education & Acquisition",
+  "高等教育": "Higher Education",
+  "人类学教育": "Anthropology of Education",
+  "体育教育": "Physical Education",
+  "健康/性教育": "Health / Sex Education",
+  "健康教育": "Health Education",
+  "农业教育": "Agricultural Education",
+  "化学教育": "Chemistry Education",
+  "品格教育": "Character Education",
+  "国际/比较教育": "International / Comparative Education",
+  "国际教育": "International Education",
+  "城市教育": "Urban Education",
+  "学校安全": "School Safety",
+  "学生发展": "Student Development",
+  "工程/设计教育": "Engineering / Design Education",
+  "工程教育": "Engineering Education",
+  "性别教育": "Gender & Education",
+  "教育公平": "Educational Equity",
+  "教育哲学": "Philosophy of Education",
+  "教育社会学": "Sociology of Education",
+  "教育经济学": "Economics of Education",
+  "教育评估": "Educational Assessment",
+  "数学教育": "Mathematics Education",
+  "比较教育": "Comparative Education",
+  "法律教育（子类）": "Legal Education",
+  "物理教育": "Physics Education",
+  "环境教育": "Environmental Education",
+  "生物教育": "Biology Education",
+  "社会学教育": "Sociology Education",
+  "社会学科教育": "Social Studies Education",
+  "社会工作教育": "Social Work Education",
+  "科学教育": "Science Education",
+  "经济教育": "Economics Education",
+  "老年教育": "Elder Education",
+  "艺术教育": "Arts Education",
+  "课程研究": "Curriculum Studies",
+  "音乐教育": "Music Education",
+};
+
+// English display text for the handful of Chinese free-text notes in the workbook data.
+const FIELD_TEXT_EN = {
+  "SN系统": "Springer Nature system",
+  "14 Pages, double volume (超页付费)": "14 pages, double volume (extra-page fees apply)",
+  "50,000 个字符（包括空格）": "50,000 characters (including spaces)",
+  "8,500 words, 官网明确不收单纯问卷类, 开源不收费": "8,500 words; survey-only studies not accepted; open access with no fee",
+  "less than 8,000 words (不含reference)": "Less than 8,000 words (excluding references)",
+  "不得超过 30页": "No more than 30 pages",
+  "不得超过 8,000 字，": "No more than 8,000 words",
+  "介于 25-35 页双倍行距之间": "25–35 double-spaced pages",
+  "在 5000 至 8000 字之间": "5,000–8,000 words",
+  "基于实证研究的长篇文章（最多 20-35 页双倍行距，包括表格、图表和参考文献），做出重大理论贡献并具有实际意义":
+    "Full-length empirical articles (up to 20–35 double-spaced pages including tables, figures, and references) with a major theoretical and practical contribution",
+  "应为 25 至 40 页": "25–40 pages",
+  "应在 6000 到 8000 字之间。这包括所有文本，例如结构化摘要、参考文献、表格中的所有文本以及图表和附录。":
+    "6,000–8,000 words, including all text such as the structured abstract, references, tables, figures, and appendices",
+  "应在 7000-9000 字之间": "7,000–9,000 words",
+  "摘要不超过150词，稿件不超45页(有提供模板)": "Abstract up to 150 words; manuscript up to 45 pages (template provided)",
+  "文章长度应在 4000 到 8000 字之间。这包括所有文本，例如结构化摘要、参考文献、表格中的所有文本以及图表和附录。":
+    "4,000–8,000 words, including all text such as the structured abstract, references, tables, figures, and appendices",
+  "文章长度应在 5000 到 7000 字之间。这包括所有文本，例如结构化摘要、参考文献、表格中的所有文本以及图表和附录。":
+    "5,000–7,000 words, including all text such as the structured abstract, references, tables, figures, and appendices",
+  "无限制": "No limit",
+  "无限制，但是仅可投专刊": "No limit, but special issues only",
+  "未标注": "Not specified",
+  "未标注，但有字数多被退回要求删减的经历": "Not specified, but long manuscripts have been returned for shortening",
+  "未说明": "Not specified",
+  "每年固定时间收稿 有模板 官网：https://revistas.uned.es/index.php/educacionXX1/index":
+    "Submissions accepted at fixed times each year; template provided; see https://revistas.uned.es/index.php/educacionXX1/index",
+  "没有明确说明": "Not clearly specified",
+  "没有明确说明，开源，且须支付版面费": "Not clearly specified; open access with an article processing charge",
+  "没有明确说明，必须开源，且必须支付版面费": "Not clearly specified; open access required, with an article processing charge",
+  "研究文章（最多 4,000 字*）": "Research articles (up to 4,000 words*)",
+  "论文的最大长度（包括参考文献）不应超过 10.000 字。": "Maximum length, including references, should not exceed 10,000 words",
+  "长度应在5000到9000字，包括所有": "5,000–9,000 words, including everything",
+  "3%-5%(根据稿件估计)": "3%–5% (estimated)",
+};
+
+function displayFieldText(value) {
+  const text = String(value || "").trim();
+  if (!text || state.language !== "en") return value;
+  return FIELD_TEXT_EN[text] || value;
+}
+
+function displayTag(value) {
+  const text = String(value || "").trim();
+  if (!text || state.language !== "en") return text;
+  if (TAG_EN[text]) return TAG_EN[text];
+  return text
+    .split(" / ")
+    .map((part) => TAG_EN[part.trim()] || part.trim())
+    .join(" / ");
+}
+
 const COLORS = {
   journal: "#2563a8",
   topic: "#9a6b18",
@@ -989,12 +1096,12 @@ async function fetchJson(url) {
   return response.json();
 }
 
-function fillFilter(select, values, allLabel = t("all")) {
+function fillFilter(select, values, allLabel = t("all"), labelFn = null) {
   select.innerHTML = "";
   [allLabel, ...values].forEach((value) => {
     const option = document.createElement("option");
     option.value = value === allLabel ? "all" : value;
-    option.textContent = value;
+    option.textContent = value === allLabel || !labelFn ? value : labelFn(value);
     select.append(option);
   });
 }
@@ -1005,7 +1112,7 @@ function refreshFilters() {
     quartile: els.quartile.value,
     publisher: els.publisher.value,
   };
-  fillFilter(els.tag, unique(state.journals.map((journal) => journal.main_tag)), t("all"));
+  fillFilter(els.tag, unique(state.journals.map((journal) => journal.main_tag)), t("all"), displayTag);
   fillFilter(els.quartile, unique(state.journals.map((journal) => journal.quartile)), t("allQuartiles"));
   fillFilter(els.publisher, unique(state.journals.map((journal) => journal.publisher_family)), t("all"));
   Object.entries(previous).forEach(([key, value]) => {
@@ -1018,6 +1125,7 @@ function refreshFilters() {
 
 function applyTranslations() {
   document.documentElement.lang = state.language === "zh" ? "zh-CN" : "en";
+  document.title = state.language === "zh" ? "AIED Journal Radar | AIED选刊" : "AIED Journal Radar";
   if (els.language) els.language.value = state.language;
   document.querySelectorAll("[data-i18n]").forEach((node) => {
     node.textContent = t(node.dataset.i18n);
@@ -1242,7 +1350,7 @@ function renderScatter(journals) {
       tabindex: "0",
     });
     circle.append(svgNode("title"));
-    circle.querySelector("title").textContent = `${journal.name}\n${journal.quartile} · JIF ${fmt(journal.jif_2025)} · JCI ${fmt(journal.jci_2025)} · ${t("publicationVolume2025")} ${publicationLabel(journal, "2025")}\n${journal.main_tag}`;
+    circle.querySelector("title").textContent = `${journal.name}\n${journal.quartile} · JIF ${fmt(journal.jif_2025)} · JCI ${fmt(journal.jci_2025)} · ${t("publicationVolume2025")} ${publicationLabel(journal, "2025")}\n${displayTag(journal.main_tag)}`;
     circle.addEventListener("click", () => navigateToJournal(journal.id));
     chart.append(circle);
     if (labelIds.has(journal.id)) {
@@ -1377,6 +1485,7 @@ function renderHeatmap(journals) {
   )
     .slice(0, 9)
     .map(([label]) => label);
+  const tagLabel = (value) => displayTag(value) || value;
   const counts = new Map();
   journals.forEach((journal) => {
     const row = journal.main_tag || t("missing");
@@ -1389,9 +1498,9 @@ function renderHeatmap(journals) {
   grid.className = "heatmap-grid";
   grid.style.gridTemplateColumns = `150px repeat(${secondaryTags.length}, minmax(82px, 1fr))`;
   grid.append(cell("heatmap-label", ""));
-  secondaryTags.forEach((tag) => grid.append(cell("heatmap-label", tag)));
+  secondaryTags.forEach((tag) => grid.append(cell("heatmap-label", tagLabel(tag))));
   mainTags.forEach((mainTag) => {
-    grid.append(cell("heatmap-label", mainTag));
+    grid.append(cell("heatmap-label", tagLabel(mainTag)));
     secondaryTags.forEach((secondaryTag) => {
       const value = counts.get(`${mainTag}|${secondaryTag}`) || 0;
       const intensity = value / maxValue;
@@ -1399,7 +1508,7 @@ function renderHeatmap(journals) {
       node.style.background = value
         ? `rgba(37, 99, 168, ${0.16 + intensity * 0.62})`
         : "#f6f8f5";
-      node.title = `${mainTag} / ${secondaryTag}: ${value}`;
+      node.title = `${tagLabel(mainTag)} / ${tagLabel(secondaryTag)}: ${value}`;
       grid.append(node);
     });
   });
@@ -1657,7 +1766,7 @@ function renderRecommendations(journals) {
       const topics =
         termJoin(Object.keys(journal.article_preferences?.topic_counts || {}).slice(0, 3)) ||
         termJoin(Object.keys(journal.topic_hits || {}).slice(0, 3)) ||
-        journal.tag_path;
+        displayTag(journal.tag_path);
       return `
         <article class="recommendation-item">
           <h4>${index + 1}. <button type="button" data-open-journal="${journal.id}">${escapeHtml(journal.name)}</button></h4>
@@ -1725,7 +1834,7 @@ function renderTable(journals) {
       (journal) => `
         <tr>
           <td><button type="button" data-open-journal="${journal.id}">${escapeHtml(journal.name)}</button></td>
-          <td>${escapeHtml(journal.quartile || t("missing"))} · ${escapeHtml(journal.tag_path || journal.main_tag || t("missing"))}</td>
+          <td>${escapeHtml(journal.quartile || t("missing"))} · ${escapeHtml(displayTag(journal.tag_path || journal.main_tag) || t("missing"))}</td>
           <td>${fmt(journal.jif_2025)}</td>
           <td>${fmt(journal.jci_2025)}</td>
           <td>${escapeHtml(publicationLabel(journal, "2025"))}</td>
@@ -2239,7 +2348,7 @@ function submissionRequirementsHtml(journal, dayValue) {
           ${requirementItemHtml(t("firstDecision"), dayValue(journal.first_decision_days), { compact: true })}
           ${requirementItemHtml(t("reviewTime"), dayValue(journal.review_time_days), { compact: true })}
           ${requirementItemHtml(t("acceptanceTime"), dayValue(journal.submission_to_accept_days), { compact: true })}
-          ${requirementItemHtml(t("submissionSystem"), journal.submission_system || "", { compact: true })}
+          ${requirementItemHtml(t("submissionSystem"), displayFieldText(journal.submission_system) || "", { compact: true })}
         </div>
       </div>
       <div class="requirement-block">
@@ -2247,7 +2356,7 @@ function submissionRequirementsHtml(journal, dayValue) {
           <span>${t("manuscriptRequirements")}</span>
         </div>
         <div class="requirement-grid">
-          ${requirementItemHtml(t("manuscriptLength"), journal.word_limit || "", { wide: true })}
+          ${requirementItemHtml(t("manuscriptLength"), displayFieldText(journal.word_limit) || "", { wide: true })}
         </div>
       </div>
       <div class="requirement-block">
@@ -2349,7 +2458,7 @@ function renderJournalDetail(journalId) {
   const dayValue = (value) => (number(value) === null ? t("pendingVerification") : t("days", { value }));
   const topicClues =
     termJoin(Object.keys(journal.topic_hits || {}).slice(0, 8)) ||
-    journal.tag_path ||
+    displayTag(journal.tag_path) ||
     t("noExtraTopic");
   els.detailContent.innerHTML = `
     <section class="detail-hero">
@@ -2361,7 +2470,7 @@ function renderJournalDetail(journalId) {
         <span>JIF ${fmt(journal.jif_2025)}</span>
         <span>JCI ${fmt(journal.jci_2025)}</span>
         <span>${escapeHtml(t("publicationVolume2025"))} ${escapeHtml(publicationLabel(journal, "2025"))}</span>
-        <span>${escapeHtml(journal.main_tag || t("missing"))}</span>
+        <span>${escapeHtml(displayTag(journal.main_tag) || t("missing"))}</span>
         <span>${escapeHtml(journal.publisher_family || t("missing"))}</span>
       </div>
     </section>
