@@ -729,7 +729,7 @@
         "Motivation and wellbeing": 13,
         "STEM education": 9,
         "Curriculum and pedagogy": 9,
-        "Educational technology": 7,
+        "Educational technology": 6,
         "Assessment": 6,
         "Learning analytics": 5,
         "Language learning": 4,
@@ -739,8 +739,8 @@
       "method_counts": {
         "Experiment": 8,
         "Review": 4,
+        "Computer-supported collaboration": 3,
         "Learning analytics": 3,
-        "Computer-supported collaboration": 2,
         "RAG": 1,
         "Chatbot": 1
       },
@@ -748,9 +748,9 @@
         {
           "year": "2026",
           "topics": {
-            "Higher education": 8,
+            "Higher education": 9,
+            "Motivation and wellbeing": 5,
             "Learning analytics": 5,
-            "Motivation and wellbeing": 4,
             "STEM education": 4,
             "Generative AI": 3
           }
@@ -758,9 +758,9 @@
         {
           "year": "2025",
           "topics": {
-            "Higher education": 19,
+            "Higher education": 18,
             "Generative AI": 13,
-            "Motivation and wellbeing": 9,
+            "Motivation and wellbeing": 8,
             "Curriculum and pedagogy": 7,
             "STEM education": 5
           }
@@ -791,7 +791,7 @@
       "STEM education": 10,
       "Generative AI": 16,
       "Higher education": 27,
-      "Educational technology": 7,
+      "Educational technology": 6,
       "Motivation and wellbeing": 13,
       "Assessment": 6,
       "Learning analytics": 5,
@@ -803,8 +803,8 @@
     "method_hits": {
       "Experiment": 8,
       "Review": 4,
+      "Computer-supported collaboration": 3,
       "Learning analytics": 3,
-      "Computer-supported collaboration": 2,
       "RAG": 1,
       "Chatbot": 1
     },
@@ -1530,12 +1530,12 @@
     "article_preferences": {
       "article_sample_count": 80,
       "topic_counts": {
-        "Generative AI": 37,
+        "Generative AI": 38,
         "STEM education": 36,
         "Assessment": 34,
-        "Curriculum and pedagogy": 31,
-        "Higher education": 29,
-        "Motivation and wellbeing": 29,
+        "Higher education": 32,
+        "Motivation and wellbeing": 31,
+        "Curriculum and pedagogy": 30,
         "Language learning": 18,
         "Educational technology": 8,
         "Learning analytics": 6,
@@ -1544,7 +1544,7 @@
         "Teacher education": 2
       },
       "method_counts": {
-        "Experiment": 78,
+        "Experiment": 77,
         "Mixed methods": 23,
         "Review": 17,
         "Chatbot": 6,
@@ -1556,21 +1556,21 @@
         {
           "year": "2026",
           "topics": {
+            "Higher education": 27,
+            "Generative AI": 24,
+            "STEM education": 24,
             "Curriculum and pedagogy": 24,
-            "Higher education": 23,
-            "STEM education": 23,
-            "Generative AI": 21,
-            "Motivation and wellbeing": 18
+            "Motivation and wellbeing": 22
           }
         },
         {
           "year": "2025",
           "topics": {
-            "Assessment": 17,
-            "Generative AI": 16,
-            "STEM education": 13,
-            "Motivation and wellbeing": 11,
-            "Language learning": 9
+            "Assessment": 16,
+            "Generative AI": 14,
+            "STEM education": 12,
+            "Motivation and wellbeing": 9,
+            "Language learning": 8
           }
         }
       ],
@@ -1578,46 +1578,46 @@
         "year": "2026",
         "volume": "",
         "issue": "",
-        "article_count": 29,
+        "article_count": 32,
         "top_topics": {
-          "STEM education": 16,
+          "Higher education": 17,
+          "STEM education": 17,
+          "Generative AI": 16,
           "Curriculum and pedagogy": 15,
-          "Higher education": 13,
-          "Generative AI": 13,
-          "Assessment": 10,
-          "Motivation and wellbeing": 9
+          "Motivation and wellbeing": 13,
+          "Assessment": 11
         },
         "sample_titles": [
+          "Complementary Tools or Competitors? ChatGPT-Generated and Peer-Delivered Formative Feedback in EFL Writing Classes: Effectiveness, Perceptions, and Recommendations",
+          "How Undergraduate and Graduate Students Self-Regulate GenAI Use in Project-Based Learning: Choosing, Creating, Filtering, and Stopping Strategies",
+          "What Drives Learners to Keep Using Chatbots? An Extended TCT Modeling in Higher Education",
           "AI-Assisted Analysis of PowerPoint Slides: A Methodological Approach to Decolonising Business Education",
           "GenAI Integration and EFL Academic Writing: A Quasi-Experimental Study of Performance Gains and Developmental Error Patterns in Chinese Higher Education",
-          "Trust, Privacy, and Context Dependence of Large Language Models in Educational Contexts: Technical Challenges and Opportunities",
-          "Role of Ethical Principles and AI Characteristics in Shaping Generative AI Use in Higher Education and Its Impact on Academic Performance",
-          "Extending the Technology Acceptance Model for Mathematics Education: AI Literacy, AI-TPACK, and Self-Efficacy Among Pre-Service Teachers",
-          "Need-Supportive Immersive Learning Design Based on Self-Determination Theory: Effects on Learning Outcomes in a High-Stress Learning Context"
+          "Trust, Privacy, and Context Dependence of Large Language Models in Educational Contexts: Technical Challenges and Opportunities"
         ]
       }
     },
     "topic_hits": {
-      "Higher education": 30,
-      "STEM education": 39,
-      "Assessment": 39,
-      "Equity and policy": 6,
-      "Curriculum and pedagogy": 40,
-      "Generative AI": 38,
+      "AI literacy": 5,
+      "Generative AI": 39,
+      "Higher education": 33,
       "Language learning": 18,
+      "Assessment": 39,
+      "Motivation and wellbeing": 35,
+      "STEM education": 40,
+      "Equity and policy": 6,
+      "Curriculum and pedagogy": 39,
       "Educational technology": 9,
-      "AI literacy": 4,
       "Teacher education": 3,
-      "Motivation and wellbeing": 33,
       "Learning analytics": 6
     },
     "method_hits": {
       "Mixed methods": 24,
       "Experiment": 79,
+      "Chatbot": 6,
       "RAG": 3,
       "Review": 17,
       "Learning analytics": 1,
-      "Chatbot": 6,
       "Computer-supported collaboration": 2
     },
     "article_count_crawled": 80,
@@ -1966,9 +1966,9 @@
         "sample_titles": [
           "Accounting graduates’ work readiness in the digital era: A dual-perspective analysis of technical, information technology, and soft skill competencies",
           "Value co-creation in AI-influenced management education: Gamification as a relational mechanism",
-          "Integrating product design and project management in entrepreneurship education: Evidence from a U.S. incubator workshop",
           "Serial mediation of perceived desirability and feasibility: How entrepreneurship curriculum shapes college students’ entrepreneurial intentions",
           "Agile Essence Improvement Model for assessing business education and enhancing employability",
+          "Turning prompts into ventures: Exploring the role of generative artificial intelligence (ChatGPT) adoption in developing students digital entrepreneurial intention",
           "Assessing competencies in undergraduate microeconomics: A psychometric approach to test validation"
         ]
       }
@@ -1981,8 +1981,8 @@
       "AI literacy": 1,
       "Motivation and wellbeing": 3,
       "Assessment": 6,
-      "Educational technology": 1,
-      "Learning analytics": 2
+      "Learning analytics": 2,
+      "Educational technology": 1
     },
     "method_hits": {
       "Mixed methods": 1,
@@ -2445,8 +2445,8 @@
         "STEM education": 4,
         "Equity and policy": 3,
         "Curriculum and pedagogy": 2,
-        "Motivation and wellbeing": 2,
-        "Generative AI": 2
+        "Generative AI": 2,
+        "Motivation and wellbeing": 2
       },
       "method_counts": {
         "RAG": 2,
@@ -2498,8 +2498,8 @@
     "topic_hits": {
       "Curriculum and pedagogy": 2,
       "Assessment": 4,
-      "Motivation and wellbeing": 2,
       "Generative AI": 2,
+      "Motivation and wellbeing": 2,
       "Equity and policy": 3,
       "STEM education": 4
     },
@@ -2561,13 +2561,13 @@
     "article_preferences": {
       "article_sample_count": 80,
       "topic_counts": {
-        "Generative AI": 26,
+        "Generative AI": 24,
         "STEM education": 22,
         "Curriculum and pedagogy": 21,
         "Motivation and wellbeing": 19,
-        "Higher education": 15,
-        "Assessment": 13,
-        "AI literacy": 10,
+        "Higher education": 14,
+        "Assessment": 11,
+        "AI literacy": 8,
         "Learning analytics": 5,
         "Equity and policy": 5,
         "Teacher education": 2,
@@ -2584,11 +2584,11 @@
         {
           "year": "2026",
           "topics": {
-            "Generative AI": 26,
+            "Generative AI": 24,
             "STEM education": 22,
             "Curriculum and pedagogy": 21,
             "Motivation and wellbeing": 19,
-            "Higher education": 15
+            "Higher education": 14
           }
         }
       ],
@@ -2598,32 +2598,32 @@
         "issue": "",
         "article_count": 80,
         "top_topics": {
-          "Generative AI": 26,
+          "Generative AI": 24,
           "STEM education": 22,
           "Curriculum and pedagogy": 21,
           "Motivation and wellbeing": 19,
-          "Higher education": 15,
-          "Assessment": 13
+          "Higher education": 14,
+          "Assessment": 11
         },
         "sample_titles": [
+          "Interactive gamification in K–12 classrooms: an SDT×TAM mechanism of perceived learning effectiveness in mainland China",
           "Unveiling the veil: Understanding digital distraction in gamified learning environments among EFL learners",
           "Integrating metaverse technologies in medical education: examining acceptance factors among current and future healthcare providers",
           "Operational and cultural digital literacy in early childhood: Distinct roles of home digital resources, digital co-use, and maternal verbal interaction",
           "The 3D4E strategic approach: Can GAI improve visual thinking skills in STEM high schools?",
-          "Storytelling and educational robotics in literature education: a quasi-experimental study",
-          "Predicting user satisfaction and performance impact of AI-generated visuals in instruction with a hybrid SEM-ANN approach"
+          "Storytelling and educational robotics in literature education: a quasi-experimental study"
         ]
       }
     },
     "topic_hits": {
-      "STEM education": 24,
-      "Assessment": 17,
-      "Curriculum and pedagogy": 24,
-      "Higher education": 17,
-      "Generative AI": 26,
+      "STEM education": 23,
+      "Assessment": 15,
+      "Curriculum and pedagogy": 23,
+      "Higher education": 15,
+      "Generative AI": 24,
       "Learning analytics": 8,
       "Motivation and wellbeing": 21,
-      "AI literacy": 11,
+      "AI literacy": 8,
       "Teacher education": 3,
       "Equity and policy": 9,
       "Educational technology": 3,
@@ -3015,12 +3015,12 @@
     "article_preferences": {
       "article_sample_count": 80,
       "topic_counts": {
-        "Generative AI": 20,
-        "STEM education": 17,
+        "Generative AI": 21,
+        "STEM education": 16,
         "Higher education": 15,
         "Motivation and wellbeing": 14,
         "Assessment": 11,
-        "AI literacy": 8,
+        "AI literacy": 9,
         "Curriculum and pedagogy": 4,
         "Language learning": 4,
         "Learning analytics": 2,
@@ -3028,7 +3028,7 @@
         "Equity and policy": 1
       },
       "method_counts": {
-        "Review": 9,
+        "Review": 8,
         "Chatbot": 3,
         "Experiment": 2,
         "Mixed methods": 2,
@@ -3039,8 +3039,8 @@
         {
           "year": "2026",
           "topics": {
-            "Generative AI": 20,
-            "STEM education": 17,
+            "Generative AI": 21,
+            "STEM education": 16,
             "Higher education": 15,
             "Motivation and wellbeing": 14,
             "Assessment": 11
@@ -3053,30 +3053,30 @@
         "issue": "",
         "article_count": 80,
         "top_topics": {
-          "Generative AI": 20,
-          "STEM education": 17,
+          "Generative AI": 21,
+          "STEM education": 16,
           "Higher education": 15,
           "Motivation and wellbeing": 14,
           "Assessment": 11,
-          "AI literacy": 8
+          "AI literacy": 9
         },
         "sample_titles": [
+          "Generative AI-supported intercultural learning: a mixed-methods study of intercultural communicative competence and multimodal GAI literacy",
           "Bridging self-regulated learning gaps with large language models: designing metacognitive scaffolding in programming learning",
           "An ICAP-informed rubric for analyzing students’ questions to generative AI: engagement patterns and dynamics exploration",
           "AI literacy and student engagement in AI-assisted Chinese EFL contexts: the roles of basic psychological needs, and self-regulated learning",
           "Prioritizing the core dimensions of teacher AI literacy for AI-empowered teaching capability in higher education: a Delphi study",
-          "A cultural-historical activity theory-anchored learning analytics pipeline for Early detection and social-epistemic integration in AI literacy education",
-          "Designing pedagogical AI agents as digital twins of teachers: insights from a multi-cohort training program"
+          "A cultural-historical activity theory-anchored learning analytics pipeline for Early detection and social-epistemic integration in AI literacy education"
         ]
       }
     },
     "topic_hits": {
-      "Generative AI": 20,
+      "AI literacy": 9,
+      "Generative AI": 21,
       "Assessment": 11,
       "Motivation and wellbeing": 14,
-      "AI literacy": 8,
       "Higher education": 15,
-      "STEM education": 17,
+      "STEM education": 16,
       "Learning analytics": 2,
       "Curriculum and pedagogy": 4,
       "Language learning": 4,
@@ -3086,7 +3086,7 @@
     "method_hits": {
       "Learning analytics": 1,
       "Chatbot": 3,
-      "Review": 9,
+      "Review": 8,
       "Experiment": 2,
       "Mixed methods": 2,
       "Computer-supported collaboration": 1
@@ -3323,8 +3323,8 @@
           "Tensions between relational supervision pedagogy and researcher independence",
           "A delicate balance: The interplay of supervision, academic context, motivation, and emotions in doctoral education",
           "Expectations of independence from the outset? The discourse of researcher independence in the pre-application stage of doctoral admissions",
-          "Reconsidering researcher independence in an era of AI enabled learning",
           "Doctoral writing as a promoter for researcher development and independence: A conceptual analysis",
+          "Reconsidering researcher independence in an era of AI enabled learning",
           "Stages of competence in doctoral researcher development: Insights from a collective autoethnographic study of Journal Club participation"
         ]
       }
@@ -3397,17 +3397,17 @@
       "topic_counts": {
         "Curriculum and pedagogy": 13,
         "Assessment": 7,
-        "Motivation and wellbeing": 7,
-        "Learning analytics": 4,
+        "Motivation and wellbeing": 6,
         "STEM education": 2,
         "Generative AI": 2,
         "Language learning": 2,
-        "Higher education": 2,
-        "Educational technology": 1
+        "Learning analytics": 2,
+        "Educational technology": 1,
+        "Higher education": 1
       },
       "method_counts": {
         "Experiment": 3,
-        "Learning analytics": 2
+        "Learning analytics": 1
       },
       "yearly_topics": [
         {
@@ -3415,9 +3415,9 @@
           "topics": {
             "Curriculum and pedagogy": 13,
             "Assessment": 7,
-            "Motivation and wellbeing": 7,
-            "Learning analytics": 4,
-            "STEM education": 2
+            "Motivation and wellbeing": 6,
+            "STEM education": 2,
+            "Generative AI": 2
           }
         }
       ],
@@ -3435,16 +3435,16 @@
     "topic_hits": {
       "Language learning": 3,
       "Curriculum and pedagogy": 13,
-      "STEM education": 2,
       "Assessment": 7,
+      "STEM education": 2,
       "Educational technology": 1,
-      "Motivation and wellbeing": 7,
+      "Motivation and wellbeing": 6,
       "Generative AI": 2,
-      "Learning analytics": 4,
-      "Higher education": 2
+      "Learning analytics": 2,
+      "Higher education": 1
     },
     "method_hits": {
-      "Learning analytics": 2,
+      "Learning analytics": 1,
       "Experiment": 3
     },
     "article_count_crawled": 80,
@@ -3625,9 +3625,9 @@
     "article_preferences": {
       "article_sample_count": 80,
       "topic_counts": {
-        "STEM education": 30,
-        "Curriculum and pedagogy": 24,
-        "Assessment": 21,
+        "STEM education": 32,
+        "Curriculum and pedagogy": 26,
+        "Assessment": 22,
         "Motivation and wellbeing": 16,
         "Higher education": 14,
         "Generative AI": 13,
@@ -3640,7 +3640,7 @@
       "method_counts": {
         "Experiment": 26,
         "Mixed methods": 12,
-        "Review": 6,
+        "Review": 7,
         "Learning analytics": 4,
         "Chatbot": 3,
         "RAG": 2,
@@ -3650,9 +3650,9 @@
         {
           "year": "2026",
           "topics": {
-            "STEM education": 30,
-            "Curriculum and pedagogy": 24,
-            "Assessment": 21,
+            "STEM education": 32,
+            "Curriculum and pedagogy": 26,
+            "Assessment": 22,
             "Motivation and wellbeing": 16,
             "Higher education": 14
           }
@@ -3662,30 +3662,30 @@
         "year": "2026",
         "volume": "",
         "issue": "",
-        "article_count": 51,
+        "article_count": 53,
         "top_topics": {
-          "STEM education": 25,
-          "Curriculum and pedagogy": 18,
-          "Assessment": 13,
+          "STEM education": 28,
+          "Curriculum and pedagogy": 20,
+          "Assessment": 14,
           "Motivation and wellbeing": 11,
           "Generative AI": 9,
           "Higher education": 6
         },
         "sample_titles": [
+          "Shaping computational thinking through tangible user interfaces. A systematic review of educational contexts and impacts",
+          "Comparing perceptions of the school librarian using the future ready school—librarian framework",
           "An exploration of the importance of instructional design competencies in the field",
           "Human- or AI-delivered praise? The moderating role of praise publicity in synchronous video-based instruction",
           "Impact of an educational robot-based intervention on second-graders computational thinking skills: experimental evaluation of the Irûmi program in Paraguay",
-          "Developing pre-service teachers’ TPACK for programming simulations",
-          "Generative AI and motivational pathways in informal English learning: the role of enjoyment and flow",
-          "A systematic literature review of practical and explainable AI (XAI) student performance prediction system in higher education institutions"
+          "Developing pre-service teachers’ TPACK for programming simulations"
         ]
       }
     },
     "topic_hits": {
-      "Curriculum and pedagogy": 30,
+      "STEM education": 32,
+      "Assessment": 25,
+      "Curriculum and pedagogy": 32,
       "Educational technology": 4,
-      "STEM education": 30,
-      "Assessment": 24,
       "Motivation and wellbeing": 24,
       "Generative AI": 13,
       "Higher education": 14,
@@ -3695,9 +3695,9 @@
       "Teacher education": 4
     },
     "method_hits": {
+      "Review": 7,
       "RAG": 3,
       "Experiment": 26,
-      "Review": 6,
       "Chatbot": 3,
       "Computer-supported collaboration": 2,
       "Learning analytics": 4,
@@ -3893,10 +3893,10 @@
         "Language learning": 29,
         "Motivation and wellbeing": 17,
         "Generative AI": 14,
-        "Assessment": 14,
+        "Assessment": 13,
         "Curriculum and pedagogy": 7,
-        "STEM education": 6,
         "Educational technology": 6,
+        "STEM education": 5,
         "Higher education": 5,
         "Teacher education": 2
       },
@@ -3914,7 +3914,7 @@
             "Language learning": 29,
             "Motivation and wellbeing": 17,
             "Generative AI": 14,
-            "Assessment": 14,
+            "Assessment": 13,
             "Curriculum and pedagogy": 7
           }
         }
@@ -3928,17 +3928,17 @@
           "Language learning": 29,
           "Motivation and wellbeing": 17,
           "Generative AI": 14,
-          "Assessment": 14,
+          "Assessment": 13,
           "Curriculum and pedagogy": 7,
-          "STEM education": 6
+          "Educational technology": 6
         },
         "sample_titles": [
+          "Integrating decolonial language awareness in Social Science learning, does it work?",
           "Development of a CLIL-ESP course for art and design students using the ADDIE model",
           "Story in gamification: enhancing engagement for socializer and killer player types, with no effect on performance",
           "The contribution of multimodal AI technology adoption to EFL students’ emotional engagement: a longitudinal-interventional study",
           "Combining the fine-tuned GPT model and linguistic complexity indices in assessing second language (L2) Spanish writing",
-          "‘Chinese is at my fingertips’: heritage language practices in digitalscapes",
-          "Using LLM chatbots for feedback in L2 English academic writing: a scoping review"
+          "‘Chinese is at my fingertips’: heritage language practices in digitalscapes"
         ]
       }
     },
@@ -3948,8 +3948,8 @@
       "Motivation and wellbeing": 17,
       "Language learning": 29,
       "Generative AI": 14,
-      "Assessment": 14,
-      "STEM education": 6,
+      "Assessment": 13,
+      "STEM education": 5,
       "Higher education": 5,
       "Teacher education": 2,
       "Educational technology": 6
@@ -4379,12 +4379,12 @@
     "article_preferences": {
       "article_sample_count": 80,
       "topic_counts": {
-        "Higher education": 40,
-        "Motivation and wellbeing": 38,
+        "Higher education": 41,
+        "Motivation and wellbeing": 37,
         "Equity and policy": 30,
         "Language learning": 20,
-        "STEM education": 18,
         "Assessment": 17,
+        "STEM education": 16,
         "Curriculum and pedagogy": 16,
         "Generative AI": 12,
         "Teacher education": 8,
@@ -4392,21 +4392,21 @@
         "Educational technology": 2
       },
       "method_counts": {
-        "Mixed methods": 37,
+        "Mixed methods": 39,
         "Experiment": 14,
-        "RAG": 7,
-        "Review": 5,
+        "RAG": 5,
+        "Review": 4,
         "Chatbot": 1
       },
       "yearly_topics": [
         {
           "year": "2026",
           "topics": {
-            "Higher education": 40,
-            "Motivation and wellbeing": 38,
+            "Higher education": 41,
+            "Motivation and wellbeing": 37,
             "Equity and policy": 30,
             "Language learning": 20,
-            "STEM education": 18
+            "Assessment": 17
           }
         }
       ],
@@ -4416,42 +4416,42 @@
         "issue": "3",
         "article_count": 80,
         "top_topics": {
-          "Higher education": 40,
-          "Motivation and wellbeing": 38,
+          "Higher education": 41,
+          "Motivation and wellbeing": 37,
           "Equity and policy": 30,
           "Language learning": 20,
-          "STEM education": 18,
-          "Assessment": 17
+          "Assessment": 17,
+          "STEM education": 16
         },
         "sample_titles": [
+          "The Effect of Nursing Students' Metaverse Perception on Flexible Thinking in Learning: A Path Analysis",
+          "School Climate, Teaching Enjoyment, Resilience and Work Engagement Among University Teachers in AI ‐Driven Higher Education: A Multi‐Group Structural Equation Modelling Study",
           "Artificial Intelligence in Education: A Dual Perspective From Academics and Students on Its Transformative Potential",
           "The Interplay of Positive Reframing, Mindfulness, and Growth Mindset in Shaping Career Aspirations: A Mixed‐Methods Study",
           "“Histogogy”: Trend and Thematic Analysis on Pedagogical History Education (1993–2024)",
-          "Beyond Administration: How School Governance Practices Foster Happiness and Belonging Among Primary Students",
-          "Transformations in Children's Play in Rural Areas: Teachers' and Parents' Perspectives",
-          "Goals of Well‐Being in the Context of Finnish Comprehensive School Education"
+          "Beyond Administration: How School Governance Practices Foster Happiness and Belonging Among Primary Students"
         ]
       }
     },
     "topic_hits": {
+      "Higher education": 42,
+      "Motivation and wellbeing": 40,
       "AI literacy": 4,
-      "Higher education": 41,
       "Language learning": 23,
-      "STEM education": 22,
-      "Equity and policy": 38,
-      "Motivation and wellbeing": 41,
-      "Curriculum and pedagogy": 21,
-      "Assessment": 24,
+      "STEM education": 20,
+      "Equity and policy": 37,
+      "Curriculum and pedagogy": 20,
+      "Assessment": 23,
       "Teacher education": 10,
       "Generative AI": 12,
       "Educational technology": 2
     },
     "method_hits": {
+      "Mixed methods": 39,
       "Chatbot": 2,
-      "RAG": 12,
-      "Mixed methods": 37,
+      "RAG": 10,
       "Experiment": 15,
-      "Review": 5
+      "Review": 4
     },
     "article_count_crawled": 80,
     "source_pages_crawled": 1
@@ -4502,29 +4502,29 @@
     "article_preferences": {
       "article_sample_count": 80,
       "topic_counts": {
-        "Language learning": 81,
-        "Curriculum and pedagogy": 21,
+        "Language learning": 77,
+        "Curriculum and pedagogy": 25,
         "Assessment": 19,
         "Higher education": 18,
         "STEM education": 16,
+        "Equity and policy": 14,
         "Motivation and wellbeing": 14,
-        "Equity and policy": 13,
-        "Generative AI": 8,
+        "Generative AI": 9,
         "Teacher education": 6,
         "AI literacy": 2
       },
       "method_counts": {
-        "Mixed methods": 37,
-        "RAG": 11,
-        "Experiment": 4,
+        "Mixed methods": 38,
+        "RAG": 10,
+        "Experiment": 3,
         "Review": 1
       },
       "yearly_topics": [
         {
           "year": "2026",
           "topics": {
-            "Language learning": 81,
-            "Curriculum and pedagogy": 21,
+            "Language learning": 77,
+            "Curriculum and pedagogy": 25,
             "Assessment": 19,
             "Higher education": 18,
             "STEM education": 16
@@ -4535,42 +4535,42 @@
         "year": "2026",
         "volume": "",
         "issue": "",
-        "article_count": 46,
+        "article_count": 48,
         "top_topics": {
           "Language learning": 32,
+          "Curriculum and pedagogy": 19,
           "Assessment": 18,
           "Higher education": 17,
-          "Curriculum and pedagogy": 15,
           "Motivation and wellbeing": 12,
-          "Equity and policy": 10
+          "Equity and policy": 11
         },
         "sample_titles": [
+          "Unveiling the AI Divide: A Comparative Study of Novice and Veteran EFL Teachers' Experience of Using Generative AI in Teaching",
+          "Pedagogical Translanguaging in Motion: Multimodal Mediation in Preservice Teachers' Storytelling with Young English Learners",
           "Receptive Meaning‐Recall Knowledge of Derivational Morphology Among EFL Learners: A Case for L1 ‐Population‐Specific Assessment",
           "Collaborative Development of a Research Agenda to Claim Language Teaching as a Site of Knowledge Production",
           "Tracing the Change in the Status of a Language Teacher in University Governance through English Medium Instruction",
-          "Fostering Fine‐Tuned Prompt Literacy for Multimodal Writing: A Systemic Functional Linguistics‐Informed Framework",
-          "Effects of Motivational Interventions on EFL Learners' Learning Effort and Achievement: An L2 Motivational Self System Perspective",
-          "Language Teacher Educator Identity, Wellbeing and Agency Nested in a Community of Practice: A Collaborative Autoethnography"
+          "Fostering Fine‐Tuned Prompt Literacy for Multimodal Writing: A Systemic Functional Linguistics‐Informed Framework"
         ]
       }
     },
     "topic_hits": {
+      "Generative AI": 9,
+      "Teacher education": 8,
+      "Equity and policy": 18,
+      "Curriculum and pedagogy": 33,
       "Assessment": 22,
-      "Curriculum and pedagogy": 29,
-      "Language learning": 83,
-      "Equity and policy": 17,
+      "Language learning": 79,
       "Higher education": 19,
       "STEM education": 23,
       "AI literacy": 3,
-      "Generative AI": 8,
-      "Motivation and wellbeing": 17,
-      "Teacher education": 7
+      "Motivation and wellbeing": 17
     },
     "method_hits": {
-      "RAG": 12,
+      "Mixed methods": 38,
+      "RAG": 11,
       "Review": 3,
-      "Mixed methods": 37,
-      "Experiment": 5
+      "Experiment": 4
     },
     "article_count_crawled": 80,
     "source_pages_crawled": 1
@@ -6194,7 +6194,7 @@
       "article_sample_count": 80,
       "topic_counts": {
         "Teacher education": 12,
-        "Motivation and wellbeing": 9,
+        "Motivation and wellbeing": 10,
         "Higher education": 6,
         "Equity and policy": 5,
         "Assessment": 4,
@@ -6215,7 +6215,7 @@
           "year": "2026",
           "topics": {
             "Teacher education": 12,
-            "Motivation and wellbeing": 9,
+            "Motivation and wellbeing": 10,
             "Higher education": 6,
             "Equity and policy": 5,
             "Assessment": 4
@@ -6229,8 +6229,8 @@
         "article_count": 53,
         "top_topics": {
           "Teacher education": 8,
+          "Motivation and wellbeing": 6,
           "Equity and policy": 5,
-          "Motivation and wellbeing": 5,
           "Higher education": 3,
           "STEM education": 3,
           "Assessment": 1
@@ -6250,7 +6250,7 @@
       "Teacher education": 12,
       "Equity and policy": 5,
       "Assessment": 4,
-      "Motivation and wellbeing": 9,
+      "Motivation and wellbeing": 10,
       "STEM education": 4,
       "Curriculum and pedagogy": 4,
       "Language learning": 2,
@@ -6931,28 +6931,28 @@
     "article_preferences": {
       "article_sample_count": 80,
       "topic_counts": {
-        "Higher education": 24,
-        "Assessment": 21,
+        "Higher education": 28,
+        "Assessment": 22,
         "STEM education": 12,
         "Curriculum and pedagogy": 11,
         "Equity and policy": 9,
-        "Motivation and wellbeing": 3,
-        "Language learning": 2,
+        "Motivation and wellbeing": 4,
         "Generative AI": 2,
+        "Language learning": 1,
         "Educational technology": 1
       },
       "method_counts": {
-        "Experiment": 17,
-        "Review": 10,
+        "Experiment": 19,
+        "Review": 11,
         "Mixed methods": 10,
-        "RAG": 3
+        "RAG": 4
       },
       "yearly_topics": [
         {
           "year": "2026",
           "topics": {
-            "Higher education": 24,
-            "Assessment": 21,
+            "Higher education": 28,
+            "Assessment": 22,
             "STEM education": 12,
             "Curriculum and pedagogy": 11,
             "Equity and policy": 9
@@ -6968,35 +6968,34 @@
           "Higher education": 4,
           "Equity and policy": 2,
           "Assessment": 2,
-          "STEM education": 1,
-          "Language learning": 1
+          "STEM education": 1
         },
         "sample_titles": [
+          "Promotion of women at the faculty of medicine at the University of Rostock: an archival case study",
           "A practical approach to illustrate the importance of the bodily energy and heat balances and of the associated regulatory loops to healthcare students",
           "Fostering inclusion in healthcare: a systematic review of collaborative teaching with individuals with disorders of intellectual development",
           "The effect of AI-enabled virtual patient simulation on training outcomes and insecurities in psychotherapy education",
           "Impact of an integrated interdisciplinary team-based learning session of medicine and health sector programs at Galala University",
-          "Awareness, attitudes, and practice intentions toward telemedicine among Egyptian medical students and interns",
-          "Improving international medical students’ communication skills in psychosomatic care through a communication training seminar: a natural language processing-based analysis"
+          "Awareness, attitudes, and practice intentions toward telemedicine among Egyptian medical students and interns"
         ]
       }
     },
     "topic_hits": {
       "STEM education": 15,
-      "Higher education": 25,
-      "Assessment": 26,
+      "Higher education": 29,
+      "Assessment": 27,
+      "Motivation and wellbeing": 6,
       "Curriculum and pedagogy": 11,
       "Equity and policy": 11,
-      "Motivation and wellbeing": 6,
       "Generative AI": 4,
-      "Language learning": 2,
+      "Language learning": 1,
       "Educational technology": 1
     },
     "method_hits": {
-      "Mixed methods": 15,
+      "RAG": 7,
+      "Experiment": 23,
       "Review": 12,
-      "Experiment": 19,
-      "RAG": 6,
+      "Mixed methods": 15,
       "Chatbot": 1
     },
     "article_count_crawled": 80,
@@ -7838,16 +7837,16 @@
       "topic_counts": {
         "Assessment": 34,
         "STEM education": 10,
-        "Motivation and wellbeing": 8,
+        "Motivation and wellbeing": 9,
         "Higher education": 7,
-        "Curriculum and pedagogy": 6,
+        "Curriculum and pedagogy": 5,
         "Equity and policy": 2,
         "Language learning": 2,
         "Teacher education": 1,
         "Generative AI": 1
       },
       "method_counts": {
-        "Review": 11,
+        "Review": 12,
         "Experiment": 3,
         "RAG": 1,
         "Mixed methods": 1
@@ -7858,9 +7857,9 @@
           "topics": {
             "Assessment": 34,
             "STEM education": 10,
-            "Motivation and wellbeing": 8,
+            "Motivation and wellbeing": 9,
             "Higher education": 7,
-            "Curriculum and pedagogy": 6
+            "Curriculum and pedagogy": 5
           }
         }
       ],
@@ -7868,12 +7867,12 @@
         "year": "2026",
         "volume": "90",
         "issue": "",
-        "article_count": 24,
+        "article_count": 25,
         "top_topics": {
           "Assessment": 11,
+          "Motivation and wellbeing": 3,
           "Higher education": 2,
           "STEM education": 2,
-          "Motivation and wellbeing": 2,
           "Teacher education": 1,
           "Generative AI": 1
         },
@@ -7892,14 +7891,14 @@
       "STEM education": 11,
       "Teacher education": 1,
       "Assessment": 34,
+      "Motivation and wellbeing": 9,
       "Higher education": 7,
       "Generative AI": 1,
-      "Curriculum and pedagogy": 6,
-      "Equity and policy": 2,
-      "Motivation and wellbeing": 8
+      "Curriculum and pedagogy": 5,
+      "Equity and policy": 2
     },
     "method_hits": {
-      "Review": 11,
+      "Review": 12,
       "RAG": 1,
       "Mixed methods": 1,
       "Experiment": 3
@@ -8469,31 +8468,31 @@
     "article_preferences": {
       "article_sample_count": 80,
       "topic_counts": {
-        "Language learning": 63,
-        "Higher education": 31,
-        "Motivation and wellbeing": 23,
+        "Language learning": 64,
+        "Higher education": 32,
+        "Motivation and wellbeing": 25,
         "Curriculum and pedagogy": 20,
         "Assessment": 17,
         "STEM education": 12,
         "Generative AI": 12,
         "Equity and policy": 5,
-        "Teacher education": 3,
+        "Teacher education": 2,
         "Educational technology": 2,
         "AI literacy": 1
       },
       "method_counts": {
-        "Mixed methods": 30,
+        "Mixed methods": 33,
         "Experiment": 10,
-        "RAG": 4,
-        "Chatbot": 4
+        "Chatbot": 4,
+        "RAG": 3
       },
       "yearly_topics": [
         {
           "year": "2026",
           "topics": {
-            "Language learning": 63,
-            "Higher education": 31,
-            "Motivation and wellbeing": 23,
+            "Language learning": 64,
+            "Higher education": 32,
+            "Motivation and wellbeing": 25,
             "Curriculum and pedagogy": 20,
             "Assessment": 17
           }
@@ -8505,41 +8504,41 @@
         "issue": "",
         "article_count": 80,
         "top_topics": {
-          "Language learning": 63,
-          "Higher education": 31,
-          "Motivation and wellbeing": 23,
+          "Language learning": 64,
+          "Higher education": 32,
+          "Motivation and wellbeing": 25,
           "Curriculum and pedagogy": 20,
           "Assessment": 17,
           "STEM education": 12
         },
         "sample_titles": [
+          "Evidence for the Development of L2 Grammar‐for‐Interaction: The Case of Wenti shi (“the Problem Is”) in L2 Chinese Interaction",
+          "Chinese University Students’ Motivation to Learn Greek: A Transnational Postdigital Exploration",
           "Take an Introductory Linguistics Course; It May Increase Your Language Learning Ability",
           "Translanguaging, Medium of Instruction and LX Learning Motivation",
           "From External Schema to Internal Tool: Navigating the Semantic Labyrinth of English Modals Through CL‐Informed Concept‐Based Language Instruction",
-          "EFL Learners’ Receptive Vocabulary Size and the Common European Framework of Reference for Languages: Estimates Across Levels",
-          "Edutainment Through Translanguaging Practices: A Multimodal Discourse Analysis of Short‐Form English Instructional Videos on Douyin",
-          "Developing Chatbot Pragmatics Through Prompting Instruction in AI‐Assisted Communicative Practice"
+          "Edutainment Through Translanguaging Practices: A Multimodal Discourse Analysis of Short‐Form English Instructional Videos on Douyin"
         ]
       }
     },
     "topic_hits": {
-      "Higher education": 32,
-      "Language learning": 68,
+      "Language learning": 69,
       "STEM education": 14,
+      "Educational technology": 3,
+      "Higher education": 33,
+      "Motivation and wellbeing": 29,
       "Generative AI": 13,
-      "Motivation and wellbeing": 27,
-      "Curriculum and pedagogy": 24,
+      "Curriculum and pedagogy": 23,
       "Equity and policy": 10,
       "Assessment": 24,
-      "Teacher education": 4,
-      "Educational technology": 2,
+      "Teacher education": 3,
       "AI literacy": 1
     },
     "method_hits": {
+      "Mixed methods": 35,
       "Experiment": 12,
-      "RAG": 6,
-      "Chatbot": 4,
-      "Mixed methods": 32
+      "RAG": 5,
+      "Chatbot": 4
     },
     "article_count_crawled": 80,
     "source_pages_crawled": 1
@@ -9081,10 +9080,10 @@
     "article_preferences": {
       "article_sample_count": 80,
       "topic_counts": {
-        "Higher education": 38,
+        "Higher education": 37,
         "Motivation and wellbeing": 9,
-        "Assessment": 5,
         "STEM education": 4,
+        "Assessment": 4,
         "Generative AI": 3,
         "Curriculum and pedagogy": 3,
         "Equity and policy": 3,
@@ -9101,10 +9100,10 @@
         {
           "year": "2026",
           "topics": {
-            "Higher education": 38,
+            "Higher education": 37,
             "Motivation and wellbeing": 9,
-            "Assessment": 5,
             "STEM education": 4,
+            "Assessment": 4,
             "Generative AI": 3
           }
         }
@@ -9134,12 +9133,12 @@
     },
     "topic_hits": {
       "Generative AI": 3,
-      "Higher education": 38,
+      "Higher education": 37,
       "Curriculum and pedagogy": 3,
       "AI literacy": 1,
       "Motivation and wellbeing": 9,
       "STEM education": 4,
-      "Assessment": 5,
+      "Assessment": 4,
       "Equity and policy": 3,
       "Language learning": 1,
       "Learning analytics": 1
@@ -9694,8 +9693,8 @@
     "article_preferences": {
       "article_sample_count": 80,
       "topic_counts": {
+        "Curriculum and pedagogy": 30,
         "Higher education": 30,
-        "Curriculum and pedagogy": 29,
         "Assessment": 20,
         "STEM education": 20,
         "Generative AI": 10,
@@ -9705,7 +9704,7 @@
       },
       "method_counts": {
         "Mixed methods": 32,
-        "Experiment": 10,
+        "Experiment": 11,
         "RAG": 6,
         "Chatbot": 1,
         "Computer-supported collaboration": 1
@@ -9714,8 +9713,8 @@
         {
           "year": "2026",
           "topics": {
+            "Curriculum and pedagogy": 30,
             "Higher education": 30,
-            "Curriculum and pedagogy": 29,
             "Assessment": 20,
             "STEM education": 20,
             "Generative AI": 10
@@ -9726,15 +9725,16 @@
         "year": "2026",
         "volume": "22",
         "issue": "2",
-        "article_count": 4,
+        "article_count": 5,
         "top_topics": {
-          "Curriculum and pedagogy": 2,
+          "Curriculum and pedagogy": 3,
           "Higher education": 2,
           "Assessment": 2,
           "Equity and policy": 1,
           "Motivation and wellbeing": 1
         },
         "sample_titles": [
+          "Building a diagnostic model for misconceptions in physics education using eye tracking technology",
           "Evaluating peer discussion in calculus-based mechanics using a cluster-randomized crossover design",
           "Click, watch, learn: The impact of student self-study materials on physics electricity and magnetism course outcomes",
           "Defining a physics person: Tensions in the identity development of undergraduate women in physics",
@@ -9743,10 +9743,10 @@
       }
     },
     "topic_hits": {
+      "Assessment": 22,
+      "Curriculum and pedagogy": 37,
       "Generative AI": 12,
-      "Curriculum and pedagogy": 36,
       "Higher education": 33,
-      "Assessment": 21,
       "Equity and policy": 12,
       "Motivation and wellbeing": 8,
       "AI literacy": 1,
@@ -9754,8 +9754,8 @@
       "Teacher education": 4
     },
     "method_hits": {
+      "Experiment": 16,
       "Mixed methods": 33,
-      "Experiment": 14,
       "RAG": 10,
       "Chatbot": 1,
       "Computer-supported collaboration": 1
@@ -10290,7 +10290,7 @@
       "Chatbot": 1
     },
     "article_count_crawled": 80,
-    "source_pages_crawled": 4
+    "source_pages_crawled": 2
   },
   {
     "id": "journal-082-active-learning-in-higher-education",
@@ -10410,11 +10410,11 @@
       }
     },
     "topic_hits": {
-      "Higher education": 107,
+      "Higher education": 104,
       "Motivation and wellbeing": 47,
       "Curriculum and pedagogy": 29,
       "STEM education": 17,
-      "Assessment": 32,
+      "Assessment": 31,
       "Educational technology": 8,
       "Equity and policy": 10,
       "Generative AI": 2,
@@ -10431,7 +10431,7 @@
       "Learning analytics": 1
     },
     "article_count_crawled": 80,
-    "source_pages_crawled": 4
+    "source_pages_crawled": 2
   },
   {
     "id": "journal-083-journal-of-educational-change",
@@ -10491,7 +10491,7 @@
         "Higher education": 1
       },
       "method_counts": {
-        "Mixed methods": 32,
+        "Mixed methods": 33,
         "RAG": 10,
         "Experiment": 5,
         "Review": 5
@@ -10501,8 +10501,8 @@
           "year": "2026",
           "topics": {
             "STEM education": 10,
+            "Equity and policy": 9,
             "Curriculum and pedagogy": 8,
-            "Equity and policy": 8,
             "Motivation and wellbeing": 4,
             "Language learning": 3
           }
@@ -10530,8 +10530,8 @@
         {
           "year": "2023",
           "topics": {
-            "Equity and policy": 5,
             "Curriculum and pedagogy": 5,
+            "Equity and policy": 4,
             "STEM education": 3,
             "Motivation and wellbeing": 2,
             "Teacher education": 2
@@ -10542,27 +10542,27 @@
         "year": "2026",
         "volume": "",
         "issue": "",
-        "article_count": 12,
+        "article_count": 13,
         "top_topics": {
+          "Equity and policy": 5,
           "Curriculum and pedagogy": 5,
           "STEM education": 5,
-          "Equity and policy": 4,
           "Motivation and wellbeing": 1
         },
         "sample_titles": [
+          "Workforce redesign at a Teacher Academy School: impacts of an innovative team-based staffing model on teacher job satisfaction",
           "The interaction of distributed leadership, school innovativeness, teacher self-efficacy, and teacher autonomy in enhancing teaching practices",
           "Conceptualizing axiological work and axiological rigor in continuous improvement in education",
           "Towards holistic understanding and solutions: gamified multi-position in decision-making in early childhood education",
           "Instructional leadership clarity: how principals make instructional leadership intelligible and predictable for teachers",
-          "Educational change in the age of social networks",
-          "The impacts of educational reform on teachers’ emotions in the context of Vietnam"
+          "Educational change in the age of social networks"
         ]
       }
     },
     "topic_hits": {
-      "STEM education": 30,
-      "Curriculum and pedagogy": 22,
-      "Equity and policy": 25,
+      "STEM education": 29,
+      "Equity and policy": 24,
+      "Curriculum and pedagogy": 21,
       "Motivation and wellbeing": 14,
       "Language learning": 3,
       "Teacher education": 5,
@@ -10571,13 +10571,13 @@
       "Educational technology": 1
     },
     "method_hits": {
+      "Mixed methods": 34,
       "RAG": 11,
-      "Mixed methods": 33,
       "Experiment": 5,
       "Review": 5
     },
     "article_count_crawled": 80,
-    "source_pages_crawled": 4
+    "source_pages_crawled": 2
   },
   {
     "id": "journal-084-international-journal-of-sustainability-in-highe",
@@ -10624,31 +10624,31 @@
     "article_preferences": {
       "article_sample_count": 80,
       "topic_counts": {
-        "Higher education": 100,
-        "Equity and policy": 34,
+        "Higher education": 99,
+        "Equity and policy": 35,
         "Motivation and wellbeing": 32,
         "STEM education": 30,
-        "Assessment": 27,
+        "Assessment": 28,
         "Curriculum and pedagogy": 20,
         "Generative AI": 4,
         "Teacher education": 4
       },
       "method_counts": {
-        "Mixed methods": 40,
-        "Experiment": 13,
+        "Mixed methods": 41,
+        "Experiment": 14,
         "RAG": 9,
-        "Review": 8,
+        "Review": 6,
         "Chatbot": 1
       },
       "yearly_topics": [
         {
           "year": "2026",
           "topics": {
-            "Higher education": 100,
-            "Equity and policy": 34,
+            "Higher education": 99,
+            "Equity and policy": 35,
             "Motivation and wellbeing": 32,
             "STEM education": 30,
-            "Assessment": 27
+            "Assessment": 28
           }
         }
       ],
@@ -10676,27 +10676,27 @@
       }
     },
     "topic_hits": {
-      "Higher education": 113,
       "STEM education": 45,
+      "Assessment": 41,
       "Equity and policy": 69,
-      "Motivation and wellbeing": 48,
+      "Motivation and wellbeing": 49,
+      "Higher education": 111,
       "Curriculum and pedagogy": 41,
-      "Assessment": 40,
       "Generative AI": 4,
       "Teacher education": 5,
       "Educational technology": 1,
       "Learning analytics": 2
     },
     "method_hits": {
+      "Mixed methods": 45,
+      "Experiment": 20,
       "RAG": 17,
-      "Experiment": 19,
-      "Review": 9,
-      "Mixed methods": 43,
+      "Review": 7,
       "Learning analytics": 2,
       "Chatbot": 1
     },
     "article_count_crawled": 80,
-    "source_pages_crawled": 2
+    "source_pages_crawled": 1
   },
   {
     "id": "journal-085-international-journal-of-educational-research",
@@ -10786,7 +10786,7 @@
       }
     },
     "topic_hits": {
-      "Language learning": 3,
+      "Language learning": 2,
       "STEM education": 4,
       "Higher education": 15,
       "Teacher education": 1,
@@ -10802,7 +10802,7 @@
       "Review": 4
     },
     "article_count_crawled": 80,
-    "source_pages_crawled": 4
+    "source_pages_crawled": 2
   },
   {
     "id": "journal-086-european-journal-of-teacher-education",
@@ -10850,18 +10850,18 @@
     "article_preferences": {
       "article_sample_count": 80,
       "topic_counts": {
-        "Teacher education": 23,
+        "Teacher education": 22,
         "Equity and policy": 9,
         "Motivation and wellbeing": 9,
-        "Generative AI": 7,
-        "STEM education": 5,
-        "Curriculum and pedagogy": 4,
-        "Higher education": 3,
-        "Assessment": 3
+        "STEM education": 6,
+        "Curriculum and pedagogy": 5,
+        "Generative AI": 5,
+        "Higher education": 4,
+        "Assessment": 4
       },
       "method_counts": {
         "Review": 3,
-        "Mixed methods": 1,
+        "Mixed methods": 2,
         "Experiment": 1
       },
       "yearly_topics": [
@@ -10870,17 +10870,17 @@
           "topics": {
             "Teacher education": 12,
             "Motivation and wellbeing": 8,
-            "STEM education": 4,
-            "Curriculum and pedagogy": 4,
-            "Equity and policy": 4
+            "Curriculum and pedagogy": 5,
+            "STEM education": 5,
+            "Equity and policy": 5
           }
         },
         {
           "year": "2025",
           "topics": {
-            "Teacher education": 11,
-            "Equity and policy": 5,
-            "Generative AI": 4,
+            "Teacher education": 10,
+            "Equity and policy": 4,
+            "Generative AI": 2,
             "Higher education": 2,
             "Assessment": 1
           }
@@ -10890,42 +10890,42 @@
         "year": "2026",
         "volume": "",
         "issue": "",
-        "article_count": 47,
+        "article_count": 51,
         "top_topics": {
           "Teacher education": 10,
           "Motivation and wellbeing": 7,
-          "STEM education": 4,
-          "Curriculum and pedagogy": 4,
-          "Equity and policy": 4,
-          "Generative AI": 3
+          "Curriculum and pedagogy": 5,
+          "STEM education": 5,
+          "Equity and policy": 5,
+          "Assessment": 3
         },
         "sample_titles": [
+          "Teacher educators’ adoption of artificial intelligence: A qualitative UTAUT study",
+          "Global lessons for local educators: how international online exchanges can shape preservice teachers’ professional sense-making",
+          "Reimagining assessment design in higher education through Design Thinking",
+          "The hidden cost of inclusion: systemic resource deficits and the crisis of teacher burnout in supporting children with special education needs in Ireland",
           "Professional learning in technology integration across successive teaching conditions: a six-year longitudinal study of university EFL instructors",
-          "Prevalence of neuromyths among in-service preschool and primary school Romanian teachers",
-          "Bridging programmes for internationally educated teachers: a systematic review of global initiatives, challenges and opportunities, 2010–2024",
-          "From awareness to practice: primary school and secondary school mathematics teachers’ dyscalculia-related knowledge, awareness, and instructional practices",
-          "Promoting equity literacy: shifts in teachers’ attitudes towards students in poverty following a research-practice partnership",
-          "A systematic review of school teachers’ professional identity tensions: types and coping strategies"
+          "Prevalence of neuromyths among in-service preschool and primary school Romanian teachers"
         ]
       }
     },
     "topic_hits": {
-      "Higher education": 3,
-      "STEM education": 5,
-      "Curriculum and pedagogy": 4,
+      "Curriculum and pedagogy": 5,
+      "Higher education": 4,
+      "Assessment": 4,
+      "STEM education": 6,
       "Equity and policy": 9,
-      "Generative AI": 7,
-      "Teacher education": 24,
-      "Assessment": 3,
+      "Generative AI": 5,
+      "Teacher education": 22,
       "Motivation and wellbeing": 9
     },
     "method_hits": {
+      "Mixed methods": 2,
       "Review": 3,
-      "Mixed methods": 1,
       "Experiment": 1
     },
     "article_count_crawled": 80,
-    "source_pages_crawled": 4
+    "source_pages_crawled": 2
   },
   {
     "id": "journal-087-british-educational-research-journal",
@@ -10969,32 +10969,32 @@
       "note": ""
     },
     "article_preferences": {
-      "article_sample_count": 81,
+      "article_sample_count": 80,
       "topic_counts": {
-        "Higher education": 30,
-        "Equity and policy": 25,
+        "Higher education": 29,
+        "Equity and policy": 26,
         "Motivation and wellbeing": 22,
-        "STEM education": 17,
+        "STEM education": 18,
         "Assessment": 14,
         "Curriculum and pedagogy": 13,
         "Language learning": 8,
         "Teacher education": 4,
-        "Generative AI": 3
+        "Generative AI": 1
       },
       "method_counts": {
-        "Mixed methods": 31,
+        "Mixed methods": 30,
         "Experiment": 11,
         "RAG": 6,
-        "Review": 2
+        "Review": 3
       },
       "yearly_topics": [
         {
           "year": "2026",
           "topics": {
-            "Higher education": 30,
-            "Equity and policy": 25,
+            "Higher education": 29,
+            "Equity and policy": 26,
             "Motivation and wellbeing": 22,
-            "STEM education": 17,
+            "STEM education": 18,
             "Assessment": 14
           }
         }
@@ -11005,42 +11005,42 @@
         "issue": "",
         "article_count": 58,
         "top_topics": {
-          "Higher education": 26,
-          "Equity and policy": 24,
-          "STEM education": 17,
+          "Equity and policy": 25,
+          "Higher education": 25,
+          "STEM education": 18,
           "Motivation and wellbeing": 16,
           "Assessment": 14,
           "Curriculum and pedagogy": 12
         },
         "sample_titles": [
+          "Bourdieu in Aotearoa New Zealand: A systematic review of theoretical applications in educational research, 2000–2025",
           "Flourishing through adventure learning: A (semi)cautionary tale",
           "Breaking point: Identifying the factors that predict suspension from school",
           "Exploring interactions of the dimensions of agency through the experiences of aspiring school leaders in Scotland, UK",
           "Exploring the early observations of parents supporting their children with school attendance problems ( SAPs ): A co‐produced study",
-          "The critical role of teacher educators in promoting socially just mathematics teaching",
-          "More‐than‐gender? Moving beyond gendered expectations of divergent learners in early childhood education"
+          "The critical role of teacher educators in promoting socially just mathematics teaching"
         ]
       }
     },
     "topic_hits": {
-      "Assessment": 16,
-      "Equity and policy": 45,
+      "STEM education": 21,
+      "Equity and policy": 46,
       "Motivation and wellbeing": 24,
-      "STEM education": 20,
+      "Assessment": 15,
       "Curriculum and pedagogy": 18,
-      "Higher education": 30,
+      "Higher education": 29,
       "Teacher education": 7,
       "Language learning": 8,
-      "Generative AI": 3
+      "Generative AI": 1
     },
     "method_hits": {
+      "Review": 3,
       "Experiment": 16,
-      "Mixed methods": 32,
-      "RAG": 9,
-      "Review": 2
+      "Mixed methods": 31,
+      "RAG": 9
     },
-    "article_count_crawled": 81,
-    "source_pages_crawled": 2
+    "article_count_crawled": 80,
+    "source_pages_crawled": 1
   },
   {
     "id": "journal-088-journal-of-education-policy",
@@ -11147,7 +11147,7 @@
       }
     },
     "topic_hits": {
-      "Equity and policy": 45,
+      "Equity and policy": 44,
       "STEM education": 3,
       "Learning analytics": 1,
       "Higher education": 4,
@@ -11162,7 +11162,7 @@
       "Mixed methods": 1
     },
     "article_count_crawled": 80,
-    "source_pages_crawled": 4
+    "source_pages_crawled": 2
   },
   {
     "id": "journal-089-research-in-science-education",
@@ -11276,7 +11276,7 @@
       }
     },
     "topic_hits": {
-      "STEM education": 45,
+      "STEM education": 44,
       "Motivation and wellbeing": 16,
       "Curriculum and pedagogy": 28,
       "Generative AI": 2,
@@ -11287,7 +11287,7 @@
       "Language learning": 1
     },
     "method_hits": {
-      "RAG": 7,
+      "RAG": 6,
       "Mixed methods": 16,
       "Chatbot": 1,
       "Experiment": 14,
@@ -11295,7 +11295,7 @@
       "Computer-supported collaboration": 1
     },
     "article_count_crawled": 80,
-    "source_pages_crawled": 4
+    "source_pages_crawled": 2
   },
   {
     "id": "journal-090-language-and-education",
@@ -11344,12 +11344,12 @@
     "article_preferences": {
       "article_sample_count": 80,
       "topic_counts": {
-        "Language learning": 12,
+        "Language learning": 13,
         "Higher education": 9,
-        "Curriculum and pedagogy": 8,
-        "Equity and policy": 5,
+        "Curriculum and pedagogy": 7,
         "Assessment": 5,
-        "STEM education": 2,
+        "STEM education": 3,
+        "Equity and policy": 3,
         "Motivation and wellbeing": 2,
         "Teacher education": 2,
         "Generative AI": 2
@@ -11363,8 +11363,8 @@
         {
           "year": "2026",
           "topics": {
+            "Language learning": 8,
             "Higher education": 7,
-            "Language learning": 7,
             "Curriculum and pedagogy": 7,
             "Equity and policy": 3,
             "Assessment": 3
@@ -11377,7 +11377,7 @@
             "Generative AI": 2,
             "Higher education": 2,
             "Assessment": 2,
-            "Equity and policy": 2
+            "Teacher education": 1
           }
         }
       ],
@@ -11385,32 +11385,32 @@
         "year": "2026",
         "volume": "",
         "issue": "",
-        "article_count": 43,
+        "article_count": 45,
         "top_topics": {
           "Curriculum and pedagogy": 7,
           "Higher education": 6,
-          "Language learning": 4,
+          "Language learning": 5,
+          "STEM education": 2,
           "Equity and policy": 2,
-          "Assessment": 2,
-          "STEM education": 1
+          "Assessment": 2
         },
         "sample_titles": [
+          "Linguistic inquiry and epistemic orientations of preservice Turkish language teachers through Turkish emphatic reduplications",
+          "Students’ metalinguistic awareness when reflecting on argumentative essay writing in Estonian upper secondary school",
           "Students’ perceptions of inclusion in whole-class talk: Critical Collaborative Dialogue as a design for inclusive classroom discussion",
           "An exploration of Chinese students’ academic discourse socialisation through portfolio assessment at a UK university",
           "Uncovering the practice gap: language ideologies and translanguaging in interactive read-alouds",
-          "The persistence of deficit orientations towards student writing across time and geolinguistic spaces: reconfiguring the ‘gap’",
-          "‘It helps bridge gaps’: translanguaging as a pedagogy for inclusion at a community language school",
-          "Linguistic reasoning across repertoires: multilingual students’ metalinguistic practices in a South African writing centre"
+          "The persistence of deficit orientations towards student writing across time and geolinguistic spaces: reconfiguring the ‘gap’"
         ]
       }
     },
     "topic_hits": {
-      "Equity and policy": 5,
+      "STEM education": 3,
+      "Language learning": 13,
+      "Equity and policy": 3,
       "Higher education": 9,
       "Assessment": 5,
-      "Language learning": 12,
-      "Curriculum and pedagogy": 8,
-      "STEM education": 2,
+      "Curriculum and pedagogy": 7,
       "Motivation and wellbeing": 2,
       "Teacher education": 2,
       "Generative AI": 2
@@ -11421,7 +11421,7 @@
       "Chatbot": 1
     },
     "article_count_crawled": 80,
-    "source_pages_crawled": 4
+    "source_pages_crawled": 2
   },
   {
     "id": "journal-091-journal-of-environmental-education",
@@ -11542,7 +11542,7 @@
       "Review": 2
     },
     "article_count_crawled": 80,
-    "source_pages_crawled": 4
+    "source_pages_crawled": 2
   },
   {
     "id": "journal-092-review-of-research-in-education",
@@ -11672,7 +11672,7 @@
       "RAG": 4
     },
     "article_count_crawled": 52,
-    "source_pages_crawled": 4
+    "source_pages_crawled": 2
   },
   {
     "id": "journal-093-physical-education-and-sport-pedagogy",
@@ -11780,7 +11780,7 @@
       }
     },
     "topic_hits": {
-      "Curriculum and pedagogy": 19,
+      "Curriculum and pedagogy": 18,
       "Teacher education": 6,
       "Equity and policy": 8,
       "Motivation and wellbeing": 7,
@@ -11794,7 +11794,7 @@
       "Review": 1
     },
     "article_count_crawled": 80,
-    "source_pages_crawled": 4
+    "source_pages_crawled": 2
   },
   {
     "id": "journal-094-linguistics-and-education",
@@ -11923,7 +11923,7 @@
       "Experiment": 2
     },
     "article_count_crawled": 80,
-    "source_pages_crawled": 4
+    "source_pages_crawled": 2
   },
   {
     "id": "journal-095-journal-of-higher-education-policy-and-managemen",
@@ -12030,8 +12030,8 @@
       }
     },
     "topic_hits": {
-      "Higher education": 37,
-      "Equity and policy": 10,
+      "Higher education": 36,
+      "Equity and policy": 9,
       "STEM education": 4,
       "Motivation and wellbeing": 2,
       "Learning analytics": 1,
@@ -12044,7 +12044,7 @@
       "Experiment": 1
     },
     "article_count_crawled": 80,
-    "source_pages_crawled": 4
+    "source_pages_crawled": 2
   },
   {
     "id": "journal-096-international-multilingual-research-journal",
@@ -12091,13 +12091,14 @@
     "article_preferences": {
       "article_sample_count": 80,
       "topic_counts": {
-        "Equity and policy": 9,
+        "Equity and policy": 8,
         "Curriculum and pedagogy": 5,
         "Higher education": 4,
         "Language learning": 2,
         "Generative AI": 2,
         "Teacher education": 2,
         "Assessment": 2,
+        "STEM education": 1,
         "Motivation and wellbeing": 1
       },
       "method_counts": {
@@ -12108,6 +12109,7 @@
           "year": "2026",
           "topics": {
             "Language learning": 2,
+            "STEM education": 1,
             "Motivation and wellbeing": 1,
             "Equity and policy": 1,
             "Higher education": 1
@@ -12134,7 +12136,7 @@
         {
           "year": "2023",
           "topics": {
-            "Equity and policy": 4,
+            "Equity and policy": 3,
             "Generative AI": 1,
             "Higher education": 1,
             "Curriculum and pedagogy": 1
@@ -12145,25 +12147,27 @@
         "year": "2026",
         "volume": "",
         "issue": "",
-        "article_count": 9,
+        "article_count": 10,
         "top_topics": {
           "Language learning": 2,
+          "STEM education": 1,
           "Motivation and wellbeing": 1,
           "Equity and policy": 1,
           "Higher education": 1
         },
         "sample_titles": [
+          "Activity theory and Activity Systems Analysis: a holistic framework for investigating family bilingualism",
           "The impact of professional learning on leaders’ confidence to lead bilingual programs",
           "Popular culture, language learning, and (de)motivation: the experiences of Korean as a foreign language students in Australia and New Zealand",
           "Translanguaging through a minority language lens",
           "Educational language policy and indigenous language maintenance: a language ecologies study of intergenerational language shift and maintenance among Tuvan-Russian bilinguals",
-          "Cuentos de Sábado as a site of community-based learning: heritage speakers as agents of language socialization",
-          "Transnational multilingual identities, emotions, and belonging in White neoliberal spaces in U.S. higher education"
+          "Cuentos de Sábado as a site of community-based learning: heritage speakers as agents of language socialization"
         ]
       }
     },
     "topic_hits": {
-      "Equity and policy": 11,
+      "Equity and policy": 9,
+      "STEM education": 1,
       "Language learning": 2,
       "Motivation and wellbeing": 1,
       "Higher education": 4,
@@ -12176,7 +12180,7 @@
       "Mixed methods": 5
     },
     "article_count_crawled": 80,
-    "source_pages_crawled": 4
+    "source_pages_crawled": 2
   },
   {
     "id": "journal-097-educational-research",
@@ -12285,8 +12289,8 @@
           "Curriculum and pedagogy": 1
         },
         "sample_titles": [
-          "Benefits and challenges of group supervision in higher education: a scoping review",
           "Protecting students from harm: how teachers’ experiences of violence influence reporting",
+          "Benefits and challenges of group supervision in higher education: a scoping review",
           "Evaluating teaching quality in higher education: stakeholder perspectives",
           "Exploring students’ conceptions of school safety and unsafety",
           "Cultural diversity and bullying: bridging gaps through inclusive practices",
@@ -12309,7 +12313,7 @@
       "Mixed methods": 4
     },
     "article_count_crawled": 80,
-    "source_pages_crawled": 4
+    "source_pages_crawled": 2
   },
   {
     "id": "journal-098-australian-educational-researcher",
@@ -12423,9 +12427,9 @@
     },
     "topic_hits": {
       "STEM education": 24,
-      "Equity and policy": 40,
+      "Equity and policy": 39,
       "Motivation and wellbeing": 28,
-      "Curriculum and pedagogy": 22,
+      "Curriculum and pedagogy": 21,
       "Generative AI": 1,
       "Teacher education": 14,
       "Higher education": 13,
@@ -12441,7 +12445,7 @@
       "RAG": 6
     },
     "article_count_crawled": 80,
-    "source_pages_crawled": 4
+    "source_pages_crawled": 2
   },
   {
     "id": "journal-099-professional-development-in-education",
@@ -12564,7 +12568,7 @@
       "Review": 1
     },
     "article_count_crawled": 80,
-    "source_pages_crawled": 4
+    "source_pages_crawled": 2
   },
   {
     "id": "journal-100-minerva",
@@ -12612,16 +12616,16 @@
     "article_preferences": {
       "article_sample_count": 80,
       "topic_counts": {
-        "Equity and policy": 23,
+        "Equity and policy": 22,
         "STEM education": 21,
-        "Higher education": 20,
+        "Higher education": 18,
         "Assessment": 12,
-        "Motivation and wellbeing": 6,
+        "Motivation and wellbeing": 7,
         "Language learning": 3,
         "Curriculum and pedagogy": 2
       },
       "method_counts": {
-        "Mixed methods": 23,
+        "Mixed methods": 24,
         "Experiment": 6,
         "RAG": 3,
         "Review": 1
@@ -12630,10 +12634,10 @@
         {
           "year": "2026",
           "topics": {
-            "Equity and policy": 9,
+            "Equity and policy": 10,
             "Higher education": 8,
             "STEM education": 7,
-            "Motivation and wellbeing": 3,
+            "Motivation and wellbeing": 4,
             "Assessment": 2
           }
         },
@@ -12641,9 +12645,9 @@
           "year": "2025",
           "topics": {
             "STEM education": 14,
-            "Equity and policy": 14,
-            "Higher education": 12,
+            "Equity and policy": 12,
             "Assessment": 10,
+            "Higher education": 10,
             "Language learning": 3
           }
         }
@@ -12652,42 +12656,42 @@
         "year": "2026",
         "volume": "",
         "issue": "",
-        "article_count": 27,
+        "article_count": 28,
         "top_topics": {
-          "Equity and policy": 9,
+          "Equity and policy": 10,
           "Higher education": 8,
           "STEM education": 7,
-          "Motivation and wellbeing": 3,
+          "Motivation and wellbeing": 4,
           "Assessment": 2,
           "Curriculum and pedagogy": 2
         },
         "sample_titles": [
+          "Between Political Impartiality and Engagement: Scientific Policy Advisory Roles in Germany, Switzerland, and the United Kingdom during the COVID-19 Pandemic",
           "The Myth of Regional Replication: How imec Reimagined Silicon Valley for Flanders",
           "Productive Comparison: Thinking with and about Models across Disparate Domains",
           "Academic Craftsmanship: Reclaiming Values, Practices, and Sovereignty in the University",
           "Clusterization of Research in Universities: An Emerging Model, Its Forms and Consequences",
-          "Ellen Boeren, How to Read and Interpret University Rankings",
-          "A Historical Perspective on Open Innovation: A Critical Overview of the Precursors"
+          "Ellen Boeren, How to Read and Interpret University Rankings"
         ]
       }
     },
     "topic_hits": {
-      "Higher education": 23,
-      "Equity and policy": 34,
+      "Equity and policy": 33,
+      "Motivation and wellbeing": 9,
+      "Higher education": 21,
       "Assessment": 15,
       "Curriculum and pedagogy": 2,
       "STEM education": 26,
-      "Motivation and wellbeing": 8,
       "Language learning": 3
     },
     "method_hits": {
+      "Mixed methods": 26,
       "Experiment": 9,
-      "Mixed methods": 25,
       "RAG": 4,
       "Review": 1
     },
     "article_count_crawled": 80,
-    "source_pages_crawled": 4
+    "source_pages_crawled": 2
   },
   {
     "id": "journal-101-journal-of-studies-in-international-education",
@@ -12826,7 +12830,7 @@
       "Experiment": 3
     },
     "article_count_crawled": 80,
-    "source_pages_crawled": 4
+    "source_pages_crawled": 2
   },
   {
     "id": "journal-102-international-journal-of-technology-and-design-e",
@@ -12941,9 +12945,9 @@
       "Motivation and wellbeing": 15,
       "Higher education": 10,
       "Teacher education": 2,
-      "Curriculum and pedagogy": 33,
+      "Curriculum and pedagogy": 32,
       "Assessment": 11,
-      "Equity and policy": 12,
+      "Equity and policy": 11,
       "Generative AI": 6,
       "AI literacy": 1
     },
@@ -12954,7 +12958,7 @@
       "Review": 6
     },
     "article_count_crawled": 80,
-    "source_pages_crawled": 4
+    "source_pages_crawled": 2
   },
   {
     "id": "journal-103-educational-evaluation-and-policy-analysis",
@@ -13065,9 +13069,9 @@
     },
     "topic_hits": {
       "Higher education": 25,
-      "Equity and policy": 61,
+      "Equity and policy": 60,
       "STEM education": 17,
-      "Assessment": 16,
+      "Assessment": 15,
       "Curriculum and pedagogy": 10,
       "Teacher education": 3,
       "Generative AI": 9,
@@ -13081,7 +13085,7 @@
       "Review": 1
     },
     "article_count_crawled": 80,
-    "source_pages_crawled": 4
+    "source_pages_crawled": 2
   },
   {
     "id": "journal-104-critical-studies-in-education",
@@ -13212,7 +13216,7 @@
       "Mixed methods": 1
     },
     "article_count_crawled": 80,
-    "source_pages_crawled": 4
+    "source_pages_crawled": 2
   },
   {
     "id": "journal-105-assessment-in-education-principles-policy-practi",
@@ -13328,12 +13332,12 @@
       }
     },
     "topic_hits": {
-      "Assessment": 63,
+      "Assessment": 62,
       "Curriculum and pedagogy": 4,
       "STEM education": 7,
       "Higher education": 4,
       "Motivation and wellbeing": 3,
-      "Equity and policy": 3,
+      "Equity and policy": 2,
       "Language learning": 6
     },
     "method_hits": {
@@ -13342,7 +13346,7 @@
       "Mixed methods": 3
     },
     "article_count_crawled": 80,
-    "source_pages_crawled": 4
+    "source_pages_crawled": 2
   },
   {
     "id": "journal-106-asia-pacific-journal-of-teacher-education",
@@ -13452,7 +13456,7 @@
       }
     },
     "topic_hits": {
-      "Teacher education": 32,
+      "Teacher education": 31,
       "STEM education": 4,
       "Generative AI": 3,
       "Higher education": 4,
@@ -13469,7 +13473,7 @@
       "Review": 1
     },
     "article_count_crawled": 80,
-    "source_pages_crawled": 4
+    "source_pages_crawled": 2
   },
   {
     "id": "journal-107-theory-into-practice",
@@ -13580,7 +13584,7 @@
       }
     },
     "topic_hits": {
-      "Equity and policy": 13,
+      "Equity and policy": 12,
       "Teacher education": 3,
       "Curriculum and pedagogy": 9,
       "Assessment": 11,
@@ -13594,7 +13598,7 @@
       "Chatbot": 1
     },
     "article_count_crawled": 80,
-    "source_pages_crawled": 4
+    "source_pages_crawled": 2
   },
   {
     "id": "journal-108-teachers-and-teaching",
@@ -13653,7 +13657,7 @@
         "Language learning": 2
       },
       "method_counts": {
-        "Mixed methods": 2,
+        "Mixed methods": 3,
         "Chatbot": 1,
         "RAG": 1,
         "Review": 1
@@ -13684,7 +13688,7 @@
         "year": "2026",
         "volume": "",
         "issue": "",
-        "article_count": 63,
+        "article_count": 64,
         "top_topics": {
           "Generative AI": 5,
           "Teacher education": 5,
@@ -13694,12 +13698,12 @@
           "Higher education": 2
         },
         "sample_titles": [
-          "Perceptions of the ‘good teacher’ in the recertification process of Internationally Educated Teachers in Canada",
+          "The long road back: a longitudinal qualitative investigation of teacher experiences through COVID-19",
           "Profiling teachers’ emotional diversity for AI readiness",
+          "Perceptions of the ‘good teacher’ in the recertification process of Internationally Educated Teachers in Canada",
           "With a little help from my school: stories of support for unqualified teachers in Australia",
           "‘So, you say we can get dialogue from anyone?’ Teachers’ collaborative implementation of school-level dialogic assessment",
-          "Beyond the hype: unpacking ethical challenges of GenAI from non-university-based EFL teacher educators’ perspectives",
-          "GenAI and Global South TESOL teacher educator pedagogical practices: an emotion and identity perspective"
+          "Beyond the hype: unpacking ethical challenges of GenAI from non-university-based EFL teacher educators’ perspectives"
         ]
       }
     },
@@ -13715,13 +13719,13 @@
       "Equity and policy": 3
     },
     "method_hits": {
+      "Mixed methods": 3,
       "Chatbot": 1,
-      "Mixed methods": 2,
       "RAG": 1,
       "Review": 1
     },
     "article_count_crawled": 80,
-    "source_pages_crawled": 4
+    "source_pages_crawled": 2
   },
   {
     "id": "journal-109-language-culture-and-curriculum",
@@ -13842,7 +13846,7 @@
       "Higher education": 10,
       "Language learning": 8,
       "Motivation and wellbeing": 4,
-      "Curriculum and pedagogy": 9,
+      "Curriculum and pedagogy": 8,
       "STEM education": 3,
       "Equity and policy": 3
     },
@@ -13852,7 +13856,7 @@
       "RAG": 2
     },
     "article_count_crawled": 80,
-    "source_pages_crawled": 4
+    "source_pages_crawled": 2
   },
   {
     "id": "journal-110-international-journal-of-science-and-mathematics",
@@ -13955,13 +13959,13 @@
       }
     },
     "topic_hits": {
-      "STEM education": 34,
+      "STEM education": 33,
       "Teacher education": 7,
-      "Equity and policy": 16,
+      "Equity and policy": 15,
       "Higher education": 9,
       "Assessment": 18,
       "Motivation and wellbeing": 19,
-      "Curriculum and pedagogy": 29,
+      "Curriculum and pedagogy": 28,
       "Generative AI": 2,
       "Language learning": 1
     },
@@ -13973,7 +13977,7 @@
       "Computer-supported collaboration": 1
     },
     "article_count_crawled": 80,
-    "source_pages_crawled": 4
+    "source_pages_crawled": 2
   },
   {
     "id": "journal-111-educational-assessment-evaluation-and-accountabi",
@@ -14082,7 +14086,7 @@
         "year": "2026",
         "volume": "",
         "issue": "",
-        "article_count": 17,
+        "article_count": 18,
         "top_topics": {
           "Assessment": 12,
           "Motivation and wellbeing": 6,
@@ -14092,18 +14096,18 @@
           "Language learning": 2
         },
         "sample_titles": [
+          "Research on Grading",
           "Tracking calibration and confidence: continuous and group-based insights from two high-stakes exams",
           "Exploring learner engagement with peer feedback from an interpersonal perspective: the role of peer familiarity",
           "Teacher professional competence as a multidimensional construct: evaluating the effectiveness of university teacher education",
           "Building shared responsibility for science education: where hierarchy cracks and networks back it up",
-          "Student engagement during a reading test: the role of text-to-speech and special education status",
-          "Teachers’ perception of fairness in assessment: how feasible is fair assessment?"
+          "Student engagement during a reading test: the role of text-to-speech and special education status"
         ]
       }
     },
     "topic_hits": {
       "STEM education": 18,
-      "Assessment": 64,
+      "Assessment": 62,
       "Motivation and wellbeing": 11,
       "Higher education": 7,
       "Teacher education": 4,
@@ -14120,7 +14124,7 @@
       "Computer-supported collaboration": 1
     },
     "article_count_crawled": 80,
-    "source_pages_crawled": 4
+    "source_pages_crawled": 2
   },
   {
     "id": "journal-112-aera-open",
@@ -14252,7 +14256,7 @@
       "Review": 1
     },
     "article_count_crawled": 80,
-    "source_pages_crawled": 4
+    "source_pages_crawled": 2
   },
   {
     "id": "journal-113-theory-and-research-in-social-education",
@@ -14375,7 +14379,7 @@
       "Review": 1
     },
     "article_count_crawled": 80,
-    "source_pages_crawled": 4
+    "source_pages_crawled": 2
   },
   {
     "id": "journal-114-teacher-education-and-special-education",
@@ -14517,7 +14521,7 @@
       "Curriculum and pedagogy": 22,
       "STEM education": 15,
       "Higher education": 16,
-      "Teacher education": 11,
+      "Teacher education": 10,
       "Assessment": 10,
       "Motivation and wellbeing": 5,
       "Language learning": 2,
@@ -14531,7 +14535,7 @@
       "Review": 6
     },
     "article_count_crawled": 80,
-    "source_pages_crawled": 4
+    "source_pages_crawled": 2
   },
   {
     "id": "journal-115-sport-education-and-society",
@@ -14615,12 +14619,12 @@
           "Motivation and wellbeing": 1
         },
         "sample_titles": [
+          "From technological tools to technological bodies: rethinking the digitalisation of school physical education in China through Don Ihde’s postphenomenology",
           "Health and physical education curriculum: a dialogue among Ibero-American countries",
           "Negotiating a safe changing process: students’ experiences of (un)safety in school changing rooms",
           "Ableist imaginaries and silent exclusions: parents’ perspectives of inclusive physical education for students with visual impairments in Nepal",
           "‘The enemy was within:’ how young female football players challenged barriers in their sport practice through the activist approach",
-          "A dramaturgical analysis of information control and secrecy in an elite paralympic sport coaching context",
-          "Reconfiguring competence and participation in physical education: an inclusive sociomaterial study of school–university orienteering"
+          "A dramaturgical analysis of information control and secrecy in an elite paralympic sport coaching context"
         ]
       }
     },
@@ -14636,7 +14640,7 @@
       "Review": 1
     },
     "article_count_crawled": 80,
-    "source_pages_crawled": 4
+    "source_pages_crawled": 2
   },
   {
     "id": "journal-116-scientific-studies-of-reading",
@@ -14757,7 +14761,7 @@
       "RAG": 1
     },
     "article_count_crawled": 80,
-    "source_pages_crawled": 4
+    "source_pages_crawled": 2
   },
   {
     "id": "journal-117-journal-of-educational-administration",
@@ -14805,7 +14809,7 @@
     "article_preferences": {
       "article_sample_count": 80,
       "topic_counts": {
-        "Equity and policy": 22,
+        "Equity and policy": 23,
         "STEM education": 21,
         "Motivation and wellbeing": 17,
         "Curriculum and pedagogy": 11,
@@ -14814,17 +14818,16 @@
         "Teacher education": 4
       },
       "method_counts": {
-        "Mixed methods": 84,
+        "Mixed methods": 86,
         "RAG": 16,
         "Review": 1,
-        "Computer-supported collaboration": 1,
-        "Experiment": 1
+        "Computer-supported collaboration": 1
       },
       "yearly_topics": [
         {
           "year": "2026",
           "topics": {
-            "Equity and policy": 11,
+            "Equity and policy": 12,
             "STEM education": 10,
             "Motivation and wellbeing": 8,
             "Higher education": 8,
@@ -14846,42 +14849,42 @@
         "year": "2026",
         "volume": "",
         "issue": "",
-        "article_count": 22,
+        "article_count": 23,
         "top_topics": {
+          "Equity and policy": 5,
           "Motivation and wellbeing": 5,
           "STEM education": 4,
-          "Equity and policy": 4,
           "Assessment": 2,
           "Curriculum and pedagogy": 1
         },
         "sample_titles": [
+          "Constructing organizational fit: how principals and HR administrators select first-time assistant principals",
           "Tapping as a means of identifying future school leaders: a qualitative exploration of its multidimensional nature",
           "Leading under fire: moral and community-engaged leadership in Lebanon's schools during war",
           "Equity on paper: a mixed-methods analysis of racialized hiring practices in suburban districts for Black principals",
           "Organisational and relational drivers of teacher motivation in resource-constrained schools: roles of leadership, climate, and trust in the leader",
-          "From principal innovation to principal-perceived collective teacher innovativeness: the mediation of work engagement and the moderation of individual uncertainty avoidance",
-          "“Between sacred and profane”: school principals leading bereaved school communities during the 2023–2025 war in Israel"
+          "From principal innovation to principal-perceived collective teacher innovativeness: the mediation of work engagement and the moderation of individual uncertainty avoidance"
         ]
       }
     },
     "topic_hits": {
+      "Assessment": 11,
+      "Equity and policy": 32,
       "STEM education": 28,
       "Motivation and wellbeing": 21,
-      "Assessment": 9,
-      "Equity and policy": 31,
       "Higher education": 8,
       "Curriculum and pedagogy": 16,
       "Teacher education": 6
     },
     "method_hits": {
-      "Mixed methods": 85,
+      "Mixed methods": 87,
       "RAG": 21,
-      "Experiment": 3,
+      "Experiment": 2,
       "Review": 1,
       "Computer-supported collaboration": 1
     },
     "article_count_crawled": 80,
-    "source_pages_crawled": 4
+    "source_pages_crawled": 2
   },
   {
     "id": "journal-118-journal-of-curriculum-studies",
@@ -14931,7 +14934,7 @@
       "article_sample_count": 80,
       "topic_counts": {
         "Curriculum and pedagogy": 30,
-        "Teacher education": 7,
+        "Teacher education": 6,
         "Equity and policy": 4,
         "Assessment": 3,
         "STEM education": 3,
@@ -14939,7 +14942,7 @@
         "Language learning": 1
       },
       "method_counts": {
-        "Review": 3,
+        "Review": 4,
         "RAG": 1,
         "Mixed methods": 1
       },
@@ -14958,7 +14961,7 @@
           "year": "2025",
           "topics": {
             "Curriculum and pedagogy": 16,
-            "Teacher education": 5,
+            "Teacher education": 4,
             "Equity and policy": 3,
             "STEM education": 2,
             "Motivation and wellbeing": 2
@@ -14969,7 +14972,7 @@
         "year": "2026",
         "volume": "",
         "issue": "",
-        "article_count": 31,
+        "article_count": 32,
         "top_topics": {
           "Curriculum and pedagogy": 14,
           "Teacher education": 2,
@@ -14979,31 +14982,31 @@
           "Motivation and wellbeing": 1
         },
         "sample_titles": [
+          "Exploring a pedagogical praxis model to support teaching and learning in the practical domain: a scoping review",
           "Inclusion discourse and inequality in NEP 2020",
           "Theorizing under the shadow of transnational whiteness: the politics of curriculum knowledge in South Korea",
           "Artificial intelligence and the internal structure of education: re-reading Dewey through Pädagogik and Didaktik",
           "Swedish vocational education and training in massified schooling 1975–2025",
-          "From content transmission to competency-based design: historical analysis of skill discourse in primary mathematics curricula",
-          "Rethinking NPM in education: a historical study of management by objectives in Swedish media discourse"
+          "From content transmission to competency-based design: historical analysis of skill discourse in primary mathematics curricula"
         ]
       }
     },
     "topic_hits": {
       "Equity and policy": 4,
-      "Curriculum and pedagogy": 31,
+      "Curriculum and pedagogy": 30,
       "Assessment": 3,
       "STEM education": 3,
       "Motivation and wellbeing": 3,
-      "Teacher education": 7,
+      "Teacher education": 6,
       "Language learning": 1
     },
     "method_hits": {
-      "Review": 3,
+      "Review": 4,
       "RAG": 1,
       "Mixed methods": 1
     },
     "article_count_crawled": 80,
-    "source_pages_crawled": 4
+    "source_pages_crawled": 2
   },
   {
     "id": "journal-119-iral-international-review-of-applied-linguistics",
@@ -15121,7 +15124,7 @@
     },
     "topic_hits": {
       "Higher education": 14,
-      "Language learning": 81,
+      "Language learning": 80,
       "STEM education": 14,
       "Assessment": 24,
       "Curriculum and pedagogy": 33,
@@ -15256,7 +15259,7 @@
       "Teacher education": 6,
       "Assessment": 22,
       "Higher education": 18,
-      "Curriculum and pedagogy": 37,
+      "Curriculum and pedagogy": 36,
       "Motivation and wellbeing": 28,
       "STEM education": 19,
       "Equity and policy": 6,
@@ -15265,7 +15268,7 @@
       "Learning analytics": 2
     },
     "method_hits": {
-      "Experiment": 22,
+      "Experiment": 21,
       "RAG": 6,
       "Computer-supported collaboration": 2,
       "Mixed methods": 11,
@@ -15273,7 +15276,7 @@
       "Learning analytics": 1
     },
     "article_count_crawled": 80,
-    "source_pages_crawled": 4
+    "source_pages_crawled": 2
   },
   {
     "id": "journal-121-journal-of-higher-education",
@@ -15376,7 +15379,7 @@
       }
     },
     "topic_hits": {
-      "Higher education": 46,
+      "Higher education": 45,
       "STEM education": 5,
       "Equity and policy": 11,
       "Curriculum and pedagogy": 1,
@@ -15389,7 +15392,7 @@
       "Review": 1
     },
     "article_count_crawled": 80,
-    "source_pages_crawled": 4
+    "source_pages_crawled": 2
   },
   {
     "id": "journal-122-international-journal-of-educational-development",
@@ -15488,7 +15491,7 @@
       "Review": 1
     },
     "article_count_crawled": 80,
-    "source_pages_crawled": 4
+    "source_pages_crawled": 2
   },
   {
     "id": "journal-123-education-and-training",
@@ -15536,19 +15539,19 @@
     "article_preferences": {
       "article_sample_count": 80,
       "topic_counts": {
-        "Higher education": 47,
+        "Higher education": 48,
         "STEM education": 29,
+        "Assessment": 22,
         "Equity and policy": 21,
-        "Assessment": 21,
         "Curriculum and pedagogy": 19,
-        "Motivation and wellbeing": 17,
+        "Motivation and wellbeing": 18,
         "Educational technology": 2,
         "Language learning": 1,
         "Teacher education": 1,
         "Generative AI": 1
       },
       "method_counts": {
-        "Mixed methods": 52,
+        "Mixed methods": 53,
         "RAG": 13,
         "Review": 13,
         "Experiment": 11,
@@ -15558,10 +15561,10 @@
         {
           "year": "2026",
           "topics": {
-            "Higher education": 46,
+            "Higher education": 48,
             "STEM education": 29,
+            "Assessment": 21,
             "Equity and policy": 21,
-            "Assessment": 20,
             "Curriculum and pedagogy": 18
           }
         },
@@ -15570,8 +15573,7 @@
           "topics": {
             "Motivation and wellbeing": 2,
             "Assessment": 1,
-            "Curriculum and pedagogy": 1,
-            "Higher education": 1
+            "Curriculum and pedagogy": 1
           }
         }
       ],
@@ -15579,46 +15581,46 @@
         "year": "2026",
         "volume": "68",
         "issue": "10",
-        "article_count": 9,
+        "article_count": 10,
         "top_topics": {
-          "Higher education": 8,
-          "Assessment": 3,
+          "Higher education": 10,
+          "Assessment": 4,
+          "Motivation and wellbeing": 2,
           "Language learning": 1,
           "Equity and policy": 1,
-          "STEM education": 1,
-          "Motivation and wellbeing": 1
+          "STEM education": 1
         },
         "sample_titles": [
+          "Effective delivery of degree apprenticeships (DA) in the built environment: the role of infrastructure in higher education institutions (HEI) and workplace",
           "Sectoral training matters more than improvement in foundation skills: how Australian VET programs are associated with graduate employability",
           "Infusing authenticity into a service-learning program: examining long-term impacts on professional development",
           "Institutionalizing entrepreneurship education in CDIO-based project courses: evidence from a fifteen-year longitudinal case",
           "How self-directed experiential learning shapes the development of entrepreneurship competences: insights from reflective practice in an internship context",
-          "Cultivating an evidence-based innovation mindset in allied health professions",
-          "Quality of work-integrated learning and employability in Henan TVET: serial mediation via career self-efficacy and adaptability, moderated by proactive personality"
+          "Cultivating an evidence-based innovation mindset in allied health professions"
         ]
       }
     },
     "topic_hits": {
+      "Higher education": 51,
+      "Assessment": 34,
+      "Motivation and wellbeing": 29,
       "Language learning": 1,
       "STEM education": 36,
       "Equity and policy": 43,
-      "Higher education": 50,
-      "Motivation and wellbeing": 28,
       "Curriculum and pedagogy": 35,
       "Teacher education": 2,
-      "Assessment": 33,
       "Educational technology": 2,
       "Generative AI": 1
     },
     "method_hits": {
+      "Mixed methods": 59,
       "RAG": 19,
       "Experiment": 18,
       "Review": 14,
-      "Mixed methods": 58,
       "Computer-supported collaboration": 2
     },
     "article_count_crawled": 80,
-    "source_pages_crawled": 4
+    "source_pages_crawled": 2
   },
   {
     "id": "journal-124-early-childhood-research-quarterly",
@@ -15717,7 +15719,7 @@
       "Review": 5
     },
     "article_count_crawled": 80,
-    "source_pages_crawled": 4
+    "source_pages_crawled": 2
   },
   {
     "id": "journal-125-comparative-education-review",
@@ -15823,7 +15825,7 @@
       "Mixed methods": 3
     },
     "article_count_crawled": 80,
-    "source_pages_crawled": 4
+    "source_pages_crawled": 2
   },
   {
     "id": "journal-126-chemistry-education-research-and-practice",
@@ -15929,18 +15931,18 @@
           "Contribution of an instructional module incorporating PhET simulations to Rwandan students' knowledge of chemical reactions, acids, and bases through social interactions",
           "Metacognitive problem solving: exploration of students’ perspectives through the lens of multi-dimensional engagement",
           "‘Seeing’ chemistry: investigating the contribution of mental imagery strength on students’ thinking in relation to visuospatial problem solving in chemistry",
-          "“I’m still here and I want them to know that”: experiences of chemists with concealable identities in undergraduate research",
-          "Psychometric analysis of the resonance concept inventory"
+          "Psychometric analysis of the resonance concept inventory",
+          "“I’m still here and I want them to know that”: experiences of chemists with concealable identities in undergraduate research"
         ]
       }
     },
     "topic_hits": {
       "Curriculum and pedagogy": 37,
       "Language learning": 10,
-      "Assessment": 42,
+      "Assessment": 41,
       "Motivation and wellbeing": 12,
       "Higher education": 33,
-      "Equity and policy": 6,
+      "Equity and policy": 5,
       "Educational technology": 1,
       "STEM education": 20,
       "Generative AI": 3,
@@ -15954,7 +15956,7 @@
       "Computer-supported collaboration": 1
     },
     "article_count_crawled": 80,
-    "source_pages_crawled": 4
+    "source_pages_crawled": 2
   },
   {
     "id": "journal-127-academic-psychiatry",
@@ -16067,7 +16069,7 @@
       "Review": 1
     },
     "article_count_crawled": 80,
-    "source_pages_crawled": 4
+    "source_pages_crawled": 2
   },
   {
     "id": "journal-128-technology-pedagogy-and-education",
@@ -16177,7 +16179,7 @@
     "topic_hits": {
       "Higher education": 7,
       "Educational technology": 5,
-      "Curriculum and pedagogy": 12,
+      "Curriculum and pedagogy": 11,
       "STEM education": 7,
       "Equity and policy": 5,
       "Motivation and wellbeing": 9,
@@ -16190,7 +16192,7 @@
       "Mixed methods": 3
     },
     "article_count_crawled": 80,
-    "source_pages_crawled": 4
+    "source_pages_crawled": 2
   },
   {
     "id": "journal-129-science-education",
@@ -16318,7 +16320,7 @@
       "Review": 2
     },
     "article_count_crawled": 80,
-    "source_pages_crawled": 4
+    "source_pages_crawled": 2
   },
   {
     "id": "journal-130-review-of-higher-education",
@@ -16435,7 +16437,7 @@
     },
     "topic_hits": {
       "Generative AI": 5,
-      "Higher education": 83,
+      "Higher education": 82,
       "Equity and policy": 47,
       "Motivation and wellbeing": 16,
       "STEM education": 24,
@@ -16449,7 +16451,7 @@
       "Learning analytics": 2
     },
     "article_count_crawled": 80,
-    "source_pages_crawled": 4
+    "source_pages_crawled": 2
   },
   {
     "id": "journal-131-journal-of-marketing-for-higher-education",
@@ -16565,7 +16567,7 @@
       }
     },
     "topic_hits": {
-      "Higher education": 63,
+      "Higher education": 62,
       "Equity and policy": 5,
       "STEM education": 3,
       "Motivation and wellbeing": 6
@@ -16575,7 +16577,7 @@
       "Mixed methods": 1
     },
     "article_count_crawled": 80,
-    "source_pages_crawled": 4
+    "source_pages_crawled": 2
   },
   {
     "id": "journal-132-journal-of-educational-research",
@@ -16696,7 +16698,7 @@
       "Learning analytics": 1
     },
     "article_count_crawled": 80,
-    "source_pages_crawled": 4
+    "source_pages_crawled": 2
   },
   {
     "id": "journal-133-educational-studies-in-mathematics",
@@ -16825,7 +16827,7 @@
       "Computer-supported collaboration": 1
     },
     "article_count_crawled": 80,
-    "source_pages_crawled": 4
+    "source_pages_crawled": 2
   },
   {
     "id": "journal-134-educational-psychology",
@@ -16948,7 +16950,7 @@
       "Experiment": 6
     },
     "article_count_crawled": 80,
-    "source_pages_crawled": 4
+    "source_pages_crawled": 2
   },
   {
     "id": "journal-135-british-journal-of-educational-studies",
@@ -17069,7 +17071,7 @@
       "Review": 1
     },
     "article_count_crawled": 80,
-    "source_pages_crawled": 4
+    "source_pages_crawled": 2
   },
   {
     "id": "journal-136-school-effectiveness-and-school-improvement",
@@ -17196,7 +17198,7 @@
       "Review": 2
     },
     "article_count_crawled": 80,
-    "source_pages_crawled": 4
+    "source_pages_crawled": 2
   },
   {
     "id": "journal-137-international-journal-of-science-education",
@@ -17255,8 +17257,8 @@
         "Teacher education": 2
       },
       "method_counts": {
-        "Mixed methods": 7,
-        "Experiment": 6,
+        "Mixed methods": 6,
+        "Experiment": 4,
         "Chatbot": 1,
         "Review": 1,
         "Computer-supported collaboration": 1
@@ -17265,8 +17267,8 @@
         {
           "year": "2026",
           "topics": {
-            "STEM education": 19,
-            "Curriculum and pedagogy": 5,
+            "STEM education": 20,
+            "Curriculum and pedagogy": 6,
             "Generative AI": 4,
             "Assessment": 4,
             "Motivation and wellbeing": 3
@@ -17275,9 +17277,8 @@
         {
           "year": "2025",
           "topics": {
-            "STEM education": 2,
-            "Motivation and wellbeing": 1,
-            "Curriculum and pedagogy": 1
+            "STEM education": 1,
+            "Motivation and wellbeing": 1
           }
         }
       ],
@@ -17285,45 +17286,45 @@
         "year": "2026",
         "volume": "",
         "issue": "",
-        "article_count": 76,
+        "article_count": 79,
         "top_topics": {
-          "STEM education": 19,
-          "Curriculum and pedagogy": 5,
+          "STEM education": 20,
+          "Curriculum and pedagogy": 6,
           "Generative AI": 4,
           "Assessment": 4,
           "Motivation and wellbeing": 3,
           "Higher education": 3
         },
         "sample_titles": [
+          "Children's drawings from scientific stories as vehicles for enhancing argument construction in early science learning",
+          "Digital or analog? Students’ Instrument choices in science lessons and their associations with authenticity beliefs and science career aspirations",
+          "Assessing students’ interdisciplinary understanding of socio-scientific issues in STEM education through concept mapping",
           "Examining the impact of virtual reality on middle school students’ biology learning outcomes and experiences",
           "Scientific literacy and generative AI: embracing nature of science for social justice",
-          "Supporting systems thinking in environmental science education with large language model chatbots",
-          "Spurring and siloing: cultural and linguistic identity (CLI) navigation in scientific writing among Asian student researchers",
-          "Analysis of academic and non-academic time use patterns in scientific inquiry supported classes through video observations",
-          "Mediating sexuality as lived biology in science teacher education: the SciSexTed model"
+          "Supporting systems thinking in environmental science education with large language model chatbots"
         ]
       }
     },
     "topic_hits": {
+      "Curriculum and pedagogy": 6,
+      "STEM education": 21,
       "Generative AI": 4,
       "Equity and policy": 2,
-      "STEM education": 22,
       "Language learning": 2,
       "Teacher education": 2,
       "Assessment": 4,
       "Motivation and wellbeing": 4,
-      "Curriculum and pedagogy": 6,
       "Higher education": 3
     },
     "method_hits": {
       "Chatbot": 1,
-      "Mixed methods": 7,
+      "Mixed methods": 6,
       "Review": 1,
       "Computer-supported collaboration": 1,
-      "Experiment": 6
+      "Experiment": 4
     },
     "article_count_crawled": 80,
-    "source_pages_crawled": 4
+    "source_pages_crawled": 2
   },
   {
     "id": "journal-138-reading-and-writing",
@@ -17423,7 +17424,7 @@
     },
     "topic_hits": {
       "STEM education": 10,
-      "Language learning": 30,
+      "Language learning": 29,
       "Assessment": 17,
       "Equity and policy": 8,
       "Curriculum and pedagogy": 24,
@@ -17438,7 +17439,7 @@
       "Mixed methods": 2
     },
     "article_count_crawled": 80,
-    "source_pages_crawled": 4
+    "source_pages_crawled": 2
   },
   {
     "id": "journal-139-race-ethnicity-and-education",
@@ -17541,7 +17542,7 @@
       "Mixed methods": 3
     },
     "article_count_crawled": 80,
-    "source_pages_crawled": 4
+    "source_pages_crawled": 2
   },
   {
     "id": "journal-140-oxford-review-of-education",
@@ -17663,7 +17664,7 @@
       "Computer-supported collaboration": 1
     },
     "article_count_crawled": 80,
-    "source_pages_crawled": 4
+    "source_pages_crawled": 2
   },
   {
     "id": "journal-141-journal-of-moral-education",
@@ -17783,7 +17784,7 @@
       "Experiment": 3
     },
     "article_count_crawled": 80,
-    "source_pages_crawled": 4
+    "source_pages_crawled": 2
   },
   {
     "id": "journal-142-journal-of-education-for-teaching",
@@ -17906,7 +17907,7 @@
       "Experiment": 1
     },
     "article_count_crawled": 80,
-    "source_pages_crawled": 4
+    "source_pages_crawled": 2
   },
   {
     "id": "journal-143-journal-of-agricultural-education-extension",
@@ -18027,7 +18028,7 @@
       "Experiment": 1
     },
     "article_count_crawled": 80,
-    "source_pages_crawled": 4
+    "source_pages_crawled": 2
   },
   {
     "id": "journal-144-gender-and-education",
@@ -18133,7 +18134,7 @@
       "Review": 1
     },
     "article_count_crawled": 80,
-    "source_pages_crawled": 4
+    "source_pages_crawled": 2
   },
   {
     "id": "journal-145-vocations-and-learning",
@@ -18283,7 +18284,7 @@
       "Computer-supported collaboration": 1
     },
     "article_count_crawled": 80,
-    "source_pages_crawled": 4
+    "source_pages_crawled": 2
   },
   {
     "id": "journal-146-research-in-higher-education",
@@ -18332,27 +18333,27 @@
     "article_preferences": {
       "article_sample_count": 80,
       "topic_counts": {
-        "Higher education": 63,
-        "Equity and policy": 18,
-        "STEM education": 17,
+        "Higher education": 62,
+        "Equity and policy": 19,
+        "STEM education": 18,
         "Generative AI": 14,
         "Motivation and wellbeing": 9,
         "Curriculum and pedagogy": 5,
-        "Assessment": 2
+        "Assessment": 1
       },
       "method_counts": {
-        "Experiment": 6,
+        "Experiment": 7,
+        "RAG": 2,
         "Mixed methods": 2,
-        "RAG": 1,
         "Review": 1
       },
       "yearly_topics": [
         {
           "year": "2026",
           "topics": {
-            "Higher education": 35,
-            "STEM education": 12,
-            "Equity and policy": 11,
+            "Higher education": 37,
+            "STEM education": 13,
+            "Equity and policy": 12,
             "Generative AI": 8,
             "Motivation and wellbeing": 5
           }
@@ -18360,7 +18361,7 @@
         {
           "year": "2025",
           "topics": {
-            "Higher education": 28,
+            "Higher education": 25,
             "Equity and policy": 7,
             "Generative AI": 6,
             "STEM education": 5,
@@ -18371,43 +18372,37 @@
       "latest_issue": {
         "year": "2026",
         "volume": "67",
-        "issue": "5",
-        "article_count": 14,
+        "issue": "6",
+        "article_count": 3,
         "top_topics": {
-          "Higher education": 10,
-          "Equity and policy": 6,
-          "STEM education": 4,
-          "Motivation and wellbeing": 3,
-          "Generative AI": 1,
-          "Curriculum and pedagogy": 1
+          "Higher education": 2,
+          "Equity and policy": 1,
+          "STEM education": 1
         },
         "sample_titles": [
-          "Who Moves, Where and Why: Faculty Mobility in Brazil’s Higher Education System",
-          "Linking Course Experience and Student Engagement: The Combined Effects on University Students’ Ability Development in China",
-          "Formalizing University Technology Transfer Governance in the Knowledge Economy: A Comparative Analysis of Institutional Policy Designs in the US, UK, Australia, and China",
-          "Patterns of University Withdrawal: Do Former Students’ Accounts Raise Social Justice Concerns?",
-          "How Do Physics and Engineering Faculties Evaluate Direct Affirmative Hiring for Women in Japan?",
-          "Building Institutions, Broadening Knowledge: The Impact of Cross-City Branch Campuses on Local Universities’ Scientific Research Performance"
+          "Equal Access, Persistent Divides: Gender Segregation in Italian Higher Education across Three Decades (1995–2022)",
+          "Where Do Women Exit the Academic Pipeline?: Evidence from a Decade of National Data in Japan",
+          "The Price of Helping Others: Altruistic Preferences and the Gender Wage Gap"
         ]
       }
     },
     "topic_hits": {
-      "Higher education": 67,
+      "Higher education": 65,
+      "Equity and policy": 28,
       "STEM education": 19,
-      "Equity and policy": 27,
       "Motivation and wellbeing": 9,
       "Generative AI": 15,
       "Curriculum and pedagogy": 5,
-      "Assessment": 2
+      "Assessment": 1
     },
     "method_hits": {
-      "Mixed methods": 3,
-      "Experiment": 7,
       "RAG": 4,
+      "Experiment": 8,
+      "Mixed methods": 3,
       "Review": 1
     },
     "article_count_crawled": 80,
-    "source_pages_crawled": 4
+    "source_pages_crawled": 2
   },
   {
     "id": "journal-147-quest",
@@ -18459,14 +18454,14 @@
       "topic_counts": {
         "Higher education": 9,
         "Equity and policy": 9,
-        "Curriculum and pedagogy": 6,
         "Motivation and wellbeing": 6,
+        "STEM education": 5,
+        "Curriculum and pedagogy": 5,
         "Teacher education": 5,
-        "STEM education": 4,
-        "Assessment": 3
+        "Assessment": 4
       },
       "method_counts": {
-        "Review": 5,
+        "Review": 6,
         "Experiment": 3,
         "Mixed methods": 2
       },
@@ -18477,15 +18472,14 @@
             "Higher education": 9,
             "Equity and policy": 9,
             "Motivation and wellbeing": 6,
-            "Curriculum and pedagogy": 5,
-            "Teacher education": 5
+            "STEM education": 5,
+            "Curriculum and pedagogy": 5
           }
         },
         {
           "year": "2025",
           "topics": {
-            "Assessment": 3,
-            "Curriculum and pedagogy": 1
+            "Assessment": 2
           }
         }
       ],
@@ -18493,41 +18487,41 @@
         "year": "2026",
         "volume": "",
         "issue": "",
-        "article_count": 65,
+        "article_count": 67,
         "top_topics": {
           "Higher education": 9,
           "Equity and policy": 9,
           "Motivation and wellbeing": 6,
+          "STEM education": 5,
           "Curriculum and pedagogy": 5,
-          "Teacher education": 5,
-          "STEM education": 4
+          "Teacher education": 5
         },
         "sample_titles": [
           "A Critical Review of the Limited Use of Creativity in Health and Fitness Training",
+          "Reflective Cycles of Learning: Methods of Measuring, Monitoring, and Evaluation Within Sport-for-Development",
+          "Assessment of Common Content Knowledge in Physical Education: A Systematic Review of Instrument Development and Validation",
           "How to Build Cultural Bridges in the Classroom: Kinesiology Undergraduate Students’ Perceptions and Opinions of Instructor Teaching Practices",
           "Enhancing Sport Coaching Through AI: A Framework for Integrating Advanced Technologies into Sport",
-          "Competitive and Non-Competitive Physical Education Games and Academic Motivation in Children: A Randomized School-Based Study",
-          "Your Time, Whose Science? On Tempo Reviewability in Human Movement Research",
-          "Humanistic Qualities in Physical Education: A Systematic Review and Meta-Synthesis"
+          "Competitive and Non-Competitive Physical Education Games and Academic Motivation in Children: A Randomized School-Based Study"
         ]
       }
     },
     "topic_hits": {
+      "Assessment": 4,
+      "STEM education": 5,
       "Higher education": 9,
-      "Curriculum and pedagogy": 6,
+      "Curriculum and pedagogy": 5,
       "Motivation and wellbeing": 6,
-      "STEM education": 4,
       "Equity and policy": 9,
-      "Teacher education": 5,
-      "Assessment": 3
+      "Teacher education": 5
     },
     "method_hits": {
+      "Review": 6,
       "Experiment": 3,
-      "Review": 5,
       "Mixed methods": 2
     },
     "article_count_crawled": 80,
-    "source_pages_crawled": 4
+    "source_pages_crawled": 2
   },
   {
     "id": "journal-148-porta-linguarum",
@@ -18656,7 +18650,7 @@
       "Computer-supported collaboration": 1
     },
     "article_count_crawled": 80,
-    "source_pages_crawled": 4
+    "source_pages_crawled": 2
   },
   {
     "id": "journal-149-journal-of-mathematics-teacher-education",
@@ -18772,11 +18766,11 @@
     "topic_hits": {
       "STEM education": 26,
       "Learning analytics": 4,
-      "Teacher education": 20,
+      "Teacher education": 19,
       "Assessment": 6,
-      "Equity and policy": 9,
+      "Equity and policy": 8,
       "Motivation and wellbeing": 12,
-      "Curriculum and pedagogy": 34,
+      "Curriculum and pedagogy": 33,
       "Educational technology": 1,
       "Generative AI": 4,
       "Higher education": 5
@@ -18790,7 +18784,7 @@
       "Review": 1
     },
     "article_count_crawled": 80,
-    "source_pages_crawled": 4
+    "source_pages_crawled": 2
   },
   {
     "id": "journal-150-journal-of-diversity-in-higher-education",
@@ -18888,7 +18882,7 @@
     },
     "topic_hits": {
       "STEM education": 6,
-      "Higher education": 41,
+      "Higher education": 40,
       "Equity and policy": 16,
       "Curriculum and pedagogy": 2,
       "Assessment": 1,
@@ -18902,7 +18896,7 @@
       "Experiment": 1
     },
     "article_count_crawled": 80,
-    "source_pages_crawled": 4
+    "source_pages_crawled": 2
   },
   {
     "id": "journal-151-international-journal-of-multilingualism",
@@ -19011,7 +19005,7 @@
       "Review": 2
     },
     "article_count_crawled": 80,
-    "source_pages_crawled": 4
+    "source_pages_crawled": 2
   },
   {
     "id": "journal-152-educational-policy",
@@ -19134,7 +19128,7 @@
     "topic_hits": {
       "Generative AI": 10,
       "STEM education": 23,
-      "Equity and policy": 93,
+      "Equity and policy": 92,
       "Motivation and wellbeing": 11,
       "Curriculum and pedagogy": 7,
       "Higher education": 19,
@@ -19149,7 +19143,7 @@
       "Experiment": 10
     },
     "article_count_crawled": 80,
-    "source_pages_crawled": 4
+    "source_pages_crawled": 2
   },
   {
     "id": "journal-153-educational-measurement-issues-and-practice",
@@ -19280,7 +19274,7 @@
       "Mixed methods": 1
     },
     "article_count_crawled": 80,
-    "source_pages_crawled": 2
+    "source_pages_crawled": 1
   },
   {
     "id": "journal-154-distance-education",
@@ -19418,7 +19412,7 @@
       "Review": 4
     },
     "article_count_crawled": 80,
-    "source_pages_crawled": 4
+    "source_pages_crawled": 2
   },
   {
     "id": "journal-155-discourse-studies-in-the-cultural-politics-of-ed",
@@ -19539,7 +19533,7 @@
       "Mixed methods": 1
     },
     "article_count_crawled": 80,
-    "source_pages_crawled": 4
+    "source_pages_crawled": 2
   },
   {
     "id": "journal-156-asia-pacific-education-review",
@@ -19667,7 +19661,7 @@
       "Computer-supported collaboration": 1
     },
     "article_count_crawled": 80,
-    "source_pages_crawled": 4
+    "source_pages_crawled": 2
   },
   {
     "id": "journal-157-sex-education-sexuality-society-and-learning",
@@ -19793,7 +19787,7 @@
       "RAG": 1
     },
     "article_count_crawled": 80,
-    "source_pages_crawled": 4
+    "source_pages_crawled": 2
   },
   {
     "id": "journal-158-research-papers-in-education",
@@ -19913,7 +19907,7 @@
       }
     },
     "topic_hits": {
-      "Equity and policy": 9,
+      "Equity and policy": 7,
       "Generative AI": 1,
       "Higher education": 8,
       "Curriculum and pedagogy": 5,
@@ -19931,7 +19925,7 @@
       "RAG": 1
     },
     "article_count_crawled": 80,
-    "source_pages_crawled": 4
+    "source_pages_crawled": 2
   },
   {
     "id": "journal-159-psicologia-educativa",
@@ -20073,7 +20067,7 @@
       "Review": 6
     },
     "article_count_crawled": 80,
-    "source_pages_crawled": 4
+    "source_pages_crawled": 2
   },
   {
     "id": "journal-160-learning-culture-and-social-interaction",
@@ -20202,7 +20196,7 @@
       "Mixed methods": 1
     },
     "article_count_crawled": 80,
-    "source_pages_crawled": 4
+    "source_pages_crawled": 2
   },
   {
     "id": "journal-161-international-journal-of-inclusive-education",
@@ -20315,7 +20309,7 @@
       "RAG": 2
     },
     "article_count_crawled": 80,
-    "source_pages_crawled": 2
+    "source_pages_crawled": 4
   },
   {
     "id": "journal-162-higher-education-policy",
@@ -20362,8 +20356,8 @@
     "article_preferences": {
       "article_sample_count": 80,
       "topic_counts": {
-        "Higher education": 67,
-        "Equity and policy": 53,
+        "Higher education": 68,
+        "Equity and policy": 54,
         "STEM education": 19,
         "Assessment": 8,
         "Motivation and wellbeing": 6,
@@ -20380,8 +20374,8 @@
         {
           "year": "2026",
           "topics": {
-            "Higher education": 26,
-            "Equity and policy": 15,
+            "Higher education": 27,
+            "Equity and policy": 16,
             "STEM education": 4,
             "Motivation and wellbeing": 4,
             "Assessment": 3
@@ -20411,28 +20405,28 @@
         "year": "2026",
         "volume": "",
         "issue": "",
-        "article_count": 28,
+        "article_count": 29,
         "top_topics": {
-          "Higher education": 26,
-          "Equity and policy": 15,
+          "Higher education": 27,
+          "Equity and policy": 16,
           "STEM education": 4,
           "Motivation and wellbeing": 4,
           "Assessment": 3
         },
         "sample_titles": [
+          "University Social Contribution in Disaster Settings: Institutional Capacity and Governance After the 6 February 2023 Earthquakes in Türkiye",
           "Quality Assurance Systems in Turkish Higher Education Institutions: Experiences, Challenges, And Opportunities from an Evaluator’s Perspective",
           "Difference Between Political Intent and Action: Implementation of Recent Changes in Doctoral Education in Georgia",
           "Governing Through Ambiguity: How Strategic Policy Design Sustains Transnational Higher Education in Authoritarian Contexts",
           "Constructions of Excellence and its Relationship with Research Culture in Research-intensive UK University Strategies",
-          "Evaluating a Competitive Research Funding Scheme in Higher Education: A 20-Year Panel Study of Industrial Engineering and Management Scholars in Taiwan",
-          "Pedagogical Guerrillas: Contained Resistance and the Dual Critique in China’s Neoliberalized Higher Education"
+          "Evaluating a Competitive Research Funding Scheme in Higher Education: A 20-Year Panel Study of Industrial Engineering and Management Scholars in Taiwan"
         ]
       }
     },
     "topic_hits": {
-      "Higher education": 67,
+      "Higher education": 69,
+      "Equity and policy": 58,
       "STEM education": 19,
-      "Equity and policy": 56,
       "Assessment": 8,
       "Motivation and wellbeing": 7,
       "Curriculum and pedagogy": 6,
@@ -20445,7 +20439,7 @@
       "Experiment": 2
     },
     "article_count_crawled": 80,
-    "source_pages_crawled": 1
+    "source_pages_crawled": 2
   },
   {
     "id": "journal-163-early-education-and-development",
@@ -20531,9 +20525,9 @@
         "year": "2026",
         "volume": "",
         "issue": "",
-        "article_count": 32,
+        "article_count": 19,
         "top_topics": {
-          "Motivation and wellbeing": 4,
+          "Motivation and wellbeing": 3,
           "Equity and policy": 1,
           "Assessment": 1,
           "STEM education": 1
@@ -20549,7 +20543,7 @@
       }
     },
     "topic_hits": {
-      "Equity and policy": 5,
+      "Equity and policy": 6,
       "Motivation and wellbeing": 10,
       "Assessment": 4,
       "STEM education": 7,
@@ -20563,7 +20557,7 @@
       "RAG": 1
     },
     "article_count_crawled": 80,
-    "source_pages_crawled": 2
+    "source_pages_crawled": 4
   },
   {
     "id": "journal-164-compare-a-journal-of-comparative-and-internation",
@@ -20680,7 +20674,7 @@
       "RAG": 2
     },
     "article_count_crawled": 80,
-    "source_pages_crawled": 2
+    "source_pages_crawled": 4
   },
   {
     "id": "journal-165-british-journal-of-sociology-of-education",
@@ -20794,7 +20788,7 @@
       "Mixed methods": 1
     },
     "article_count_crawled": 80,
-    "source_pages_crawled": 2
+    "source_pages_crawled": 4
   },
   {
     "id": "journal-166-research-in-science-technological-education",
@@ -20842,7 +20836,7 @@
     "article_preferences": {
       "article_sample_count": 80,
       "topic_counts": {
-        "STEM education": 36,
+        "STEM education": 37,
         "Curriculum and pedagogy": 9,
         "Assessment": 4,
         "Higher education": 2,
@@ -20861,7 +20855,7 @@
         {
           "year": "2026",
           "topics": {
-            "STEM education": 28,
+            "STEM education": 29,
             "Curriculum and pedagogy": 7,
             "Higher education": 2,
             "Assessment": 2,
@@ -20883,9 +20877,9 @@
         "year": "2026",
         "volume": "",
         "issue": "",
-        "article_count": 57,
+        "article_count": 58,
         "top_topics": {
-          "STEM education": 28,
+          "STEM education": 29,
           "Curriculum and pedagogy": 7,
           "Higher education": 2,
           "Assessment": 2,
@@ -20893,18 +20887,18 @@
           "Motivation and wellbeing": 1
         },
         "sample_titles": [
+          "The impact of STEM education on the scientific reasoning skills of pre-service science teachers with different cognitive styles",
           "Growth, diversity and shared responsibility in science and technological education research",
           "The effect of an online-guided inquiry approach on students’ science achievement, retention, reading comprehension and scientific process skills",
           "The effect of science activities utilizing Web 2.0 applications on primary school students׳ achievement and attitude: an experimental study",
           "The story of the photoelectric effect: an intervention study on the use of history and argumentative writing in physics teaching",
-          "Developing higher order thinking skills through web-based activities supported by socioscientific Issues",
-          "Profiles of inquiry-based instructional strategies in Austrian primary school science education"
+          "Developing higher order thinking skills through web-based activities supported by socioscientific Issues"
         ]
       }
     },
     "topic_hits": {
+      "STEM education": 37,
       "Language learning": 1,
-      "STEM education": 36,
       "Curriculum and pedagogy": 9,
       "Higher education": 2,
       "Motivation and wellbeing": 2,
@@ -20919,7 +20913,7 @@
       "Review": 2
     },
     "article_count_crawled": 80,
-    "source_pages_crawled": 2
+    "source_pages_crawled": 4
   },
   {
     "id": "journal-167-mind-brain-and-education",
@@ -21051,7 +21045,7 @@
       "Computer-supported collaboration": 1
     },
     "article_count_crawled": 80,
-    "source_pages_crawled": 1
+    "source_pages_crawled": 2
   },
   {
     "id": "journal-168-literacy",
@@ -21097,7 +21091,7 @@
       "note": ""
     },
     "article_preferences": {
-      "article_sample_count": 80,
+      "article_sample_count": 81,
       "topic_counts": {
         "Curriculum and pedagogy": 30,
         "Language learning": 29,
@@ -21177,7 +21171,7 @@
       "Language learning": 30,
       "STEM education": 6,
       "Teacher education": 4,
-      "Assessment": 11
+      "Assessment": 12
     },
     "method_hits": {
       "Mixed methods": 42,
@@ -21185,8 +21179,8 @@
       "Review": 2,
       "RAG": 8
     },
-    "article_count_crawled": 80,
-    "source_pages_crawled": 1
+    "article_count_crawled": 81,
+    "source_pages_crawled": 2
   },
   {
     "id": "journal-169-journal-of-professional-capital-and-community",
@@ -21232,20 +21226,20 @@
     "article_preferences": {
       "article_sample_count": 80,
       "topic_counts": {
-        "Equity and policy": 27,
-        "STEM education": 25,
+        "Equity and policy": 28,
+        "STEM education": 26,
         "Motivation and wellbeing": 24,
         "Teacher education": 16,
         "Curriculum and pedagogy": 14,
-        "Higher education": 9,
         "Assessment": 8,
-        "AI literacy": 1,
+        "Higher education": 7,
+        "AI literacy": 2,
         "Generative AI": 1
       },
       "method_counts": {
         "Mixed methods": 61,
         "RAG": 10,
-        "Review": 4,
+        "Review": 5,
         "Experiment": 2,
         "Computer-supported collaboration": 1
       },
@@ -21253,11 +21247,11 @@
         {
           "year": "2026",
           "topics": {
-            "Equity and policy": 15,
-            "STEM education": 10,
+            "Equity and policy": 16,
+            "STEM education": 11,
             "Motivation and wellbeing": 9,
             "Teacher education": 6,
-            "Assessment": 2
+            "AI literacy": 2
           }
         },
         {
@@ -21275,9 +21269,9 @@
           "topics": {
             "Motivation and wellbeing": 6,
             "Teacher education": 5,
-            "Higher education": 4,
             "Curriculum and pedagogy": 4,
-            "Equity and policy": 3
+            "Equity and policy": 3,
+            "Higher education": 2
           }
         }
       ],
@@ -21303,25 +21297,25 @@
       }
     },
     "topic_hits": {
-      "Equity and policy": 46,
+      "AI literacy": 2,
+      "STEM education": 34,
+      "Equity and policy": 47,
       "Teacher education": 20,
       "Motivation and wellbeing": 35,
-      "STEM education": 33,
-      "Higher education": 10,
-      "AI literacy": 1,
+      "Higher education": 8,
       "Curriculum and pedagogy": 20,
       "Assessment": 13,
       "Generative AI": 1
     },
     "method_hits": {
+      "Review": 6,
       "Mixed methods": 65,
       "RAG": 14,
-      "Review": 5,
       "Experiment": 4,
       "Computer-supported collaboration": 1
     },
     "article_count_crawled": 80,
-    "source_pages_crawled": 1
+    "source_pages_crawled": 2
   },
   {
     "id": "journal-170-international-journal-of-bilingual-education-and",
@@ -21375,7 +21369,7 @@
         "Assessment": 5,
         "Higher education": 3,
         "Curriculum and pedagogy": 3,
-        "Language learning": 3,
+        "Language learning": 2,
         "Motivation and wellbeing": 1,
         "STEM education": 1
       },
@@ -21401,8 +21395,8 @@
             "Assessment": 4,
             "Curriculum and pedagogy": 3,
             "Equity and policy": 3,
-            "Language learning": 3,
-            "Teacher education": 2
+            "Teacher education": 2,
+            "Language learning": 2
           }
         }
       ],
@@ -21410,7 +21404,7 @@
         "year": "2026",
         "volume": "",
         "issue": "",
-        "article_count": 18,
+        "article_count": 19,
         "top_topics": {
           "Equity and policy": 2,
           "Higher education": 2,
@@ -21419,12 +21413,12 @@
           "STEM education": 1
         },
         "sample_titles": [
+          "Parental translanguaging in family shared-reading activities in Chinese-German families",
           "Teachers’ practices and perceptions of translanguaging in a trilingual minority context: evidence from Inner Mongolia",
           "Literacy skills in monolingual and emergent bilingual primary school children in Wales",
           "Raising Kyrgyz kids: family language policy, childrearing, and language shift in a Bishkek family",
           "‘I don’t speak any language’: exploring teacher language ideologies and linguistic hierarchies in a K-12 bilingual school",
-          "Proving what’s possible: tracing the generation of political priority for bilingual education in Senegal",
-          "Competent bilingualism of primary school children in Germany: associations with individual, family-related, and institutional learning conditions"
+          "Proving what’s possible: tracing the generation of political priority for bilingual education in Senegal"
         ]
       }
     },
@@ -21436,7 +21430,7 @@
       "STEM education": 1,
       "Assessment": 5,
       "Curriculum and pedagogy": 3,
-      "Language learning": 3
+      "Language learning": 2
     },
     "method_hits": {
       "Mixed methods": 2,
@@ -21444,7 +21438,7 @@
       "Experiment": 1
     },
     "article_count_crawled": 80,
-    "source_pages_crawled": 2
+    "source_pages_crawled": 4
   },
   {
     "id": "journal-171-foreign-language-annals",
@@ -21556,7 +21550,7 @@
       }
     },
     "topic_hits": {
-      "Language learning": 49,
+      "Language learning": 50,
       "Motivation and wellbeing": 15,
       "Curriculum and pedagogy": 42,
       "Higher education": 26,
@@ -21575,7 +21569,7 @@
       "RAG": 10
     },
     "article_count_crawled": 80,
-    "source_pages_crawled": 1
+    "source_pages_crawled": 2
   },
   {
     "id": "journal-172-european-educational-research-journal",
@@ -21706,7 +21700,7 @@
       "RAG": 6
     },
     "article_count_crawled": 80,
-    "source_pages_crawled": 2
+    "source_pages_crawled": 4
   },
   {
     "id": "journal-173-economics-of-education-review",
@@ -21794,17 +21788,17 @@
         "year": "2026",
         "volume": "113",
         "issue": "",
-        "article_count": 9,
+        "article_count": 10,
         "top_topics": {
           "Generative AI": 1
         },
         "sample_titles": [
+          "Editorial Board",
           "Unpacking the countercyclicality of post-secondary enrollment in the United States",
           "Asthma management in schools: A tool for reducing absenteeism?",
           "First-generation graduates in OECD countries",
           "Salary and teacher retention across the performance distribution",
-          "The short and medium term effects of full-day schooling on learning and maternal labor supply",
-          "Closer in sound, better in learning: linguistic similarity and early literacy in Cameroon"
+          "The short and medium term effects of full-day schooling on learning and maternal labor supply"
         ]
       }
     },
@@ -21822,7 +21816,7 @@
       "Experiment": 5
     },
     "article_count_crawled": 80,
-    "source_pages_crawled": 2
+    "source_pages_crawled": 4
   },
   {
     "id": "journal-174-studies-in-continuing-education",
@@ -21969,7 +21963,7 @@
       "Review": 1
     },
     "article_count_crawled": 80,
-    "source_pages_crawled": 2
+    "source_pages_crawled": 4
   },
   {
     "id": "journal-175-journal-of-school-violence",
@@ -22077,7 +22071,7 @@
       "Mixed methods": 1
     },
     "article_count_crawled": 80,
-    "source_pages_crawled": 2
+    "source_pages_crawled": 4
   },
   {
     "id": "journal-176-journal-of-language-identity-and-education",
@@ -22163,7 +22157,7 @@
         "year": "2026",
         "volume": "",
         "issue": "",
-        "article_count": 38,
+        "article_count": 39,
         "top_topics": {
           "Equity and policy": 2,
           "Higher education": 2,
@@ -22173,12 +22167,12 @@
           "Teacher education": 1
         },
         "sample_titles": [
+          "Confronting Accentism, Micro-Aggressions, and Psychological Injuries: Transformative Agency and a ‘Non-Native’ Speaker’s Way to Resilience and Self-Care",
           "Shaping Multilingual Futures: Attitudes Towards Asturian, Spanish, and English Among Pre-Service Teachers in Asturias",
           "The English-Mediated European Cosmopolis as Proto-Federal Infrastructure",
           "Professional Identity and Context-Specific Legitimacy: Filipino English Teachers in South Korea",
           "‘I Would Like to Learn Papiamento’—Teachers’ Appreciation of Multilingualism in Whole Class Interaction",
-          "Unveiling the Strengths and Challenges: Working as the Only Asian Multilingual Teacher in a U.S. High School",
-          "Not Just About Content: A Case Study of Language Teaching, Learning, and Positioning in CLIL-ised EMI"
+          "Unveiling the Strengths and Challenges: Working as the Only Asian Multilingual Teacher in a U.S. High School"
         ]
       }
     },
@@ -22197,7 +22191,7 @@
       "Mixed methods": 4
     },
     "article_count_crawled": 80,
-    "source_pages_crawled": 2
+    "source_pages_crawled": 4
   },
   {
     "id": "journal-177-journal-of-educational-and-behavioral-statistics",
@@ -22325,7 +22319,7 @@
       "Mixed methods": 3
     },
     "article_count_crawled": 80,
-    "source_pages_crawled": 2
+    "source_pages_crawled": 4
   },
   {
     "id": "journal-178-irish-educational-studies",
@@ -22413,7 +22407,7 @@
         "year": "2026",
         "volume": "",
         "issue": "",
-        "article_count": 26,
+        "article_count": 28,
         "top_topics": {
           "Equity and policy": 3,
           "Curriculum and pedagogy": 3,
@@ -22422,12 +22416,12 @@
           "Motivation and wellbeing": 1
         },
         "sample_titles": [
+          "Are teachers adequately prepared to be informal mental healthcare providers? Secondary teacher perspectives on supporting students with mental health problems in Ireland",
+          "Developing a phenomenographic argument for the veteran teachers’ conceptions of the virtues of question-asking",
           "What is philosophy of education – its past, present, and future?",
           "Teachers’ perspectives on Junior Cycle mathematics reform in Ireland",
           "‘I wouldn’t say there’s outright racism’: (White) Irish teachers’ perceptions of, and participation in, racism in schools in Ireland",
-          "Exploring special educational needs prevalence in Irish-medium post-Primary schools",
-          "Learning from employers’ perspectives on transition year work experience",
-          "How do they read? Findings from teachers and principals on the teaching and learning of reading in Irish in immersion settings in two jurisdictions"
+          "Exploring special educational needs prevalence in Irish-medium post-Primary schools"
         ]
       }
     },
@@ -22448,7 +22442,7 @@
       "Review": 1
     },
     "article_count_crawled": 80,
-    "source_pages_crawled": 2
+    "source_pages_crawled": 4
   },
   {
     "id": "journal-179-early-childhood-education-journal",
@@ -22546,7 +22540,7 @@
       }
     },
     "topic_hits": {
-      "Curriculum and pedagogy": 15,
+      "Curriculum and pedagogy": 16,
       "STEM education": 16,
       "Equity and policy": 9,
       "Motivation and wellbeing": 17,
@@ -22560,7 +22554,7 @@
       "Review": 5
     },
     "article_count_crawled": 80,
-    "source_pages_crawled": 2
+    "source_pages_crawled": 4
   },
   {
     "id": "journal-180-current-issues-in-language-planning",
@@ -22682,7 +22676,7 @@
       "Review": 2
     },
     "article_count_crawled": 80,
-    "source_pages_crawled": 2
+    "source_pages_crawled": 4
   },
   {
     "id": "journal-181-cultural-studies-of-science-education",
@@ -22799,7 +22793,7 @@
       }
     },
     "topic_hits": {
-      "STEM education": 39,
+      "STEM education": 40,
       "Equity and policy": 16,
       "Curriculum and pedagogy": 25,
       "Higher education": 4,
@@ -22815,7 +22809,7 @@
       "Experiment": 3
     },
     "article_count_crawled": 80,
-    "source_pages_crawled": 2
+    "source_pages_crawled": 4
   },
   {
     "id": "journal-182-cambridge-journal-of-education",
@@ -22938,7 +22932,7 @@
       "Experiment": 1
     },
     "article_count_crawled": 80,
-    "source_pages_crawled": 2
+    "source_pages_crawled": 4
   },
   {
     "id": "journal-183-american-journal-of-education",
@@ -23073,7 +23067,7 @@
       "Mixed methods": 1
     },
     "article_count_crawled": 80,
-    "source_pages_crawled": 2
+    "source_pages_crawled": 4
   },
   {
     "id": "journal-184-urban-education",
@@ -23198,7 +23192,7 @@
       "Review": 1
     },
     "article_count_crawled": 80,
-    "source_pages_crawled": 2
+    "source_pages_crawled": 4
   },
   {
     "id": "journal-185-journal-of-social-work-education",
@@ -23311,7 +23305,7 @@
       "Experiment": 2
     },
     "article_count_crawled": 80,
-    "source_pages_crawled": 2
+    "source_pages_crawled": 4
   },
   {
     "id": "journal-186-journal-of-school-health",
@@ -23409,7 +23403,7 @@
       }
     },
     "topic_hits": {
-      "Equity and policy": 156,
+      "Equity and policy": 158,
       "Motivation and wellbeing": 17,
       "STEM education": 13,
       "Assessment": 17,
@@ -23425,7 +23419,7 @@
       "RAG": 1
     },
     "article_count_crawled": 80,
-    "source_pages_crawled": 1
+    "source_pages_crawled": 2
   },
   {
     "id": "journal-187-journal-of-research-on-educational-effectiveness",
@@ -23549,7 +23543,7 @@
       "Review": 2
     },
     "article_count_crawled": 80,
-    "source_pages_crawled": 2
+    "source_pages_crawled": 4
   },
   {
     "id": "journal-188-journal-of-psychologists-and-counsellors-in-scho",
@@ -23675,7 +23669,7 @@
       "Computer-supported collaboration": 1
     },
     "article_count_crawled": 80,
-    "source_pages_crawled": 2
+    "source_pages_crawled": 4
   },
   {
     "id": "journal-189-educational-philosophy-and-theory",
@@ -23780,7 +23774,7 @@
       "RAG": 1
     },
     "article_count_crawled": 80,
-    "source_pages_crawled": 2
+    "source_pages_crawled": 4
   },
   {
     "id": "journal-190-education-as-change",
@@ -23935,7 +23929,7 @@
       "Experiment": 2
     },
     "article_count_crawled": 80,
-    "source_pages_crawled": 2
+    "source_pages_crawled": 4
   },
   {
     "id": "journal-191-teaching-of-psychology",
@@ -24074,7 +24068,7 @@
       "Chatbot": 1
     },
     "article_count_crawled": 80,
-    "source_pages_crawled": 2
+    "source_pages_crawled": 4
   },
   {
     "id": "journal-192-second-language-research",
@@ -24189,7 +24183,7 @@
       }
     },
     "topic_hits": {
-      "Language learning": 67,
+      "Language learning": 68,
       "STEM education": 16,
       "Assessment": 9,
       "Curriculum and pedagogy": 5,
@@ -24198,12 +24192,12 @@
       "Higher education": 1
     },
     "method_hits": {
-      "Experiment": 14,
+      "Experiment": 15,
       "RAG": 6,
       "Mixed methods": 1
     },
     "article_count_crawled": 80,
-    "source_pages_crawled": 2
+    "source_pages_crawled": 4
   },
   {
     "id": "journal-193-reading-teacher",
@@ -24326,7 +24320,7 @@
       "Experiment": 5
     },
     "article_count_crawled": 80,
-    "source_pages_crawled": 1
+    "source_pages_crawled": 2
   },
   {
     "id": "journal-194-mind-culture-and-activity",
@@ -24453,7 +24447,7 @@
       "Experiment": 1
     },
     "article_count_crawled": 80,
-    "source_pages_crawled": 2
+    "source_pages_crawled": 4
   },
   {
     "id": "journal-195-journal-of-research-in-reading",
@@ -24594,7 +24588,7 @@
       "RAG": 8
     },
     "article_count_crawled": 80,
-    "source_pages_crawled": 1
+    "source_pages_crawled": 2
   },
   {
     "id": "journal-196-journal-of-literacy-research",
@@ -24736,7 +24730,7 @@
       "Review": 1
     },
     "article_count_crawled": 80,
-    "source_pages_crawled": 2
+    "source_pages_crawled": 4
   },
   {
     "id": "journal-197-journal-of-college-student-development",
@@ -24849,7 +24843,7 @@
       }
     },
     "topic_hits": {
-      "Higher education": 106,
+      "Higher education": 107,
       "STEM education": 11,
       "Equity and policy": 21,
       "Assessment": 3,
@@ -24864,7 +24858,7 @@
       "RAG": 1
     },
     "article_count_crawled": 80,
-    "source_pages_crawled": 1
+    "source_pages_crawled": 2
   },
   {
     "id": "journal-198-international-journal-for-educational-and-vocati",
@@ -24953,7 +24947,7 @@
         "year": "2026",
         "volume": "",
         "issue": "",
-        "article_count": 45,
+        "article_count": 46,
         "top_topics": {
           "Higher education": 17,
           "STEM education": 6,
@@ -24963,17 +24957,17 @@
           "Curriculum and pedagogy": 1
         },
         "sample_titles": [
+          "Family functioning and adolescent career exploration: a moderated chain mediation model",
           "Modeling millennial work aspirations: a structural view of socioeconomic and motivational pathways",
           "Risk of not in employment, education, or training between genders: the role of future time perspective and motivations",
           "The serial mediating role of contextual variables and cognitive elements on career indecision in Turkish undergraduate students: a multi-group analysis based on gender",
           "Will I lose my job? A longitudinal cross-lagged panel model for technological unemployment anxiety, academic burnout, and quiet quitting",
-          "How AI anxiety and academic resilience mediate the relationship between cognitive distortions related to academic achievement and career stress",
-          "The fetishisation of digital platforms for graduate career development"
+          "How AI anxiety and academic resilience mediate the relationship between cognitive distortions related to academic achievement and career stress"
         ]
       }
     },
     "topic_hits": {
-      "Curriculum and pedagogy": 2,
+      "Curriculum and pedagogy": 3,
       "Motivation and wellbeing": 9,
       "Higher education": 23,
       "Assessment": 4,
@@ -24988,7 +24982,7 @@
       "Experiment": 10
     },
     "article_count_crawled": 80,
-    "source_pages_crawled": 2
+    "source_pages_crawled": 4
   },
   {
     "id": "journal-199-international-journal-for-academic-development",
@@ -25112,7 +25106,7 @@
       "Review": 7
     },
     "article_count_crawled": 80,
-    "source_pages_crawled": 2
+    "source_pages_crawled": 4
   },
   {
     "id": "journal-200-health-education-journal",
@@ -25238,7 +25232,7 @@
       "Mixed methods": 44
     },
     "article_count_crawled": 80,
-    "source_pages_crawled": 2
+    "source_pages_crawled": 4
   },
   {
     "id": "journal-201-european-early-childhood-education-research-jour",
@@ -25349,7 +25343,7 @@
       "Experiment": 3
     },
     "article_count_crawled": 80,
-    "source_pages_crawled": 2
+    "source_pages_crawled": 4
   },
   {
     "id": "journal-202-educational-studies",
@@ -25437,7 +25431,7 @@
         "year": "2026",
         "volume": "",
         "issue": "",
-        "article_count": 44,
+        "article_count": 45,
         "top_topics": {
           "STEM education": 6,
           "Motivation and wellbeing": 6,
@@ -25447,12 +25441,12 @@
           "Equity and policy": 2
         },
         "sample_titles": [
+          "School leaders’ acceptance and use of artificial intelligence in China",
           "The use of ChatGPT as a writing feedback tool in second language learning and teaching: a systematic review",
           "Practical work in primary science education: using a scoping review and educator survey to create a new framework for prioritising purposeful use",
           "Social relationships to stimulate students’ learning",
           "From environmental agency to risk literacy: cultivating action competence for sustainable development through safety education",
-          "Dealing with the learning gap: strategies for the inclusion of migrant students with interrupted educational trajectories in public schools in Arica, Chile",
-          "“Teachers through children’s eyes”: A mixed-methods study on children’s likes, dislikes, and the factors shaping teacher-student relationships in Ghana“"
+          "Dealing with the learning gap: strategies for the inclusion of migrant students with interrupted educational trajectories in public schools in Arica, Chile"
         ]
       }
     },
@@ -25472,7 +25466,7 @@
       "Mixed methods": 3
     },
     "article_count_crawled": 80,
-    "source_pages_crawled": 2
+    "source_pages_crawled": 4
   },
   {
     "id": "journal-203-educational-gerontology",
@@ -25559,12 +25553,12 @@
           "Educational technology": 3
         },
         "sample_titles": [
+          "Trends and rural–urban disparities in selected sedentary-related leisure activities among Chinese older adults, 2008–2018",
           "Effects of an intergenerational learning program on older adults’ subjective well-being and social role: A quasi-experimental mixed methods study",
           "Assessing dementia knowledge among nursing students in Tanzania: Gaps, strengths, and educational implications",
           "Can a standard language facilitate active aging? The association between Mandarin proficiency and social participation among older adults",
           "How could Educational Gerontology successfully evolve to meet the demands of the future? A strategic foresight demonstration",
-          "Educational participation and mental health among older adults: The chain mediation of digital inclusion and social participation",
-          "Determinants of sport and physical activity participation among community-dwelling older adults in Aotearoa New Zealand"
+          "Educational participation and mental health among older adults: The chain mediation of digital inclusion and social participation"
         ]
       }
     },
@@ -25583,7 +25577,7 @@
       "Review": 6
     },
     "article_count_crawled": 80,
-    "source_pages_crawled": 2
+    "source_pages_crawled": 4
   },
   {
     "id": "journal-204-australian-journal-of-education",
@@ -25738,7 +25732,7 @@
       "Experiment": 5
     },
     "article_count_crawled": 80,
-    "source_pages_crawled": 2
+    "source_pages_crawled": 4
   },
   {
     "id": "journal-205-scandinavian-journal-of-educational-research",
@@ -25825,7 +25819,7 @@
         "year": "2026",
         "volume": "",
         "issue": "",
-        "article_count": 66,
+        "article_count": 67,
         "top_topics": {
           "Motivation and wellbeing": 9,
           "STEM education": 5,
@@ -25835,12 +25829,12 @@
           "Higher education": 1
         },
         "sample_titles": [
+          "An exploratory study of basic desires of comprehensive school teachers in Finland: a perspective on Reiss’ basic desires theory and leadership",
           "Methodological approach of research-based development in the higher education of social and health care – a scoping review",
           "Cultivating young philosophers: an autoethnographic study of teaching philosophy in Icelandic secondary education",
           "Preparing early childhood preservice teachers for digital practice in early childhood education and care: educators’ attitudes and perceptions",
           "Teaching for digital citizenship in AI-infused societies: how social science teacher educators’ disciplinary backgrounds relate to professional digital competence across Swedish institutions",
-          "Deep learning and radical collegiality in pandemic and post-pandemic education: insights from young people in Finnish Lapland",
-          "Exploring pre-service English language teachers’ research self-efficacy"
+          "Deep learning and radical collegiality in pandemic and post-pandemic education: insights from young people in Finnish Lapland"
         ]
       }
     },
@@ -25860,7 +25854,7 @@
       "Experiment": 4
     },
     "article_count_crawled": 80,
-    "source_pages_crawled": 2
+    "source_pages_crawled": 4
   },
   {
     "id": "journal-206-revista-espanola-de-pedagogia",
@@ -26066,10 +26060,10 @@
         },
         "sample_titles": [
           "Más allá de la media: explorando los retornos heterogéneos de la educación en personas empleadas mediante regresión cuantílica en España Beyond the average: exploring the heterogeneous returns to education of employees through quantile regression in Spain",
-          "How mathematical games shape pre-service teachers’ generalization processes: a qualitative case study Cómo los juegos matemáticos configuran los procesos de generalización de los docentes en formación: un estudio de caso cualitativo",
-          "Nuevos avances en la comprensión de las motivaciones iniciales para cursar el Master de Formación del Profesorado de Educación Secundaria en España: un análisis de perfiles latentes New advances in understanding the initial motivations for pursuing a Master's Degree in Secondary Education Teacher Training in Spain: an analysis of latent profiles",
           "Un índice de bien común en instituciones de educación superior An Index of a Common Good in Higher Education Institutions",
           "Desarrollo de un cuestionario de autopercepción para evaluar el diseño de secuencias didácticas Development of a self-perception questionnaire to evaluate the design of teaching sequences",
+          "How mathematical games shape pre-service teachers’ generalization processes: a qualitative case study Cómo los juegos matemáticos configuran los procesos de generalización de los docentes en formación: un estudio de caso cualitativo",
+          "Nuevos avances en la comprensión de las motivaciones iniciales para cursar el Master de Formación del Profesorado de Educación Secundaria en España: un análisis de perfiles latentes New advances in understanding the initial motivations for pursuing a Master's Degree in Secondary Education Teacher Training in Spain: an analysis of latent profiles",
           "Reevaluando la teoría de las inteligencias múltiples: inconsistencias teóricas y prácticas Reconsidering Multiple Intelligence Theory: Theoretical and Practical Inconsistencies"
         ]
       }
@@ -26087,7 +26081,7 @@
       "Experiment": 1
     },
     "article_count_crawled": 9,
-    "source_pages_crawled": 1
+    "source_pages_crawled": 2
   },
   {
     "id": "journal-208-research-in-the-teaching-of-english",
@@ -26216,8 +26210,8 @@
     "topic_hits": {
       "STEM education": 24,
       "Teacher education": 2,
-      "Assessment": 10,
-      "Equity and policy": 15,
+      "Assessment": 11,
+      "Equity and policy": 16,
       "Curriculum and pedagogy": 21,
       "Language learning": 16,
       "Motivation and wellbeing": 7,
@@ -26230,7 +26224,7 @@
       "Experiment": 1
     },
     "article_count_crawled": 80,
-    "source_pages_crawled": 2
+    "source_pages_crawled": 4
   },
   {
     "id": "journal-209-measurement-in-physical-education-and-exercise-s",
@@ -26354,7 +26348,7 @@
       "Experiment": 1
     },
     "article_count_crawled": 80,
-    "source_pages_crawled": 2
+    "source_pages_crawled": 4
   },
   {
     "id": "journal-210-mathematical-thinking-and-learning",
@@ -26471,7 +26465,7 @@
       "Experiment": 4
     },
     "article_count_crawled": 80,
-    "source_pages_crawled": 2
+    "source_pages_crawled": 4
   },
   {
     "id": "journal-211-journal-of-teaching-in-physical-education",
@@ -26515,16 +26509,16 @@
       "article_sample_count": 80,
       "topic_counts": {
         "Curriculum and pedagogy": 28,
-        "Motivation and wellbeing": 24,
-        "Equity and policy": 15,
-        "Teacher education": 14,
-        "Assessment": 13,
+        "Motivation and wellbeing": 25,
+        "Teacher education": 15,
+        "Equity and policy": 14,
+        "Assessment": 12,
         "STEM education": 10,
         "Higher education": 8,
         "Generative AI": 1
       },
       "method_counts": {
-        "Mixed methods": 45,
+        "Mixed methods": 46,
         "Experiment": 21,
         "RAG": 11,
         "Review": 9
@@ -26534,10 +26528,10 @@
           "year": "2026",
           "topics": {
             "Curriculum and pedagogy": 28,
-            "Motivation and wellbeing": 24,
-            "Equity and policy": 15,
-            "Teacher education": 14,
-            "Assessment": 13
+            "Motivation and wellbeing": 25,
+            "Teacher education": 15,
+            "Equity and policy": 14,
+            "Assessment": 12
           }
         }
       ],
@@ -26566,18 +26560,18 @@
     },
     "topic_hits": {
       "STEM education": 11,
-      "Motivation and wellbeing": 24,
-      "Assessment": 14,
+      "Motivation and wellbeing": 25,
+      "Assessment": 13,
       "Higher education": 9,
-      "Teacher education": 14,
+      "Teacher education": 15,
       "Curriculum and pedagogy": 30,
-      "Equity and policy": 16,
+      "Equity and policy": 15,
       "Generative AI": 1
     },
     "method_hits": {
       "RAG": 11,
       "Experiment": 21,
-      "Mixed methods": 45,
+      "Mixed methods": 46,
       "Review": 9
     },
     "article_count_crawled": 80,
@@ -26707,12 +26701,12 @@
       "Language learning": 2
     },
     "method_hits": {
-      "Experiment": 17,
+      "Experiment": 18,
       "Mixed methods": 2,
       "Review": 1
     },
     "article_count_crawled": 80,
-    "source_pages_crawled": 2
+    "source_pages_crawled": 4
   },
   {
     "id": "journal-213-journal-of-early-childhood-literacy",
@@ -26863,7 +26857,7 @@
       "Review": 3
     },
     "article_count_crawled": 80,
-    "source_pages_crawled": 2
+    "source_pages_crawled": 4
   },
   {
     "id": "journal-214-health-education-research",
@@ -26971,21 +26965,21 @@
     "topic_hits": {
       "STEM education": 24,
       "Equity and policy": 19,
-      "Assessment": 31,
+      "Assessment": 32,
       "Motivation and wellbeing": 29,
       "Generative AI": 5,
-      "Higher education": 8,
+      "Higher education": 9,
       "Curriculum and pedagogy": 2
     },
     "method_hits": {
-      "Mixed methods": 39,
+      "Mixed methods": 40,
       "Experiment": 94,
       "Review": 15,
       "RAG": 14,
       "Chatbot": 1
     },
     "article_count_crawled": 80,
-    "source_pages_crawled": 1
+    "source_pages_crawled": 2
   },
   {
     "id": "journal-215-harvard-educational-review",
@@ -27100,7 +27094,7 @@
     },
     "method_hits": {},
     "article_count_crawled": 80,
-    "source_pages_crawled": 2
+    "source_pages_crawled": 4
   },
   {
     "id": "journal-216-english-teaching-practice-and-critique",
@@ -27148,13 +27142,13 @@
     "article_preferences": {
       "article_sample_count": 80,
       "topic_counts": {
-        "Curriculum and pedagogy": 51,
-        "Equity and policy": 28,
+        "Curriculum and pedagogy": 52,
+        "Equity and policy": 29,
         "Language learning": 20,
-        "Higher education": 10,
-        "Teacher education": 9,
-        "Assessment": 8,
+        "Teacher education": 10,
+        "Higher education": 9,
         "STEM education": 8,
+        "Assessment": 8,
         "Motivation and wellbeing": 7,
         "Generative AI": 2,
         "Educational technology": 1,
@@ -27170,10 +27164,10 @@
         {
           "year": "2026",
           "topics": {
-            "Curriculum and pedagogy": 27,
+            "Curriculum and pedagogy": 28,
             "Language learning": 12,
-            "Equity and policy": 10,
-            "Teacher education": 7,
+            "Equity and policy": 11,
+            "Teacher education": 8,
             "Higher education": 6
           }
         },
@@ -27184,7 +27178,7 @@
             "Equity and policy": 18,
             "Language learning": 8,
             "Assessment": 4,
-            "Higher education": 4
+            "Motivation and wellbeing": 3
           }
         }
       ],
@@ -27192,33 +27186,33 @@
         "year": "2026",
         "volume": "",
         "issue": "",
-        "article_count": 31,
+        "article_count": 32,
         "top_topics": {
-          "Curriculum and pedagogy": 21,
+          "Curriculum and pedagogy": 22,
+          "Equity and policy": 10,
           "Language learning": 10,
-          "Equity and policy": 9,
+          "Teacher education": 7,
           "Higher education": 6,
-          "Teacher education": 6,
           "Assessment": 4
         },
         "sample_titles": [
+          "Speculative testimonios: imagining futures through embodied narratives in teacher education",
           "Teaching writing when the sentences sound better than the thinking",
           "“Imagination is agency”: curricular future-making as an empowering framework for teacher professional learning",
           "Climate images in the literacy classroom: developing a model for climate literacy discussion with preservice teachers",
           "English language teaching and the climate crisis: a framework for sustainable and resilient pedagogy",
-          "Of mice, men and fish: multispecies storytelling for shared becoming and hope in ELA teacher education",
-          "Renegotiating pronunciation pedagogy through Global Englishes-informed teacher education"
+          "Of mice, men and fish: multispecies storytelling for shared becoming and hope in ELA teacher education"
         ]
       }
     },
     "topic_hits": {
-      "Higher education": 11,
+      "STEM education": 14,
+      "Teacher education": 16,
+      "Equity and policy": 42,
+      "Curriculum and pedagogy": 61,
+      "Higher education": 10,
       "Language learning": 22,
       "Assessment": 13,
-      "Equity and policy": 41,
-      "Teacher education": 15,
-      "Curriculum and pedagogy": 60,
-      "STEM education": 14,
       "Motivation and wellbeing": 13,
       "Educational technology": 1,
       "AI literacy": 2,
@@ -27231,7 +27225,7 @@
       "Review": 2
     },
     "article_count_crawled": 80,
-    "source_pages_crawled": 1
+    "source_pages_crawled": 2
   },
   {
     "id": "journal-217-education-finance-and-policy",
@@ -27352,7 +27346,7 @@
       "STEM education": 12,
       "Motivation and wellbeing": 4,
       "Curriculum and pedagogy": 10,
-      "Equity and policy": 36,
+      "Equity and policy": 37,
       "Generative AI": 19,
       "Assessment": 14
     },
@@ -27362,7 +27356,7 @@
       "Mixed methods": 2
     },
     "article_count_crawled": 80,
-    "source_pages_crawled": 2
+    "source_pages_crawled": 4
   },
   {
     "id": "journal-218-education-and-urban-society",
@@ -27413,7 +27407,7 @@
       "topic_counts": {
         "Equity and policy": 43,
         "Motivation and wellbeing": 21,
-        "STEM education": 19,
+        "STEM education": 20,
         "Curriculum and pedagogy": 17,
         "Higher education": 12,
         "Assessment": 10,
@@ -27423,7 +27417,7 @@
         "Educational technology": 1
       },
       "method_counts": {
-        "Mixed methods": 62,
+        "Mixed methods": 63,
         "RAG": 9,
         "Experiment": 7,
         "Review": 1
@@ -27433,7 +27427,7 @@
           "year": "2026",
           "topics": {
             "Equity and policy": 18,
-            "STEM education": 8,
+            "STEM education": 9,
             "Curriculum and pedagogy": 6,
             "Assessment": 4,
             "Teacher education": 1
@@ -27464,27 +27458,27 @@
         "year": "2026",
         "volume": "",
         "issue": "",
-        "article_count": 8,
+        "article_count": 9,
         "top_topics": {
           "Equity and policy": 8,
-          "STEM education": 5,
+          "STEM education": 6,
           "Curriculum and pedagogy": 4,
           "Assessment": 1,
           "Teacher education": 1,
           "Generative AI": 1
         },
         "sample_titles": [
+          "Evaluating the Role of ICT Innovations in Bridging the Urban-Rural Divide and Promoting Revitalization",
           "Contextualizing Urban Education Through Disparities and Assets",
           "Exploring Teachers’ Identity Formation in Shanghai: A Metaphorical and Temporal Lens",
           "Influence of Classroom Climate on Academic Performance: Evidence from Urban Upper Primary Schools in Ghana",
           "Exclusion and Resilience in Urban Education: Migrant and Refugee Students’ Struggles for Inclusion in an Urban District",
-          "Does the Double Reduction Policy Mitigate the Academic Gaps Caused by SES and Urban-Rural Settings?",
-          "Declining Enrollments and Socio-Economic Divide in Urban Schools: The Fragile Link Between School Utilization, Housing, and Educational Opportunity"
+          "Does the Double Reduction Policy Mitigate the Academic Gaps Caused by SES and Urban-Rural Settings?"
         ]
       }
     },
     "topic_hits": {
-      "STEM education": 22,
+      "STEM education": 23,
       "Assessment": 10,
       "Equity and policy": 51,
       "Curriculum and pedagogy": 21,
@@ -27496,14 +27490,14 @@
       "Educational technology": 1
     },
     "method_hits": {
-      "Mixed methods": 62,
+      "Mixed methods": 63,
       "Experiment": 13,
       "RAG": 9,
       "Computer-supported collaboration": 1,
       "Review": 1
     },
     "article_count_crawled": 80,
-    "source_pages_crawled": 2
+    "source_pages_crawled": 4
   },
   {
     "id": "journal-219-adult-education-quarterly",
@@ -27649,7 +27643,7 @@
       "Computer-supported collaboration": 1
     },
     "article_count_crawled": 80,
-    "source_pages_crawled": 2
+    "source_pages_crawled": 4
   },
   {
     "id": "journal-220-reading-writing-quarterly",
@@ -27760,10 +27754,10 @@
       }
     },
     "topic_hits": {
-      "Equity and policy": 1,
+      "Equity and policy": 2,
       "STEM education": 2,
       "Curriculum and pedagogy": 12,
-      "Language learning": 18,
+      "Language learning": 19,
       "Assessment": 5,
       "Motivation and wellbeing": 7,
       "Teacher education": 1
@@ -27774,7 +27768,7 @@
       "Review": 2
     },
     "article_count_crawled": 80,
-    "source_pages_crawled": 2
+    "source_pages_crawled": 4
   },
   {
     "id": "journal-221-journal-of-american-college-health",
@@ -27869,7 +27863,7 @@
       }
     },
     "topic_hits": {
-      "Higher education": 66,
+      "Higher education": 67,
       "Assessment": 3,
       "Motivation and wellbeing": 2,
       "Equity and policy": 2,
@@ -27882,7 +27876,7 @@
       "Review": 2
     },
     "article_count_crawled": 80,
-    "source_pages_crawled": 2
+    "source_pages_crawled": 4
   },
   {
     "id": "journal-222-journal-of-adolescent-adult-literacy",
@@ -28008,14 +28002,14 @@
       "AI literacy": 1
     },
     "method_hits": {
-      "Review": 1,
+      "Review": 2,
       "RAG": 11,
       "Mixed methods": 24,
       "Computer-supported collaboration": 1,
       "Experiment": 1
     },
     "article_count_crawled": 80,
-    "source_pages_crawled": 1
+    "source_pages_crawled": 2
   },
   {
     "id": "journal-223-aids-education-and-prevention",
@@ -28144,7 +28138,7 @@
       "RAG": 2
     },
     "article_count_crawled": 80,
-    "source_pages_crawled": 2
+    "source_pages_crawled": 4
   },
   {
     "id": "journal-224-zeitschrift-fur-erziehungswissenschaft",
@@ -28192,7 +28186,7 @@
     "article_preferences": {
       "article_sample_count": 80,
       "topic_counts": {
-        "STEM education": 21,
+        "STEM education": 22,
         "Motivation and wellbeing": 11,
         "Assessment": 10,
         "Curriculum and pedagogy": 8,
@@ -28202,7 +28196,7 @@
         "Language learning": 1
       },
       "method_counts": {
-        "RAG": 41,
+        "RAG": 40,
         "Experiment": 16,
         "Mixed methods": 13,
         "Review": 3
@@ -28211,7 +28205,7 @@
         {
           "year": "2026",
           "topics": {
-            "STEM education": 14,
+            "STEM education": 15,
             "Motivation and wellbeing": 6,
             "Curriculum and pedagogy": 6,
             "Assessment": 5,
@@ -28233,9 +28227,9 @@
         "year": "2026",
         "volume": "",
         "issue": "",
-        "article_count": 22,
+        "article_count": 23,
         "top_topics": {
-          "STEM education": 7,
+          "STEM education": 8,
           "Motivation and wellbeing": 4,
           "Curriculum and pedagogy": 4,
           "Equity and policy": 3,
@@ -28243,17 +28237,17 @@
           "Teacher education": 1
         },
         "sample_titles": [
+          "Gebundene Ganztagsschulen und Halbtagsschulen in der Sekundarstufe I: Keine Hinweise auf systematische Unterschiede in Lesekompetenzen und kognitiv-instrumentellen Peer-Beziehungen Fully integrated all-day and half-day schools in lower secondary education: No evidence for systematic differences in reading achievement and cognitive-instrumental peer relations",
           "Verschenkt das Praxissemester Potenzial? Konsequenzen aus Professionalisierungsgelegenheiten für die Entwicklung des fachdidaktischen Wissens angehender Sachunterrichtslehrkräfte Does the practical semester give away potential? Consequences of professionalisation opportunities for the development of pedagogical content knowledge of prospective primary social and science education teachers",
           "Benachteiligung durch Differenzierungsmaßnahmen? Wie soziale Herkunft und Migrationshintergrund die Zuweisung von nachteilsausgleichenden Maßnahmen und individuellen Lernzielen auf der Sekundarstufe I bestimmen Disadvantages resulting from measures of internal differentiation? How social and migration background determine the allocation of disadvantage-compensating measures and individual learning objectives at secondary school level",
           "„Dieses Material muss dann zu eigen gemacht werden“ – Kooperationsmuster der Aneignung im Transfer von Innovationen in der Schulpraxis aus der Sicht von Lehrkräften und Multiplikator:innen “You have to make this material your own”—How teachers and multipliers perceive the transfer of innovations in school practice: patterns of cooperation aimed at achieving ownership",
           "Wie hängen das fachdidaktische Wissen und Selbstwirksamkeitserwartungen von Naturwissenschaftslehrkräften mit ihrem selbst berichteten Unterrichtsangebot zusammen? Zur moderierenden Rolle wahrgenommener schulischer Kontext- und Prozessmerkmale How are science teachers’ pedagogical content knowledge and self-efficacy beliefs related to their self-reported teaching practices? The moderating role of perceived school context and process characteristics",
-          "Akzeptanz und Nutzung von datenbasierten Rückmeldungen in Zeiten von Bildungsreformen Acceptance and use of data-based feedback in times of reform",
-          "„Nö, das wäre jetzt die Reflexion, die ich zu bieten habe.“ – Ein skripttheoretischer Ansatz zur Konzeptualisierung des Reflexionsprozesses “No, that would be the reflection I have to offer right now.”—A script-theory approach to the conceptualisation of the reflection process"
+          "Akzeptanz und Nutzung von datenbasierten Rückmeldungen in Zeiten von Bildungsreformen Acceptance and use of data-based feedback in times of reform"
         ]
       }
     },
     "topic_hits": {
-      "STEM education": 23,
+      "STEM education": 24,
       "Motivation and wellbeing": 11,
       "Curriculum and pedagogy": 9,
       "Assessment": 13,
@@ -28263,13 +28257,13 @@
       "Language learning": 1
     },
     "method_hits": {
-      "RAG": 43,
+      "RAG": 42,
       "Mixed methods": 14,
       "Experiment": 16,
       "Review": 3
     },
     "article_count_crawled": 80,
-    "source_pages_crawled": 2
+    "source_pages_crawled": 4
   },
   {
     "id": "journal-225-journal-of-geography-in-higher-education",
@@ -28379,7 +28373,7 @@
     },
     "topic_hits": {
       "Motivation and wellbeing": 3,
-      "Higher education": 24,
+      "Higher education": 25,
       "STEM education": 3,
       "Generative AI": 5,
       "Assessment": 8,
@@ -28395,7 +28389,7 @@
       "RAG": 2
     },
     "article_count_crawled": 80,
-    "source_pages_crawled": 2
+    "source_pages_crawled": 4
   },
   {
     "id": "journal-226-journal-of-beliefs-values-studies-in-religion-ed",
@@ -28518,7 +28512,7 @@
       "Mixed methods": 3
     },
     "article_count_crawled": 80,
-    "source_pages_crawled": 2
+    "source_pages_crawled": 4
   },
   {
     "id": "journal-227-journal-of-baltic-science-education",
@@ -28628,7 +28622,7 @@
       }
     },
     "topic_hits": {
-      "STEM education": 60,
+      "STEM education": 61,
       "Curriculum and pedagogy": 39,
       "Teacher education": 11,
       "Assessment": 35,
@@ -28649,7 +28643,7 @@
       "Computer-supported collaboration": 1
     },
     "article_count_crawled": 80,
-    "source_pages_crawled": 2
+    "source_pages_crawled": 4
   },
   {
     "id": "journal-228-international-journal-of-art-design-education",
@@ -28780,7 +28774,7 @@
       "Review": 3
     },
     "article_count_crawled": 80,
-    "source_pages_crawled": 1
+    "source_pages_crawled": 2
   },
   {
     "id": "journal-229-early-child-development-and-care",
@@ -28864,9 +28858,10 @@
         "year": "2026",
         "volume": "",
         "issue": "",
-        "article_count": 4,
+        "article_count": 5,
         "top_topics": {},
         "sample_titles": [
+          "Paternal involvement and children's approaches to learning: the mediating role of maternal parental stress and maternal parental burnout",
           "The relationship between school readiness and self-regulation skills in first-grade primary school children",
           "Overprotective parenting attitudes and personal–social development during the preschool period",
           "Maternal touch contributes to development of child empathy: a longitudinal study",
@@ -28886,7 +28881,7 @@
       "Experiment": 3
     },
     "article_count_crawled": 80,
-    "source_pages_crawled": 2
+    "source_pages_crawled": 4
   },
   {
     "id": "journal-230-applied-measurement-in-education",
@@ -29019,7 +29014,7 @@
       "RAG": 1
     },
     "article_count_crawled": 80,
-    "source_pages_crawled": 2
+    "source_pages_crawled": 4
   },
   {
     "id": "journal-231-teachers-college-record",
@@ -29130,7 +29125,7 @@
     "topic_hits": {
       "STEM education": 34,
       "Curriculum and pedagogy": 37,
-      "Higher education": 33,
+      "Higher education": 34,
       "Motivation and wellbeing": 22,
       "Equity and policy": 64,
       "Generative AI": 4,
@@ -29146,7 +29141,7 @@
       "Experiment": 8
     },
     "article_count_crawled": 80,
-    "source_pages_crawled": 2
+    "source_pages_crawled": 4
   },
   {
     "id": "journal-232-journal-of-research-in-music-education",
@@ -29289,7 +29284,7 @@
       "Experiment": 2
     },
     "article_count_crawled": 80,
-    "source_pages_crawled": 2
+    "source_pages_crawled": 4
   },
   {
     "id": "journal-233-international-review-of-economics-education",
@@ -29422,7 +29417,7 @@
       "Mixed methods": 2
     },
     "article_count_crawled": 80,
-    "source_pages_crawled": 2
+    "source_pages_crawled": 4
   },
   {
     "id": "journal-234-australasian-journal-of-early-childhood",
@@ -29559,7 +29554,7 @@
       "Review": 3
     },
     "article_count_crawled": 80,
-    "source_pages_crawled": 2
+    "source_pages_crawled": 4
   },
   {
     "id": "journal-235-teaching-sociology",
@@ -29696,7 +29691,7 @@
       "Computer-supported collaboration": 2
     },
     "article_count_crawled": 80,
-    "source_pages_crawled": 2
+    "source_pages_crawled": 4
   },
   {
     "id": "journal-236-studies-in-philosophy-and-education",
@@ -29819,7 +29814,7 @@
       "Mixed methods": 1
     },
     "article_count_crawled": 80,
-    "source_pages_crawled": 2
+    "source_pages_crawled": 4
   },
   {
     "id": "journal-237-music-education-research",
@@ -29938,7 +29933,7 @@
       "Review": 4
     },
     "article_count_crawled": 80,
-    "source_pages_crawled": 2
+    "source_pages_crawled": 4
   },
   {
     "id": "journal-238-journal-of-biological-education",
@@ -30061,7 +30056,7 @@
       "Review": 2
     },
     "article_count_crawled": 80,
-    "source_pages_crawled": 2
+    "source_pages_crawled": 4
   },
   {
     "id": "journal-239-international-journal-for-lesson-and-learning-st",
@@ -30179,7 +30174,7 @@
       }
     },
     "topic_hits": {
-      "Curriculum and pedagogy": 105,
+      "Curriculum and pedagogy": 106,
       "Higher education": 11,
       "Equity and policy": 8,
       "STEM education": 24,
@@ -30198,7 +30193,7 @@
       "Experiment": 14
     },
     "article_count_crawled": 80,
-    "source_pages_crawled": 1
+    "source_pages_crawled": 2
   },
   {
     "id": "journal-240-elementary-school-journal",
@@ -30317,7 +30312,7 @@
       "Mixed methods": 1
     },
     "article_count_crawled": 80,
-    "source_pages_crawled": 1
+    "source_pages_crawled": 2
   },
   {
     "id": "journal-241-early-years",
@@ -30872,10 +30867,10 @@
     "article_preferences": {
       "article_sample_count": 80,
       "topic_counts": {
+        "Higher education": 6,
         "STEM education": 6,
         "Curriculum and pedagogy": 6,
         "Equity and policy": 5,
-        "Higher education": 5,
         "Motivation and wellbeing": 2,
         "Assessment": 2,
         "Teacher education": 2
@@ -30887,10 +30882,10 @@
         {
           "year": "2026",
           "topics": {
+            "Higher education": 5,
             "STEM education": 5,
             "Curriculum and pedagogy": 5,
             "Equity and policy": 4,
-            "Higher education": 4,
             "Motivation and wellbeing": 2
           }
         },
@@ -30909,31 +30904,31 @@
         "year": "2026",
         "volume": "",
         "issue": "",
-        "article_count": 60,
+        "article_count": 61,
         "top_topics": {
+          "Higher education": 5,
           "STEM education": 5,
           "Equity and policy": 4,
           "Curriculum and pedagogy": 4,
-          "Higher education": 4,
           "Motivation and wellbeing": 2,
           "Assessment": 1
         },
         "sample_titles": [
+          "Religious Education and ‘interfaith readiness’: how does a Religion and Worldviews approach prepare students for the religious diversity of university life?",
           "Decolonising education in Islamic West Africa: Secular erasure, school preference and social inequality",
           "Orthodox education in digital space: a web-based content analysis of online provision in Russia",
           "In search of Aquinas in Middle-earth: pedagogical potentials for Thomistic virtue ethics through The Lord of the Rings",
           "Recognising non-visible Muslimness: epistemological superdiversity and identity formation in Religious Education",
-          "Meaningful access to levensbeschouwelijke vakken (Religious and non-confessional worldview subjects) in Flanders: Article 24, organisational reform and minority rights",
-          "Religion and worldviews: the triumph of the secular in religious education (1st ed.)"
+          "Meaningful access to levensbeschouwelijke vakken (Religious and non-confessional worldview subjects) in Flanders: Article 24, organisational reform and minority rights"
         ]
       }
     },
     "topic_hits": {
+      "Higher education": 6,
       "STEM education": 6,
       "Equity and policy": 5,
       "Motivation and wellbeing": 2,
       "Curriculum and pedagogy": 6,
-      "Higher education": 5,
       "Assessment": 2,
       "Teacher education": 2
     },
@@ -33128,8 +33123,8 @@
           "Validazione italiana e proprietà psicometriche dello Short Self-Regulation Questionnaire (SSRQ): l'autoregolazione in adolescenza",
           "Competenze valutative degli insegnanti e recupero delle carenze: uno studio esplorativo nella scuola secondaria superiore della provincia autonoma di Trento",
           "Molte pratiche e poca teoria (Editoriale)",
-          "Dal curricolo alla pratica: disallineamenti e punti di frattura nella mediazione collegiale",
           "Abstracts",
+          "Dal curricolo alla pratica: disallineamenti e punti di frattura nella mediazione collegiale",
           "Enhancing teacher professional development through micro-credentials: emerging insights and challenges"
         ]
       }
