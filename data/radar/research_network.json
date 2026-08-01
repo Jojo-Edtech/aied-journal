@@ -3971,13 +3971,13 @@
     },
     {
       "source": "journal-015-international-journal-of-management-education",
-      "target": "topic-assessment",
-      "weight": 6.0,
+      "target": "topic-stem-education",
+      "weight": 5.0,
       "relation": "text_topic"
     },
     {
       "source": "journal-015-international-journal-of-management-education",
-      "target": "topic-stem-education",
+      "target": "topic-assessment",
       "weight": 5.0,
       "relation": "text_topic"
     },
@@ -4571,13 +4571,13 @@
     },
     {
       "source": "journal-024-interactive-learning-environments",
-      "target": "topic-stem-education",
+      "target": "topic-assessment",
       "weight": 6.0,
       "relation": "text_topic"
     },
     {
       "source": "journal-024-interactive-learning-environments",
-      "target": "topic-assessment",
+      "target": "topic-stem-education",
       "weight": 6.0,
       "relation": "text_topic"
     },
@@ -6382,66 +6382,6 @@
       "relation": "jcr_tag"
     },
     {
-      "source": "journal-049-teaching-and-teacher-education",
-      "target": "topic-teacher-education",
-      "weight": 6.0,
-      "relation": "text_topic"
-    },
-    {
-      "source": "journal-049-teaching-and-teacher-education",
-      "target": "topic-motivation-and-wellbeing",
-      "weight": 6.0,
-      "relation": "text_topic"
-    },
-    {
-      "source": "journal-049-teaching-and-teacher-education",
-      "target": "topic-higher-education",
-      "weight": 6.0,
-      "relation": "text_topic"
-    },
-    {
-      "source": "journal-049-teaching-and-teacher-education",
-      "target": "topic-equity-and-policy",
-      "weight": 6.0,
-      "relation": "text_topic"
-    },
-    {
-      "source": "journal-049-teaching-and-teacher-education",
-      "target": "topic-stem-education",
-      "weight": 6.0,
-      "relation": "text_topic"
-    },
-    {
-      "source": "journal-049-teaching-and-teacher-education",
-      "target": "topic-assessment",
-      "weight": 5.0,
-      "relation": "text_topic"
-    },
-    {
-      "source": "journal-049-teaching-and-teacher-education",
-      "target": "method-review",
-      "weight": 5.0,
-      "relation": "method_or_theme"
-    },
-    {
-      "source": "journal-049-teaching-and-teacher-education",
-      "target": "method-mixed-methods",
-      "weight": 3.0,
-      "relation": "method_or_theme"
-    },
-    {
-      "source": "journal-049-teaching-and-teacher-education",
-      "target": "method-experiment",
-      "weight": 2.0,
-      "relation": "method_or_theme"
-    },
-    {
-      "source": "journal-049-teaching-and-teacher-education",
-      "target": "method-rag",
-      "weight": 2.0,
-      "relation": "method_or_theme"
-    },
-    {
       "source": "journal-050-npj-science-of-learning",
       "target": "publisher-springer-nature",
       "weight": 1.0,
@@ -6530,66 +6470,6 @@
       "target": "topic-topic",
       "weight": 2.0,
       "relation": "jcr_tag"
-    },
-    {
-      "source": "journal-051-journal-of-computing-in-higher-education",
-      "target": "topic-higher-education",
-      "weight": 6.0,
-      "relation": "text_topic"
-    },
-    {
-      "source": "journal-051-journal-of-computing-in-higher-education",
-      "target": "topic-equity-and-policy",
-      "weight": 6.0,
-      "relation": "text_topic"
-    },
-    {
-      "source": "journal-051-journal-of-computing-in-higher-education",
-      "target": "topic-motivation-and-wellbeing",
-      "weight": 6.0,
-      "relation": "text_topic"
-    },
-    {
-      "source": "journal-051-journal-of-computing-in-higher-education",
-      "target": "topic-curriculum-and-pedagogy",
-      "weight": 6.0,
-      "relation": "text_topic"
-    },
-    {
-      "source": "journal-051-journal-of-computing-in-higher-education",
-      "target": "topic-assessment",
-      "weight": 6.0,
-      "relation": "text_topic"
-    },
-    {
-      "source": "journal-051-journal-of-computing-in-higher-education",
-      "target": "topic-educational-technology",
-      "weight": 6.0,
-      "relation": "text_topic"
-    },
-    {
-      "source": "journal-051-journal-of-computing-in-higher-education",
-      "target": "method-mixed-methods",
-      "weight": 5.0,
-      "relation": "method_or_theme"
-    },
-    {
-      "source": "journal-051-journal-of-computing-in-higher-education",
-      "target": "method-experiment",
-      "weight": 5.0,
-      "relation": "method_or_theme"
-    },
-    {
-      "source": "journal-051-journal-of-computing-in-higher-education",
-      "target": "method-review",
-      "weight": 5.0,
-      "relation": "method_or_theme"
-    },
-    {
-      "source": "journal-051-journal-of-computing-in-higher-education",
-      "target": "method-computer-supported-collaboration",
-      "weight": 5.0,
-      "relation": "method_or_theme"
     },
     {
       "source": "journal-052-higher-education",
@@ -6740,18 +6620,6 @@
       "target": "topic-topic",
       "weight": 2.0,
       "relation": "jcr_tag"
-    },
-    {
-      "source": "journal-054-revista-de-psicodidactica",
-      "target": "topic-stem-education",
-      "weight": 6.0,
-      "relation": "text_topic"
-    },
-    {
-      "source": "journal-054-revista-de-psicodidactica",
-      "target": "method-experiment",
-      "weight": 3.0,
-      "relation": "method_or_theme"
     },
     {
       "source": "journal-055-bmc-medical-education",
@@ -7194,7 +7062,7 @@
     {
       "source": "journal-060-elt-journal",
       "target": "method-experiment",
-      "weight": 4.0,
+      "weight": 5.0,
       "relation": "method_or_theme"
     },
     {
@@ -8153,26 +8021,26 @@
     },
     {
       "source": "journal-074-environmental-education-research",
+      "target": "topic-motivation-and-wellbeing",
+      "weight": 6.0,
+      "relation": "text_topic"
+    },
+    {
+      "source": "journal-074-environmental-education-research",
       "target": "topic-equity-and-policy",
       "weight": 6.0,
       "relation": "text_topic"
     },
     {
       "source": "journal-074-environmental-education-research",
-      "target": "topic-motivation-and-wellbeing",
-      "weight": 5.0,
+      "target": "topic-higher-education",
+      "weight": 4.0,
       "relation": "text_topic"
     },
     {
       "source": "journal-074-environmental-education-research",
       "target": "topic-teacher-education",
       "weight": 4.0,
-      "relation": "text_topic"
-    },
-    {
-      "source": "journal-074-environmental-education-research",
-      "target": "topic-assessment",
-      "weight": 3.0,
       "relation": "text_topic"
     },
     {
@@ -8184,7 +8052,7 @@
     {
       "source": "journal-074-environmental-education-research",
       "target": "method-mixed-methods",
-      "weight": 5.0,
+      "weight": 4.0,
       "relation": "method_or_theme"
     },
     {
@@ -8597,13 +8465,13 @@
     },
     {
       "source": "journal-080-journal-of-research-on-technology-in-education",
-      "target": "topic-stem-education",
+      "target": "topic-generative-ai",
       "weight": 6.0,
       "relation": "text_topic"
     },
     {
       "source": "journal-080-journal-of-research-on-technology-in-education",
-      "target": "topic-generative-ai",
+      "target": "topic-stem-education",
       "weight": 6.0,
       "relation": "text_topic"
     },
@@ -8747,13 +8615,13 @@
     },
     {
       "source": "journal-082-active-learning-in-higher-education",
-      "target": "topic-assessment",
+      "target": "topic-curriculum-and-pedagogy",
       "weight": 6.0,
       "relation": "text_topic"
     },
     {
       "source": "journal-082-active-learning-in-higher-education",
-      "target": "topic-curriculum-and-pedagogy",
+      "target": "topic-assessment",
       "weight": 6.0,
       "relation": "text_topic"
     },
@@ -8994,7 +8862,7 @@
     {
       "source": "journal-085-international-journal-of-educational-research",
       "target": "topic-language-learning",
-      "weight": 4.0,
+      "weight": 3.0,
       "relation": "text_topic"
     },
     {
@@ -9911,6 +9779,12 @@
     },
     {
       "source": "journal-098-australian-educational-researcher",
+      "target": "method-rag",
+      "weight": 5.0,
+      "relation": "method_or_theme"
+    },
+    {
+      "source": "journal-098-australian-educational-researcher",
       "target": "method-experiment",
       "weight": 5.0,
       "relation": "method_or_theme"
@@ -9918,12 +9792,6 @@
     {
       "source": "journal-098-australian-educational-researcher",
       "target": "method-review",
-      "weight": 5.0,
-      "relation": "method_or_theme"
-    },
-    {
-      "source": "journal-098-australian-educational-researcher",
-      "target": "method-rag",
       "weight": 5.0,
       "relation": "method_or_theme"
     },
@@ -10187,13 +10055,13 @@
     },
     {
       "source": "journal-102-international-journal-of-technology-and-design-e",
-      "target": "topic-equity-and-policy",
+      "target": "topic-assessment",
       "weight": 6.0,
       "relation": "text_topic"
     },
     {
       "source": "journal-102-international-journal-of-technology-and-design-e",
-      "target": "topic-assessment",
+      "target": "topic-equity-and-policy",
       "weight": 6.0,
       "relation": "text_topic"
     },
@@ -10667,13 +10535,13 @@
     },
     {
       "source": "journal-109-language-culture-and-curriculum",
-      "target": "topic-curriculum-and-pedagogy",
+      "target": "topic-language-learning",
       "weight": 6.0,
       "relation": "text_topic"
     },
     {
       "source": "journal-109-language-culture-and-curriculum",
-      "target": "topic-language-learning",
+      "target": "topic-curriculum-and-pedagogy",
       "weight": 6.0,
       "relation": "text_topic"
     },
@@ -11735,57 +11603,9 @@
     },
     {
       "source": "journal-124-early-childhood-research-quarterly",
-      "target": "topic-motivation-and-wellbeing",
-      "weight": 6.0,
-      "relation": "text_topic"
-    },
-    {
-      "source": "journal-124-early-childhood-research-quarterly",
       "target": "topic-stem-education",
-      "weight": 4.0,
-      "relation": "text_topic"
-    },
-    {
-      "source": "journal-124-early-childhood-research-quarterly",
-      "target": "topic-equity-and-policy",
-      "weight": 4.0,
-      "relation": "text_topic"
-    },
-    {
-      "source": "journal-124-early-childhood-research-quarterly",
-      "target": "topic-assessment",
-      "weight": 3.0,
-      "relation": "text_topic"
-    },
-    {
-      "source": "journal-124-early-childhood-research-quarterly",
-      "target": "topic-curriculum-and-pedagogy",
       "weight": 2.0,
       "relation": "text_topic"
-    },
-    {
-      "source": "journal-124-early-childhood-research-quarterly",
-      "target": "topic-teacher-education",
-      "weight": 2.0,
-      "relation": "text_topic"
-    },
-    {
-      "source": "journal-124-early-childhood-research-quarterly",
-      "target": "method-experiment",
-      "weight": 5.0,
-      "relation": "method_or_theme"
-    },
-    {
-      "source": "journal-124-early-childhood-research-quarterly",
-      "target": "method-review",
-      "weight": 5.0,
-      "relation": "method_or_theme"
-    },
-    {
-      "source": "journal-124-early-childhood-research-quarterly",
-      "target": "method-mixed-methods",
-      "weight": 4.0,
-      "relation": "method_or_theme"
     },
     {
       "source": "journal-125-comparative-education-review",
@@ -12166,66 +11986,6 @@
       "relation": "jcr_tag"
     },
     {
-      "source": "journal-130-review-of-higher-education",
-      "target": "topic-higher-education",
-      "weight": 6.0,
-      "relation": "text_topic"
-    },
-    {
-      "source": "journal-130-review-of-higher-education",
-      "target": "topic-equity-and-policy",
-      "weight": 6.0,
-      "relation": "text_topic"
-    },
-    {
-      "source": "journal-130-review-of-higher-education",
-      "target": "topic-stem-education",
-      "weight": 6.0,
-      "relation": "text_topic"
-    },
-    {
-      "source": "journal-130-review-of-higher-education",
-      "target": "topic-motivation-and-wellbeing",
-      "weight": 6.0,
-      "relation": "text_topic"
-    },
-    {
-      "source": "journal-130-review-of-higher-education",
-      "target": "topic-assessment",
-      "weight": 6.0,
-      "relation": "text_topic"
-    },
-    {
-      "source": "journal-130-review-of-higher-education",
-      "target": "topic-generative-ai",
-      "weight": 6.0,
-      "relation": "text_topic"
-    },
-    {
-      "source": "journal-130-review-of-higher-education",
-      "target": "method-mixed-methods",
-      "weight": 5.0,
-      "relation": "method_or_theme"
-    },
-    {
-      "source": "journal-130-review-of-higher-education",
-      "target": "method-rag",
-      "weight": 5.0,
-      "relation": "method_or_theme"
-    },
-    {
-      "source": "journal-130-review-of-higher-education",
-      "target": "method-experiment",
-      "weight": 3.0,
-      "relation": "method_or_theme"
-    },
-    {
-      "source": "journal-130-review-of-higher-education",
-      "target": "method-learning-analytics",
-      "weight": 3.0,
-      "relation": "method_or_theme"
-    },
-    {
       "source": "journal-131-journal-of-marketing-for-higher-education",
       "target": "publisher-taylor-francis",
       "weight": 1.0,
@@ -12362,66 +12122,6 @@
       "target": "topic-topic",
       "weight": 2.0,
       "relation": "jcr_tag"
-    },
-    {
-      "source": "journal-133-educational-studies-in-mathematics",
-      "target": "topic-stem-education",
-      "weight": 6.0,
-      "relation": "text_topic"
-    },
-    {
-      "source": "journal-133-educational-studies-in-mathematics",
-      "target": "topic-curriculum-and-pedagogy",
-      "weight": 6.0,
-      "relation": "text_topic"
-    },
-    {
-      "source": "journal-133-educational-studies-in-mathematics",
-      "target": "topic-higher-education",
-      "weight": 6.0,
-      "relation": "text_topic"
-    },
-    {
-      "source": "journal-133-educational-studies-in-mathematics",
-      "target": "topic-motivation-and-wellbeing",
-      "weight": 6.0,
-      "relation": "text_topic"
-    },
-    {
-      "source": "journal-133-educational-studies-in-mathematics",
-      "target": "topic-assessment",
-      "weight": 6.0,
-      "relation": "text_topic"
-    },
-    {
-      "source": "journal-133-educational-studies-in-mathematics",
-      "target": "topic-teacher-education",
-      "weight": 6.0,
-      "relation": "text_topic"
-    },
-    {
-      "source": "journal-133-educational-studies-in-mathematics",
-      "target": "method-mixed-methods",
-      "weight": 5.0,
-      "relation": "method_or_theme"
-    },
-    {
-      "source": "journal-133-educational-studies-in-mathematics",
-      "target": "method-experiment",
-      "weight": 5.0,
-      "relation": "method_or_theme"
-    },
-    {
-      "source": "journal-133-educational-studies-in-mathematics",
-      "target": "method-review",
-      "weight": 5.0,
-      "relation": "method_or_theme"
-    },
-    {
-      "source": "journal-133-educational-studies-in-mathematics",
-      "target": "method-rag",
-      "weight": 5.0,
-      "relation": "method_or_theme"
     },
     {
       "source": "journal-134-educational-psychology",
@@ -12701,63 +12401,9 @@
     },
     {
       "source": "journal-138-reading-and-writing",
-      "target": "topic-language-learning",
-      "weight": 6.0,
-      "relation": "text_topic"
-    },
-    {
-      "source": "journal-138-reading-and-writing",
-      "target": "topic-curriculum-and-pedagogy",
-      "weight": 6.0,
-      "relation": "text_topic"
-    },
-    {
-      "source": "journal-138-reading-and-writing",
-      "target": "topic-assessment",
-      "weight": 6.0,
-      "relation": "text_topic"
-    },
-    {
-      "source": "journal-138-reading-and-writing",
-      "target": "topic-motivation-and-wellbeing",
-      "weight": 6.0,
-      "relation": "text_topic"
-    },
-    {
-      "source": "journal-138-reading-and-writing",
       "target": "topic-stem-education",
-      "weight": 6.0,
+      "weight": 2.0,
       "relation": "text_topic"
-    },
-    {
-      "source": "journal-138-reading-and-writing",
-      "target": "topic-equity-and-policy",
-      "weight": 6.0,
-      "relation": "text_topic"
-    },
-    {
-      "source": "journal-138-reading-and-writing",
-      "target": "method-experiment",
-      "weight": 5.0,
-      "relation": "method_or_theme"
-    },
-    {
-      "source": "journal-138-reading-and-writing",
-      "target": "method-rag",
-      "weight": 5.0,
-      "relation": "method_or_theme"
-    },
-    {
-      "source": "journal-138-reading-and-writing",
-      "target": "method-review",
-      "weight": 5.0,
-      "relation": "method_or_theme"
-    },
-    {
-      "source": "journal-138-reading-and-writing",
-      "target": "method-mixed-methods",
-      "weight": 3.0,
-      "relation": "method_or_theme"
     },
     {
       "source": "journal-139-race-ethnicity-and-education",
@@ -13246,66 +12892,6 @@
       "relation": "jcr_tag"
     },
     {
-      "source": "journal-146-research-in-higher-education",
-      "target": "topic-higher-education",
-      "weight": 6.0,
-      "relation": "text_topic"
-    },
-    {
-      "source": "journal-146-research-in-higher-education",
-      "target": "topic-equity-and-policy",
-      "weight": 6.0,
-      "relation": "text_topic"
-    },
-    {
-      "source": "journal-146-research-in-higher-education",
-      "target": "topic-stem-education",
-      "weight": 6.0,
-      "relation": "text_topic"
-    },
-    {
-      "source": "journal-146-research-in-higher-education",
-      "target": "topic-generative-ai",
-      "weight": 6.0,
-      "relation": "text_topic"
-    },
-    {
-      "source": "journal-146-research-in-higher-education",
-      "target": "topic-motivation-and-wellbeing",
-      "weight": 6.0,
-      "relation": "text_topic"
-    },
-    {
-      "source": "journal-146-research-in-higher-education",
-      "target": "topic-curriculum-and-pedagogy",
-      "weight": 6.0,
-      "relation": "text_topic"
-    },
-    {
-      "source": "journal-146-research-in-higher-education",
-      "target": "method-experiment",
-      "weight": 5.0,
-      "relation": "method_or_theme"
-    },
-    {
-      "source": "journal-146-research-in-higher-education",
-      "target": "method-rag",
-      "weight": 5.0,
-      "relation": "method_or_theme"
-    },
-    {
-      "source": "journal-146-research-in-higher-education",
-      "target": "method-mixed-methods",
-      "weight": 4.0,
-      "relation": "method_or_theme"
-    },
-    {
-      "source": "journal-146-research-in-higher-education",
-      "target": "method-review",
-      "weight": 2.0,
-      "relation": "method_or_theme"
-    },
-    {
       "source": "journal-147-quest",
       "target": "publisher-taylor-francis",
       "weight": 1.0,
@@ -13390,66 +12976,6 @@
       "relation": "jcr_tag"
     },
     {
-      "source": "journal-148-porta-linguarum",
-      "target": "topic-language-learning",
-      "weight": 6.0,
-      "relation": "text_topic"
-    },
-    {
-      "source": "journal-148-porta-linguarum",
-      "target": "topic-higher-education",
-      "weight": 6.0,
-      "relation": "text_topic"
-    },
-    {
-      "source": "journal-148-porta-linguarum",
-      "target": "topic-curriculum-and-pedagogy",
-      "weight": 6.0,
-      "relation": "text_topic"
-    },
-    {
-      "source": "journal-148-porta-linguarum",
-      "target": "topic-motivation-and-wellbeing",
-      "weight": 6.0,
-      "relation": "text_topic"
-    },
-    {
-      "source": "journal-148-porta-linguarum",
-      "target": "topic-stem-education",
-      "weight": 6.0,
-      "relation": "text_topic"
-    },
-    {
-      "source": "journal-148-porta-linguarum",
-      "target": "topic-assessment",
-      "weight": 6.0,
-      "relation": "text_topic"
-    },
-    {
-      "source": "journal-148-porta-linguarum",
-      "target": "method-mixed-methods",
-      "weight": 5.0,
-      "relation": "method_or_theme"
-    },
-    {
-      "source": "journal-148-porta-linguarum",
-      "target": "method-experiment",
-      "weight": 5.0,
-      "relation": "method_or_theme"
-    },
-    {
-      "source": "journal-148-porta-linguarum",
-      "target": "method-rag",
-      "weight": 5.0,
-      "relation": "method_or_theme"
-    },
-    {
-      "source": "journal-148-porta-linguarum",
-      "target": "method-review",
-      "weight": 4.0,
-      "relation": "method_or_theme"
-    },
-    {
       "source": "journal-149-journal-of-mathematics-teacher-education",
       "target": "publisher-springer-nature",
       "weight": 1.0,
@@ -13616,54 +13142,6 @@
       "target": "topic-topic",
       "weight": 2.0,
       "relation": "jcr_tag"
-    },
-    {
-      "source": "journal-151-international-journal-of-multilingualism",
-      "target": "topic-language-learning",
-      "weight": 6.0,
-      "relation": "text_topic"
-    },
-    {
-      "source": "journal-151-international-journal-of-multilingualism",
-      "target": "topic-equity-and-policy",
-      "weight": 6.0,
-      "relation": "text_topic"
-    },
-    {
-      "source": "journal-151-international-journal-of-multilingualism",
-      "target": "topic-higher-education",
-      "weight": 5.0,
-      "relation": "text_topic"
-    },
-    {
-      "source": "journal-151-international-journal-of-multilingualism",
-      "target": "topic-curriculum-and-pedagogy",
-      "weight": 5.0,
-      "relation": "text_topic"
-    },
-    {
-      "source": "journal-151-international-journal-of-multilingualism",
-      "target": "topic-motivation-and-wellbeing",
-      "weight": 5.0,
-      "relation": "text_topic"
-    },
-    {
-      "source": "journal-151-international-journal-of-multilingualism",
-      "target": "topic-stem-education",
-      "weight": 3.0,
-      "relation": "text_topic"
-    },
-    {
-      "source": "journal-151-international-journal-of-multilingualism",
-      "target": "method-mixed-methods",
-      "weight": 3.0,
-      "relation": "method_or_theme"
-    },
-    {
-      "source": "journal-151-international-journal-of-multilingualism",
-      "target": "method-review",
-      "weight": 3.0,
-      "relation": "method_or_theme"
     },
     {
       "source": "journal-152-educational-policy",
@@ -14105,13 +13583,13 @@
     },
     {
       "source": "journal-158-research-papers-in-education",
-      "target": "topic-higher-education",
+      "target": "topic-equity-and-policy",
       "weight": 6.0,
       "relation": "text_topic"
     },
     {
       "source": "journal-158-research-papers-in-education",
-      "target": "topic-equity-and-policy",
+      "target": "topic-higher-education",
       "weight": 6.0,
       "relation": "text_topic"
     },
@@ -14364,7 +13842,7 @@
     {
       "source": "journal-161-international-journal-of-inclusive-education",
       "target": "method-mixed-methods",
-      "weight": 4.0,
+      "weight": 5.0,
       "relation": "method_or_theme"
     },
     {
@@ -16067,7 +15545,7 @@
     },
     {
       "source": "journal-186-journal-of-school-health",
-      "target": "topic-curriculum-and-pedagogy",
+      "target": "topic-stem-education",
       "weight": 6.0,
       "relation": "text_topic"
     },
@@ -16079,7 +15557,7 @@
     },
     {
       "source": "journal-186-journal-of-school-health",
-      "target": "topic-stem-education",
+      "target": "topic-curriculum-and-pedagogy",
       "weight": 6.0,
       "relation": "text_topic"
     },
@@ -16092,7 +15570,7 @@
     {
       "source": "journal-186-journal-of-school-health",
       "target": "topic-higher-education",
-      "weight": 4.0,
+      "weight": 5.0,
       "relation": "text_topic"
     },
     {
@@ -16211,13 +15689,13 @@
     },
     {
       "source": "journal-188-journal-of-psychologists-and-counsellors-in-scho",
-      "target": "topic-stem-education",
+      "target": "topic-equity-and-policy",
       "weight": 6.0,
       "relation": "text_topic"
     },
     {
       "source": "journal-188-journal-of-psychologists-and-counsellors-in-scho",
-      "target": "topic-equity-and-policy",
+      "target": "topic-stem-education",
       "weight": 6.0,
       "relation": "text_topic"
     },
@@ -16595,13 +16073,13 @@
     },
     {
       "source": "journal-193-reading-teacher",
-      "target": "method-review",
+      "target": "method-experiment",
       "weight": 5.0,
       "relation": "method_or_theme"
     },
     {
       "source": "journal-193-reading-teacher",
-      "target": "method-experiment",
+      "target": "method-review",
       "weight": 5.0,
       "relation": "method_or_theme"
     },
@@ -16932,7 +16410,7 @@
     {
       "source": "journal-198-international-journal-for-educational-and-vocati",
       "target": "topic-curriculum-and-pedagogy",
-      "weight": 3.0,
+      "weight": 4.0,
       "relation": "text_topic"
     },
     {
@@ -17597,13 +17075,13 @@
     },
     {
       "source": "journal-208-research-in-the-teaching-of-english",
-      "target": "topic-language-learning",
+      "target": "topic-equity-and-policy",
       "weight": 6.0,
       "relation": "text_topic"
     },
     {
       "source": "journal-208-research-in-the-teaching-of-english",
-      "target": "topic-equity-and-policy",
+      "target": "topic-language-learning",
       "weight": 6.0,
       "relation": "text_topic"
     },
@@ -17897,8 +17375,8 @@
     },
     {
       "source": "journal-212-journal-of-experimental-education",
-      "target": "topic-language-learning",
-      "weight": 3.0,
+      "target": "topic-educational-technology",
+      "weight": 2.0,
       "relation": "text_topic"
     },
     {
@@ -18455,14 +17933,14 @@
     },
     {
       "source": "journal-220-reading-writing-quarterly",
-      "target": "topic-stem-education",
+      "target": "topic-equity-and-policy",
       "weight": 3.0,
       "relation": "text_topic"
     },
     {
       "source": "journal-220-reading-writing-quarterly",
-      "target": "topic-equity-and-policy",
-      "weight": 2.0,
+      "target": "topic-stem-education",
+      "weight": 3.0,
       "relation": "text_topic"
     },
     {
@@ -18612,7 +18090,7 @@
     {
       "source": "journal-222-journal-of-adolescent-adult-literacy",
       "target": "method-review",
-      "weight": 2.0,
+      "weight": 3.0,
       "relation": "method_or_theme"
     },
     {
@@ -19481,13 +18959,13 @@
     },
     {
       "source": "journal-235-teaching-sociology",
-      "target": "topic-curriculum-and-pedagogy",
+      "target": "topic-motivation-and-wellbeing",
       "weight": 6.0,
       "relation": "text_topic"
     },
     {
       "source": "journal-235-teaching-sociology",
-      "target": "topic-motivation-and-wellbeing",
+      "target": "topic-curriculum-and-pedagogy",
       "weight": 6.0,
       "relation": "text_topic"
     },
@@ -19620,7 +19098,7 @@
     {
       "source": "journal-237-music-education-research",
       "target": "topic-equity-and-policy",
-      "weight": 6.0,
+      "weight": 5.0,
       "relation": "text_topic"
     },
     {
@@ -20153,19 +19631,13 @@
     },
     {
       "source": "journal-245-british-journal-of-religious-education",
-      "target": "topic-stem-education",
-      "weight": 6.0,
-      "relation": "text_topic"
-    },
-    {
-      "source": "journal-245-british-journal-of-religious-education",
-      "target": "topic-curriculum-and-pedagogy",
-      "weight": 6.0,
-      "relation": "text_topic"
-    },
-    {
-      "source": "journal-245-british-journal-of-religious-education",
       "target": "topic-higher-education",
+      "weight": 6.0,
+      "relation": "text_topic"
+    },
+    {
+      "source": "journal-245-british-journal-of-religious-education",
+      "target": "topic-stem-education",
       "weight": 6.0,
       "relation": "text_topic"
     },
@@ -20177,13 +19649,19 @@
     },
     {
       "source": "journal-245-british-journal-of-religious-education",
+      "target": "topic-curriculum-and-pedagogy",
+      "weight": 6.0,
+      "relation": "text_topic"
+    },
+    {
+      "source": "journal-245-british-journal-of-religious-education",
       "target": "topic-motivation-and-wellbeing",
       "weight": 3.0,
       "relation": "text_topic"
     },
     {
       "source": "journal-245-british-journal-of-religious-education",
-      "target": "topic-assessment",
+      "target": "topic-teacher-education",
       "weight": 3.0,
       "relation": "text_topic"
     },
