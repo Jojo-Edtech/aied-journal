@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-28T20:19:15+00:00",
+  "generated_at": "2026-08-28T20:29:14+00:00",
   "expected_journal_count": 268,
   "journal_count": 268,
   "journal_count_matches_expected": true,
@@ -8,14 +8,14 @@
   "q1_count_matches_expected": true,
   "journals_with_source_urls": 257,
   "source_pages": {
-    "total": 750,
-    "ok": 437,
-    "failed": 313,
+    "total": 758,
+    "ok": 434,
+    "failed": 324,
     "content_too_short": 0
   },
   "articles": {
-    "total": 20816,
-    "ok": 20816,
+    "total": 20576,
+    "ok": 20576,
     "failed": 0,
     "content_too_short": 0
   },
@@ -36,20 +36,20 @@
     "pending_verification": 0
   },
   "preference_coverage": {
-    "journals_with_any_articles": 262,
-    "journals_with_latest_issue": 262,
+    "journals_with_any_articles": 259,
+    "journals_with_latest_issue": 259,
     "range_slices": {
-      "recent_3_issues": 262,
-      "latest_issue": 262,
-      "rolling_1y": 262,
-      "rolling_2y": 262,
-      "rolling_3y": 262,
-      "rolling_5y": 262,
-      "all": 262
+      "recent_3_issues": 259,
+      "latest_issue": 259,
+      "rolling_1y": 259,
+      "rolling_2y": 259,
+      "rolling_3y": 259,
+      "rolling_5y": 259,
+      "all": 259
     },
     "total": 268
   },
-  "rag_documents": 21372,
+  "rag_documents": 21132,
   "missing_fields": {
     "jif_2025": {
       "missing": 1,
