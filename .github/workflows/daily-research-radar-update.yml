@@ -15,13 +15,16 @@ on:
       - 'data/radar/source_workbook_snapshot.json'
       - 'package.json'
 
-permissions:
-  contents: write
+permissions: {}
 
 jobs:
   refresh-radar:
     name: Refresh research radar data
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    outputs:
+      changed: ${{ steps.changes.outputs.changed }}
     env:
       TZ: Asia/Hong_Kong
       RADAR_CRAWL_JOURNAL_LIMIT: ${{ vars.RADAR_CRAWL_JOURNAL_LIMIT || '80' }}
@@ -85,10 +88,12 @@ jobs:
           NODE
 
       - name: Commit radar data changes
+        id: changes
         run: |
           set -euo pipefail
           if git diff --quiet -- data/radar; then
             echo "No radar data changes."
+            echo "changed=false" >> "$GITHUB_OUTPUT"
           else
             git config user.name "github-actions[bot]"
             git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
@@ -96,7 +101,14 @@ jobs:
             git commit -m "Refresh AIED research radar data"
             git pull --rebase origin main
             git push origin main
+            echo "changed=true" >> "$GITHUB_OUTPUT"
           fi
 
-      # deploy-pages.yml listens for this workflow to complete successfully,
-      # then validates, builds and publishes the latest main branch once.
+  deploy:
+    if: ${{ needs.refresh-radar.outputs.changed == 'true' }}
+    needs: refresh-radar
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+    uses: ./.github/workflows/deploy-pages.yml
