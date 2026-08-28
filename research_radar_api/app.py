@@ -535,7 +535,7 @@ def health() -> dict[str, Any]:
         "remaining_total_quota": remaining_total_quota(),
         "privacy_mode": "stateless_no_chat_history",
         "stores_chat_history": False,
-        "index_error": INDEX_ERROR,
+        "index_status": "ready" if document_count > 0 else "unavailable",
     }
 
 

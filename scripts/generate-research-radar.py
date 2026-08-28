@@ -181,23 +181,41 @@ def should_skip_crawl_url(url: str) -> bool:
     return any(token in lowered for token in blocked)
 
 
+def hostname_matches(hostname: str | None, domain: str) -> bool:
+    normalized_host = (hostname or "").lower().rstrip(".")
+    normalized_domain = domain.lower().rstrip(".")
+    return normalized_host == normalized_domain or normalized_host.endswith(f".{normalized_domain}")
+
+
+def urls_include_domain(urls: Iterable[str], domains: set[str]) -> bool:
+    for url in urls:
+        try:
+            hostname = urlparse(url).hostname
+        except ValueError:
+            continue
+        if any(hostname_matches(hostname, domain) for domain in domains):
+            return True
+    return False
+
+
 def publisher_family(publisher: str, urls: Iterable[str]) -> str:
-    text = " ".join([publisher, *urls]).lower()
-    if "springer" in text or "nature.com" in text:
+    publisher_text = publisher.lower()
+    url_list = list(urls)
+    if "springer" in publisher_text or urls_include_domain(url_list, {"springer.com", "nature.com"}):
         return "Springer Nature"
-    if "taylor" in text or "routledge" in text or "tandfonline" in text:
+    if "taylor" in publisher_text or "routledge" in publisher_text or urls_include_domain(url_list, {"tandfonline.com"}):
         return "Taylor & Francis"
-    if "elsevier" in text or "sciencedirect" in text:
+    if "elsevier" in publisher_text or urls_include_domain(url_list, {"elsevier.com", "sciencedirect.com"}):
         return "Elsevier"
-    if "wiley" in text:
+    if "wiley" in publisher_text or urls_include_domain(url_list, {"wiley.com"}):
         return "Wiley"
-    if "sage" in text:
+    if "sage" in publisher_text or urls_include_domain(url_list, {"sagepub.com"}):
         return "SAGE"
-    if "cambridge" in text:
+    if "cambridge" in publisher_text or urls_include_domain(url_list, {"cambridge.org"}):
         return "Cambridge"
-    if "emerald" in text:
+    if "emerald" in publisher_text:
         return "Emerald"
-    if "ieee" in text:
+    if "ieee" in publisher_text:
         return "IEEE"
     return publisher or "Other"
 
@@ -344,27 +362,27 @@ def candidate_editorial_urls(source_urls: Iterable[str]) -> list[str]:
     candidates: list[str] = []
     for url in source_urls:
         parsed = urlparse(url)
-        lowered = url.lower()
+        hostname = parsed.hostname
         additions: list[str] = []
-        if "link.springer.com/journal/" in lowered:
+        if hostname_matches(hostname, "link.springer.com") and parsed.path.startswith("/journal/"):
             match = re.search(r"/journal/([^/?#]+)", parsed.path)
             if match:
                 base = f"{parsed.scheme}://{parsed.netloc}/journal/{match.group(1)}"
                 additions.extend([f"{base}/editors", f"{base}/editorial-board"])
-        elif "sciencedirect.com/journal/" in lowered:
+        elif hostname_matches(hostname, "sciencedirect.com") and parsed.path.startswith("/journal/"):
             path = re.sub(r"/(about|publish)/.*$", "", parsed.path)
             base = f"{parsed.scheme}://{parsed.netloc}{path}"
             additions.extend([f"{base}/about/editorial-board", f"{base}/about/editorial-board"])
-        elif "tandfonline.com" in lowered:
+        elif hostname_matches(hostname, "tandfonline.com"):
             match = re.search(r"[?&]journalCode=([^&#]+)", url)
             if match:
                 additions.append(f"{parsed.scheme}://{parsed.netloc}/action/journalInformation?show=editorialBoard&journalCode={match.group(1)}")
             code_match = re.search(r"/journals/([^/?#]+)", parsed.path)
             if code_match:
                 additions.append(f"{parsed.scheme}://{parsed.netloc}/action/journalInformation?show=editorialBoard&journalCode={code_match.group(1)}")
-        elif "sagepub.com" in lowered or "journals.sagepub.com" in lowered:
+        elif hostname_matches(hostname, "sagepub.com"):
             additions.append(urljoin(url, "editorial-board"))
-        elif "cambridge.org" in lowered:
+        elif hostname_matches(hostname, "cambridge.org"):
             additions.append(urljoin(url, "information/editorial-board"))
 
         for addition in additions:
