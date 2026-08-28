@@ -1992,8 +1992,8 @@
       "STEM education": 4,
       "Language learning": 1,
       "Educational technology": 1,
-      "Learning analytics": 2,
-      "AI literacy": 1
+      "AI literacy": 1,
+      "Learning analytics": 2
     },
     "method_hits": {
       "Computer-supported collaboration": 2,
@@ -4170,7 +4170,7 @@
     "article_preferences": {
       "article_sample_count": 80,
       "topic_counts": {
-        "STEM education": 14,
+        "STEM education": 15,
         "Generative AI": 7,
         "Higher education": 7,
         "Assessment": 7,
@@ -4186,6 +4186,12 @@
       },
       "yearly_topics": [
         {
+          "year": "2027",
+          "topics": {
+            "STEM education": 1
+          }
+        },
+        {
           "year": "2026",
           "topics": {
             "STEM education": 14,
@@ -4200,22 +4206,25 @@
         "year": "2027",
         "volume": "63",
         "issue": "",
-        "article_count": 2,
-        "top_topics": {},
+        "article_count": 3,
+        "top_topics": {
+          "STEM education": 1
+        },
         "sample_titles": [
           "Examining primary students’ mathematical communication through the lens of de Bono’s practical thinking processes",
-          "Cognitive appraisal of illegitimate tasks and research creativity: dual reflective processing pathways in graduate education"
+          "Cognitive appraisal of illegitimate tasks and research creativity: dual reflective processing pathways in graduate education",
+          "Associations between teaching approaches, epistemological beliefs, utility value, and science-related career choice: A study across different metacognitive levels"
         ]
       }
     },
     "topic_hits": {
+      "STEM education": 15,
       "Generative AI": 7,
       "Motivation and wellbeing": 4,
       "Language learning": 5,
       "Curriculum and pedagogy": 6,
       "Higher education": 7,
-      "Assessment": 7,
-      "STEM education": 14
+      "Assessment": 7
     },
     "method_hits": {
       "Computer-supported collaboration": 1,
@@ -9680,8 +9689,8 @@
     "article_preferences": {
       "article_sample_count": 80,
       "topic_counts": {
-        "Curriculum and pedagogy": 31,
-        "Higher education": 27,
+        "Curriculum and pedagogy": 32,
+        "Higher education": 28,
         "STEM education": 19,
         "Assessment": 14,
         "Generative AI": 11,
@@ -9701,8 +9710,8 @@
         {
           "year": "2026",
           "topics": {
-            "Curriculum and pedagogy": 31,
-            "Higher education": 27,
+            "Curriculum and pedagogy": 32,
+            "Higher education": 28,
             "STEM education": 19,
             "Assessment": 14,
             "Generative AI": 11
@@ -9713,29 +9722,29 @@
         "year": "2026",
         "volume": "22",
         "issue": "2",
-        "article_count": 22,
+        "article_count": 23,
         "top_topics": {
-          "Curriculum and pedagogy": 11,
-          "Higher education": 9,
-          "STEM education": 7,
+          "Curriculum and pedagogy": 12,
+          "Higher education": 11,
+          "STEM education": 8,
           "Assessment": 6,
           "Generative AI": 5,
           "Equity and policy": 3
         },
         "sample_titles": [
           "Teachers’ acceptance and understanding of a reduced Dirac formalism and the Bloch sphere",
+          "Impact of the history of physics course on university non-STEM students’ views on the nature of science",
           "Ethnographic investigations of the emerging culture on departmental teams: Evidence of transforming physics faculty’s practices and values around departmental change",
           "Teaching problem solving in undergraduate physics courses: An endorsement for deliberate practice",
           "Organizing energy instruction around the work and energy relation to support knowledge integration in secondary physics",
-          "From search to GenAI queries: Global trends in physics information-seeking across topics and regions",
-          "Undergraduate students’ application of special relativity to paradoxes"
+          "From search to GenAI queries: Global trends in physics information-seeking across topics and regions"
         ]
       }
     },
     "topic_hits": {
       "STEM education": 21,
-      "Higher education": 29,
-      "Curriculum and pedagogy": 39,
+      "Higher education": 30,
+      "Curriculum and pedagogy": 40,
       "Assessment": 16,
       "Motivation and wellbeing": 7,
       "Generative AI": 13,
@@ -15352,9 +15361,9 @@
         "Teacher education": 1
       },
       "method_counts": {
-        "Experiment": 6,
-        "RAG": 1,
-        "Review": 1
+        "Experiment": 7,
+        "Review": 2,
+        "RAG": 1
       },
       "yearly_topics": [
         {
@@ -15372,7 +15381,7 @@
         "year": "2026",
         "volume": "125",
         "issue": "",
-        "article_count": 18,
+        "article_count": 19,
         "top_topics": {
           "Equity and policy": 4,
           "Higher education": 2,
@@ -15382,10 +15391,10 @@
         "sample_titles": [
           "Centering agency, voice, and power-sharing in research with pregnant learners and student mothers: Integrating photovoice and statistics in international education development",
           "Postcolonial realities, cosmopolitan possibilities: School leaders’ instructional efforts to support diverse students’ social inclusion in Hong Kong",
+          "What works and at what cost to improve foundational learning for school-aged children in conflict and protracted crisis? A meta-analysis and cost-effectiveness analysis of education interventions for school-aged children",
           "Selective school admissions and student achievement: Evidence from a policy reform in Chile",
           "When infrastructure collapses: Collective resilience and digital learning among Palestinian university mathematics students during the war on Gaza",
-          "Paths to dropout: Barriers to school continuation for girls in rural Malawi",
-          "“No boundaries to inclusion”: Narrow realities and broad ideals in Sharjah’s private schools"
+          "Paths to dropout: Barriers to school continuation for girls in rural Malawi"
         ]
       }
     },
@@ -15400,9 +15409,9 @@
       "Teacher education": 1
     },
     "method_hits": {
-      "Experiment": 6,
-      "RAG": 1,
-      "Review": 1
+      "Experiment": 7,
+      "Review": 2,
+      "RAG": 1
     },
     "article_count_crawled": 80,
     "source_pages_crawled": 2
