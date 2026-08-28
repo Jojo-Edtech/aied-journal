@@ -32,6 +32,7 @@ USER_AGENT = "aied-journal/0.1 (+https://jojo-edtech.github.io/aied-journal/)"
 EXPECTED_JOURNAL_COUNT = 268
 Q1_EXPECTED_COUNT = 135
 CROSSREF_API = "https://api.crossref.org"
+EMAIL_PATTERN = re.compile(r"[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}", re.IGNORECASE)
 
 TOPIC_TERMS = [
     ("AI literacy", ["ai literacy", "人工智能素养", "ai素养", "genai literacy", "generative ai literacy"]),
@@ -133,6 +134,17 @@ def clean(value: object) -> str:
     text = re.sub(r"<[^>]+>", " ", text)
     text = re.sub(r"\s+", " ", text).strip()
     return "" if text.lower() == "nan" else text
+
+
+def redact_email_addresses(value: object) -> str:
+    return EMAIL_PATTERN.sub("[email redacted]", str(value or ""))
+
+
+def sanitize_public_records(records: list[dict], fields: tuple[str, ...]) -> None:
+    for record in records:
+        for field in fields:
+            if isinstance(record.get(field), str):
+                record[field] = redact_email_addresses(record[field])
 
 
 def number(value: object) -> float | None:
@@ -1723,9 +1735,11 @@ def main() -> int:
     if args.excel.exists():
         main_sheet, update_log = read_workbook(args.excel)
         journals = build_journals(main_sheet, update_log)
+        sanitize_public_records(journals, ("word_limit",))
         write_json(snapshot_path, journals)
     elif snapshot_path.exists():
         journals = json.loads(snapshot_path.read_text(encoding="utf-8"))
+        sanitize_public_records(journals, ("word_limit",))
         print(f"Excel workbook not found; using source snapshot: {snapshot_path}", file=sys.stderr)
     else:
         print(f"Excel workbook not found and no snapshot exists: {args.excel}", file=sys.stderr)
@@ -1849,6 +1863,9 @@ def main() -> int:
     editor_profiles = [build_editor_profile_record(journal) for journal in journals]
     sources = dedupe_records(sources, ("journal_id", "source_type", "url"))
     docs = dedupe_records(docs, ("doc_id",))
+    sanitize_public_records(sources, ("title", "error"))
+    sanitize_public_records(articles, ("title", "abstract", "keywords", "error"))
+    sanitize_public_records(docs, ("title", "text_snippet"))
     write_json(args.output / "journals.json", journals)
     write_json(args.output / "journals_q1.json", q1_journals)
     write_json(args.output / "journal_sources.json", sources)

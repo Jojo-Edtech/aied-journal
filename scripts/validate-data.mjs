@@ -18,14 +18,30 @@ async function readJson(file, fallback = null) {
   }
 }
 
-async function countJsonl(file) {
+const emailPattern = /[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}/gi;
+const credentialPattern = /(?<![A-Za-z])(?:sk-[A-Za-z0-9_-]{12,}|gh[pousr]_[A-Za-z0-9]{20,})/g;
+
+async function inspectJsonl(file) {
   if (!existsSync(file)) {
     console.error(`${file} does not exist.`);
     failures += 1;
-    return 0;
+    return { count: 0, emails: 0, credentials: 0, parseErrors: 0 };
   }
   const text = await readFile(file, "utf8");
-  return text.split(/\r?\n/).filter((line) => line.trim()).length;
+  const lines = text.split(/\r?\n/).filter((line) => line.trim());
+  let emails = 0;
+  let credentials = 0;
+  let parseErrors = 0;
+  for (const line of lines) {
+    try {
+      JSON.parse(line);
+    } catch {
+      parseErrors += 1;
+    }
+    emails += (line.match(emailPattern) || []).length;
+    credentials += (line.match(credentialPattern) || []).length;
+  }
+  return { count: lines.length, emails, credentials, parseErrors };
 }
 
 const journals = await readJson("data/radar/journals.json", []);
@@ -37,8 +53,10 @@ const config = await readJson("data/radar/radar-config.json", {});
 const snapshot = await readJson("data/radar/source_workbook_snapshot.json", []);
 const preferences = await readJson("data/radar/journal_preferences.json", []);
 const editorProfiles = await readJson("data/radar/editor_profiles.json", []);
-const articleLines = await countJsonl("data/radar/journal_articles.jsonl");
-const ragLines = await countJsonl("data/radar/rag_documents.jsonl");
+const articleStats = await inspectJsonl("data/radar/journal_articles.jsonl");
+const ragStats = await inspectJsonl("data/radar/rag_documents.jsonl");
+const articleLines = articleStats.count;
+const ragLines = ragStats.count;
 
 if (!Array.isArray(journals) || journals.length !== 268) {
   console.error(`data/radar/journals.json expected 268 journals, found ${Array.isArray(journals) ? journals.length : "invalid"}.`);
@@ -177,12 +195,21 @@ if (!Array.isArray(editorProfiles) || editorProfiles.length !== 268) {
 
 for (const [label, fileData] of [
   ["journals", journals],
+  ["q1Journals", q1Journals],
+  ["sources", sources],
+  ["network", network],
+  ["snapshot", snapshot],
   ["preferences", preferences],
   ["editorProfiles", editorProfiles],
   ["report", report],
   ["config", config],
 ]) {
   const text = JSON.stringify(fileData);
+  const emails = (text.match(emailPattern) || []).length;
+  if (emails > 0) {
+    console.error(`Public ${label} data contains ${emails} email address(es); contact details must be redacted.`);
+    failures += 1;
+  }
   if (/DEEPSEEK_API_KEY|MODELSCOPE_API_KEY|DASHSCOPE_API_KEY|RADAR_ACCESS_CODE|(?<![A-Za-z])sk-[A-Za-z0-9_-]{12,}/.test(text)) {
     console.error(`Potential secret found in public ${label} data.`);
     failures += 1;
@@ -202,6 +229,24 @@ if (articleLines === 0) {
 if (ragLines === 0) {
   console.error("data/radar/rag_documents.jsonl is empty.");
   failures += 1;
+}
+
+for (const [file, stats] of [
+  ["data/radar/journal_articles.jsonl", articleStats],
+  ["data/radar/rag_documents.jsonl", ragStats],
+]) {
+  if (stats.parseErrors > 0) {
+    console.error(`${file} contains ${stats.parseErrors} invalid JSONL record(s).`);
+    failures += 1;
+  }
+  if (stats.emails > 0) {
+    console.error(`${file} contains ${stats.emails} email address(es); public text must be redacted.`);
+    failures += 1;
+  }
+  if (stats.credentials > 0) {
+    console.error(`${file} contains ${stats.credentials} potential credential(s).`);
+    failures += 1;
+  }
 }
 
 console.log(

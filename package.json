@@ -7,6 +7,7 @@
     "build:static": "node scripts/build-static-site.mjs",
     "radar:generate": "python3 scripts/generate-research-radar.py",
     "radar:generate:quick": "python3 scripts/generate-research-radar.py --skip-crawl",
+    "sanitize:public": "node scripts/sanitize-public-data.mjs",
     "validate:data": "node scripts/validate-data.mjs"
   },
   "engines": {
