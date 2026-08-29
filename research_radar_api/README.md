@@ -63,8 +63,8 @@ DEEPSEEK_MODEL=deepseek-v4-flash
 ```bash
 python3 -m venv .venv
 source .venv/bin/activate
-pip install -r requirements.txt
-RADAR_REQUIRE_ACCESS_CODE=false MODELSCOPE_API_KEY=... uvicorn app:app --host 0.0.0.0 --port 8000
+pip install --require-hashes -r requirements.lock.txt
+RADAR_REQUIRE_ACCESS_CODE=false MODELSCOPE_API_KEY=... uvicorn app:app --host 127.0.0.1 --port 8000 --no-server-header
 ```
 
 检查：

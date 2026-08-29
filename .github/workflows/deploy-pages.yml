@@ -37,9 +37,11 @@ jobs:
       - name: Audit and test the API
         run: |
           python -m pip install --disable-pip-version-check \
-            -r research_radar_api/requirements.txt \
+            --require-hashes \
+            -r research_radar_api/requirements.lock.txt
+          python -m pip install --disable-pip-version-check \
             pip-audit==2.10.1
-          python -m pip_audit -r research_radar_api/requirements.txt
+          python -m pip_audit -r research_radar_api/requirements.lock.txt
           python -m unittest research_radar_api/test_security.py
           node --test journal_worker/index.test.mjs
 
