@@ -17,12 +17,16 @@ on:
 
 permissions: {}
 
+concurrency:
+  group: research-radar-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: false
+
 jobs:
   refresh-radar:
     name: Refresh research radar data
     runs-on: ubuntu-latest
     permissions:
-      contents: write
+      contents: write  # Required to commit regenerated public radar data back to main.
     outputs:
       changed: ${{ steps.changes.outputs.changed }}
     env:
@@ -113,6 +117,6 @@ jobs:
     needs: refresh-radar
     permissions:
       contents: read
-      pages: write
-      id-token: write
+      pages: write      # Required by the reusable GitHub Pages deployment workflow.
+      id-token: write   # Required for GitHub Pages OIDC authentication.
     uses: ./.github/workflows/deploy-pages.yml
