@@ -3071,13 +3071,13 @@
     },
     {
       "source": "journal-003-computers-education",
-      "target": "topic-assessment",
+      "target": "topic-generative-ai",
       "weight": 6.0,
       "relation": "text_topic"
     },
     {
       "source": "journal-003-computers-education",
-      "target": "topic-generative-ai",
+      "target": "topic-assessment",
       "weight": 6.0,
       "relation": "text_topic"
     },
@@ -4703,13 +4703,13 @@
     },
     {
       "source": "journal-026-innovations-in-education-and-teaching-internatio",
-      "target": "topic-motivation-and-wellbeing",
+      "target": "topic-curriculum-and-pedagogy",
       "weight": 6.0,
       "relation": "text_topic"
     },
     {
       "source": "journal-026-innovations-in-education-and-teaching-internatio",
-      "target": "topic-curriculum-and-pedagogy",
+      "target": "topic-motivation-and-wellbeing",
       "weight": 6.0,
       "relation": "text_topic"
     },
@@ -4727,8 +4727,8 @@
     },
     {
       "source": "journal-026-innovations-in-education-and-teaching-internatio",
-      "target": "topic-stem-education",
-      "weight": 6.0,
+      "target": "topic-language-learning",
+      "weight": 5.0,
       "relation": "text_topic"
     },
     {
@@ -6442,12 +6442,6 @@
       "relation": "method_or_theme"
     },
     {
-      "source": "journal-049-teaching-and-teacher-education",
-      "target": "method-rag",
-      "weight": 2.0,
-      "relation": "method_or_theme"
-    },
-    {
       "source": "journal-050-npj-science-of-learning",
       "target": "publisher-springer-nature",
       "weight": 1.0,
@@ -6791,19 +6785,19 @@
     },
     {
       "source": "journal-055-bmc-medical-education",
-      "target": "topic-stem-education",
-      "weight": 6.0,
-      "relation": "text_topic"
-    },
-    {
-      "source": "journal-055-bmc-medical-education",
       "target": "topic-curriculum-and-pedagogy",
       "weight": 6.0,
       "relation": "text_topic"
     },
     {
       "source": "journal-055-bmc-medical-education",
-      "target": "topic-generative-ai",
+      "target": "topic-stem-education",
+      "weight": 6.0,
+      "relation": "text_topic"
+    },
+    {
+      "source": "journal-055-bmc-medical-education",
+      "target": "topic-equity-and-policy",
       "weight": 6.0,
       "relation": "text_topic"
     },
@@ -7163,13 +7157,13 @@
     },
     {
       "source": "journal-060-elt-journal",
-      "target": "topic-language-learning",
+      "target": "topic-assessment",
       "weight": 6.0,
       "relation": "text_topic"
     },
     {
       "source": "journal-060-elt-journal",
-      "target": "topic-assessment",
+      "target": "topic-language-learning",
       "weight": 6.0,
       "relation": "text_topic"
     },
@@ -11729,9 +11723,45 @@
     },
     {
       "source": "journal-124-early-childhood-research-quarterly",
+      "target": "topic-motivation-and-wellbeing",
+      "weight": 6.0,
+      "relation": "text_topic"
+    },
+    {
+      "source": "journal-124-early-childhood-research-quarterly",
       "target": "topic-stem-education",
+      "weight": 6.0,
+      "relation": "text_topic"
+    },
+    {
+      "source": "journal-124-early-childhood-research-quarterly",
+      "target": "topic-equity-and-policy",
+      "weight": 3.0,
+      "relation": "text_topic"
+    },
+    {
+      "source": "journal-124-early-childhood-research-quarterly",
+      "target": "topic-assessment",
       "weight": 2.0,
       "relation": "text_topic"
+    },
+    {
+      "source": "journal-124-early-childhood-research-quarterly",
+      "target": "method-review",
+      "weight": 5.0,
+      "relation": "method_or_theme"
+    },
+    {
+      "source": "journal-124-early-childhood-research-quarterly",
+      "target": "method-experiment",
+      "weight": 5.0,
+      "relation": "method_or_theme"
+    },
+    {
+      "source": "journal-124-early-childhood-research-quarterly",
+      "target": "method-mixed-methods",
+      "weight": 2.0,
+      "relation": "method_or_theme"
     },
     {
       "source": "journal-125-comparative-education-review",
@@ -12042,8 +12072,62 @@
     {
       "source": "journal-129-science-education",
       "target": "topic-stem-education",
-      "weight": 2.0,
+      "weight": 6.0,
       "relation": "text_topic"
+    },
+    {
+      "source": "journal-129-science-education",
+      "target": "topic-curriculum-and-pedagogy",
+      "weight": 6.0,
+      "relation": "text_topic"
+    },
+    {
+      "source": "journal-129-science-education",
+      "target": "topic-equity-and-policy",
+      "weight": 6.0,
+      "relation": "text_topic"
+    },
+    {
+      "source": "journal-129-science-education",
+      "target": "topic-motivation-and-wellbeing",
+      "weight": 6.0,
+      "relation": "text_topic"
+    },
+    {
+      "source": "journal-129-science-education",
+      "target": "topic-assessment",
+      "weight": 6.0,
+      "relation": "text_topic"
+    },
+    {
+      "source": "journal-129-science-education",
+      "target": "topic-teacher-education",
+      "weight": 6.0,
+      "relation": "text_topic"
+    },
+    {
+      "source": "journal-129-science-education",
+      "target": "method-mixed-methods",
+      "weight": 5.0,
+      "relation": "method_or_theme"
+    },
+    {
+      "source": "journal-129-science-education",
+      "target": "method-experiment",
+      "weight": 5.0,
+      "relation": "method_or_theme"
+    },
+    {
+      "source": "journal-129-science-education",
+      "target": "method-rag",
+      "weight": 5.0,
+      "relation": "method_or_theme"
+    },
+    {
+      "source": "journal-129-science-education",
+      "target": "method-review",
+      "weight": 4.0,
+      "relation": "method_or_theme"
     },
     {
       "source": "journal-130-review-of-higher-education",
@@ -12056,6 +12140,66 @@
       "target": "topic-topic",
       "weight": 2.0,
       "relation": "jcr_tag"
+    },
+    {
+      "source": "journal-130-review-of-higher-education",
+      "target": "topic-higher-education",
+      "weight": 6.0,
+      "relation": "text_topic"
+    },
+    {
+      "source": "journal-130-review-of-higher-education",
+      "target": "topic-equity-and-policy",
+      "weight": 6.0,
+      "relation": "text_topic"
+    },
+    {
+      "source": "journal-130-review-of-higher-education",
+      "target": "topic-stem-education",
+      "weight": 6.0,
+      "relation": "text_topic"
+    },
+    {
+      "source": "journal-130-review-of-higher-education",
+      "target": "topic-motivation-and-wellbeing",
+      "weight": 6.0,
+      "relation": "text_topic"
+    },
+    {
+      "source": "journal-130-review-of-higher-education",
+      "target": "topic-generative-ai",
+      "weight": 6.0,
+      "relation": "text_topic"
+    },
+    {
+      "source": "journal-130-review-of-higher-education",
+      "target": "topic-assessment",
+      "weight": 6.0,
+      "relation": "text_topic"
+    },
+    {
+      "source": "journal-130-review-of-higher-education",
+      "target": "method-mixed-methods",
+      "weight": 5.0,
+      "relation": "method_or_theme"
+    },
+    {
+      "source": "journal-130-review-of-higher-education",
+      "target": "method-rag",
+      "weight": 5.0,
+      "relation": "method_or_theme"
+    },
+    {
+      "source": "journal-130-review-of-higher-education",
+      "target": "method-experiment",
+      "weight": 4.0,
+      "relation": "method_or_theme"
+    },
+    {
+      "source": "journal-130-review-of-higher-education",
+      "target": "method-learning-analytics",
+      "weight": 3.0,
+      "relation": "method_or_theme"
     },
     {
       "source": "journal-131-journal-of-marketing-for-higher-education",
@@ -15024,19 +15168,19 @@
     {
       "source": "journal-173-economics-of-education-review",
       "target": "topic-stem-education",
-      "weight": 4.0,
-      "relation": "text_topic"
-    },
-    {
-      "source": "journal-173-economics-of-education-review",
-      "target": "topic-equity-and-policy",
-      "weight": 4.0,
+      "weight": 5.0,
       "relation": "text_topic"
     },
     {
       "source": "journal-173-economics-of-education-review",
       "target": "topic-generative-ai",
-      "weight": 4.0,
+      "weight": 5.0,
+      "relation": "text_topic"
+    },
+    {
+      "source": "journal-173-economics-of-education-review",
+      "target": "topic-equity-and-policy",
+      "weight": 5.0,
       "relation": "text_topic"
     },
     {
