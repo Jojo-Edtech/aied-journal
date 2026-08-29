@@ -155,6 +155,7 @@ class SecurityTests(unittest.TestCase):
             return Response("{}", media_type="application/json")
 
         response = asyncio.run(radar.secure_api_responses(request, call_next))
+        self.assertEqual(response.headers["strict-transport-security"], "max-age=31536000")
         self.assertEqual(response.headers["x-content-type-options"], "nosniff")
         self.assertEqual(response.headers["x-frame-options"], "DENY")
         self.assertEqual(response.headers["cache-control"], "no-store, private")
