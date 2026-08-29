@@ -1,24 +1,28 @@
 from __future__ import annotations
 
 import hmac
+import ipaddress
 import json
 import math
 import os
 import re
 import tempfile
+import threading
 import time
-from collections import Counter, defaultdict, deque
+from collections import Counter, OrderedDict, deque
 from dataclasses import dataclass
-from datetime import date
+from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 from urllib.error import HTTPError, URLError
-from urllib.request import Request, urlopen
+from urllib.parse import urlsplit
+from urllib.request import HTTPRedirectHandler, Request, build_opener
 
-from fastapi import FastAPI, HTTPException, Request as FastAPIRequest
+from fastapi import FastAPI, HTTPException
+from fastapi import Request as FastAPIRequest
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, Field
-
+from starlette.responses import JSONResponse
 
 APP_ROOT = Path(__file__).resolve().parents[1]
 DATA_DIR = Path(os.getenv("RADAR_DATA_DIR", str(APP_ROOT / "data" / "radar"))).expanduser()
@@ -28,11 +32,17 @@ DEFAULT_MODELSCOPE_API_BASE = "https://api-inference.modelscope.cn/v1"
 DEFAULT_DEEPSEEK_MODEL = "deepseek-v4-flash"
 DEFAULT_DEEPSEEK_API_BASE = "https://api.deepseek.com/chat/completions"
 MAX_QUESTION_CHARS = int(os.getenv("RADAR_MAX_QUESTION_CHARS", "1200"))
+MAX_BODY_BYTES = min(max(8 * 1024, int(os.getenv("RADAR_MAX_BODY_BYTES", str(64 * 1024)))), 1024 * 1024)
 TOP_K_DEFAULT = int(os.getenv("RADAR_TOP_K", "8"))
 MAX_CONTEXT_CHARS = int(os.getenv("RADAR_MAX_CONTEXT_CHARS", "11000"))
 DAILY_LIMIT = int(os.getenv("RAG_DAILY_LIMIT", "60"))
 TOTAL_LIMIT = int(os.getenv("RAG_TOTAL_LIMIT", "1990"))
 RATE_LIMIT_PER_MIN = int(os.getenv("RADAR_RATE_LIMIT_PER_MIN", "12"))
+MAX_RATE_LIMIT_CLIENTS = max(100, int(os.getenv("RADAR_MAX_RATE_LIMIT_CLIENTS", "5000")))
+MAX_LLM_RESPONSE_BYTES = min(
+    max(64 * 1024, int(os.getenv("RADAR_MAX_LLM_RESPONSE_BYTES", str(4 * 1024 * 1024)))),
+    8 * 1024 * 1024,
+)
 QUOTA_FILE = Path(os.getenv("RADAR_QUOTA_FILE", str(Path(tempfile.gettempdir()) / "aied_research_radar_quota.json")))
 PROVIDER_QUOTA_FILE = Path(
     os.getenv(
@@ -40,7 +50,78 @@ PROVIDER_QUOTA_FILE = Path(
         str(Path(tempfile.gettempdir()) / "aied_research_radar_provider_quota.json"),
     )
 )
-REQUIRE_ACCESS_CODE = os.getenv("RADAR_REQUIRE_ACCESS_CODE", "false").strip().lower() in {"1", "true", "yes", "on"}
+_ACCESS_CODE_SETTING = os.getenv("RADAR_REQUIRE_ACCESS_CODE")
+REQUIRE_ACCESS_CODE = (
+    bool(os.getenv("RADAR_ACCESS_CODE", "").strip())
+    if _ACCESS_CODE_SETTING is None
+    else _ACCESS_CODE_SETTING.strip().lower() in {"1", "true", "yes", "on"}
+)
+ENABLE_API_DOCS = os.getenv("RADAR_ENABLE_API_DOCS", "false").strip().lower() in {"1", "true", "yes", "on"}
+
+
+class RequestBodyTooLargeError(Exception):
+    pass
+
+
+class RequestBodyLimitMiddleware:
+    def __init__(self, app, max_body_bytes: int) -> None:
+        self.app = app
+        self.max_body_bytes = max_body_bytes
+
+    async def __call__(self, scope, receive, send) -> None:
+        if scope.get("type") != "http":
+            await self.app(scope, receive, send)
+            return
+
+        headers = {key.lower(): value for key, value in scope.get("headers", [])}
+        raw_length = headers.get(b"content-length", b"")
+        try:
+            content_length = int(raw_length) if raw_length else 0
+        except ValueError:
+            content_length = 0
+        if content_length > self.max_body_bytes:
+            response = JSONResponse({"detail": "请求内容过大。"}, status_code=413)
+            await response(scope, receive, send)
+            return
+
+        received = 0
+
+        async def limited_receive():
+            nonlocal received
+            message = await receive()
+            if message.get("type") == "http.request":
+                received += len(message.get("body", b""))
+                if received > self.max_body_bytes:
+                    raise RequestBodyTooLargeError
+            return message
+
+        try:
+            await self.app(scope, limited_receive, send)
+        except RequestBodyTooLargeError:
+            response = JSONResponse({"detail": "请求内容过大。"}, status_code=413)
+            await response(scope, receive, send)
+
+
+def normalize_origin(value: str) -> str:
+    candidate = (value or "").strip().rstrip("/")
+    try:
+        parsed = urlsplit(candidate)
+    except ValueError:
+        return ""
+    if parsed.scheme not in {"http", "https"} or not parsed.hostname:
+        return ""
+    if parsed.username or parsed.password or parsed.query or parsed.fragment:
+        return ""
+    if parsed.path not in {"", "/"}:
+        return ""
+    if parsed.scheme == "http" and parsed.hostname not in {"localhost", "127.0.0.1", "::1"}:
+        return ""
+    try:
+        port = parsed.port
+    except ValueError:
+        return ""
+    host = f"[{parsed.hostname}]" if ":" in parsed.hostname else parsed.hostname
+    return f"{parsed.scheme}://{host}{f':{port}' if port else ''}"
 
 
 def allowed_origins() -> list[str]:
@@ -48,24 +129,36 @@ def allowed_origins() -> list[str]:
         "ALLOWED_ORIGIN",
         "http://localhost:4183,http://127.0.0.1:4183,https://jojo-edtech.github.io",
     )
-    return [origin.strip().rstrip("/") for origin in raw.split(",") if origin.strip()]
+    return list(dict.fromkeys(origin for item in raw.split(",") if (origin := normalize_origin(item))))
 
 
-app = FastAPI(title="AIED Journal Radar API", version="0.1.0")
+app = FastAPI(
+    title="AIED Journal Radar API",
+    version="0.1.0",
+    docs_url="/docs" if ENABLE_API_DOCS else None,
+    redoc_url="/redoc" if ENABLE_API_DOCS else None,
+    openapi_url="/openapi.json" if ENABLE_API_DOCS else None,
+)
+app.add_middleware(RequestBodyLimitMiddleware, max_body_bytes=MAX_BODY_BYTES)
 app.add_middleware(
     CORSMiddleware,
     allow_origins=allowed_origins(),
     allow_credentials=False,
     allow_methods=["GET", "POST", "OPTIONS"],
-    allow_headers=["Content-Type"],
+    allow_headers=["Content-Type", "X-AIED-Client"],
 )
 
 
 @app.middleware("http")
-async def no_store_api_responses(request: FastAPIRequest, call_next):
+async def secure_api_responses(request: FastAPIRequest, call_next):
     response = await call_next(request)
+    response.headers["X-Content-Type-Options"] = "nosniff"
+    response.headers["X-Frame-Options"] = "DENY"
+    response.headers["Referrer-Policy"] = "no-referrer"
+    response.headers["Permissions-Policy"] = "camera=(), microphone=(), geolocation=()"
     if request.url.path.startswith("/api/"):
         response.headers["Cache-Control"] = "no-store, private"
+        response.headers["Content-Security-Policy"] = "default-src 'none'; base-uri 'none'; frame-ancestors 'none'"
         response.headers["X-Conversation-Mode"] = "stateless"
         response.headers["X-Chat-History-Stored"] = "false"
     return response
@@ -150,7 +243,10 @@ class RadarIndex:
 
 INDEX: RadarIndex | None = None
 INDEX_ERROR: str | None = None
-IP_BUCKETS: defaultdict[str, deque[float]] = defaultdict(deque)
+IP_BUCKETS: OrderedDict[str, deque[float]] = OrderedDict()
+IP_BUCKETS_LOCK = threading.Lock()
+QUOTA_LOCK = threading.RLock()
+PROVIDER_QUOTA_LOCK = threading.Lock()
 
 
 def tokenize(text: str) -> list[str]:
@@ -169,6 +265,25 @@ def load_json(path: Path, fallback: Any) -> Any:
         return json.loads(path.read_text(encoding="utf-8"))
     except (OSError, json.JSONDecodeError):
         return fallback
+
+
+def atomic_write_json(path: Path, data: dict[str, Any]) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    descriptor, temporary_name = tempfile.mkstemp(prefix=f".{path.name}.", dir=path.parent)
+    temporary_path = Path(temporary_name)
+    try:
+        os.fchmod(descriptor, 0o600)
+        with os.fdopen(descriptor, "w", encoding="utf-8") as handle:
+            descriptor = -1
+            json.dump(data, handle, ensure_ascii=False)
+            handle.flush()
+            os.fsync(handle.fileno())
+        os.replace(temporary_path, path)
+        path.chmod(0o600)
+    finally:
+        if descriptor >= 0:
+            os.close(descriptor)
+        temporary_path.unlink(missing_ok=True)
 
 
 def load_documents() -> RadarIndex:
@@ -219,11 +334,11 @@ def read_quota() -> dict[str, Any]:
     try:
         return json.loads(QUOTA_FILE.read_text(encoding="utf-8"))
     except (OSError, json.JSONDecodeError):
-        return {"date": date.today().isoformat(), "used": 0, "total_used": 0}
+        return {"date": datetime.now(timezone.utc).date().isoformat(), "used": 0, "total_used": 0}
 
 
 def normalize_quota_state(state: dict[str, Any]) -> dict[str, Any]:
-    today = date.today().isoformat()
+    today = datetime.now(timezone.utc).date().isoformat()
     total_used = int(state.get("total_used", 0))
     if state.get("date") != today:
         return {"date": today, "used": 0, "total_used": total_used}
@@ -231,20 +346,21 @@ def normalize_quota_state(state: dict[str, Any]) -> dict[str, Any]:
 
 
 def claim_quota() -> int:
-    state = normalize_quota_state(read_quota())
-    used = int(state.get("used", 0))
-    total_used = int(state.get("total_used", 0))
-    if DAILY_LIMIT > 0 and used >= DAILY_LIMIT:
-        raise HTTPException(status_code=429, detail="今日公开试用额度已用完。")
-    if TOTAL_LIMIT > 0 and total_used >= TOTAL_LIMIT:
-        raise HTTPException(status_code=429, detail="公开试用总额度已用完。")
-    state["used"] = used + 1
-    state["total_used"] = total_used + 1
-    try:
-        QUOTA_FILE.write_text(json.dumps(state, ensure_ascii=False), encoding="utf-8")
-    except OSError:
-        raise HTTPException(status_code=503, detail="额度状态文件暂时不可写。")
-    return remaining_quota(state)
+    with QUOTA_LOCK:
+        state = normalize_quota_state(read_quota())
+        used = int(state.get("used", 0))
+        total_used = int(state.get("total_used", 0))
+        if DAILY_LIMIT > 0 and used >= DAILY_LIMIT:
+            raise HTTPException(status_code=429, detail="今日公开试用额度已用完。")
+        if TOTAL_LIMIT > 0 and total_used >= TOTAL_LIMIT:
+            raise HTTPException(status_code=429, detail="公开试用总额度已用完。")
+        state["used"] = used + 1
+        state["total_used"] = total_used + 1
+        try:
+            atomic_write_json(QUOTA_FILE, state)
+        except OSError:
+            raise HTTPException(status_code=503, detail="额度状态文件暂时不可写。")
+        return remaining_quota(state)
 
 
 def remaining_quota(state: dict[str, Any] | None = None) -> int:
@@ -271,7 +387,7 @@ def ensure_quota_available() -> None:
 
 
 def read_provider_quota_state() -> dict[str, Any]:
-    today = date.today().isoformat()
+    today = datetime.now(timezone.utc).date().isoformat()
     try:
         state = json.loads(PROVIDER_QUOTA_FILE.read_text(encoding="utf-8"))
     except (OSError, json.JSONDecodeError):
@@ -290,15 +406,16 @@ def provider_quota_exhausted(provider: str) -> tuple[bool, str]:
 
 def mark_provider_quota_exhausted(provider: str, reason: str) -> None:
     state = {
-        "date": date.today().isoformat(),
+        "date": datetime.now(timezone.utc).date().isoformat(),
         "provider": provider,
         "exhausted": True,
         "reason": reason[:240],
     }
-    try:
-        PROVIDER_QUOTA_FILE.write_text(json.dumps(state, ensure_ascii=False), encoding="utf-8")
-    except OSError:
-        pass
+    with PROVIDER_QUOTA_LOCK:
+        try:
+            atomic_write_json(PROVIDER_QUOTA_FILE, state)
+        except OSError:
+            pass
 
 
 def ensure_provider_quota_available(provider: str) -> None:
@@ -344,15 +461,49 @@ def require_access_code(code: str) -> None:
         raise HTTPException(status_code=401, detail="访问口令未通过验证。")
 
 
+def normalize_client_ip(value: str | None) -> str:
+    try:
+        address = ipaddress.ip_address((value or "").strip())
+    except ValueError:
+        return ""
+    if isinstance(address, ipaddress.IPv6Address) and address.ipv4_mapped:
+        address = address.ipv4_mapped
+    return str(address)
+
+
+def client_ip(request: FastAPIRequest) -> str:
+    peer = normalize_client_ip(request.client.host if request.client else "")
+    try:
+        peer_is_loopback = bool(peer and ipaddress.ip_address(peer).is_loopback)
+    except ValueError:
+        peer_is_loopback = False
+    if peer_is_loopback:
+        cloudflare = normalize_client_ip(request.headers.get("cf-connecting-ip"))
+        if cloudflare:
+            return cloudflare
+        forwarded = normalize_client_ip(request.headers.get("x-forwarded-for", "").split(",")[0])
+        if forwarded:
+            return forwarded
+    return peer or "unknown"
+
+
 def require_rate_limit(request: FastAPIRequest) -> None:
-    ip = request.client.host if request.client else "unknown"
+    if RATE_LIMIT_PER_MIN <= 0:
+        return
+    ip = client_ip(request)
     now = time.time()
-    bucket = IP_BUCKETS[ip]
-    while bucket and now - bucket[0] > 60:
-        bucket.popleft()
-    if len(bucket) >= RATE_LIMIT_PER_MIN:
-        raise HTTPException(status_code=429, detail="请求过于频繁，请稍后再试。")
-    bucket.append(now)
+    cutoff = now - 60
+    with IP_BUCKETS_LOCK:
+        bucket = IP_BUCKETS.pop(ip, deque())
+        while bucket and bucket[0] <= cutoff:
+            bucket.popleft()
+        if len(bucket) >= RATE_LIMIT_PER_MIN:
+            IP_BUCKETS[ip] = bucket
+            raise HTTPException(status_code=429, detail="请求过于频繁，请稍后再试。")
+        bucket.append(now)
+        IP_BUCKETS[ip] = bucket
+        while len(IP_BUCKETS) > MAX_RATE_LIMIT_CLIENTS:
+            IP_BUCKETS.popitem(last=False)
 
 
 def context_for(results: list[tuple[Document, float]]) -> str:
@@ -394,7 +545,45 @@ def chat_endpoint(api_base: str) -> str:
         return base
     if base.endswith("/v1"):
         return f"{base}/chat/completions"
+    if base in {"https://api.deepseek.com", "https://api-inference.modelscope.cn"}:
+        return f"{base}/chat/completions"
     return base
+
+
+def validated_chat_endpoint(provider: str, api_base: str) -> str:
+    endpoint = chat_endpoint(api_base)
+    try:
+        parsed = urlsplit(endpoint)
+        port = parsed.port
+    except ValueError:
+        parsed = None
+        port = None
+    expected = {
+        "modelscope": ("api-inference.modelscope.cn", "/v1/chat/completions"),
+        "deepseek": ("api.deepseek.com", "/chat/completions"),
+    }.get(provider)
+    if (
+        not parsed
+        or not expected
+        or parsed.scheme != "https"
+        or parsed.hostname != expected[0]
+        or parsed.path != expected[1]
+        or parsed.username
+        or parsed.password
+        or parsed.query
+        or parsed.fragment
+        or port not in {None, 443}
+    ):
+        raise HTTPException(status_code=503, detail="模型服务地址配置不安全，已停止调用。")
+    return endpoint
+
+
+class NoRedirectHandler(HTTPRedirectHandler):
+    def redirect_request(self, req, fp, code, msg, headers, newurl):
+        return None
+
+
+LLM_HTTP_OPENER = build_opener(NoRedirectHandler())
 
 
 def llm_settings() -> dict[str, Any]:
@@ -466,7 +655,7 @@ def call_llm(question: str, results: list[tuple[Document, float]]) -> str:
         payload["thinking"] = {"type": os.getenv("DEEPSEEK_THINKING", "disabled")}
 
     request = Request(
-        chat_endpoint(settings["api_base"]),
+        validated_chat_endpoint(settings["provider"], settings["api_base"]),
         data=json.dumps(payload, ensure_ascii=False).encode("utf-8"),
         headers={
             "Authorization": f"Bearer {settings['token']}",
@@ -476,8 +665,18 @@ def call_llm(question: str, results: list[tuple[Document, float]]) -> str:
         method="POST",
     )
     try:
-        with urlopen(request, timeout=settings["timeout"]) as response:
-            data = json.loads(response.read().decode("utf-8"))
+        with LLM_HTTP_OPENER.open(request, timeout=settings["timeout"]) as response:
+            content_length = response.headers.get("Content-Length")
+            if content_length:
+                try:
+                    if int(content_length) > MAX_LLM_RESPONSE_BYTES:
+                        raise HTTPException(status_code=502, detail="AI 模型返回内容过大，已停止读取。")
+                except ValueError:
+                    pass
+            raw_response = response.read(MAX_LLM_RESPONSE_BYTES + 1)
+            if len(raw_response) > MAX_LLM_RESPONSE_BYTES:
+                raise HTTPException(status_code=502, detail="AI 模型返回内容过大，已停止读取。")
+            data = json.loads(raw_response.decode("utf-8"))
         choices = data.get("choices") or []
         content = (choices[0].get("message", {}).get("content", "") if choices else "").strip()
         if not content:
@@ -509,33 +708,19 @@ def health() -> dict[str, Any]:
         document_count = len(index.documents)
     except RuntimeError:
         document_count = 0
-    network = load_json(DATA_DIR / "research_network.json", {"nodes": [], "links": []})
     settings = llm_settings()
-    model_quota_exhausted, model_quota_reason = provider_quota_exhausted(settings["provider"])
+    model_quota_exhausted, _ = provider_quota_exhausted(settings["provider"])
     return {
         "ok": document_count > 0,
         "documents": document_count,
         "journal_count": len(load_json(DATA_DIR / "journals.json", [])),
-        "retrieval_scope": "full_journal_database",
-        "network_nodes": len(network.get("nodes", [])),
-        "network_links": len(network.get("links", [])),
         "llm_provider": settings["provider"],
         "llm_model": settings["model"],
         "llm_configured": bool(settings["token"]),
-        "modelscope_configured": bool(os.getenv("MODELSCOPE_API_KEY", "") or os.getenv("DASHSCOPE_API_KEY", "")),
-        "deepseek_configured": bool(os.getenv("DEEPSEEK_API_KEY")),
         "provider_quota_exhausted": model_quota_exhausted,
-        "provider_quota_reason": model_quota_reason if model_quota_exhausted else "",
         "access_required": REQUIRE_ACCESS_CODE,
-        "access_mode": "semi_public_code" if REQUIRE_ACCESS_CODE else "public_limited",
-        "access_code_configured": bool(os.getenv("RADAR_ACCESS_CODE")),
-        "daily_limit": DAILY_LIMIT,
-        "total_limit": TOTAL_LIMIT,
         "remaining_quota": remaining_quota(),
         "remaining_total_quota": remaining_total_quota(),
-        "privacy_mode": "stateless_no_chat_history",
-        "stores_chat_history": False,
-        "index_status": "ready" if document_count > 0 else "unavailable",
     }
 
 
@@ -571,11 +756,10 @@ def chat(payload: ChatRequest, request: FastAPIRequest) -> dict[str, Any]:
         }
     if not llm_configured():
         raise HTTPException(status_code=503, detail=llm_missing_message())
-    ensure_quota_available()
     settings = llm_settings()
     ensure_provider_quota_available(settings["provider"])
-    answer = call_llm(payload.question.strip(), results)
     remaining = claim_quota()
+    answer = call_llm(payload.question.strip(), results)
     return {
         "answer": answer,
         "sources": public_sources(results),

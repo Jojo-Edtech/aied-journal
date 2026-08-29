@@ -10,10 +10,14 @@ MODELSCOPE_API_KEY=你的魔搭 API token
 MODELSCOPE_MODEL=Qwen/Qwen3-30B-A3B-Instruct-2507
 RADAR_REQUIRE_ACCESS_CODE=false
 RADAR_ACCESS_CODE=
+RADAR_ENABLE_API_DOCS=false
 RAG_DAILY_LIMIT=60
 RAG_TOTAL_LIMIT=1990
 RADAR_RATE_LIMIT_PER_MIN=6
+RADAR_MAX_RATE_LIMIT_CLIENTS=5000
+RADAR_MAX_LLM_RESPONSE_BYTES=4194304
 RADAR_MAX_QUESTION_CHARS=1200
+RADAR_MAX_BODY_BYTES=65536
 MODELSCOPE_MAX_TOKENS=900
 ALLOWED_ORIGIN=https://jojo-edtech.github.io,http://localhost:4183
 RADAR_DATA_DIR=/path/to/aied-journal/data/radar
@@ -40,9 +44,14 @@ DEEPSEEK_MODEL=deepseek-v4-flash
 限额建议：
 
 - `RADAR_REQUIRE_ACCESS_CODE=false`：公开限额模式，访问者不需要输入口令；ModelScope token 仍只放服务器环境变量。
+- 如果已设置 `RADAR_ACCESS_CODE` 但尚未设置 `RADAR_REQUIRE_ACCESS_CODE`，后端会继续要求口令，避免升级时意外变成公开模式。
+- `RADAR_ENABLE_API_DOCS=false`：生产环境默认关闭 `/docs`、`/redoc` 和 `/openapi.json`；仅本地调试时临时开启。
 - `RAG_DAILY_LIMIT=60`：每日公开回答次数。
 - `RAG_TOTAL_LIMIT=1990`：站点公开总成功回答次数，达到后即停，保护免费额度。
 - `RADAR_RATE_LIMIT_PER_MIN=6`：单 IP 每分钟次数。
+- `RADAR_MAX_RATE_LIMIT_CLIENTS=5000`：限制内存中的访客限速桶数量。
+- `RADAR_MAX_LLM_RESPONSE_BYTES=4194304`：限制模型服务单次响应体大小。
+- `RADAR_MAX_BODY_BYTES=65536`：拒绝异常大的 API 请求体，避免占满服务器内存。
 - `RADAR_PROVIDER_QUOTA_FILE`：记录模型服务当天是否已额度熔断；魔搭免费额度用完后当天即停。
 - `MODELSCOPE_MAX_TOKENS=900`：单次最大输出，省 token。
 - `RADAR_MAX_QUESTION_CHARS=1200`：问题长度限制。

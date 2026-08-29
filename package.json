@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "build:static": "node scripts/build-static-site.mjs",
+    "check:api-security": "python3 -m unittest research_radar_api/test_security.py",
     "radar:generate": "python3 scripts/generate-research-radar.py",
     "radar:generate:quick": "python3 scripts/generate-research-radar.py --skip-crawl",
     "sanitize:public": "node scripts/sanitize-public-data.mjs",
