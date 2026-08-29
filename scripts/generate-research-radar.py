@@ -26,7 +26,7 @@ from urllib.request import Request, urlopen
 import pandas as pd
 
 
-DEFAULT_EXCEL = Path("/Users/zhouxinxin/Desktop/Education_JCR_latest_refresh_2026-06-26.xlsx")
+DEFAULT_EXCEL = Path("data/source/Education_JCR.xlsx")
 DEFAULT_OUTPUT = Path("data/radar")
 USER_AGENT = "aied-journal/0.1 (+https://jojo-edtech.github.io/aied-journal/)"
 EXPECTED_JOURNAL_COUNT = 268
