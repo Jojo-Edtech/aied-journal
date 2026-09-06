@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-05T23:26:58+00:00",
+  "generated_at": "2026-09-06T23:20:38+00:00",
   "expected_journal_count": 268,
   "journal_count": 268,
   "journal_count_matches_expected": true,
@@ -14,10 +14,10 @@
     "content_too_short": 0
   },
   "articles": {
-    "total": 20894,
-    "ok": 20887,
-    "failed": 2,
-    "content_too_short": 5
+    "total": 20817,
+    "ok": 20816,
+    "failed": 1,
+    "content_too_short": 0
   },
   "editors": {
     "journals_with_editor_names": 0,
@@ -219,8 +219,8 @@
     "article_metadata": "all_journals_daily",
     "official_page_crawl": "rotating_batch",
     "official_page_batch_size": 80,
-    "official_page_batch_offset": 8,
-    "crossref_from_pub_date": "2021-09-06",
+    "official_page_batch_offset": 88,
+    "crossref_from_pub_date": "2021-09-07",
     "latest_issue_rule": "volume_and_issue; month fallback only when issue metadata is absent"
   }
 }
