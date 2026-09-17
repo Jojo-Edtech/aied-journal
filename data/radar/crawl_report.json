@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-16T23:58:02+00:00",
+  "generated_at": "2026-09-17T23:47:54+00:00",
   "expected_journal_count": 268,
   "journal_count": 268,
   "journal_count_matches_expected": true,
@@ -14,8 +14,8 @@
     "content_too_short": 0
   },
   "articles": {
-    "total": 20816,
-    "ok": 20815,
+    "total": 20817,
+    "ok": 20816,
     "failed": 1,
     "content_too_short": 0
   },
@@ -49,7 +49,7 @@
     },
     "total": 268
   },
-  "rag_documents": 21373,
+  "rag_documents": 21374,
   "missing_fields": {
     "jif_2025": {
       "missing": 1,
@@ -219,8 +219,8 @@
     "article_metadata": "all_journals_daily",
     "official_page_crawl": "rotating_batch",
     "official_page_batch_size": 80,
-    "official_page_batch_offset": 84,
-    "crossref_from_pub_date": "2021-09-17",
+    "official_page_batch_offset": 164,
+    "crossref_from_pub_date": "2021-09-18",
     "latest_issue_rule": "volume_and_issue; month fallback only when issue metadata is absent"
   }
 }
