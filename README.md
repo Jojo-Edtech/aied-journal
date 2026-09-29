@@ -10,8 +10,19 @@ https://jojo-edtech.github.io/aied-journal/
 
 ## 本地预览
 
+可以直接双击 `index.html` 浏览期刊、图表和主题偏好。首次下载源码或手动更新 JSON 后，先运行一次：
+
 ```bash
-python3 -m http.server 4183
+npm run prepare:local
+```
+
+它只将前端读取的七份公开 JSON 打包为 `data/radar/local-data.js`，供 `file://` 打开时使用，避免浏览器拦截本地 `fetch()`。打包文件不进入 Git；静态构建和 npm 数据更新命令会自动重新生成。HTTP(S) 网页仍直接读取 JSON，不额外下载本地预览包。
+
+本地文件模式不调用 AI API，页面提供在线 AI 助手入口。需要通过本地 HTTP 地址预览时，在项目目录运行：
+
+```bash
+npm run build:static
+python3 -m http.server 4183 --bind 127.0.0.1 --directory dist
 ```
 
 打开：

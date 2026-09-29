@@ -1,13 +1,3 @@
-const RADAR_URLS = {
-  journals: "data/radar/journals.json",
-  sources: "data/radar/journal_sources.json",
-  network: "data/radar/research_network.json",
-  report: "data/radar/crawl_report.json",
-  config: "data/radar/radar-config.json",
-  preferences: "data/radar/journal_preferences.json",
-  editorProfiles: "data/radar/editor_profiles.json",
-};
-
 const ACCESS_CODE_STORAGE_KEY = "ajr-access-code";
 const CLIENT_ID_STORAGE_KEY = "ajr-client-id";
 
@@ -285,6 +275,10 @@ const I18N = {
     st_article: "文章样本",
     backendUnreachable: "后端暂时无法访问。请确认服务器服务已启动、CORS 允许当前域名，并且没有把 token 放到前端。",
     loadFailed: "AIED Journal Radar 数据读取失败：{message}",
+    localDataMissing: "本地预览数据尚未准备好，请打开在线网站。",
+    openOnline: "打开在线网站",
+    localChatStatus: "本地期刊数据已载入；AI 助手请在在线网站使用。",
+    openOnlineAdvisor: "打开在线 AI 助手",
     csvName: "aied-journal-radar-filtered-journals.csv",
   },
   en: {
@@ -507,6 +501,10 @@ const I18N = {
     st_article: "Article sample",
     backendUnreachable: "Backend is temporarily unreachable. Check the server service, CORS origin, and keep tokens out of frontend code.",
     loadFailed: "AIED Journal Radar data failed to load: {message}",
+    localDataMissing: "Local preview data is not ready. Please open the online site.",
+    openOnline: "Open online site",
+    localChatStatus: "Local journal data is loaded. The AI Advisor is available on the online site.",
+    openOnlineAdvisor: "Open online AI Advisor",
     csvName: "aied-journal-radar-filtered-journals.csv",
   },
 };
@@ -1091,9 +1089,24 @@ function journalSearchText(journal) {
 }
 
 async function fetchJson(url) {
-  const response = await fetch(url, { cache: "no-store" });
-  if (!response.ok) throw new Error(`${url} HTTP ${response.status}`);
-  return response.json();
+  return RadarData.load(url);
+}
+
+function onlineSiteUrl(hash = window.location.hash) {
+  const url = new URL(document.querySelector('link[rel="canonical"]').href);
+  url.hash = hash;
+  return url.href;
+}
+
+function showLocalAdvisor() {
+  els.chatStatus.textContent = t("localChatStatus");
+  els.chatForm.hidden = true;
+  els.chatAnswer.replaceChildren();
+  const link = document.createElement("a");
+  link.href = onlineSiteUrl("#radarChatForm");
+  link.className = "button button-secondary";
+  link.textContent = t("openOnlineAdvisor");
+  els.chatAnswer.append(link);
 }
 
 function fillFilter(select, values, allLabel = t("all"), labelFn = null) {
@@ -1137,6 +1150,10 @@ function applyTranslations() {
 
 async function updateChatStatus() {
   if (!els.chatStatus) return;
+  if (RadarData.isLocalFile) {
+    showLocalAdvisor();
+    return;
+  }
   const apiBase = String(state.config.api_base_url || "").replace(/\/+$/, "");
   updateAccessMode((state.config.access_mode || "") === "semi_public_code");
   if (!apiBase) {
@@ -2585,6 +2602,10 @@ function downloadVisibleCsv() {
 
 async function submitChat(event) {
   event.preventDefault();
+  if (RadarData.isLocalFile) {
+    showLocalAdvisor();
+    return;
+  }
   els.chatAnswer.dataset.idle = "false";
   const apiBase = String(state.config.api_base_url || "").replace(/\/+$/, "");
   if (!apiBase) {
@@ -2662,7 +2683,21 @@ async function init() {
     renderAll();
     renderRoute();
   } catch (error) {
-    document.querySelector(".radar-main").innerHTML = `<section class="empty-radar">${escapeHtml(t("loadFailed", { message: error.message }))}</section>`;
+    const notice = document.createElement("section");
+    notice.className = "empty-radar";
+    notice.setAttribute("role", "alert");
+    const message = document.createElement("p");
+    message.textContent = RadarData.isLocalFile ? t("localDataMissing") : t("loadFailed", { message: error.message });
+    const retry = document.createElement("button");
+    retry.className = "button button-secondary";
+    retry.textContent = t("retry");
+    retry.addEventListener("click", () => window.location.reload());
+    const online = document.createElement("a");
+    online.className = "button button-secondary";
+    online.href = onlineSiteUrl();
+    online.textContent = t("openOnline");
+    notice.append(message, retry, " ", online);
+    els.dashboard.replaceChildren(notice);
   }
 }
 

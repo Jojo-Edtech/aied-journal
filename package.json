@@ -4,11 +4,16 @@
   "private": true,
   "type": "module",
   "scripts": {
+    "prepare:local": "node scripts/build-local-data.mjs",
+    "check:data-loader": "node --test scripts/data-loader.test.mjs",
     "build:static": "node scripts/build-static-site.mjs",
     "check:api-security": "python3 -m unittest research_radar_api/test_security.py",
     "radar:generate": "python3 scripts/generate-research-radar.py",
+    "postradar:generate": "npm run prepare:local",
     "radar:generate:quick": "python3 scripts/generate-research-radar.py --skip-crawl",
+    "postradar:generate:quick": "npm run prepare:local",
     "sanitize:public": "node scripts/sanitize-public-data.mjs",
+    "postsanitize:public": "npm run prepare:local",
     "validate:data": "node scripts/validate-data.mjs"
   },
   "engines": {
