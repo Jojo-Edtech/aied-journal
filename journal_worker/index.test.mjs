@@ -246,6 +246,60 @@ test("health reports the loaded expanded dataset count and version without an AI
   assert.ok(requests.every(({ url }) => !url.includes("chat/completions")));
 });
 
+for (const [label, configuredModel, expectedModel, thinkingDisabled] of [
+  ["default Qwen3.5", undefined, "Qwen/Qwen3.5-35B-A3B", true],
+  ["configured Qwen3", "Qwen/Qwen3.8-27B", "Qwen/Qwen3.8-27B", true],
+  ["other model", "Qwen/Qwen2.5-72B-Instruct", "Qwen/Qwen2.5-72B-Instruct", false],
+]) {
+  test(`chat payload uses the selected model and scoped thinking flags: ${label}`, async (t) => {
+    const state = { "chat-payload.example": { version: "chat-v1", journals } };
+    const upstream = [];
+    const fetchData = radarFetch(state, []);
+    const answer = "EAIT：可依据期刊官网核验投稿要求。";
+    t.mock.method(globalThis, "fetch", async (input, options) => {
+      const url = new URL(String(input));
+      if (url.hostname === "api-inference.modelscope.cn" && url.pathname === "/v1/chat/completions") {
+        assert.equal(options.method, "POST");
+        upstream.push(JSON.parse(options.body));
+        return Response.json({ choices: [{ message: { content: answer, reasoning_content: "not returned to the user" } }] });
+      }
+      return fetchData(input, options);
+    });
+    const quota = new Map();
+    const env = {
+      MODELSCOPE_API_KEY: "mock-token-no-network",
+      PUBLIC_DATA_BASE: "https://chat-payload.example/radar",
+      ...(configuredModel ? { MODELSCOPE_MODEL: configuredModel } : {}),
+      AIED_JOURNAL_RADAR_KV: { get: async (key) => quota.get(key) ?? null, put: async (key, value) => quota.set(key, value) },
+    };
+    const response = await worker.fetch(new Request("https://worker.example/api/chat", {
+      method: "POST", headers: { "Content-Type": "application/json", "X-AIED-Client": "payload-test" },
+      body: JSON.stringify({ question: "EAIT投稿要求" }),
+    }), env);
+    assert.equal(response.status, 200);
+    const result = await response.json();
+    assert.equal(result.answer, answer);
+    assert.equal(result.model, expectedModel);
+    assert.equal(result.searched_journal_count, journals.length);
+    assert.equal(result.stores_chat_history, false);
+    assert.equal(upstream.length, 1);
+    const sent = upstream[0];
+    assert.equal(sent.model, expectedModel);
+    assert.equal(sent.stream, false);
+    assert.equal(sent.max_tokens, 1100);
+    assert.match(sent.messages[1].content, /Education and Information Technologies/);
+    if (thinkingDisabled) {
+      assert.equal(sent.enable_thinking, false);
+      assert.deepEqual(sent.chat_template_kwargs, { enable_thinking: false });
+    } else {
+      assert.equal(Object.hasOwn(sent, "enable_thinking"), false);
+      assert.equal(Object.hasOwn(sent, "chat_template_kwargs"), false);
+    }
+    assert.equal(quota.get("ajr:quota:total"), "1");
+    assert.ok(result.sources.some((source) => source.journal_name === journals[0].name));
+  });
+}
+
 test("public JSON GETs retry one transport failure during fetch or body streaming", async (t) => {
   const state = { "transport-retry.example": { version: "v1", journals: [{ id: "recovered" }] } };
   const requests = [];

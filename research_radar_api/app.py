@@ -33,7 +33,7 @@ except ImportError:
 APP_ROOT = Path(__file__).resolve().parents[1]
 DATA_DIR = Path(os.getenv("RADAR_DATA_DIR", str(APP_ROOT / "data" / "radar"))).expanduser()
 DEFAULT_PROVIDER = "modelscope"
-DEFAULT_MODELSCOPE_MODEL = "Qwen/Qwen3-30B-A3B-Instruct-2507"
+DEFAULT_MODELSCOPE_MODEL = "Qwen/Qwen3.5-35B-A3B"
 DEFAULT_MODELSCOPE_API_BASE = "https://api-inference.modelscope.cn/v1"
 DEFAULT_DEEPSEEK_MODEL = "deepseek-v4-flash"
 DEFAULT_DEEPSEEK_API_BASE = "https://api.deepseek.com/chat/completions"
@@ -695,6 +695,11 @@ def call_llm(question: str, results: list[tuple[Document, float]]) -> str:
     }
     if settings["provider"] == "deepseek":
         payload["thinking"] = {"type": os.getenv("DEEPSEEK_THINKING", "disabled")}
+    elif settings["provider"] == "modelscope" and settings["model"].startswith("Qwen/Qwen3"):
+        # Disable reasoning in both the ModelScope router and Qwen3.5 template;
+        # this endpoint requests a bounded, non-streaming visible answer.
+        payload["enable_thinking"] = False
+        payload["chat_template_kwargs"] = {"enable_thinking": False}
 
     request = Request(
         validated_chat_endpoint(settings["provider"], settings["api_base"]),

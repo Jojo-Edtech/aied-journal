@@ -106,6 +106,33 @@ class SecurityTests(unittest.TestCase):
             with self.assertRaises(HTTPException):
                 radar.validated_chat_endpoint(provider, endpoint)
 
+    def test_nonstreaming_qwen_requests_disable_reasoning_without_affecting_other_models(self) -> None:
+        for provider, model, disable in [
+            ("modelscope", "Qwen/Qwen3.5-35B-A3B", True),
+            ("modelscope", "another-model", False),
+            ("deepseek", "deepseek-v4-flash", False),
+        ]:
+            with self.subTest(provider=provider, model=model):
+                settings = {
+                    "provider": provider, "model": model, "token": "test-only-token",
+                    "api_base": "https://api-inference.modelscope.cn/v1" if provider == "modelscope" else "https://api.deepseek.com",
+                    "max_tokens": 1100, "temperature": 0.2, "timeout": 10,
+                }
+                with patch.object(radar, "llm_settings", return_value=settings), patch.object(radar.LLM_HTTP_OPENER, "open") as send:
+                    response = send.return_value.__enter__.return_value
+                    response.headers = {}
+                    response.read.return_value = b'{"choices":[{"message":{"content":"verified answer"}}]}'
+                    self.assertEqual(radar.call_llm("test question", []), "verified answer")
+                    payload = json.loads(send.call_args.args[0].data)
+                self.assertFalse(payload["stream"])
+                self.assertEqual(payload["max_tokens"], 1100)
+                if disable:
+                    self.assertIs(payload["enable_thinking"], False)
+                    self.assertEqual(payload["chat_template_kwargs"], {"enable_thinking": False})
+                else:
+                    self.assertNotIn("enable_thinking", payload)
+                    self.assertNotIn("chat_template_kwargs", payload)
+
     def test_quota_write_is_atomic_private_and_enforced_before_overrun(self) -> None:
         with tempfile.TemporaryDirectory() as temporary_dir:
             quota_file = Path(temporary_dir) / "quota.json"

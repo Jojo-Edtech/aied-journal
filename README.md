@@ -98,7 +98,7 @@ Python 后端在 `research_radar_api/`，Cloudflare Worker 版本在 `journal_wo
 ```text
 RADAR_LLM_PROVIDER=modelscope
 MODELSCOPE_API_KEY=你的魔搭 API token
-MODELSCOPE_MODEL=Qwen/Qwen3-30B-A3B-Instruct-2507
+MODELSCOPE_MODEL=Qwen/Qwen3.5-35B-A3B
 RADAR_REQUIRE_ACCESS_CODE=true
 RADAR_ACCESS_CODE=
 RADAR_ENABLE_API_DOCS=false
@@ -114,7 +114,7 @@ RADAR_QUOTA_FILE=/var/tmp/aied-journal-quota.json
 RADAR_PROVIDER_QUOTA_FILE=/var/tmp/aied-journal-provider-quota.json
 ```
 
-默认模型 `Qwen/Qwen3-30B-A3B-Instruct-2507` 已通过魔搭 OpenAI-compatible API 实测可返回。更小的 Qwen/Qwen2.5 候选在当前 API 下返回 `no provider supported` 或空响应，因此不作为默认模型。若你在魔搭后台发现其他支持 API-Inference 的快速模型额度可用，可只改 `MODELSCOPE_MODEL`。
+默认模型为 `Qwen/Qwen3.5-35B-A3B`。2026-09-30 核验时，旧模型 `Qwen/Qwen3-30B-A3B-Instruct-2507` 返回 `no provider supported`；替代模型列于 [ModelScope 当前模型接口](https://api-inference.modelscope.cn/v1/models)。Qwen3 请求关闭思考模式，以获得非流式可见回答。模型可用性和平台额度会变化，切换后必须实测一次 `/api/chat`；健康检查仅确认后端、资料及密钥配置，不能证明上游模型可调用。站点限额不等同于平台承诺的免费额度。
 
 额度保护：当前服务器使用访问口令，并在调用模型前预留一次额度，避免并发请求突破每日额度和 1990 次总额度；即使上游调用失败，该次预留仍会计入安全上限。Cloudflare Worker 版本另按匿名浏览器访客隔离个人额度。如果魔搭返回额度耗尽或限流信号，后端会标记当天已熔断，当天后续请求直接停止调用模型。
 

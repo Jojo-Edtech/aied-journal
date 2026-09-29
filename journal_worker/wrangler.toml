@@ -5,7 +5,7 @@ workers_dev = true
 preview_urls = false
 
 [vars]
-MODELSCOPE_MODEL = "Qwen/Qwen3-30B-A3B-Instruct-2507"
+MODELSCOPE_MODEL = "Qwen/Qwen3.5-35B-A3B"
 MODELSCOPE_API_BASE = "https://api-inference.modelscope.cn/v1"
 MODELSCOPE_MAX_TOKENS = "1100"
 MAX_REQUESTS_PER_USER_HOUR = "5"

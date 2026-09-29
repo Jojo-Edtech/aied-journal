@@ -1,13 +1,13 @@
 # AIED Journal Radar API
 
-这个目录是阿里云轻量服务器上的 RAG + AI 模型代理后端。GitHub Pages 只调用这里的公开 API，不保存 ModelScope / DeepSeek token。
+这个目录是可部署到服务器的 Python RAG + AI 模型代理后端。当前公开站点使用 `journal_worker/` 中的 Cloudflare Worker；GitHub Pages 不保存 ModelScope / DeepSeek token。
 
 ## 环境变量
 
 ```text
 RADAR_LLM_PROVIDER=modelscope
 MODELSCOPE_API_KEY=你的魔搭 API token
-MODELSCOPE_MODEL=Qwen/Qwen3-30B-A3B-Instruct-2507
+MODELSCOPE_MODEL=Qwen/Qwen3.5-35B-A3B
 RADAR_REQUIRE_ACCESS_CODE=false
 RADAR_ACCESS_CODE=
 RADAR_ENABLE_API_DOCS=false
@@ -25,13 +25,9 @@ RADAR_QUOTA_FILE=/var/tmp/aied-journal-quota.json
 RADAR_PROVIDER_QUOTA_FILE=/var/tmp/aied-journal-provider-quota.json
 ```
 
-默认 provider 是 `modelscope`，默认模型是 `Qwen/Qwen3-30B-A3B-Instruct-2507`，默认接口是 `https://api-inference.modelscope.cn/v1/chat/completions`。这个模型已通过当前魔搭 API 实测可返回；更小的 Qwen/Qwen2.5 候选在当前 API 下不可用或空返回，因此不作为默认模型。
+默认 provider 是 `modelscope`，默认模型是 `Qwen/Qwen3.5-35B-A3B`，默认接口是 `https://api-inference.modelscope.cn/v1/chat/completions`。2026-09-30 核验时旧 Qwen3-30B 模型已返回 `no provider supported`，替代模型列于 [当前模型接口](https://api-inference.modelscope.cn/v1/models)。Qwen3 系列请求会关闭思考模式，保留非流式回答的输出预算。
 
-如果你在魔搭后台发现这个模型免费额度已用过，可以只改模型名，例如：
-
-```text
-MODELSCOPE_MODEL=Qwen/Qwen3-8B
-```
+切换 `MODELSCOPE_MODEL` 前检查当前模型列表，切换后实测一次 `/api/chat`。`/api/health` 只确认后端、资料和密钥配置；平台的模型可用性与免费额度可能变化，不能从健康检查或本站限额推断上游可用。
 
 后端也兼容 `DASHSCOPE_API_KEY` 作为 token 环境变量名。保留 DeepSeek 备用方式：
 

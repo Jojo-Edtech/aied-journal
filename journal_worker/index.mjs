@@ -1,4 +1,4 @@
-const DEFAULT_MODEL = "Qwen/Qwen3-30B-A3B-Instruct-2507";
+const DEFAULT_MODEL = "Qwen/Qwen3.5-35B-A3B";
 const DEFAULT_BASE_URL = "https://api-inference.modelscope.cn/v1";
 const DEFAULT_DATA_BASE = "https://jojo-edtech.github.io/aied-journal/data/radar";
 const KEY_PREFIX = "ajr:";
@@ -199,6 +199,7 @@ This is a stateless request. Do not refer to previous chat history.${
       : ""
   }`;
 
+  const model = modelName(env);
   const response = await fetch(`${apiBase(env)}/chat/completions`, {
     method: "POST",
     headers: {
@@ -206,7 +207,11 @@ This is a stateless request. Do not refer to previous chat history.${
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      model: modelName(env),
+      model,
+      ...(model.startsWith("Qwen/Qwen3") ? {
+        enable_thinking: false,
+        chat_template_kwargs: { enable_thinking: false },
+      } : {}),
       messages: [
         { role: "system", content: system },
         { role: "user", content: `User question:\n${question}\n\nRadar context:\n${context}` },
