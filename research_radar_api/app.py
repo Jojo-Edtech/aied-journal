@@ -6,6 +6,7 @@ import json
 import math
 import os
 import re
+import sys
 import tempfile
 import threading
 import time
@@ -23,6 +24,11 @@ from fastapi import Request as FastAPIRequest
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, Field
 from starlette.responses import JSONResponse
+
+try:
+    from .catalog_retrieval import data_fingerprint, identity_match, iter_rag_records, matches_constraints, query_constraints
+except ImportError:
+    from catalog_retrieval import data_fingerprint, identity_match, iter_rag_records, matches_constraints, query_constraints
 
 APP_ROOT = Path(__file__).resolve().parents[1]
 DATA_DIR = Path(os.getenv("RADAR_DATA_DIR", str(APP_ROOT / "data" / "radar"))).expanduser()
@@ -165,7 +171,7 @@ async def secure_api_responses(request: FastAPIRequest, call_next):
     return response
 
 
-@dataclass
+@dataclass(slots=True)
 class Document:
     doc_id: str
     journal_id: str
@@ -192,18 +198,31 @@ class RadarIndex:
         self.avg_length = sum(doc.length for doc in documents) / max(1, len(documents))
         self.doc_freq = Counter()
         for doc in documents:
-            self.doc_freq.update(set(doc.tokens))
+            self.doc_freq.update(doc.counts.keys())
+            # Frequencies are sufficient after indexing; retaining another
+            # token list for every article wastes memory on expanded catalogs.
+            doc.tokens = []
 
     def search(self, query: str, top_k: int) -> list[tuple[Document, float]]:
         query_tokens = tokenize(query)
         if not query_tokens:
             return []
+        if re.search(r"中文|chinese", query, re.I):
+            query_tokens.append("chinese")
+        if re.search(r"英文|english", query, re.I):
+            query_tokens.append("english")
         query_counts = Counter(query_tokens)
         total_docs = max(1, len(self.documents))
         results: list[tuple[Document, float]] = []
         lowered_query = query.lower()
+        constraints = query_constraints(query)
+        eligible = {journal_id: journal for journal_id, journal in self.journals.items() if matches_constraints(journal, constraints)}
+        identity_ids = {journal_id for journal_id, journal in eligible.items() if identity_match(journal, query)}
 
         for doc in self.documents:
+            journal = eligible.get(doc.journal_id)
+            if journal is None:
+                continue
             score = 0.0
             for token, query_weight in query_counts.items():
                 frequency = doc.counts.get(token, 0)
@@ -213,7 +232,6 @@ class RadarIndex:
                 denominator = frequency + 1.4 * (1 - 0.72 + 0.72 * doc.length / self.avg_length)
                 score += query_weight * idf * (frequency * 2.4) / denominator
 
-            journal = self.journals.get(doc.journal_id, {})
             journal_text = " ".join(
                 str(value)
                 for value in [
@@ -229,6 +247,10 @@ class RadarIndex:
                 score += 5.0
             if lowered_query and lowered_query in journal_text:
                 score += 4.0
+            if doc.journal_id in identity_ids:
+                score += 120.0
+            if score <= 0:
+                continue
             if doc.source_type == "jcr_workbook":
                 score += 0.8
             if doc.source_type in {"author_guidelines", "journal_metrics"}:
@@ -239,11 +261,21 @@ class RadarIndex:
                 results.append((doc, score))
 
         results.sort(key=lambda item: item[1], reverse=True)
-        return results[:top_k]
+        # One journal cannot fill the entire candidate set with repeated evidence.
+        selected, seen = [], set()
+        for item in results:
+            if item[0].journal_id not in seen:
+                selected.append(item)
+                seen.add(item[0].journal_id)
+            if len(selected) == top_k:
+                break
+        return selected
 
 
 INDEX: RadarIndex | None = None
 INDEX_ERROR: str | None = None
+INDEX_FINGERPRINT = None
+INDEX_LOCK = threading.RLock()
 IP_BUCKETS: OrderedDict[str, deque[float]] = OrderedDict()
 IP_BUCKETS_LOCK = threading.Lock()
 QUOTA_LOCK = threading.RLock()
@@ -254,7 +286,7 @@ def tokenize(text: str) -> list[str]:
     lowered = (text or "").lower()
     tokens = re.findall(r"[a-z0-9][a-z0-9_+.-]*", lowered)
     for sequence in re.findall(r"[\u4e00-\u9fff]+", text or ""):
-        tokens.extend(sequence)
+        # Single common Han characters make unrelated queries look relevant.
         for width in (2, 3):
             if len(sequence) >= width:
                 tokens.extend(sequence[index : index + width] for index in range(len(sequence) - width + 1))
@@ -288,8 +320,14 @@ def atomic_write_json(path: Path, data: dict[str, Any]) -> None:
 
 
 def load_documents() -> RadarIndex:
-    global INDEX, INDEX_ERROR
-    if INDEX is not None:
+    with INDEX_LOCK:
+        return _load_documents_locked()
+
+
+def _load_documents_locked() -> RadarIndex:
+    global INDEX, INDEX_ERROR, INDEX_FINGERPRINT
+    fingerprint = data_fingerprint(DATA_DIR)
+    if INDEX is not None and INDEX_FINGERPRINT == fingerprint:
         return INDEX
 
     try:
@@ -298,17 +336,16 @@ def load_documents() -> RadarIndex:
             journals_list = load_json(DATA_DIR / "journals_q1.json", [])
         journals = {journal.get("id"): journal for journal in journals_list if journal.get("id")}
         docs: list[Document] = []
-        with (DATA_DIR / "rag_documents.jsonl").open(encoding="utf-8") as handle:
-            for line in handle:
-                if not line.strip():
-                    continue
-                item = json.loads(line)
+        with INDEX_LOCK:
+            for item in iter_rag_records(DATA_DIR, journals):
                 text = item.get("text_snippet", "")
                 journal = journals.get(item.get("journal_id", ""), {})
-                tokens = tokenize(
+                tokens = [sys.intern(token) for token in tokenize(
                     f"{item.get('journal_name', '')}\n{journal.get('abbreviation', '')}\n"
-                    f"{journal.get('issn', '')} {journal.get('eissn', '')}\n{item.get('title', '')}\n{text}"
-                )
+                    f"{journal.get('issn', '')} {journal.get('eissn', '')}\n"
+                    f"{' '.join(journal.get('aliases') or [])} {' '.join(journal.get('languages') or [])}\n"
+                    f"{item.get('title', '')}\n{text}"
+                )]
                 docs.append(
                     Document(
                         doc_id=item.get("doc_id", ""),
@@ -318,15 +355,17 @@ def load_documents() -> RadarIndex:
                         source_type=item.get("source_type", ""),
                         title=item.get("title", ""),
                         text=text,
-                        tokens=tokens,
+                        tokens=[],
                         counts=Counter(tokens),
                         length=max(1, len(tokens)),
                     )
                 )
         INDEX = RadarIndex(docs, journals)
+        INDEX.data_version = load_json(DATA_DIR / "data-manifest.json", {}).get("data_version", "legacy")
+        INDEX_FINGERPRINT = fingerprint
         INDEX_ERROR = None
         return INDEX
-    except (OSError, json.JSONDecodeError) as error:
+    except (OSError, ValueError, json.JSONDecodeError) as error:
         INDEX_ERROR = f"{type(error).__name__}: {error}"
         raise RuntimeError(INDEX_ERROR) from error
 
@@ -627,10 +666,12 @@ def call_llm(question: str, results: list[tuple[Document, float]]) -> str:
         raise HTTPException(status_code=503, detail=llm_missing_message())
 
     system_prompt = (
-        "你是 AIED Journal Radar 的选刊助手。你的边界是帮助用户理解教育学 JCR 期刊、"
+        "你是 AIED Journal Radar 的选刊助手。你的边界是帮助用户理解教育类期刊、"
         "研究主题网络、投稿匹配和风险，不代写论文。只能根据给定资料回答；"
         "资料不足时必须说“当前雷达资料不足”。每个推荐期刊都要给出引用编号。"
         "检索范围是全部期刊总库，不使用网页右侧候选清单或当前筛选。"
+        "总库包含原有JCR工作簿和DOAJ、EBSCO、国家哲社中心等教育目录。目录收录不等于JCR收录、质量认证或正在收稿。"
+        "缺失JIF/JCI/分区只能称未提供或未核验，不能当作0或断言未被JCR收录。尊重语种和目录来源约束。"
         "若用户询问指定期刊的事实，直接回答该期刊；选刊问题才推荐 3-5 本。"
         "回答要简洁、可操作。"
     )
@@ -642,8 +683,8 @@ def call_llm(question: str, results: list[tuple[Document, float]]) -> str:
                 "role": "user",
                 "content": (
                     f"用户问题：{question}\n\n"
-                    "请输出：1. 首选期刊3-5本；2. 备选期刊；3. 不推荐或需谨慎的原因；"
-                    "4. 下一步需要用户确认的信息。\n\n"
+                    "如是选刊问题，给出有证据支持的首选、备选及限制；"
+                    "如是指定期刊事实问题，直接回答该问题。资料不足时不要凑足推荐数量。\n\n"
                     f"可引用资料：\n{context_for(results)}"
                 ),
             },
@@ -704,6 +745,7 @@ def call_llm(question: str, results: list[tuple[Document, float]]) -> str:
 
 @app.get("/api/health")
 def health() -> dict[str, Any]:
+    index = None
     try:
         index = load_documents()
         document_count = len(index.documents)
@@ -714,7 +756,9 @@ def health() -> dict[str, Any]:
     return {
         "ok": document_count > 0,
         "documents": document_count,
-        "journal_count": len(load_json(DATA_DIR / "journals.json", [])),
+        "journal_count": len(index.journals) if index else 0,
+        "indexed_journal_count": len({doc.journal_id for doc in index.documents}) if index else 0,
+        "data_version": getattr(index, "data_version", None),
         "llm_provider": settings["provider"],
         "llm_model": settings["model"],
         "llm_configured": bool(settings["token"]),

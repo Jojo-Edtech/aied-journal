@@ -1,0 +1,395 @@
+{
+  "schema_version": 1,
+  "generated_at": "2026-09-29T23:59:28.335197+08:00",
+  "artifact": "DOAJ education title supplement review",
+  "artifact_sha256": "febc318949275fef53e9eba335b6c813bb53a429490f1f5e187a153c7f6c9195",
+  "source": {
+    "id": "doaj",
+    "download_url": "https://doaj.org/csv",
+    "documentation_url": "https://doaj.org/docs/journal-csv",
+    "snapshot_file": "doaj2.csv",
+    "snapshot_sha256": "f71c239cca12920238d46bdb8f79f22381c8f3f64a5a18d8f8890b089991c9de",
+    "retrieved_hong_kong_date": "2026-09-29",
+    "snapshot_latest_record_update": "2026-08-29T14:53:53Z",
+    "all_rows": 23379,
+    "strict_education_branch_rows": 2073
+  },
+  "selection": {
+    "basis": "title_keyword_outside_education_branch",
+    "title_field": "Journal title",
+    "regex": "\\b(?:education|educational|teaching|pedagogy|didactics)\\b",
+    "regex_flags": [
+      "IGNORECASE"
+    ],
+    "outside_education_rule": "No pipe-separated Subjects branch equals Education or starts with Education:",
+    "not_used": [
+      "learning alone",
+      "machine learning inference",
+      "publisher identity alone",
+      "citation metrics"
+    ],
+    "source_subjects_preserved": true,
+    "status_claim": "Listed in the downloaded DOAJ snapshot with no Continued By; current publication and submission status not established for all records."
+  },
+  "exclusion_audit": {
+    "initial_outside_branch_title_matches": 119,
+    "continued_by_nonempty": 0,
+    "conference_terms_title_or_homepage_url": 0,
+    "confirmed_conference_only_series_found": 0,
+    "confirmed_ceased_journals_found": 0,
+    "excluded_rows": [],
+    "retained_rows": 119,
+    "limitations": [
+      "Zero confirmed ceased or conference-only records is a finding within this bounded audit, not proof that all 119 are active journals. Only selected official pages were inspected.",
+      "A conference-proceedings section inside an otherwise serial journal is recorded as mixed content rather than sufficient grounds to exclude the serial.",
+      "Continued By blank is not evidence of active submission or publication."
+    ]
+  },
+  "comparison_snapshot": {
+    "catalog_count": 3183,
+    "baseline_count": 268,
+    "radar_count": 3339,
+    "catalog_file_sha256": "366b49969c9c491ce26205c7a226f5b4b3bdd874baf96f2761d9e10e71c57a14",
+    "radar_file_sha256": "ea4e3354a5fc345e147008f840e204f2a8fb1528adb867c9cad7b23e02f1df04",
+    "baseline_rule": "journal ID matches ^journal-[0-9]{3}-; also checked against full current radar",
+    "candidate_count": 119,
+    "already_covered_by_issn": 5,
+    "missing_by_issn": 114,
+    "scope_note": "Pre-import coverage comparison only; catalog and radar were at different rebuild stages. These are not the final rebuilt counts."
+  },
+  "coverage_results": {
+    "unique_doaj_record_urls": 119,
+    "candidates": 119,
+    "covered_by_issn": 5,
+    "missing_by_issn": 114,
+    "missing_by_issn_with_also_no_normalized_title_or_alias_match": 114,
+    "covered_titles": [
+      "International Journal of Educational Psychology",
+      "Studies in Second Language Learning and Teaching",
+      "The Teaching of Mathematics",
+      "Romanian Review of Geographical Education",
+      "Journal of Southeast Asian American Education and Advancement"
+    ],
+    "missing_medicine_subject_branch": 16,
+    "missing_science_subject_branch": 11,
+    "bmc_medical_education": {
+      "already_present": true,
+      "baseline_id": "journal-055-bmc-medical-education",
+      "eissn": "1472-6920",
+      "reason_not_candidate": "Already has an Education branch in DOAJ (Education: Special aspects of education | Medicine)."
+    }
+  },
+  "recommendation": {
+    "include": true,
+    "label": "DOAJ: Education subject classification or explicit education title terms",
+    "preserve_selection_basis": true,
+    "reason": "Bounded title matching recovers clearly relevant cross-disciplinary education titles assigned to Medicine, Science, Technology or Language and Literature.",
+    "do_not_claim": [
+      "All included journals are classified under Education by DOAJ",
+      "All journals currently accept submissions",
+      "JCR inclusion, quartile or impact factor established by this audit"
+    ]
+  },
+  "verified_examples": [
+    {
+      "title": "Computers and Education: Artificial Intelligence",
+      "issn": null,
+      "eissn": "2666-920X",
+      "doaj_record_url": "https://doaj.org/toc/ce79b9ef4e5246658a41d1095756d13a",
+      "doaj_subjects": "Science: Mathematics: Instruments and machines: Electronic computers. Computer science",
+      "evidence_url": "https://www.sciencedirect.com/science/article/pii/S2666920X26000603",
+      "observation": "Official ScienceDirect search result identifies volume 10 (June 2026), article 100598, DOI 10.1016/j.caeai.2026.100598; its subject is reporting research on artificial intelligence in education.",
+      "evidence_method": "official_domain_search_result",
+      "limitations": [
+        "Journal homepage and direct article fetch returned errors. This is indexed official publisher metadata, not a successfully fetched full page. No citation metrics inferred."
+      ],
+      "missing_from_catalog_and_baseline_by_issn": true
+    },
+    {
+      "title": "Advances in Physiology Education",
+      "issn": "1043-4046",
+      "eissn": "1522-1229",
+      "doaj_record_url": "https://doaj.org/toc/dcd9dd0209f043aba73f1262652becfc",
+      "doaj_subjects": "Science: Physiology",
+      "evidence_url": "https://journals.physiology.org/doi/10.1152/advan.00290.2025",
+      "observation": "Official 2026 editorial by Bryan Mackenzie describes education scholarship for physiology and related biomedical teaching; official journal search results list 2026 articles.",
+      "evidence_method": "official_domain_search_result",
+      "limitations": [
+        "Direct fetch of editorial returned HTTP 403; no access restriction was bypassed."
+      ],
+      "missing_from_catalog_and_baseline_by_issn": true
+    },
+    {
+      "title": "RUDN Journal of Informatization in Education",
+      "issn": "2312-8631",
+      "eissn": "2312-864X",
+      "doaj_record_url": "https://doaj.org/toc/aa22014cb1124ac097f2c5b2e255da3c",
+      "doaj_subjects": "Technology: Technology (General): Industrial engineering. Management engineering: Information technology",
+      "evidence_url": "https://journals.rudn.ru/informatization-education/index/index",
+      "observation": "Official page displays ISSNs 2312-8631/2312-864X, education-process informatization scope, and current issue 23(3), 2026 including AI in education.",
+      "evidence_method": "official_page_body",
+      "limitations": [],
+      "missing_from_catalog_and_baseline_by_issn": true
+    },
+    {
+      "title": "International Journal of Chinese Language Teaching",
+      "issn": null,
+      "eissn": "2708-9517",
+      "doaj_record_url": "https://doaj.org/toc/32f7e00f99e44eac85fe792a2d8a2359",
+      "doaj_subjects": "Language and Literature: Languages and literature of Eastern Asia, Africa, Oceania: Chinese language and literature",
+      "evidence_url": "https://clt-international.org/home/",
+      "observation": "Official page displays ISSN 2708-9517, Chinese language teaching research scope, English/Chinese submissions, and 2026 issue archive links.",
+      "evidence_method": "official_page_body",
+      "limitations": [],
+      "missing_from_catalog_and_baseline_by_issn": true
+    },
+    {
+      "title": "Future of Medical Education Journal",
+      "issn": "2251-8347",
+      "eissn": "2251-8355",
+      "doaj_record_url": "https://doaj.org/toc/80c94874a3f843b89252118fe7512df7",
+      "doaj_subjects": "Medicine: Nursing | Medicine: Medicine (General)",
+      "evidence_url": "https://fmej.mums.ac.ir/",
+      "observation": "Official page observed current issue 16(3), Summer 2026; print ISSN 2251-8347 and online ISSN 2251-8355; contents include medical curriculum and teaching.",
+      "evidence_method": "official_page_body",
+      "limitations": [
+        "Initial page fetch succeeded; later re-fetch timed out. Source evidence describes the observed page, not a promise of current submissions."
+      ],
+      "missing_from_catalog_and_baseline_by_issn": true
+    },
+    {
+      "title": "Journal of Environmental and Science Education",
+      "issn": "2797-0175",
+      "eissn": "2775-2518",
+      "doaj_record_url": "https://doaj.org/toc/0e16e28aa00449c9a918fe88d8f1c1a8",
+      "doaj_subjects": "Geography. Anthropology. Recreation: Environmental sciences | Technology: Environmental technology. Sanitary engineering",
+      "evidence_url": "https://journal.unnes.ac.id/journals/jese",
+      "observation": "Official scope explicitly includes science curriculum, instruction, and science-teacher preparation. Issue 6(1) was published on 2026-04-23; both ISSNs are shown.",
+      "evidence_method": "official_page_body",
+      "limitations": [],
+      "missing_from_catalog_and_baseline_by_issn": true
+    },
+    {
+      "title": "Physics Education Research Journal",
+      "issn": "2685-6190",
+      "eissn": "2714-7746",
+      "doaj_record_url": "https://doaj.org/toc/afb254f833b44ec6b004e52aee4e599e",
+      "doaj_subjects": "Science: Physics",
+      "evidence_url": "https://journal.walisongo.ac.id/index.php/perj/index",
+      "observation": "Official page confirms physics/physics-education scope, both ISSNs, and current issue 7(2), published 2025-12-11.",
+      "evidence_method": "official_page_body",
+      "limitations": [
+        "No 2026 issue was visible; publication in 2026 or current acceptance of submissions is not confirmed."
+      ],
+      "missing_from_catalog_and_baseline_by_issn": true
+    },
+    {
+      "title": "Research and Humanities in Medical Education",
+      "issn": null,
+      "eissn": "2350-0565",
+      "doaj_record_url": "https://doaj.org/toc/49787f0b776c4988a7fe3fa2c16eecfc",
+      "doaj_subjects": "Medicine: Medicine (General): Medical philosophy. Medical ethics",
+      "evidence_url": "https://rhime.in/ojs/index.php/rhime",
+      "observation": "Official page displays current volume 13 (2026), published 2026-01-01, including a narrative on competency-based medical education.",
+      "evidence_method": "official_page_body",
+      "limitations": [
+        "Medical humanities content includes narratives and poetry; inclusion does not mean every article is empirical education research."
+      ],
+      "missing_from_catalog_and_baseline_by_issn": true
+    },
+    {
+      "title": "International Journal of First Aid Education",
+      "issn": null,
+      "eissn": "2514-7153",
+      "doaj_record_url": "https://doaj.org/toc/0769185d9c04458fa973d8f0c6656eac",
+      "doaj_subjects": "Medicine: Internal medicine: Medical emergencies. Critical care. Intensive care. First aid",
+      "evidence_url": "https://firstaidjournal.org/issues/",
+      "observation": "Official issue archive search result displays volume 9(1), 2026, eight items and ISSN 2514-7153.",
+      "evidence_method": "official_domain_search_result",
+      "limitations": [
+        "Direct access subsequently returned a bot-protection page; no bypass attempted. The publication observation is based on indexed official-domain content."
+      ],
+      "missing_from_catalog_and_baseline_by_issn": true
+    },
+    {
+      "title": "Graduate Medical Education Research Journal",
+      "issn": "2578-6091",
+      "eissn": "2578-6105",
+      "doaj_record_url": "https://doaj.org/toc/00879cce8e774f04b72a23919c3ec74f",
+      "doaj_subjects": "Medicine: Medicine (General)",
+      "evidence_url": "https://digitalcommons.unmc.edu/gmerj/",
+      "observation": "Official UNMC page shows volume 8(1), 2026, original research, reviews and brief reports including AI-based simulated patient encounters; separate conference-proceedings section is also present.",
+      "evidence_method": "official_page_body",
+      "limitations": [
+        "Mixed content includes clinical research and conference abstracts. This is not a conference-only series; title-derived education scope is broader than a pure educational-research journal."
+      ],
+      "missing_from_catalog_and_baseline_by_issn": true
+    }
+  ],
+  "record_flags": [
+    {
+      "title": "Computers and Education: Artificial Intelligence",
+      "evidence_url": "https://www.sciencedirect.com/science/article/pii/S2666920X26000603",
+      "flags": [
+        "Journal homepage and direct article fetch returned errors. This is indexed official publisher metadata, not a successfully fetched full page. No citation metrics inferred."
+      ]
+    },
+    {
+      "title": "Advances in Physiology Education",
+      "evidence_url": "https://journals.physiology.org/doi/10.1152/advan.00290.2025",
+      "flags": [
+        "Direct fetch of editorial returned HTTP 403; no access restriction was bypassed."
+      ]
+    },
+    {
+      "title": "Future of Medical Education Journal",
+      "evidence_url": "https://fmej.mums.ac.ir/",
+      "flags": [
+        "Initial page fetch succeeded; later re-fetch timed out. Source evidence describes the observed page, not a promise of current submissions."
+      ]
+    },
+    {
+      "title": "Physics Education Research Journal",
+      "evidence_url": "https://journal.walisongo.ac.id/index.php/perj/index",
+      "flags": [
+        "No 2026 issue was visible; publication in 2026 or current acceptance of submissions is not confirmed."
+      ]
+    },
+    {
+      "title": "Research and Humanities in Medical Education",
+      "evidence_url": "https://rhime.in/ojs/index.php/rhime",
+      "flags": [
+        "Medical humanities content includes narratives and poetry; inclusion does not mean every article is empirical education research."
+      ]
+    },
+    {
+      "title": "International Journal of First Aid Education",
+      "evidence_url": "https://firstaidjournal.org/issues/",
+      "flags": [
+        "Direct access subsequently returned a bot-protection page; no bypass attempted. The publication observation is based on indexed official-domain content."
+      ]
+    },
+    {
+      "title": "Graduate Medical Education Research Journal",
+      "evidence_url": "https://digitalcommons.unmc.edu/gmerj/",
+      "flags": [
+        "Mixed content includes clinical research and conference abstracts. This is not a conference-only series; title-derived education scope is broader than a pure educational-research journal."
+      ]
+    }
+  ],
+  "review_method": "assistant_source_metadata_and_official_page_review_not_human_rater",
+  "artifact_sha256_semantics": "SHA-256 of the 119-row full-field research extract before projection into the public catalog extract schema.",
+  "public_extract": {
+    "path": "doaj-education.json",
+    "input_rows": 2192,
+    "added_rows": 119,
+    "duplicate_supplement_rows_skipped": 0,
+    "sha256": "dab6e730ea054283dee452b7d38973fec6ba1b1ad72cd26b89009c8695e44479",
+    "field_projection": [
+      "Journal title",
+      "Journal URL",
+      "URL in DOAJ",
+      "Alternative title",
+      "Journal ISSN (print version)",
+      "Journal EISSN (online version)",
+      "Keywords",
+      "Languages in which the journal accepts manuscripts",
+      "Publisher",
+      "Country of publisher",
+      "URL for journal's aims & scope",
+      "URL for the Editorial Board page",
+      "URL for journal's instructions for authors",
+      "Continues",
+      "Continued By",
+      "LCC Codes",
+      "Subjects",
+      "Added on Date",
+      "Last updated Date",
+      "Last Full Review Date"
+    ]
+  },
+  "import_result": {
+    "previous_directory_unique_count": 3183,
+    "directory_unique_count": 3297,
+    "new_journal_count": 114,
+    "existing_journal_ids_preserved": 3183,
+    "source_record_ids_preserved": 3395,
+    "all_supplement_records_represented": 119,
+    "expected_merged_count": 3449,
+    "same_title_different_issn_cases_retained_separately": 1,
+    "generated_at": "2026-09-29T16:01:17.962528+00:00",
+    "distinct_title_collision_evidence": [
+      {
+        "id": "journal-issn-22517995",
+        "name": "Journal of English Language Teaching and Learning",
+        "issns": [
+          "2251-7995",
+          "2676-6876"
+        ],
+        "publisher": "University of Tabriz",
+        "country": "Iran, Islamic Republic of",
+        "homepage_url": "https://elt.tabrizu.ac.ir/",
+        "catalog_sources": [
+          {
+            "id": "doaj",
+            "label": "DOAJ · Education subjects and title matches",
+            "url": "https://doaj.org/csv",
+            "record_id": "e8036fde146c4e3cb4dadd07f9d20e8d",
+            "retrieved_at": "2026-09-29T16:01:17.962528+00:00",
+            "evidence_url": "https://doaj.org/toc/e8036fde146c4e3cb4dadd07f9d20e8d",
+            "selection_basis": "title_keyword_outside_education_branch",
+            "selection_evidence": {
+              "source": "doaj",
+              "url": "https://doaj.org/toc/e8036fde146c4e3cb4dadd07f9d20e8d",
+              "journal_title": "Journal of English Language Teaching and Learning",
+              "subjects": [
+                "Language and Literature"
+              ],
+              "matched_title_terms": [
+                "teaching"
+              ],
+              "education_subject_branch": false,
+              "rule": "Subjects has an Education branch OR Journal title contains whole-word education|educational|teaching|pedagogy|didactics (case-insensitive). Alternative titles and keywords are not used for selection.",
+              "scope_interpretation": "Title-derived interdisciplinary education scope; not classified in the DOAJ Education subject branch."
+            }
+          }
+        ]
+      },
+      {
+        "id": "journal-issn-2686665X",
+        "name": "Journal of English Language Teaching and Learning",
+        "issns": [
+          "2686-665X"
+        ],
+        "publisher": "Universitas Islam Negeri Maulana Malik Ibrahim Malang",
+        "country": "Indonesia",
+        "homepage_url": "https://ejournal.uin-malang.ac.id/index.php/jetle/index",
+        "catalog_sources": [
+          {
+            "id": "doaj",
+            "label": "DOAJ · Education subjects and title matches",
+            "url": "https://doaj.org/csv",
+            "record_id": "7cfbd6d4f24e4d22b3e0295f44d892ec",
+            "retrieved_at": "2026-09-29T16:01:17.962528+00:00",
+            "evidence_url": "https://doaj.org/toc/7cfbd6d4f24e4d22b3e0295f44d892ec",
+            "selection_basis": "title_keyword_outside_education_branch",
+            "selection_evidence": {
+              "source": "doaj",
+              "url": "https://doaj.org/toc/7cfbd6d4f24e4d22b3e0295f44d892ec",
+              "journal_title": "Journal of English Language Teaching and Learning",
+              "subjects": [
+                "Language and Literature: English language"
+              ],
+              "matched_title_terms": [
+                "teaching"
+              ],
+              "education_subject_branch": false,
+              "rule": "Subjects has an Education branch OR Journal title contains whole-word education|educational|teaching|pedagogy|didactics (case-insensitive). Alternative titles and keywords are not used for selection.",
+              "scope_interpretation": "Title-derived interdisciplinary education scope; not classified in the DOAJ Education subject branch."
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -12,10 +12,15 @@ import hashlib
 import html
 import json
 import math
+import os
 import re
+import shutil
+import subprocess
 import sys
+import tempfile
 import time
 from collections import Counter, defaultdict
+from concurrent.futures import ThreadPoolExecutor, as_completed
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Iterable
@@ -23,14 +28,16 @@ from urllib.error import HTTPError, URLError
 from urllib.parse import quote, urlencode, urljoin, urlparse
 from urllib.request import Request, urlopen
 
-import pandas as pd
+from radar_pipeline import (
+    BASELINE_FIELDS, article_key, merge_articles, merge_journal_catalog,
+    read_partitioned, rotation_indexes, safe_shard_path, write_partition,
+)
 
 
 DEFAULT_EXCEL = Path("data/source/Education_JCR.xlsx")
 DEFAULT_OUTPUT = Path("data/radar")
 USER_AGENT = "aied-journal/0.1 (+https://jojo-edtech.github.io/aied-journal/)"
-EXPECTED_JOURNAL_COUNT = 268
-Q1_EXPECTED_COUNT = 135
+DEFAULT_CATALOG = Path("data/catalog/education-journals.json")
 CROSSREF_API = "https://api.crossref.org"
 EMAIL_PATTERN = re.compile(r"[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}", re.IGNORECASE)
 
@@ -269,7 +276,32 @@ def request_text(url: str, timeout: int) -> tuple[str, str | None]:
         return "", f"{type(error).__name__}: {error}"
 
 
-def request_json(url: str, timeout: int) -> tuple[dict, str | None]:
+def request_json(url: str, timeout: int, cache_dir: Path | None = None, cache_only: bool = False) -> tuple[dict, str | None]:
+    cache_path = cache_dir / f"{hashlib.sha256(url.encode('utf-8')).hexdigest()}.json" if cache_dir else None
+    if cache_path and cache_path.exists():
+        cached = read_json(cache_path)
+        try:
+            age_seconds = (datetime.now(timezone.utc) - datetime.fromisoformat(cached.get("cached_at", ""))).total_seconds()
+        except (TypeError, ValueError):
+            age_seconds = float("inf")
+        if cached.get("url") == url and 0 <= age_seconds <= 86400 and isinstance(cached.get("payload"), dict):
+            return {**cached["payload"], "_radar_cache_captured_at": cached["cached_at"]}, cached.get("error")
+    if cache_only:
+        return {}, "no fresh Crossref cache entry; network disabled"
+
+    def finish(payload: dict, error: str | None) -> tuple[dict, str | None]:
+        cached_at = datetime.now(timezone.utc).replace(microsecond=0).isoformat()
+        if cache_path:
+            cache_path.parent.mkdir(parents=True, exist_ok=True)
+            descriptor, temporary = tempfile.mkstemp(prefix=".crossref-", dir=cache_path.parent)
+            try:
+                with os.fdopen(descriptor, "w", encoding="utf-8") as handle:
+                    json.dump({"url": url, "cached_at": cached_at, "payload": payload, "error": error}, handle, ensure_ascii=False)
+                os.replace(temporary, cache_path)
+            finally:
+                Path(temporary).unlink(missing_ok=True)
+        return {**payload, "_radar_cache_captured_at": cached_at}, error
+
     request = Request(
         url,
         headers={
@@ -277,14 +309,25 @@ def request_json(url: str, timeout: int) -> tuple[dict, str | None]:
             "Accept": "application/json,text/plain;q=0.8,*/*;q=0.5",
         },
     )
-    try:
-        with urlopen(request, timeout=timeout) as response:
-            raw = response.read(2_000_000)
-            return json.loads(raw.decode("utf-8", errors="replace")), None
-    except HTTPError as error:
-        return {}, f"HTTP {error.code}"
-    except (OSError, URLError, TimeoutError, json.JSONDecodeError) as error:
-        return {}, f"{type(error).__name__}: {error}"
+    for attempt in range(3):
+        try:
+            with urlopen(request, timeout=timeout) as response:
+                raw = response.read(2_000_000)
+                return finish(json.loads(raw.decode("utf-8", errors="replace")), None)
+        except HTTPError as error:
+            message = f"HTTP {error.code}"
+            if error.code not in {429, 500, 502, 503, 504} or attempt == 2:
+                return finish({}, message)
+            try:
+                retry_after = float(error.headers.get("Retry-After", "0"))
+            except (ValueError, TypeError, AttributeError):
+                retry_after = 0
+            time.sleep(min(15, max(retry_after, 0.5 * 2 ** attempt)))
+        except (OSError, URLError, TimeoutError, json.JSONDecodeError) as error:
+            if attempt == 2:
+                return finish({}, f"{type(error).__name__}: {error}")
+            time.sleep(0.5 * 2 ** attempt)
+    return finish({}, "request attempts exhausted")
 
 
 def strip_html(markup: str) -> str:
@@ -786,6 +829,9 @@ def journal_issns(journal: dict) -> list[str]:
         value = clean(journal.get(key))
         if value and value not in values:
             values.append(value)
+    for value in journal.get("issns", []):
+        if value and value not in values:
+            values.append(value)
     return values
 
 
@@ -847,7 +893,8 @@ def fetch_crossref_articles(
     for issn in issns:
         url = crossref_url_for(issn, args.max_articles_per_journal, args.crossref_from_pub_date)
         started = time.time()
-        payload, error = request_json(url, args.timeout)
+        payload, error = request_json(url, args.timeout, getattr(args, "crossref_cache_dir", None), getattr(args, "crossref_cache_only", False))
+        evidence_captured_at = payload.pop("_radar_cache_captured_at", captured_at)
         elapsed_ms = int((time.time() - started) * 1000)
         items = ((payload.get("message") or {}).get("items") or []) if payload else []
         sources.append(
@@ -861,7 +908,7 @@ def fetch_crossref_articles(
                 "error": error or ("" if items else "no works returned"),
                 "text_chars": len(json.dumps(payload, ensure_ascii=False)) if payload else 0,
                 "elapsed_ms": elapsed_ms,
-                "captured_at": captured_at,
+                "captured_at": evidence_captured_at,
             }
         )
         if error:
@@ -871,6 +918,8 @@ def fetch_crossref_articles(
 
         for item in items[: args.max_articles_per_journal]:
             title = " ".join(clean(part) for part in (item.get("title") or []) if clean(part))
+            if not title:
+                continue
             abstract = strip_markup_text(item.get("abstract", ""))
             keywords = compact_subjects(item.get("subject"))
             year, month = published_parts(item)
@@ -894,7 +943,7 @@ def fetch_crossref_articles(
                 "source": "crossref",
                 "text_chars": len(text_blob),
                 "elapsed_ms": elapsed_ms,
-                "captured_at": captured_at,
+                "captured_at": evidence_captured_at,
             }
             articles.append(article)
             topics.update(topic_hits(text_blob))
@@ -908,7 +957,7 @@ def fetch_crossref_articles(
                         "source_url": source_url,
                         "source_type": "article_metadata",
                         "title": title or journal["name"],
-                        "captured_at": captured_at,
+                        "captured_at": evidence_captured_at,
                         "text_snippet": text_blob[: args.snippet_chars],
                     }
                 )
@@ -1240,7 +1289,8 @@ def build_preference_record(journal: dict, articles: list[dict]) -> dict:
         "rolling_5y": slice_with_meta("rolling_5y", rolling_articles[5], rolling_descriptions[5], **rolling_extra[5]),
         "all": slice_with_meta("all", sorted_articles, f"All captured samples · {len(sorted_articles)} articles"),
     }
-    for year in ["2026", "2025", "2024", "2023"]:
+    current_year = datetime.now(timezone.utc).year
+    for year in [str(current_year - offset) for offset in range(4)]:
         year_articles = [article for article in sorted_articles if clean(article.get("year")) == year]
         slices[year] = slice_with_meta(year, year_articles, year_span_description(year_articles))
     return {
@@ -1283,13 +1333,14 @@ def make_doc_id(*parts: str) -> str:
     return f"doc-{digest}"
 
 
-def read_workbook(excel_path: Path) -> tuple[pd.DataFrame, pd.DataFrame]:
+def read_workbook(excel_path: Path) -> tuple:
+    import pandas as pd
     main = pd.read_excel(excel_path, sheet_name="总表")
     log = pd.read_excel(excel_path, sheet_name="本轮更新日志")
     return main, log
 
 
-def build_journals(main: pd.DataFrame, log: pd.DataFrame) -> list[dict]:
+def build_journals(main, log) -> list[dict]:
     rows = main[main["Journal name"].astype(str).str.strip().ne("")].copy()
     log_lookup = log.drop_duplicates("Journal name").set_index("Journal name").to_dict("index")
     journals: list[dict] = []
@@ -1478,7 +1529,7 @@ def crawl_journal(
                 }
             )
 
-    for url in article_links[: args.max_articles_per_journal]:
+    for url in article_links[: args.max_official_articles]:
         started = time.time()
         markup, error = request_text(url, args.timeout)
         elapsed_ms = int((time.time() - started) * 1000)
@@ -1531,6 +1582,11 @@ def build_network(journals: list[dict], journal_topics: dict[str, Counter], jour
         if node_id not in nodes:
             nodes[node_id] = {"id": node_id, "label": label, "type": kind, **extra}
 
+    def entity_id(kind: str, label: str) -> str:
+        # Keep multilingual names in labels. Slugs can collapse accents or
+        # accidentally resemble credentials (e.g. the Polish name Skłodowska).
+        return f"{kind}-{hashlib.sha256(label.encode('utf-8')).hexdigest()[:16]}"
+
     for journal in journals:
         jid = journal["id"]
         add_node(
@@ -1543,23 +1599,23 @@ def build_network(journals: list[dict], journal_topics: dict[str, Counter], jour
             main_tag=journal.get("main_tag"),
             publisher_family=journal.get("publisher_family"),
         )
-        publisher_id = f"publisher-{slugify(journal['publisher_family'], 'publisher')}"
+        publisher_id = entity_id("publisher", journal["publisher_family"])
         add_node(publisher_id, journal["publisher_family"], "publisher")
         links.append({"source": jid, "target": publisher_id, "weight": 1.0, "relation": "publisher"})
 
         for tag in [journal.get("main_tag"), journal.get("secondary_tag")]:
             if tag:
-                topic_id = f"topic-{slugify(tag, 'topic')}"
+                topic_id = entity_id("topic", tag)
                 add_node(topic_id, tag, "topic")
-                links.append({"source": jid, "target": topic_id, "weight": 2.0, "relation": "jcr_tag"})
+                links.append({"source": jid, "target": topic_id, "weight": 2.0, "relation": "jcr_tag" if journal.get("has_jcr_record") else "catalog_tag"})
 
         for topic, count in journal_topics.get(jid, Counter()).most_common(6):
-            topic_id = f"topic-{slugify(topic, 'topic')}"
+            topic_id = entity_id("topic", topic)
             add_node(topic_id, topic, "topic")
             links.append({"source": jid, "target": topic_id, "weight": min(6.0, 1.0 + count), "relation": "text_topic"})
 
         for method, count in journal_methods.get(jid, Counter()).most_common(4):
-            method_id = f"method-{slugify(method, 'method')}"
+            method_id = entity_id("method", method)
             add_node(method_id, method, "method_or_theme")
             links.append({"source": jid, "target": method_id, "weight": min(5.0, 1.0 + count), "relation": "method_or_theme"})
 
@@ -1600,12 +1656,10 @@ def summarize(
 
     return {
         "generated_at": captured_at,
-        "expected_journal_count": EXPECTED_JOURNAL_COUNT,
         "journal_count": journal_count,
-        "journal_count_matches_expected": journal_count == EXPECTED_JOURNAL_COUNT,
-        "expected_q1_count": Q1_EXPECTED_COUNT,
         "q1_count": q1_count,
-        "q1_count_matches_expected": q1_count == Q1_EXPECTED_COUNT,
+        "jcr_journal_count": sum(1 for journal in journals if journal.get("has_jcr_record")),
+        "unknown_quartile_count": sum(1 for journal in journals if not journal.get("quartile")),
         "journals_with_source_urls": with_sources,
         "source_pages": {
             "total": len(sources),
@@ -1711,210 +1765,298 @@ def dedupe_records(records: Iterable[dict], key_fields: tuple[str, ...]) -> list
     return list(deduped.values())
 
 
+def base_documents(journal: dict, captured_at: str) -> list[dict]:
+    """Emit truthful provenance for JCR records and independently catalogued titles."""
+    details = [journal["name"], journal.get("main_tag"), journal.get("secondary_tag"), journal.get("publisher_family")]
+    if journal.get("has_jcr_record"):
+        for field, label in [("jif_2025", "2025 JIF"), ("jci_2025", "2025 JCI"), ("quartile", "JCR quartile")]:
+            if journal.get(field) is not None:
+                details.append(f"{label}: {journal[field]}")
+    for field, label in [("first_decision_days", "First decision days"), ("review_time_days", "Review time days"), ("word_limit", "Submission information")]:
+        if journal.get(field) not in (None, ""):
+            details.append(f"{label}: {journal[field]}")
+    origins = list(journal.get("catalog_sources") or [])
+    if journal.get("has_jcr_record"):
+        origins.insert(0, {"id": "jcr_workbook", "label": "JCR workbook snapshot", "url": next(iter(journal.get("source_urls") or []), "")})
+    if not origins:
+        origins = [{"id": "journal_catalog", "label": "Education journal catalog", "url": next(iter(journal.get("source_urls") or []), "")}]
+    return [{
+        "doc_id": make_doc_id(journal["id"], "catalog", str(origin.get("id", "")), str(origin.get("record_id", ""))),
+        "journal_id": journal["id"], "journal_name": journal["name"],
+        "source_url": origin.get("evidence_url") or origin.get("url") or "",
+        "source_type": "jcr_workbook" if origin.get("id") == "jcr_workbook" else "journal_catalog",
+        "title": journal["name"], "captured_at": origin.get("retrieved_at") or captured_at,
+        "text_snippet": "; ".join(str(part) for part in [*details, f"Catalog source: {origin.get('label') or origin.get('id')}"] if part),
+    } for origin in origins]
+
+
+def article_documents(journal: dict, articles: list[dict], snippet_chars: int) -> list[dict]:
+    return [{
+        "doc_id": make_doc_id(journal["id"], article_key(article)),
+        "journal_id": journal["id"], "journal_name": journal["name"],
+        "source_url": article.get("url") or (f"https://doi.org/{article['doi']}" if article.get("doi") else ""),
+        "source_type": "article_metadata", "title": article.get("title") or journal["name"],
+        "captured_at": article.get("captured_at", ""),
+        "text_snippet": article_text(article)[:snippet_chars],
+    } for article in articles if article_text(article)]
+
+
+def refresh_journal(journal: dict, args, captured_at: str, fetch_api: bool, fetch_official: bool, deadline: float) -> dict:
+    result = {"sources": [], "articles": [], "docs": [], "api_status": "not_scheduled", "official_status": "not_scheduled", "editors": journal.get("editors")}
+    for kind, enabled in [("api", fetch_api), ("official", fetch_official)]:
+        if not enabled:
+            continue
+        if time.monotonic() >= deadline:
+            result[f"{kind}_status"] = "budget_deferred"
+            continue
+        try:
+            if kind == "api":
+                sources, articles, _, _, _ = fetch_crossref_articles(journal, args, captured_at)
+                docs = []  # Rebuilt from the merged, deduplicated article corpus below.
+                succeeded = bool(articles)
+            else:
+                sources, articles, docs, _, _, editors = crawl_journal(journal, args, captured_at)
+                result["editors"] = editors
+                succeeded = any(source.get("status") == "ok" for source in sources)
+            result["sources"].extend(sources)
+            result["articles"].extend(articles)
+            result["docs"].extend(docs)
+            result[f"{kind}_status"] = "updated" if succeeded else "failed"
+        except Exception as error:
+            # One malformed response must not discard the other journals' stored evidence.
+            result[f"{kind}_status"] = "failed"
+            result["sources"].append({
+                "journal_id": journal["id"], "journal_name": journal["name"], "url": "",
+                "source_type": "article_metadata_api" if kind == "api" else "journal_page",
+                "title": "Refresh attempt", "status": "failed", "error": f"{type(error).__name__}: {error}",
+                "text_chars": 0, "elapsed_ms": 0, "captured_at": captured_at,
+            })
+    return result
+
+
+def advance_cursor(indexes: list[int], journals: list[dict], results: dict, status_key: str, initial: int) -> int:
+    next_offset = initial
+    for index in indexes:
+        status = results.get(journals[index]["id"], {}).get(status_key)
+        if status in {None, "not_scheduled", "budget_deferred"}:
+            break
+        next_offset = (index + 1) % len(journals)
+    return next_offset
+
+
+def publish_staging(staging: Path, destination: Path) -> None:
+    generated_names = {
+        "journals.json", "journals_q1.json", "journal_sources.json", "research_network.json",
+        "editor_profiles.json", "radar-config.json", "crawl_report.json", "source_workbook_snapshot.json",
+        "journal_preferences.json", "journal_articles.jsonl", "rag_documents.jsonl", "local-data.js",
+        "journal_preferences_index.json", "journal_articles_index.json", "rag_documents_index.json", "data-manifest.json",
+        "journal_preferences", "journal_articles", "rag_documents",
+    }
+    if destination.exists():
+        unknown = [entry.name for entry in destination.iterdir() if entry.name not in generated_names and entry.name != ".DS_Store"]
+        if unknown:
+            raise ValueError(f"Refusing to replace a data directory containing unrecognized files: {', '.join(sorted(unknown))}")
+    backup = destination.with_name(f".{destination.name}-previous-{os.getpid()}")
+    if backup.exists():
+        raise ValueError(f"Refusing to overwrite existing staging backup: {backup}")
+    if destination.exists():
+        destination.rename(backup)
+    try:
+        staging.rename(destination)
+    except Exception:
+        if backup.exists():
+            backup.rename(destination)
+        raise
+    if backup.exists():
+        shutil.rmtree(backup)
+
+
 def main() -> int:
-    parser = argparse.ArgumentParser(description="Generate AIED research radar data.")
+    parser = argparse.ArgumentParser(description="Generate the complete multi-source education journal radar.")
     parser.add_argument("--excel", type=Path, default=DEFAULT_EXCEL)
     parser.add_argument("--output", type=Path, default=DEFAULT_OUTPUT)
     parser.add_argument("--source-snapshot", type=Path, default=None)
-    parser.add_argument("--skip-crawl", action="store_true", help="Only generate workbook-derived data.")
-    parser.add_argument("--skip-article-api", action="store_true", help="Skip Crossref latest article metadata.")
-    parser.add_argument("--max-pages-per-journal", type=int, default=4)
+    parser.add_argument("--catalog", type=Path, default=DEFAULT_CATALOG)
+    parser.add_argument("--catalog-manifest", type=Path, default=None)
+    parser.add_argument("--skip-crawl", action="store_true", help="Offline rebuild; retain all previously captured evidence.")
+    parser.add_argument("--skip-article-api", action="store_true", help="Retain prior Crossref samples without requesting updates.")
+    parser.add_argument("--max-pages-per-journal", type=int, default=1)
     parser.add_argument("--max-editor-pages", type=int, default=1)
-    parser.add_argument("--max-articles-per-journal", type=int, default=50)
-    parser.add_argument("--crossref-from-pub-date", default="2021-01-01", help="Earliest Crossref publication date to request.")
-    parser.add_argument("--crawl-journal-limit", type=int, default=0, help="Crawl N journals in this run; 0 means all.")
-    parser.add_argument("--crawl-journal-offset", type=int, default=0, help="Zero-based start of the rotating crawl window.")
-    parser.add_argument("--timeout", type=int, default=10)
+    parser.add_argument("--max-crossref-articles", "--max-articles-per-journal", dest="max_articles_per_journal", type=int, default=80)
+    parser.add_argument("--max-official-articles", type=int, default=0, help="HTML article pages per official-site refresh, separate from Crossref rows.")
+    parser.add_argument("--crossref-from-pub-date", default=f"{datetime.now(timezone.utc).year - 5}-01-01")
+    parser.add_argument("--crossref-cache-dir", type=Path, default=None, help="Reuse public Crossref responses cached for up to 24 hours; cache stays outside published output.")
+    parser.add_argument("--crossref-cache-only", action="store_true", help="Consume the response cache without making Crossref requests.")
+    parser.add_argument("--article-journal-limit", type=int, default=500, help="Rotating Crossref batch; 0 requests all journals.")
+    parser.add_argument("--article-journal-offset", type=int, default=None, help="Override the persisted Crossref cursor.")
+    parser.add_argument("--crawl-journal-limit", type=int, default=80, help="Rotating official-site batch; 0 requests all journals.")
+    parser.add_argument("--crawl-journal-offset", type=int, default=None, help="Override the persisted official-site cursor.")
+    parser.add_argument("--workers", type=int, default=4)
+    parser.add_argument("--time-budget-seconds", type=int, default=1800, help="Stop starting requests after this budget; retain deferred evidence.")
+    parser.add_argument("--timeout", type=int, default=8)
     parser.add_argument("--min-text-chars", type=int, default=220)
     parser.add_argument("--snippet-chars", type=int, default=1400)
     args = parser.parse_args()
+    if args.workers < 1 or args.workers > 8 or args.timeout < 1 or args.time_budget_seconds < 1:
+        parser.error("workers must be 1-8; timeout and time budget must be positive")
+    if any(value < 0 for value in (args.max_pages_per_journal, args.max_editor_pages, args.max_official_articles, args.article_journal_limit, args.crawl_journal_limit)) or args.max_articles_per_journal < 1:
+        parser.error("page and batch limits must be nonnegative; Crossref rows must be positive")
+    args.output = args.output.resolve()
     snapshot_path = args.source_snapshot or (args.output / "source_workbook_snapshot.json")
-
-    args.output.mkdir(parents=True, exist_ok=True)
     captured_at = datetime.now(timezone.utc).replace(microsecond=0).isoformat()
     if args.excel.exists():
         main_sheet, update_log = read_workbook(args.excel)
-        journals = build_journals(main_sheet, update_log)
-        sanitize_public_records(journals, ("word_limit",))
-        write_json(snapshot_path, journals)
+        baseline = build_journals(main_sheet, update_log)
+        # Keep established IDs even if an updated workbook reorders rows.
+        old_baseline = read_json_value(snapshot_path, [])
+        old_ids = {clean(journal.get("name")).casefold(): journal["id"] for journal in old_baseline if isinstance(journal, dict) and journal.get("id")}
+        for journal in baseline:
+            journal["id"] = old_ids.get(clean(journal.get("name")).casefold(), journal["id"])
     elif snapshot_path.exists():
-        journals = json.loads(snapshot_path.read_text(encoding="utf-8"))
-        sanitize_public_records(journals, ("word_limit",))
-        print(f"Excel workbook not found; using source snapshot: {snapshot_path}", file=sys.stderr)
+        baseline = json.loads(snapshot_path.read_text(encoding="utf-8"))
     else:
-        print(f"Excel workbook not found and no snapshot exists: {args.excel}", file=sys.stderr)
-        return 1
-
+        parser.error(f"No workbook or JCR source snapshot exists: {snapshot_path}")
+    sanitize_public_records(baseline, ("word_limit",))
+    catalog = json.loads(args.catalog.read_text(encoding="utf-8")) if args.catalog.exists() else []
+    if not isinstance(baseline, list) or not isinstance(catalog, list):
+        parser.error("JCR snapshot and catalog must both be arrays")
+    journals = merge_journal_catalog(baseline, catalog)
+    if not journals:
+        parser.error("The merged journal database is empty")
+    journal_ids = {journal["id"] for journal in journals}
     journal_count = len(journals)
-    crawl_limit = max(0, args.crawl_journal_limit)
-    crawl_offset = 0
-    if args.skip_crawl:
-        crawl_indexes: set[int] = set()
-    elif crawl_limit <= 0 or crawl_limit >= journal_count:
-        crawl_indexes = set(range(journal_count))
-    else:
-        crawl_offset = args.crawl_journal_offset % journal_count
-        crawl_indexes = {(crawl_offset + step) % journal_count for step in range(crawl_limit)}
-    crawled_journal_ids = {journals[index]["id"] for index in crawl_indexes}
-
-    previous_journals = read_json_value(args.output / "journals.json", [])
-    previous_journals_by_id = {
-        item.get("id"): item
-        for item in previous_journals
-        if isinstance(item, dict) and item.get("id")
-    } if isinstance(previous_journals, list) else {}
+    old_report = read_json(args.output / "crawl_report.json")
+    old_policy = old_report.get("refresh_policy") or {}
+    old_journals = {row["id"]: row for row in read_json_value(args.output / "journals.json", []) if isinstance(row, dict) and row.get("id")}
     for journal in journals:
-        previous = previous_journals_by_id.get(journal["id"], {})
-        if previous.get("editors"):
-            journal["editors"] = previous["editors"]
-
-    previous_sources = read_json_value(args.output / "journal_sources.json", [])
-    sources: list[dict] = [
-        source
-        for source in previous_sources
-        if isinstance(source, dict)
-        and source.get("source_type") != "article_metadata_api"
-    ] if isinstance(previous_sources, list) else []
-    articles: list[dict] = []
-    docs: list[dict] = [
-        doc
-        for doc in read_jsonl(args.output / "rag_documents.jsonl")
-        if doc.get("source_type") not in {"jcr_workbook", "article_metadata"}
-    ]
-    journal_topics: dict[str, Counter] = defaultdict(Counter)
-    journal_methods: dict[str, Counter] = defaultdict(Counter)
-    articles_by_journal: dict[str, list[dict]] = defaultdict(list)
-
-    for index, journal in enumerate(journals, start=1):
-        if index == 1 or index % 25 == 0 or index == len(journals):
-            print(f"Processing journal {index}/{len(journals)}: {journal['name']}", file=sys.stderr)
-        base_doc = {
-            "doc_id": make_doc_id(journal["id"], "workbook"),
-            "journal_id": journal["id"],
-            "journal_name": journal["name"],
-            "source_url": journal["source_urls"][0] if journal["source_urls"] else "",
-            "source_type": "jcr_workbook",
-            "title": journal["name"],
-            "captured_at": captured_at,
-            "text_snippet": "；".join(
-                part
-                for part in [
-                    f"JIF {journal.get('jif_2025')}",
-                    f"JCI {journal.get('jci_2025')}",
-                    f"JCR分区 {journal.get('quartile')}",
-                    f"主标签 {journal.get('main_tag')}",
-                    f"副标签 {journal.get('secondary_tag')}",
-                    f"出版社 {journal.get('publisher_family')}",
-                    f"投稿系统 {journal.get('submission_system')}",
-                    f"First decision {journal.get('first_decision_days')} days",
-                    f"Review time {journal.get('review_time_days')} days",
-                    clean(journal.get("word_limit")),
-                ]
-                if part and "None" not in part
-            ),
-        }
-        docs.append(base_doc)
-        journal_topics[journal["id"]].update(topic_hits(base_doc["text_snippet"]))
-        journal_methods[journal["id"]].update(method_hits(base_doc["text_snippet"]))
-
-        if not args.skip_crawl and not args.skip_article_api:
-            api_sources, api_articles, api_docs, topics, methods = fetch_crossref_articles(journal, args, captured_at)
-            sources.extend(api_sources)
-            articles.extend(api_articles)
-            docs.extend(api_docs)
-            articles_by_journal[journal["id"]].extend(api_articles)
-            journal_topics[journal["id"]].update(topics)
-            journal_methods[journal["id"]].update(methods)
-
-        should_crawl = (index - 1) in crawl_indexes
-        if should_crawl:
-            journal_sources, journal_articles, journal_docs, topics, methods, editor_info = crawl_journal(journal, args, captured_at)
-            sources.extend(journal_sources)
-            articles.extend(journal_articles)
-            docs.extend(journal_docs)
-            articles_by_journal[journal["id"]].extend(journal_articles)
-            journal_topics[journal["id"]].update(topics)
-            journal_methods[journal["id"]].update(methods)
-            journal["editors"] = editor_info
-
-    for journal in journals:
-        journal_articles = articles_by_journal.get(journal["id"], [])
-        journal["topic_hits"] = dict(journal_topics[journal["id"]])
-        journal["method_hits"] = dict(journal_methods[journal["id"]])
-        journal["article_count_crawled"] = len(journal_articles)
-        journal["source_pages_crawled"] = sum(
-            1
-            for source in sources
-            if source["journal_id"] == journal["id"] and source.get("source_type") != "article_metadata_api"
-        )
-        journal["article_preferences"] = build_article_preferences(journal_articles)
-        if not journal.get("editors"):
-            journal["editors"] = {
-                "status": "not_found",
-                "source_url": "",
-                "editors_in_chief": [],
-                "associate_editors": [],
-                "profiles": [],
-                "note": "",
+        if old_journals.get(journal["id"], {}).get("editors"):
+            journal["editors"] = old_journals[journal["id"]]["editors"]
+    previous_articles = read_partitioned(args.output, "journal_articles")
+    previous_docs = read_partitioned(args.output, "rag_documents")
+    sources = [row for row in read_json_value(args.output / "journal_sources.json", []) if isinstance(row, dict) and row.get("journal_id") in journal_ids]
+    article_offset = (args.article_journal_offset if args.article_journal_offset is not None else int(old_policy.get("article_next_offset") or 0)) % journal_count
+    crawl_offset = (args.crawl_journal_offset if args.crawl_journal_offset is not None else int(old_policy.get("official_next_offset") or 0)) % journal_count
+    article_indexes = [] if args.skip_crawl or args.skip_article_api else rotation_indexes(journal_count, args.article_journal_limit, article_offset)
+    official_disabled = args.skip_crawl or not (args.max_pages_per_journal or args.max_editor_pages or args.max_official_articles)
+    crawl_indexes = [] if official_disabled else rotation_indexes(journal_count, args.crawl_journal_limit, crawl_offset)
+    article_index_set, crawl_index_set = set(article_indexes), set(crawl_indexes)
+    requested_indexes = list(dict.fromkeys([*crawl_indexes, *article_indexes]))
+    results = {}
+    deadline = time.monotonic() + args.time_budget_seconds
+    if requested_indexes:
+        with ThreadPoolExecutor(max_workers=args.workers) as pool:
+            futures = {pool.submit(refresh_journal, journals[index], args, captured_at, index in article_index_set, index in crawl_index_set, deadline): index for index in requested_indexes}
+            for completed, future in enumerate(as_completed(futures), 1):
+                index = futures[future]
+                results[journals[index]["id"]] = future.result()
+                if completed == 1 or completed % 50 == 0 or completed == len(futures):
+                    print(f"Refresh attempts completed: {completed}/{len(futures)}", file=sys.stderr)
+    args.output.parent.mkdir(parents=True, exist_ok=True)
+    staging = Path(tempfile.mkdtemp(prefix=f".{args.output.name}-staging-", dir=args.output.parent))
+    try:
+        write_json(staging / "source_workbook_snapshot.json", baseline)
+        indexes = {name: {"schema_version": 1, "data_version": captured_at, "journals": {}} for name in ("journal_preferences", "journal_articles", "rag_documents")}
+        articles, docs, preference_summaries = [], [], []
+        journal_topics, journal_methods = defaultdict(Counter), defaultdict(Counter)
+        old_source_map = {(row.get("journal_id"), row.get("source_type"), row.get("url")): row for row in sources}
+        for position, journal in enumerate(journals, 1):
+            jid = journal["id"]
+            result = results.get(jid, {})
+            rows = merge_articles(previous_articles.get(jid, []), result.get("articles", []))
+            for article in rows:
+                article["journal_id"], article["journal_name"] = jid, journal["name"]
+            sanitize_public_records(rows, ("title", "abstract", "keywords", "error"))
+            journal_docs = [doc for doc in previous_docs.get(jid, []) if doc.get("source_type") not in {"jcr_workbook", "journal_catalog", "article_metadata"}]
+            journal_docs.extend(result.get("docs", []))
+            journal_docs.extend(base_documents(journal, captured_at))
+            journal_docs.extend(article_documents(journal, rows, args.snippet_chars))
+            journal_docs = dedupe_records(journal_docs, ("doc_id",))
+            for doc in journal_docs:
+                journal_topics[jid].update(topic_hits(doc.get("text_snippet", "")))
+                journal_methods[jid].update(method_hits(doc.get("text_snippet", "")))
+            for source in result.get("sources", []):
+                previous_source = old_source_map.get((jid, source.get("source_type"), source.get("url")), {})
+                source["last_success_at"] = source.get("captured_at") if source.get("status") == "ok" else previous_source.get("last_success_at") or (previous_source.get("captured_at") if previous_source.get("status") == "ok" else None)
+                sources.append(source)
+            for origin in journal.get("catalog_sources", []):
+                sources.append({"journal_id": jid, "journal_name": journal["name"], "source_type": "journal_catalog", "url": origin.get("evidence_url") or origin.get("url") or "", "title": origin.get("label") or origin.get("id") or "Journal catalog", "status": "ok", "error": "", "text_chars": 0, "elapsed_ms": 0, "captured_at": origin.get("retrieved_at") or captured_at})
+            if result.get("editors"):
+                journal["editors"] = result["editors"]
+            old_refresh = old_journals.get(jid, {}).get("article_refresh") or {}
+            api_status = result.get("api_status", "skipped" if args.skip_crawl or args.skip_article_api else "not_scheduled")
+            successful_api_dates = [source.get("captured_at", "") for source in result.get("sources", []) if source.get("source_type") == "article_metadata_api" and source.get("status") == "ok"]
+            journal["article_refresh"] = {
+                "status": api_status, "last_attempt_at": captured_at if api_status in {"updated", "failed"} else old_refresh.get("last_attempt_at"),
+                "last_success_at": max(successful_api_dates) if api_status == "updated" and successful_api_dates else old_refresh.get("last_success_at") or max((row.get("captured_at", "") for row in rows), default=None),
+                "retained_article_count": len(rows) if api_status != "updated" else 0,
             }
-
-    q1_journals = [journal for journal in journals if clean(journal.get("quartile")).upper() == "Q1"]
-    journal_preferences = [build_preference_record(journal, articles_by_journal.get(journal["id"], [])) for journal in journals]
-    editor_profiles = [build_editor_profile_record(journal) for journal in journals]
-    sources = dedupe_records(sources, ("journal_id", "source_type", "url"))
-    docs = dedupe_records(docs, ("doc_id",))
-    sanitize_public_records(sources, ("title", "error"))
-    sanitize_public_records(articles, ("title", "abstract", "keywords", "error"))
-    sanitize_public_records(docs, ("title", "text_snippet"))
-    write_json(args.output / "journals.json", journals)
-    write_json(args.output / "journals_q1.json", q1_journals)
-    write_json(args.output / "journal_sources.json", sources)
-    write_json(args.output / "research_network.json", build_network(journals, journal_topics, journal_methods))
-    write_json(args.output / "journal_preferences.json", journal_preferences)
-    write_json(args.output / "editor_profiles.json", editor_profiles)
-    config_path = args.output / "radar-config.json"
-    existing_config = read_json(config_path) if config_path.exists() else {}
-    write_json(
-        config_path,
-        {
-            "api_base_url": existing_config.get("api_base_url", ""),
-            "access_mode": existing_config.get("access_mode", "public_limited"),
-            "llm_provider": existing_config.get("llm_provider", "modelscope"),
-            "model_hint": existing_config.get("model_hint", "Qwen/Qwen3-4B"),
-            "pages_url": "https://jojo-edtech.github.io/aied-journal/",
-        },
-    )
-    write_jsonl(args.output / "journal_articles.jsonl", articles)
-    write_jsonl(args.output / "rag_documents.jsonl", docs)
-
-    report = summarize(journals, sources, articles, docs, captured_at, editor_profiles, journal_preferences)
-    report["refresh_policy"] = {
-        "article_metadata": "all_journals_daily" if not args.skip_article_api and not args.skip_crawl else "skipped",
-        "official_page_crawl": "rotating_batch" if 0 < len(crawl_indexes) < journal_count else ("all_journals" if crawl_indexes else "skipped"),
-        "official_page_batch_size": len(crawl_indexes),
-        "official_page_batch_offset": crawl_offset if crawl_indexes else None,
-        "crossref_from_pub_date": args.crossref_from_pub_date,
-        "latest_issue_rule": "volume_and_issue; month fallback only when issue metadata is absent",
-    }
-    write_json(args.output / "crawl_report.json", report)
-    print(
-        json.dumps(
-            {
-                "journal_count": report["journal_count"],
-                "journal_count_matches_expected": report["journal_count_matches_expected"],
-                "q1_count": report["q1_count"],
-                "q1_count_matches_expected": report["q1_count_matches_expected"],
-                "source_pages": report["source_pages"],
-                "articles": report["articles"],
-                "editors": report["editors"],
-                "rag_documents": report["rag_documents"],
-                "output": str(args.output),
-            },
-            ensure_ascii=False,
-            indent=2,
-        )
-    )
-    return 0 if report["journal_count_matches_expected"] and report["q1_count_matches_expected"] else 2
+            journal["topic_hits"], journal["method_hits"] = dict(journal_topics[jid]), dict(journal_methods[jid])
+            journal["article_count_crawled"] = len(rows)
+            journal["article_preferences"] = build_article_preferences(rows)
+            relative = f"journal_preferences/{jid}.json"
+            preference_path = safe_shard_path(staging, relative, "journal_preferences", jid, ".json")
+            preference_path.parent.mkdir(parents=True, exist_ok=True)
+            sanitize_public_records(journal_docs, ("title", "text_snippet"))
+            # Preference evidence contains titles; derive it from sanitized article metadata.
+            preference = build_preference_record(journal, rows)
+            preference_path.write_text(json.dumps(preference, ensure_ascii=False, separators=(",", ":")), encoding="utf-8")
+            indexes["journal_preferences"]["journals"][jid] = {"path": relative, "sample_count": len(rows), "available_time_slices": preference["available_time_slices"]}
+            preference_summaries.append({"journal_id": jid, "slices": {key: {"sample_count": value["sample_count"]} for key, value in preference["slices"].items()}})
+            write_partition(staging, "journal_articles", jid, rows, indexes["journal_articles"])
+            write_partition(staging, "rag_documents", jid, journal_docs, indexes["rag_documents"])
+            articles.extend(rows)
+            docs.extend(journal_docs)
+            if position == 1 or position % 250 == 0 or position == journal_count:
+                print(f"Generated journal partitions: {position}/{journal_count}", file=sys.stderr)
+        sources = dedupe_records(sources, ("journal_id", "source_type", "url"))
+        source_counts = Counter(row["journal_id"] for row in sources if row.get("source_type") not in {"article_metadata_api", "journal_catalog"})
+        for journal in journals:
+            journal["source_pages_crawled"] = source_counts[journal["id"]]
+        sanitize_public_records(journals, ("word_limit",))
+        sanitize_public_records(sources, ("title", "error"))
+        editor_profiles = [build_editor_profile_record(journal) for journal in journals]
+        write_json(staging / "journals.json", journals)
+        write_json(staging / "journals_q1.json", [journal for journal in journals if journal.get("quartile") == "Q1"])
+        write_json(staging / "journal_sources.json", sources)
+        write_json(staging / "research_network.json", build_network(journals, journal_topics, journal_methods))
+        write_json(staging / "editor_profiles.json", editor_profiles)
+        config = read_json(args.output / "radar-config.json")
+        write_json(staging / "radar-config.json", config or {"api_base_url": "", "access_mode": "public_limited", "llm_provider": "modelscope", "model_hint": "Qwen/Qwen3-4B", "pages_url": "https://jojo-edtech.github.io/aied-journal/"})
+        for dataset, index in indexes.items():
+            write_json(staging / f"{dataset}_index.json", index)
+        report = summarize(journals, sources, articles, docs, captured_at, editor_profiles, preference_summaries)
+        report["baseline_preservation"] = {"journal_count": len(baseline), "all_ids_preserved": all(row["id"] in journal_ids for row in baseline), "metrics_preserved": all(all(row.get(field) == next(journal for journal in journals if journal["id"] == row["id"]).get(field) for field in BASELINE_FIELDS) for row in baseline)}
+        statuses = Counter(result.get("api_status") for result in results.values())
+        report["refresh_policy"] = {
+            "article_metadata": "skipped" if not article_indexes else "rotating_batch", "article_batch_size": len(article_indexes),
+            "article_batch_offset": article_offset, "article_next_offset": advance_cursor(article_indexes, journals, results, "api_status", article_offset),
+            "article_updated": statuses["updated"], "article_failed": statuses["failed"], "article_budget_deferred": statuses["budget_deferred"],
+            "article_retained_journals": sum(1 for journal in journals if journal["article_refresh"]["retained_article_count"] > 0),
+            "official_page_crawl": "rotating_batch" if crawl_indexes else "skipped", "official_page_batch_size": len(crawl_indexes),
+            "official_page_batch_offset": crawl_offset, "official_next_offset": advance_cursor(crawl_indexes, journals, results, "official_status", crawl_offset),
+            "crossref_from_pub_date": args.crossref_from_pub_date, "max_crossref_articles": min(100, args.max_articles_per_journal),
+            "max_official_articles": args.max_official_articles, "workers": args.workers,
+            "latest_issue_rule": "volume_and_issue; month fallback only when issue metadata is absent",
+            "retention": "Keep prior successful article evidence when a refresh fails, is empty, skipped or deferred; merge by DOI then URL/title.",
+        }
+        write_json(staging / "crawl_report.json", report)
+        catalog_manifest_path = args.catalog_manifest or args.catalog.with_name("source-manifest.json")
+        catalog_manifest = read_json_value(catalog_manifest_path, {})
+        write_json(staging / "data-manifest.json", {
+            "schema_version": 1, "data_version": captured_at, "journal_count": journal_count,
+            "jcr_journal_count": len(baseline), "catalog_journal_count": journal_count - len(baseline), "q1_count": report["q1_count"],
+            "article_count": len(articles), "rag_document_count": len(docs),
+            "datasets": {name: f"{name}_index.json" for name in indexes},
+            "catalog_sources": catalog_manifest,
+        })
+        validator = Path(__file__).with_name("validate-data.mjs")
+        subprocess.run(["node", str(validator), "--data-dir", str(staging)], check=True)
+        publish_staging(staging, args.output)
+        print(json.dumps({"journal_count": journal_count, "jcr_journal_count": len(baseline), "q1_count": report["q1_count"], "articles": len(articles), "rag_documents": len(docs), "output": str(args.output)}, ensure_ascii=False, indent=2))
+        return 0
+    finally:
+        if staging.exists():
+            shutil.rmtree(staging)
 
 
 if __name__ == "__main__":

@@ -2349,7 +2349,7 @@ main,
 }
 
 .radar-controls {
-  grid-template-columns: minmax(280px, 1.4fr) repeat(4, minmax(150px, 1fr));
+  grid-template-columns: repeat(4, minmax(0, 1fr));
 }
 
 .radar-controls input,
@@ -2671,4 +2671,23 @@ main,
     animation: none !important;
     transition: none !important;
   }
+}
+
+/* Expanded catalog controls and explicit evidence coverage. */
+.radar-controls > label { min-width: 0; }
+.radar-controls > label:first-child { grid-column: span 2; }
+.chart-coverage, .metric-year-note { color: var(--muted); font-size: 0.82rem; line-height: 1.5; }
+.chart-coverage { margin: 10px 0 0; }
+.preference-load-state { padding: 18px; color: var(--muted); }
+.preference-load-state p { margin-top: 0; }
+.catalog-source-card { margin-bottom: 20px; }
+.catalog-source-card li small, .source-record { display: block; color: var(--muted); overflow-wrap: anywhere; }
+.catalog-identifiers { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px 24px; }
+.catalog-identifiers dt { font-size: 0.78rem; color: var(--muted); }
+.catalog-identifiers dd { margin: 4px 0 0; overflow-wrap: anywhere; }
+.table-actions { align-items: center; flex-wrap: wrap; gap: 12px; }
+.table-actions button:disabled { opacity: 0.45; cursor: default; }
+@media (max-width: 760px) {
+  .radar-controls > label:first-child { grid-column: auto; }
+  .catalog-identifiers { grid-template-columns: 1fr; }
 }

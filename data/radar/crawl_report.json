@@ -1,33 +1,31 @@
 {
-  "generated_at": "2026-09-29T14:40:47+00:00",
-  "expected_journal_count": 268,
-  "journal_count": 268,
-  "journal_count_matches_expected": true,
-  "expected_q1_count": 135,
+  "generated_at": "2026-09-29T16:14:46+00:00",
+  "journal_count": 3449,
   "q1_count": 135,
-  "q1_count_matches_expected": true,
-  "journals_with_source_urls": 257,
+  "jcr_journal_count": 268,
+  "unknown_quartile_count": 3181,
+  "journals_with_source_urls": 2412,
   "source_pages": {
-    "total": 751,
-    "ok": 400,
-    "failed": 351,
+    "total": 8252,
+    "ok": 6425,
+    "failed": 1827,
     "content_too_short": 0
   },
   "articles": {
-    "total": 20817,
-    "ok": 20816,
-    "failed": 1,
+    "total": 106318,
+    "ok": 106318,
+    "failed": 0,
     "content_too_short": 0
   },
   "editors": {
     "journals_with_editor_names": 0,
-    "journals_without_editor_names": 268
+    "journals_without_editor_names": 3449
   },
   "speed_coverage": {
     "first_decision_days": 201,
     "review_time_days": 116,
     "submission_to_accept_days": 35,
-    "total": 268
+    "total": 3449
   },
   "editor_profile_coverage": {
     "profiles": 0,
@@ -36,68 +34,72 @@
     "pending_verification": 0
   },
   "preference_coverage": {
-    "journals_with_any_articles": 263,
-    "journals_with_latest_issue": 262,
+    "journals_with_any_articles": 2512,
+    "journals_with_latest_issue": 2512,
     "range_slices": {
-      "recent_3_issues": 262,
-      "latest_issue": 262,
-      "rolling_1y": 262,
-      "rolling_2y": 262,
-      "rolling_3y": 262,
-      "rolling_5y": 262,
-      "all": 263
+      "recent_3_issues": 2512,
+      "latest_issue": 2512,
+      "rolling_1y": 2512,
+      "rolling_2y": 2512,
+      "rolling_3y": 2512,
+      "rolling_5y": 2512,
+      "all": 2512
     },
-    "total": 268
+    "total": 3449
   },
-  "rag_documents": 21374,
+  "rag_documents": 110390,
   "missing_fields": {
     "jif_2025": {
-      "missing": 1,
-      "total": 268,
-      "rate": 0.0037
+      "missing": 3182,
+      "total": 3449,
+      "rate": 0.9226
     },
     "jci_2025": {
-      "missing": 0,
-      "total": 268,
-      "rate": 0.0
+      "missing": 3181,
+      "total": 3449,
+      "rate": 0.9223
     },
     "main_tag": {
       "missing": 0,
-      "total": 268,
+      "total": 3449,
       "rate": 0.0
     },
     "publisher": {
       "missing": 0,
-      "total": 268,
+      "total": 3449,
       "rate": 0.0
     },
     "issn": {
-      "missing": 4,
-      "total": 268,
-      "rate": 0.0149
+      "missing": 847,
+      "total": 3449,
+      "rate": 0.2456
     },
     "eissn": {
-      "missing": 7,
-      "total": 268,
-      "rate": 0.0261
+      "missing": 1109,
+      "total": 3449,
+      "rate": 0.3215
     },
     "source_urls": {
       "missing": 0,
-      "total": 268,
+      "total": 3449,
       "rate": 0.0
     },
     "first_decision_days": {
-      "missing": 67,
-      "total": 268,
-      "rate": 0.25
+      "missing": 3248,
+      "total": 3449,
+      "rate": 0.9417
     },
     "review_time_days": {
-      "missing": 152,
-      "total": 268,
-      "rate": 0.5672
+      "missing": 3333,
+      "total": 3449,
+      "rate": 0.9664
     }
   },
   "quartiles": [
+    [
+      "",
+      3181
+    ],
     [
       "Q1",
       135
@@ -118,109 +120,126 @@
   "top_publishers": [
     [
       "Taylor & Francis",
-      94
+      182
     ],
     [
       "Springer Nature",
-      57
+      87
     ],
     [
       "SAGE",
-      37
-    ],
-    [
-      "Elsevier",
-      30
+      66
     ],
     [
       "Wiley",
-      26
+      61
     ],
     [
-      "Cambridge",
-      3
+      "Universitas Negeri Semarang",
+      42
     ],
     [
-      "IEEE",
-      2
+      "Elsevier",
+      39
     ],
     [
-      "OXFORD UNIV PRESS",
-      2
+      "Universitas Negeri Malang",
+      21
     ],
     [
-      "ACAD MANAGEMENT",
-      1
+      "Universitas Pendidikan Ganesha",
+      16
     ],
     [
-      "ATHABASCA UNIV PRESS",
-      1
+      "Emerald",
+      14
     ],
     [
-      "UNIV NACIONAL EDUCACION DISTANCIA",
-      1
+      "Common Ground Research Networks",
+      14
     ],
     [
-      "ASOCIACION IBEROAMERICANA EDUCACION SUPERIOR & DISTANCIA - AIESAD",
-      1
+      "Universitas Negeri Yogyakarta",
+      13
+    ],
+    [
+      "Universitas Pendidikan Indonesia",
+      12
     ]
   ],
   "top_main_tags": [
     [
-      "学科教育",
-      48
-    ],
-    [
       "综合教育期刊",
-      45
-    ],
-    [
-      "语言教育与语言习得",
-      38
-    ],
-    [
-      "教育政策与社会问题",
-      35
+      1641
     ],
     [
       "教育技术",
-      21
+      340
+    ],
+    [
+      "学科教育",
+      310
     ],
     [
       "高等教育",
-      20
-    ],
-    [
-      "教育心理",
-      16
+      221
     ],
     [
       "教师教育与教师发展",
-      12
+      190
     ],
     [
-      "职业与继续教育",
-      9
+      "语言教育与语言习得",
+      174
+    ],
+    [
+      "教育政策与社会问题",
+      122
+    ],
+    [
+      "医学教育",
+      88
+    ],
+    [
+      "特殊教育",
+      86
     ],
     [
       "儿童与早期教育",
-      9
+      77
     ],
     [
-      "教育管理与领导力",
-      6
+      "教育心理",
+      76
     ],
     [
-      "综述期刊",
-      4
+      "职业与继续教育",
+      75
     ]
   ],
+  "baseline_preservation": {
+    "journal_count": 268,
+    "all_ids_preserved": true,
+    "metrics_preserved": true
+  },
   "refresh_policy": {
-    "article_metadata": "all_journals_daily",
-    "official_page_crawl": "rotating_batch",
-    "official_page_batch_size": 80,
-    "official_page_batch_offset": 240,
+    "article_metadata": "rotating_batch",
+    "article_batch_size": 3449,
+    "article_batch_offset": 0,
+    "article_next_offset": 0,
+    "article_updated": 2512,
+    "article_failed": 937,
+    "article_budget_deferred": 0,
+    "article_retained_journals": 0,
+    "official_page_crawl": "skipped",
+    "official_page_batch_size": 0,
+    "official_page_batch_offset": 80,
+    "official_next_offset": 80,
     "crossref_from_pub_date": "2021-09-29",
-    "latest_issue_rule": "volume_and_issue; month fallback only when issue metadata is absent"
+    "max_crossref_articles": 40,
+    "max_official_articles": 0,
+    "workers": 4,
+    "latest_issue_rule": "volume_and_issue; month fallback only when issue metadata is absent",
+    "retention": "Keep prior successful article evidence when a refresh fails, is empty, skipped or deferred; merge by DOI then URL/title."
   }
 }

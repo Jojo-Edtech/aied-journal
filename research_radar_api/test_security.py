@@ -121,7 +121,7 @@ class SecurityTests(unittest.TestCase):
                 self.assertEqual(exhausted.exception.status_code, 429)
 
     def test_public_health_omits_operational_secrets(self) -> None:
-        fake_index = SimpleNamespace(documents=[object(), object()])
+        fake_index = SimpleNamespace(documents=[SimpleNamespace(journal_id="journal")], journals={"journal": {"id": "journal"}}, data_version="test-version")
         with patch.object(radar, "load_documents", return_value=fake_index), patch.object(
             radar, "load_json", return_value=[{"id": "journal"}]
         ), patch.object(radar, "llm_settings", return_value={"provider": "modelscope", "model": "model", "token": "secret"}), patch.object(

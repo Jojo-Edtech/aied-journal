@@ -1,0 +1,84 @@
+{
+  "retrieved_at_hong_kong_date": "2026-09-29",
+  "sources": [
+    {
+      "id": "doaj",
+      "homepage": "https://doaj.org/docs/journal-csv",
+      "download_url": "https://doaj.org/csv",
+      "downloaded_file": "doaj2.csv",
+      "license": "CC0 journal metadata, https://doaj.org/terms/ Metadata point 2",
+      "snapshot_latest_record_update": "2026-08-29T14:53:53Z",
+      "count_all": 23379,
+      "education_count": 2192,
+      "education_filter": "Any pipe-separated Subjects branch equals Education or starts Education:, OR Journal title contains the whole word education|educational|teaching|pedagogy|didactics (case-insensitive). Alternative title and Keywords are not selection fields. Continued titles and identified proceedings series are excluded after selection.",
+      "continued_by_nonempty": 20,
+      "education_publication_status": "unknown unless individually confirmed; listing in DOAJ is not proof of current publication",
+      "api_observed_total": 2080,
+      "api_window": "pageSize100 capped; page11+ HTTP400 observed",
+      "source_type_exceptions": [
+        {
+          "eissn": "2352-5398",
+          "title": "Advances in Social Science, Education and Humanities Research",
+          "recommended": "exclude from journal-only count; source_type=proceedings_series",
+          "evidence": "https://www.atlantis-press.com/proceedings/series/assehr/aims-and-scope"
+        }
+      ],
+      "method_warning": "Average number of weeks between article submission and publication is not review time or first decision time",
+      "education_subject_branch_count": 2073,
+      "title_keyword_outside_education_branch_count": 119,
+      "accepted_candidates": 2171,
+      "excluded_records": 21,
+      "selection_basis_counts": {
+        "education_subject_branch": 2052,
+        "title_keyword_outside_education_branch": 119
+      },
+      "education_count_semantics": "Raw source extract rows selected by subject branch or explicit title terms, before continuation/proceedings exclusions and cross-source identity consolidation.",
+      "title_supplement_audit": "sources/doaj-education-title-supplement-audit.json",
+      "scope_note": "Title-derived interdisciplinary additions keep their original Medicine, Science, Technology, Language and Literature, and other DOAJ subject branches. They are not relabelled as DOAJ Education-subject journals. Directory inclusion alone does not establish current publication or acceptance of submissions."
+    },
+    {
+      "id": "ebsco_education_source",
+      "catalog_url": "https://about.ebsco.com/m/ee/Marketing/titleLists/eue-coverage.htm",
+      "subject_url": "https://about.ebsco.com/m/ee/Marketing/titleLists/eue-subject.htm",
+      "all_coverage_rows": 6009,
+      "academic_journal_rows": 3968,
+      "indexing_stop_empty_academic_rows": 2982,
+      "strict_education_rows": 1167,
+      "strict_education_unique_mid": 882,
+      "strict_education_filter": "Subject list Category exactly Education AND Source Type Academic Journal AND Indexing and Abstracting Stop blank, dedup by MID",
+      "status_semantics": "No stop date reported in this database coverage list. Does not establish journal actively accepting submissions or publishing currently. Stop date is database coverage end, not journal cessation date. Available Now denotes accessible database content, not current indexing.",
+      "subject_list_limit": "Full-Text Subject Title List; cannot infer non-education from absence",
+      "homepage_limit": "No journal homepage field; provenance is official catalog; leave homepage empty if unmatched",
+      "license": "No explicit reusable metadata license verified"
+    },
+    {
+      "id": "eric",
+      "url": "https://eric.ed.gov/?journals",
+      "download_url": "https://eric.ed.gov/pdf/eric_journal_list.pdf",
+      "result": "HTTP connection closed / web timeout repeatedly; current count unconfirmed",
+      "warning": "Search indexed PDF shows May 2024; do not call current"
+    },
+    {
+      "id": "scimago",
+      "url": "https://www.scimagojr.com/journalrank.php?category=3304&out=xls",
+      "result": "HTTP403",
+      "warning": "SJR quartiles are not JCR quartiles; search caches dated more than a year ago are insufficient for current count"
+    },
+    {
+      "id": "ncpssd",
+      "source": "https://www.ncpssd.org/journal/index",
+      "filter": "clazz=C=G4,G5,G6,G7; langType=1",
+      "ui_count": 461,
+      "pagination": "page=, not p=; p parameter ignored after first entry",
+      "status": "collection membership only; current publication requires details/latest issues",
+      "subject_limit": "Broad education-related subject includes general university social-sciences journals",
+      "license": "No explicit reusable metadata license verified",
+      "downloaded_unique_titles": 461,
+      "downloaded_unique_detail_urls": 461,
+      "page_count_downloaded": 24,
+      "verification": "requested_page equals page curr, per-page unique detail URLs and titles; audit json available",
+      "normalized_file": "ncpssd-education-verified-pages.json",
+      "title_keyword_candidates": 248
+    }
+  ]
+}

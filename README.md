@@ -1,8 +1,8 @@
 # AIED Journal Radar
 
-AIED Journal Radar 是一个独立的研究导向选刊网站，不属于教学案例站 AIED Case Hub。它面向教育学 JCR 期刊的投稿定位、主题网络理解、latest issue 偏好观察和 RAG 证据辅助选刊。
+AIED Journal Radar 面向中英文教育及教育相关期刊的投稿定位、主题网络、近期文章样本和 AI 证据辅助选刊。目录由原 JCR 工作簿与可核验的公开教育期刊目录合并；公开目录收录不等于 JCR 收录、质量评级或仍在接收投稿。
 
-规划的 GitHub Pages 地址：
+在线地址：
 
 ```text
 https://jojo-edtech.github.io/aied-journal/
@@ -16,7 +16,7 @@ https://jojo-edtech.github.io/aied-journal/
 npm run prepare:local
 ```
 
-它只将前端读取的七份公开 JSON 打包为 `data/radar/local-data.js`，供 `file://` 打开时使用，避免浏览器拦截本地 `fetch()`。打包文件不进入 Git；静态构建和 npm 数据更新命令会自动重新生成。HTTP(S) 网页仍直接读取 JSON，不额外下载本地预览包。
+它将首页所需的公开索引打包为 `data/radar/local-data.js`，各刊偏好详情另存为按需加载的 JS 分片，供源码目录中的 `file://` 预览使用。打包文件不进入 Git；静态构建和 npm 数据更新命令会自动重新生成。HTTP(S) 网页读取 JSON 与按刊分片，发布用 `dist/` 不复制这些离线 JS 数据包，避免重复发布整份数据。发布 JSON 仅移除排版空白；构建超过 900 MB 时会停止部署并保留源数据及现有线上版本。历史样本会持续累积，达到预算前需审核归档或保留策略；单次抓取条数不是历史保留上限。
 
 本地文件模式不调用 AI API，页面提供在线 AI 助手入口。需要通过本地 HTTP 地址预览时，在项目目录运行：
 
@@ -35,15 +35,36 @@ http://localhost:4183
 
 静态公开数据在 `data/radar/`：
 
-- `journals.json`：全量 268 本教育学 JCR 期刊。
-- `journals_q1.json`：135 本 Q1 子集。
-- `journal_sources.json`：官网、投稿指南、metrics、编辑页抓取状态。
+- `journals.json`：合并后的全量期刊，包含语言、其他刊名/分版、现用及历史 ISSN 和目录来源。
+- `journals_q1.json`：保留原 JCR 工作簿 Q1 字段的子集；未核验指标不参与 JIF/JCI 中位数与散点图。
+- `journal_sources.json`：公开目录来源及官网、投稿指南、metrics、编辑页抓取状态。
 - `research_network.json`：期刊、主题、出版社、方法/主题网络。
-- `journal_articles.jsonl`：近年文章公开元数据样本。
-- `rag_documents.jsonl`：后端检索使用的公开证据片段。
+- `journal_articles_index.json` 与 `journal_articles/*.jsonl`：按刊保存的近年文章公开元数据样本。
+- `journal_preferences_index.json` 与 `journal_preferences/*.json`：偏好摘要与按需加载详情。
+- `rag_documents_index.json` 与 `rag_documents/*.jsonl`：后端检索使用的公开证据片段。
+- `data-manifest.json`：共同数据版本与数量，用于避免混用新旧索引。
 - `crawl_report.json`：数量校验、字段缺失率、抓取状态和编辑团队覆盖情况。
 - `radar-config.json`：公开 API 地址配置，不包含密钥。
 - `source_workbook_snapshot.json`：从本地 Excel 生成的公开源表快照，供 GitHub Actions 在无法访问本机桌面文件时继续刷新。
+
+目录来源与合并审计在 `data/catalog/`，静态发布仅包含前端和检索需要的公开文件。扩充采用以下来源：
+
+- [DOAJ 官方 CSV](https://doaj.org/csv)：纳入 Education 学科分支；另从该分支之外，按原始 `Journal title` 中的整词 `education`、`educational`、`teaching`、`pedagogy` 或 `didactics` 定位跨学科教育期刊，匹配不区分大小写，不扩展到别名或关键词。两种选择方式共用 `doaj` 来源，分别记录 `selection_basis=education_subject_branch` 与 `selection_basis=title_keyword_outside_education_branch`；后者保留原学科分类，并标注 `education_scope=interdisciplinary_title_derived`。记录中的 `selection_evidence` 保存标题、原学科、命中词、选择规则和 DOAJ 记录链接。已有更名续刊与会议系列排除规则继续适用。
+- [EBSCO Education Source](https://about.ebsco.com/m/ee/Marketing/titleLists/eue-subject.htm)：Education / Academic Journal 记录。
+- [国家哲学社会科学文献中心](https://www.ncpssd.org/journal/list?page=1&t=1&langType=1&clazz=C%3DG4%2CG5%2CG6%2CG7)：中文教育目录。
+
+来源间重叠以 ISSN 和可核验的沿革证据合并；同名但 ISSN 不同的期刊保留为不同记录，原 JCR 期刊 ID 和指标保留。DOAJ 元数据按其 [CC0 条款](https://doaj.org/terms/) 使用。期刊总数随目录与身份核对更新，以 `data/radar/data-manifest.json` 的 `journal_count` 和页面显示为准。
+
+这是一组公开目录的可追溯并集，不是全球教育期刊全集，也不是所有仍在接收投稿期刊的清单。标题命中只说明本目录的教育相关选择依据，不能据此推断当前出版或收稿状态。国家哲社目录含综合性高校学报，记录会标注教育相关范围；目录未提供的语言、出版状态与 JCR 指标不作推断。“未核验 JCR”不代表已确认未被 JCR 收录。来源目录快照需人工核对后更新；日常自动更新刷新文章与官网证据，不自动宣称目录已覆盖所有新刊。
+
+从已保存来源重新构建目录：
+
+```bash
+python3 scripts/build-education-catalog.py
+npm run check:catalog
+```
+
+文章偏好是当前抓取样本的描述，不是期刊全部发表内容或录用概率。新刊首次抓取每个 ISSN 至多 40 条近五年 Crossref 记录；原有样本保留。无可用文章数据的期刊仍进入检索与数量统计，详情明确显示样本不足。
 
 重新生成：
 
@@ -61,12 +82,16 @@ npm run radar:generate:quick
 
 ```bash
 npm run validate:data
+npm run check:pipeline
+npm run check:catalog-ui
+npm run check:worker
 npm run build:static
+npm run check:data-loader
 ```
 
 ## ModelScope AI 后端
 
-后端在 `research_radar_api/`，部署到阿里云轻量服务器。GitHub Pages 只调用公开 API 地址；ModelScope / DeepSeek token、访问口令、限额和日志不得进入 GitHub、前端 JS、JSON 或浏览器。
+Python 后端在 `research_radar_api/`，Cloudflare Worker 版本在 `journal_worker/`。GitHub Pages 只调用 `radar-config.json` 配置的公开 API 地址；ModelScope / DeepSeek token、访问口令、限额和日志不得进入 GitHub、前端 JS、JSON 或浏览器。Pages 发布与 Worker 发布相互独立，修改 Worker 后需在其目录运行 `npx wrangler deploy`，并核对 `/api/health` 的期刊数和 `data_version` 与站点一致。
 
 服务器环境变量：
 
@@ -99,8 +124,8 @@ RADAR_PROVIDER_QUOTA_FILE=/var/tmp/aied-journal-provider-quota.json
 
 `.github/workflows/daily-research-radar-update.yml` 每天香港/北京时间 06:00 自动运行：
 
-- 为全部 268 本期刊刷新 Crossref 近期文章元数据，并重新计算 Latest issue、近 3 期、近 1/2/3/5 年主题与关键词偏好。
-- 每天轮换深爬约 80 本期刊的公开官网页面，约 4 天覆盖全表；未轮到的期刊保留上次已验证的官网与编辑资料。
+- 从完整目录中按持久游标每天轮换最多 500 本期刊的 Crossref 文章元数据，每刊默认最多 40 条，再计算 Latest issue、近 3 期、近 1/2/3/5 年样本主题与关键词。大目录不会每天全部重新抓取。
+- 每天轮换深爬最多 80 本期刊的公开官网页面；请求受总时间预算约束。未轮到、失败或空返回的期刊保留历史样本及其真实采集日期，报告分别列出已更新、失败、延期和保留数量。
 - 重新生成期刊网络、RAG 文档和抓取报告，通过数据校验后提交到 `main`；每日刷新任务成功结束后，Pages 工作流自动读取最新 `main` 并发布。
 - 有明确卷期号时，Latest issue 严格按 `year + volume + issue` 识别；仅在没有 issue 元数据的连续出版期刊中使用月份近似，并在数据中标注 fallback。
 

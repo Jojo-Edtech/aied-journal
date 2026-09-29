@@ -5,7 +5,8 @@ const KEY_PREFIX = "ajr:";
 const DATA_TTL_MS = 10 * 60 * 1000;
 const MAX_CONTEXT_JOURNALS = 8;
 
-let dataCache = null;
+const dataCaches = new Map();
+const dataLoads = new Map();
 
 export default {
   async fetch(request, env) {
@@ -15,9 +16,9 @@ export default {
 
     const url = new URL(request.url);
     try {
-      if (request.method === "GET" && url.pathname === "/api/health") return health(request, env);
-      if (request.method === "GET" && url.pathname === "/api/sources") return sources(request, env);
-      if (request.method === "POST" && url.pathname === "/api/chat") return chat(request, env);
+      if (request.method === "GET" && url.pathname === "/api/health") return await health(request, env);
+      if (request.method === "GET" && url.pathname === "/api/sources") return await sources(request, env);
+      if (request.method === "POST" && url.pathname === "/api/chat") return await chat(request, env);
       return json(request, env, { error: "not_found" }, 404);
     } catch (error) {
       return json(
@@ -41,6 +42,8 @@ async function health(request, env) {
     ok: data.journals.length > 0,
     documents: data.journals.length,
     journal_count: data.journals.length,
+    indexed_journal_count: data.journals.length,
+    data_version: data.dataVersion,
     retrieval_scope: "full_journal_database",
     network_nodes: 0,
     network_links: 0,
@@ -71,6 +74,8 @@ async function sources(request, env) {
   const data = await loadRadarData(env);
   return json(request, env, {
     journal_count: data.journals.length,
+    indexed_journal_count: data.journals.length,
+    data_version: data.dataVersion,
     report: data.report,
     top_journals: data.journals.slice(0, 12),
     privacy_mode: "stateless_no_chat_history",
@@ -99,7 +104,7 @@ async function chat(request, env) {
   let ranked = allRanked.slice(0, MAX_CONTEXT_JOURNALS);
   let genericFallback = false;
   if (!ranked.length && journalSeekingIntent(question)) {
-    ranked = fallbackJournals(data);
+    ranked = fallbackJournals(data, question);
     genericFallback = true;
   }
   if (!ranked.length) {
@@ -115,6 +120,7 @@ async function chat(request, env) {
       retrieval_scope: "full_journal_database",
       searched_journal_count: data.journals.length,
       matched_journal_count: 0,
+      data_version: data.dataVersion,
     });
   }
 
@@ -127,7 +133,7 @@ async function chat(request, env) {
   const after = await recordSuccessfulUse(env, request);
   return json(request, env, {
     answer: result.answer,
-    sources: ranked.flatMap((item) => sourcePayload(item)).slice(0, 16),
+    sources: ranked.flatMap((item) => sourcePayload(item).slice(0, 2)),
     remaining_quota: after.remainingGlobalDay,
     remaining_total_quota: after.remainingTotal,
     remaining_user_quota: after.remainingUserDay,
@@ -137,6 +143,7 @@ async function chat(request, env) {
     retrieval_scope: "full_journal_database",
     searched_journal_count: data.journals.length,
     matched_journal_count: allRanked.length,
+    data_version: data.dataVersion,
     privacy_mode: "stateless_no_chat_history",
     stores_chat_history: false,
   });
@@ -164,8 +171,11 @@ async function callModelScope(env, question, ranked, searchedJournalCount, optio
         .join(" | ");
       return [
         `${index + 1}. ${journal.name} (${journal.abbreviation || "no abbreviation"})`,
-        `JCR: ${journal.quartile || "unknown"}; JIF: ${journal.jif_2025 ?? "unknown"}; JCI: ${journal.jci_2025 ?? "unknown"}`,
-        `Annual publication volume from the radar workbook: ${publicationSeries}`,
+        `JCR: ${journal.quartile || "JCR unverified / JCR 未核验"}; 2025 JIF: ${journal.jif_2025 ?? "unavailable / 指标缺失"}; 2025 JCI: ${journal.jci_2025 ?? "unavailable / 指标缺失"}`,
+        `Catalog sources (not proof of JCR inclusion): ${catalogRecords(journal).map((source) => `${source.label || source.id}: ${source.evidence_url || source.url || "record only"}`).join(" | ") || "not recorded"}`,
+        `Languages: ${(journal.languages || []).join(", ") || "not recorded"}; country or region: ${journal.country || "not recorded"}`,
+        `Other names / editions: ${(journal.aliases || []).join("; ") || "none recorded"}; current ISSNs: ${journalIdentifiers(journal, false).join(", ") || "not recorded"}; historical ISSNs: ${(journal.historical_issns || []).join(", ") || "none recorded"}`,
+        `Recorded annual publication volume (missing years remain unknown): ${publicationSeries}`,
         `Publisher: ${journal.publisher_family || journal.publisher || "unknown"}; first decision: ${journal.first_decision_days ?? "pending"} days; review time: ${journal.review_time_days ?? "pending"} days`,
         `Themes: ${topicHints || "pending"}`,
         `Submission clue: ${journal.word_limit || "pending official verification"}`,
@@ -174,8 +184,9 @@ async function callModelScope(env, question, ranked, searchedJournalCount, optio
     })
     .join("\n\n");
 
-  const system = `You are AIED Journal Radar, an evidence-backed education JCR journal-selection advisor.
+  const system = `You are AIED Journal Radar, an evidence-backed education journal-selection advisor covering the multilingual education journal catalog.
 The retrieval stage scanned the complete database of ${searchedJournalCount} journals. It did not use the frontend shortlist or current dashboard filters.
+Directory inclusion (including DOAJ) does not establish JCR inclusion. Missing quartile, JIF and JCI mean unverified or unavailable, never zero or a negative quality judgment. A request for non-JCR journals can only be supported as JCR-unverified candidates unless explicit verified exclusion evidence exists. Preserve any language, directory or quartile constraints in the question.
 Use only the retrieved radar context below. Do not invent journal requirements. If evidence is insufficient, say 当前雷达资料不足.
 Annual publication volumes labelled as coming from the radar workbook are recorded workbook values, not forecasts. Do not call them predicted values.
 Answer in the user's language. If the user asks a factual question about a named journal, answer that journal directly and do not force a recommendation table.
@@ -184,7 +195,7 @@ For each recommended journal include fit, main risk, annual publication volume, 
 Avoid long introductions, star ratings, or generic praise.
 This is a stateless request. Do not refer to previous chat history.${
     options.genericFallback
-      ? "\nNote: retrieval found no topic-specific match for this question, so the context lists the highest-impact journals overall. Say so briefly, answer with what the context supports, and ask the user for their research topic to narrow the list."
+      ? "\nNote: retrieval found no topic-specific match for this question, so the context is a general browsing sample that still respects the question's language, directory and quartile constraints. Say so briefly, answer with what the context supports, and ask the user for their research topic to narrow the list."
       : ""
   }`;
 
@@ -229,12 +240,14 @@ function rankJournals(question, data) {
   const queryTerms = expandQueryTerms(question);
   const sourceMap = data.sourcesByJournal;
   const normalizedQuestion = normalizeLookupText(question);
-  const latinQuestionTokens = new Set((question.toLowerCase().match(/[a-z0-9]+(?:[-.&+][a-z0-9]+)*/g) || []).map(normalizeLookupText));
+  const constraints = queryConstraints(question, data);
+  const latinQuestionTokens = new Set((question.normalize("NFKC").toLowerCase().match(/[a-z0-9]+(?:[-.&+][a-z0-9]+)*/g) || []).map(normalizeLookupText));
   return data.journals
+    .filter((journal) => matchesConstraints(journal, constraints))
     .map((journal) => {
       const articlePreferences = journal.article_preferences || {};
       const pieces = {
-        name: [journal.name, journal.abbreviation].join(" "),
+        name: [journal.name, journal.abbreviation, ...(journal.aliases || [])].join(" "),
         tags: [journal.main_tag, journal.secondary_tag, journal.tag_path].join(" "),
         topics: [
           Object.keys(journal.topic_hits || {}).join(" "),
@@ -244,9 +257,10 @@ function rankJournals(question, data) {
         ].join(" "),
         publisher: [journal.publisher, journal.publisher_family, journal.submission_system].join(" "),
         requirements: String(journal.word_limit || ""),
-        identifiers: [journal.issn, journal.eissn].join(" "),
+        identifiers: journalIdentifiers(journal).join(" "),
+        catalog: catalogRecords(journal).flatMap((source) => [source.id, source.label, source.record_id]).join(" "),
       };
-      const lower = Object.fromEntries(Object.entries(pieces).map(([key, value]) => [key, String(value).toLowerCase()]));
+      const lower = Object.fromEntries(Object.entries(pieces).map(([key, value]) => [key, String(value).normalize("NFKC").toLowerCase()]));
       const directScore = directJournalMatchScore(journal, question, normalizedQuestion, latinQuestionTokens);
       let relevanceScore = directScore;
       queryTerms.forEach((term) => {
@@ -256,6 +270,7 @@ function rankJournals(question, data) {
         if (lower.requirements.includes(term)) relevanceScore += 3;
         if (lower.publisher.includes(term)) relevanceScore += 2;
         if (lower.identifiers.includes(term)) relevanceScore += 20;
+        if (lower.catalog.includes(term)) relevanceScore += 3;
       });
       if (relevanceScore <= 0) return null;
 
@@ -274,8 +289,18 @@ function rankJournals(question, data) {
 }
 
 function expandQueryTerms(question) {
-  const lower = question.toLowerCase();
-  const terms = new Set((lower.match(/[a-z0-9]+(?:[-.&+][a-z0-9]+)*/g) || []).filter((term) => term.length >= 2));
+  const lower = question.normalize("NFKC").toLowerCase();
+  const stopwords = new Set(["what", "which", "are", "the", "and", "for", "can", "you", "please", "recommend", "journal", "journals", "publish", "publication", "about", "have", "has", "any"]);
+  const terms = new Set((lower.match(/[a-z0-9]+(?:[-.&+][a-z0-9]+)*/g) || []).filter((term) => term.length >= 2 && !stopwords.has(term)));
+  const chineseStopwords = new Set(["哪些", "什么", "多少", "期刊", "杂志", "推荐", "投稿", "可以", "适合", "是否", "研究", "论文", "中文", "英文", "有关", "一下", "请问", "有没有", "有哪些", "是多少"]);
+  for (const sequence of lower.match(/[\u4e00-\u9fff]+/g) || []) {
+    for (const width of [2, 3]) {
+      for (let i = 0; i <= sequence.length - width; i += 1) {
+        const term = sequence.slice(i, i + width);
+        if (!chineseStopwords.has(term)) terms.add(term);
+      }
+    }
+  }
   const chinesePhrases = [
     "教师教育", "教师发展", "教育技术", "高等教育", "语言教育", "语言学习", "教育政策",
     "学习分析", "生成式人工智能", "人工智能", "混合方法", "教育心理", "课程教学", "科学教育", "数学教育",
@@ -323,26 +348,85 @@ function normalizeLookupText(value) {
     .replace(/[^\p{L}\p{N}]+/gu, "");
 }
 
+function journalIdentifiers(journal, includeHistorical = true) {
+  return [...new Set([journal.issn, journal.eissn, ...(journal.issns || []), ...(includeHistorical ? journal.historical_issns || [] : [])].filter(Boolean).map(String))];
+}
+
+function catalogRecords(journal) {
+  return Array.isArray(journal.catalog_sources) ? journal.catalog_sources : [];
+}
+
 function directJournalMatchScore(journal, question, normalizedQuestion, latinQuestionTokens) {
-  const name = normalizeLookupText(journal.name);
+  const names = [journal.name, ...(journal.aliases || [])].filter(Boolean).map(normalizeLookupText);
   const abbreviation = normalizeLookupText(journal.abbreviation);
-  const rawQuestion = String(question || "").toLowerCase();
   let score = 0;
-  if (name.length >= 6 && normalizedQuestion.includes(name)) score += 120;
+  if (names.some((name) => name.length >= (/[\u4e00-\u9fff]/.test(name) ? 2 : 6) && normalizedQuestion.includes(name))) score += 120;
   if (abbreviation.length >= 2 && latinQuestionTokens.has(abbreviation)) score += 100;
-  [journal.issn, journal.eissn].filter(Boolean).forEach((identifier) => {
-    if (rawQuestion.includes(String(identifier).toLowerCase())) score += 120;
-  });
+  if (journalIdentifiers(journal).some((id) => {
+    const normalized = normalizeLookupText(id);
+    return normalized.length >= 7 && normalizedQuestion.includes(normalized);
+  })) score += 120;
   return score;
+}
+
+const CATALOG_ALIASES = Object.freeze({
+  doaj: ["doaj", "directory of open access journals", "开放获取期刊目录"],
+  ebsco_education: ["ebsco", "ebsco education source", "ebsco education", "ebsco教育学全文数据库", "ebsco教育数据库"],
+  ncpssd: ["ncpssd", "国家哲学社会科学文献中心", "国家哲社中心", "国家哲社文献中心", "哲社文献中心", "哲社中心"],
+  eric: ["eric"],
+  openalex: ["openalex"],
+});
+
+function mentionsCatalog(text, alias) {
+  const phrase = String(alias || "").normalize("NFKC").toLowerCase().trim();
+  if (!phrase) return false;
+  if (/[\u4e00-\u9fff]/.test(phrase)) return text.includes(phrase);
+  const escaped = phrase.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+  return new RegExp(`(^|[^a-z0-9])${escaped}([^a-z0-9]|$)`, "i").test(text);
+}
+
+function queryConstraints(question, data) {
+  const text = String(question || "").normalize("NFKC").toLowerCase();
+  const language = /中文.{0,8}(?:期刊|杂志)|(?:推荐|寻找|只要|限定|优先|找).{0,16}中文|chinese(?:[- ]language)?\s+(?:education\s+)?journals?|journals?\s+(?:in|published in)\s+chinese/.test(text) ? "zh"
+    : /英文.{0,8}(?:期刊|杂志)|(?:推荐|寻找|只要|限定|优先|找).{0,16}英文|english(?:[- ]language)?\s+(?:education\s+)?journals?|journals?\s+(?:in|published in)\s+english/.test(text) ? "en" : null;
+  const unknownJcr = /(?:非|未核验|不在|没有|未收录).{0,4}jcr|jcr.{0,6}(?:未核验|未知)|non[- ]?jcr|unverified.{0,8}jcr|jcr.{0,8}(?:unknown|unverified)/.test(text);
+  const quartiles = new Set();
+  for (const [quartile, pattern] of [["Q1", /(?<![a-z0-9])q1(?![a-z0-9])|一区/], ["Q2", /(?<![a-z0-9])q2(?![a-z0-9])|二区/], ["Q3", /(?<![a-z0-9])q3(?![a-z0-9])|三区/], ["Q4", /(?<![a-z0-9])q4(?![a-z0-9])|四区/]]) {
+    if (pattern.test(text)) quartiles.add(quartile);
+  }
+  const requested = new Set();
+  Object.entries(CATALOG_ALIASES).forEach(([id, aliases]) => {
+    if (aliases.some((alias) => mentionsCatalog(text, alias))) requested.add(id);
+  });
+  data.journals.forEach((journal) => catalogRecords(journal).forEach((source) => {
+    if (!["jcr", "jcr_workbook"].includes(source.id) && [source.id, source.label].some((alias) => mentionsCatalog(text, alias))) requested.add(source.id);
+  }));
+  const requestedCatalogs = [...requested];
+  const verifiedJcr = !unknownJcr && /\bjcr\b/.test(text) && journalSeekingIntent(question);
+  return { language, unknownJcr, verifiedJcr, quartiles, catalogs: requestedCatalogs };
+}
+
+function matchesConstraints(journal, constraints) {
+  if (constraints.language && !(journal.languages || []).some((language) => {
+    const code = String(language).toLowerCase();
+    return constraints.language === "zh" ? /^(zh(?:-|$)|chi$|zho$|chinese$|中文$)/.test(code) : /^(en(?:-|$)|eng$|english$|英文$)/.test(code);
+  })) return false;
+  const hasJcr = journal.has_jcr_record === true || ["Q1", "Q2", "Q3", "Q4"].includes(journal.quartile);
+  if (constraints.unknownJcr && hasJcr) return false;
+  if (constraints.verifiedJcr && !hasJcr) return false;
+  if (constraints.quartiles.size && !constraints.quartiles.has(journal.quartile)) return false;
+  if (constraints.catalogs.length && !catalogRecords(journal).some((source) => constraints.catalogs.some((id) => String(source.id).toLowerCase().includes(String(id).toLowerCase()) || String(source.label || "").toLowerCase().includes(String(id).toLowerCase())))) return false;
+  return true;
 }
 
 function journalSeekingIntent(question) {
   return /期刊|选刊|投稿|发表|顶刊|杂志|journal|publish|submit|recommend|推荐/i.test(question || "");
 }
 
-function fallbackJournals(data) {
+function fallbackJournals(data, question = "") {
   const sourceMap = data.sourcesByJournal;
-  return [...data.journals]
+  const constraints = queryConstraints(question, data);
+  return data.journals.filter((journal) => matchesConstraints(journal, constraints))
     .sort((a, b) => (Number(b.jif_2025) || 0) - (Number(a.jif_2025) || 0))
     .slice(0, MAX_CONTEXT_JOURNALS)
     .map((journal) => ({
@@ -376,18 +460,20 @@ function displaySources(sources, journal) {
 }
 
 function sourcePayload(item) {
-  const workbookSource = {
-    journal_name: item.journal.name,
-    source_url: "",
-    source_type: "jcr_workbook",
-    captured_at: "",
-    text_snippet: "JCR indicators and annual publication volume from the radar workbook",
-  };
-  const base = displaySources(item.sources, item.journal).slice(0, 2);
-  return [workbookSource, ...base.map((source) => ({
-    journal_name: item.journal.name,
-    ...source,
-  }))];
+  const journal = item.journal;
+  const catalog = catalogRecords(journal).map((source) => ({
+    journal_name: journal.name,
+    source_url: source.evidence_url || source.url || "",
+    source_type: ["jcr", "jcr_workbook"].includes(source.id) ? "jcr_workbook" : "catalog_source",
+    title: source.label || source.id,
+    captured_at: source.retrieved_at || "",
+    text_snippet: `${source.label || source.id} catalog record ${source.record_id || ""}; directory inclusion does not establish JCR coverage`,
+  }));
+  if (!catalog.some((source) => source.source_type === "jcr_workbook") && (journal.has_jcr_record === true || (journal.has_jcr_record === undefined && ["Q1", "Q2", "Q3", "Q4"].includes(journal.quartile)))) {
+    catalog.push({ journal_name: journal.name, source_url: "", source_type: "jcr_workbook", captured_at: "", text_snippet: "Original JCR workbook record; metrics retain the recorded year" });
+  }
+  const base = displaySources(item.sources, journal).slice(0, 2);
+  return [...catalog, ...base.map((source) => ({ journal_name: journal.name, ...source }))];
 }
 
 function orderedSources(sources) {
@@ -407,27 +493,68 @@ function orderedSources(sources) {
 }
 
 async function loadRadarData(env) {
-  const now = Date.now();
-  if (dataCache && now - dataCache.loadedAt < DATA_TTL_MS) return dataCache;
   const base = String(env.PUBLIC_DATA_BASE || DEFAULT_DATA_BASE).replace(/\/+$/, "");
-  const [journals, sources, report] = await Promise.all([
-    fetchJson(`${base}/journals.json`),
-    fetchJson(`${base}/journal_sources.json`),
-    fetchJson(`${base}/crawl_report.json`).catch(() => ({})),
-  ]);
-  const sourcesByJournal = new Map();
-  (sources || []).forEach((source) => {
-    if (!sourcesByJournal.has(source.journal_id)) sourcesByJournal.set(source.journal_id, []);
-    sourcesByJournal.get(source.journal_id).push(source);
+  const now = Date.now();
+  const manifest = await fetchJson(`${base}/data-manifest.json`, { fresh: true }).catch((error) => {
+    if (error.status === 404) return null; // Legacy deployment, bounded by the TTL below.
+    throw error;
   });
-  dataCache = { loadedAt: now, journals: journals || [], sources: sources || [], sourcesByJournal, report: report || {} };
-  return dataCache;
+  const version = String(manifest?.data_version || "legacy");
+  const cached = dataCaches.get(base);
+  if (cached && cached.dataVersion === version && now - cached.loadedAt < DATA_TTL_MS) return cached;
+  const key = `${base}|${version}`;
+  if (dataLoads.has(key)) return dataLoads.get(key);
+  const pending = (async () => {
+    const suffix = manifest ? `?v=${encodeURIComponent(version)}` : "";
+    const [journals, sources, report] = await Promise.all([
+      fetchJson(`${base}/journals.json${suffix}`),
+      fetchJson(`${base}/journal_sources.json${suffix}`),
+      fetchJson(`${base}/crawl_report.json${suffix}`).catch(() => ({})),
+    ]);
+    if (!Array.isArray(journals) || !Array.isArray(sources)) throw new Error("Invalid radar dataset");
+    if (manifest) {
+      const latest = await fetchJson(`${base}/data-manifest.json`, { fresh: true });
+      if (latest.data_version !== manifest.data_version) {
+        throw new Error("Radar dataset changed during loading; retry against the new manifest");
+      }
+      if (Number(manifest.journal_count) !== journals.length) throw new Error("Radar manifest count mismatch");
+    }
+    const sourcesByJournal = new Map();
+    sources.forEach((source) => {
+      if (!sourcesByJournal.has(source.journal_id)) sourcesByJournal.set(source.journal_id, []);
+      sourcesByJournal.get(source.journal_id).push(source);
+    });
+    const data = { loadedAt: now, dataVersion: version, journals, sources, sourcesByJournal, report: report || {} };
+    dataCaches.delete(base);
+    dataCaches.set(base, data);
+    if (dataCaches.size > 4) dataCaches.delete(dataCaches.keys().next().value);
+    return data;
+  })().finally(() => dataLoads.delete(key));
+  dataLoads.set(key, pending);
+  return pending;
 }
 
-async function fetchJson(url) {
-  const response = await fetch(url, { cf: { cacheTtl: 600, cacheEverything: true } });
-  if (!response.ok) throw new Error(`Data fetch failed: ${response.status}`);
-  return response.json();
+async function fetchJson(url, { fresh = false } = {}) {
+  // workerd rejects no-store combined with cf.cacheTtl, even when the TTL is 0.
+  const options = fresh
+    ? { cache: "no-store" }
+    : { cf: { cacheTtl: 600, cacheEverything: true } };
+  for (let attempt = 0; attempt < 2; attempt += 1) {
+    try {
+      const response = await fetch(url, options);
+      if (!response.ok) {
+        const error = new Error(`Data fetch failed: ${response.status}`);
+        error.status = response.status;
+        throw error;
+      }
+      // A connection can also fail while streaming a large JSON response body.
+      return await response.json();
+    } catch (error) {
+      const transportFailure = !error.status && /network connection lost|fetch failed|failed to fetch|econnreset|econnrefused|etimedout/i.test(String(error.message || ""));
+      if (attempt || !transportFailure) throw error;
+      // Public data GETs are idempotent. Model requests never use this helper.
+    }
+  }
 }
 
 async function readUsage(env, request) {
@@ -584,4 +711,4 @@ function json(request, env, body, status = 200) {
   });
 }
 
-export { expandQueryTerms, rankJournals, journalSeekingIntent, fallbackJournals, displaySources };
+export { expandQueryTerms, rankJournals, journalSeekingIntent, fallbackJournals, displaySources, sourcePayload, queryConstraints, matchesConstraints, loadRadarData };

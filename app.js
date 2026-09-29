@@ -8,6 +8,17 @@ const state = {
   report: null,
   config: { api_base_url: "" },
   preferencesByJournal: new Map(),
+  preferenceStatus: new Map(),
+  preferenceIndex: { journals: {} },
+  manifest: {},
+  searchIndex: new Map(),
+  journalsById: new Map(),
+  networkLinksByJournal: new Map(),
+  networkNodesById: new Map(),
+  networkRenderKey: "",
+  detailRequestToken: 0,
+  searchTimer: 0,
+  apiJournalCount: null,
   editorProfilesByJournal: new Map(),
   selectedJournalId: "",
   networkExpanded: false,
@@ -16,10 +27,11 @@ const state = {
   ready: false,
   language: localStorage.getItem("ajr-language") || "en",
   tableSort: { key: "", dir: 1 },
-  tableExpanded: false,
+  tablePage: 0,
 };
 
 const TABLE_ROW_LIMIT = 120;
+const UNKNOWN_FILTER = "__unknown__";
 
 const els = {
   language: document.querySelector("#languageSelect"),
@@ -28,6 +40,8 @@ const els = {
   quartile: document.querySelector("#radarQuartileFilter"),
   publisher: document.querySelector("#radarPublisherFilter"),
   speed: document.querySelector("#radarSpeedFilter"),
+  journalLanguage: document.querySelector("#radarJournalLanguageFilter"),
+  catalog: document.querySelector("#radarCatalogFilter"),
   kpis: document.querySelector("#radarKpis"),
   scatter: document.querySelector("#jifJciScatter"),
   speedChart: document.querySelector("#speedChart"),
@@ -41,6 +55,8 @@ const els = {
   tableHead: document.querySelector("#journalTable thead"),
   tableBody: document.querySelector("#journalTable tbody"),
   toggleRows: document.querySelector("#toggleTableRows"),
+  previousRows: document.querySelector("#previousTableRows"),
+  tablePage: document.querySelector("#tablePageStatus"),
   backToTop: document.querySelector("#backToTop"),
   download: document.querySelector("#downloadVisible"),
   dashboard: document.querySelector("#radarDashboard"),
@@ -69,14 +85,14 @@ const I18N = {
     colDecision: "一审时长",
     heroEyebrow: "研究工作台",
     heroTitle: "为你的下一篇论文找到匹配的期刊",
-    heroCopy: "对比教育学 JCR 期刊的指标、发文量与审稿信号，并用有证据支撑的 AI 建议定位投稿目标。",
+    heroCopy: "对比教育期刊的指标、发文量与审稿信号，并用有证据支撑的 AI 建议定位投稿目标。",
     heroAsk: "问 AI 助手",
     heroBrowse: "浏览期刊",
     showAllRows: "显示全部 {total} 本",
     showFewerRows: "收起，只看前 {limit} 本",
     sortHint: "点击列标题可排序",
     retry: "重试",
-    subtitle: "AIED选刊：教育学 JCR 期刊研究与投稿定位工作台",
+    subtitle: "AIED选刊：教育期刊研究与投稿定位工作台",
     language: "语言",
     downloadData: "期刊数据",
     downloadReport: "抓取报告",
@@ -97,7 +113,7 @@ const I18N = {
     chatConnected: "AI 已连接：{provider} / {model}；已载入总库 {journals} 本期刊。你的今日剩余 {userQuota}，全站今日剩余 {quota}，公开总剩余 {total}。每次提问独立处理，不保存聊天记录。",
     chatQuotaStopped: "AI 已暂停：模型免费额度可能已用完，今日停止继续调用。",
     chatOffline: "后端未连接；静态雷达可用，AI 助手待连接 ModelScope 代理。",
-    chatIdle: "AI 助手会独立检索全部 268 本期刊，不受右侧候选清单或当前筛选限制；ModelScope token 只保存在服务器环境变量中。",
+    chatIdle: "AI 助手会独立检索全部 {count} 本期刊，不受右侧候选清单或当前筛选限制；ModelScope token 只保存在服务器环境变量中。",
     chatHealthFailed: "后端地址已配置，但健康检查暂时失败；请稍后重试。",
     accessCode: "访问口令",
     accessPlaceholder: "输入站点访问口令",
@@ -113,9 +129,9 @@ const I18N = {
     exampleTeacherDev: "教师发展",
     generateAdvice: "生成选刊建议",
     shortlistTitle: "选刊候选清单",
-    shortlistCopy: "这份清单仅供页面浏览；AI 助手会独立检索全部 268 本期刊，不受清单限制。",
+    shortlistCopy: "这份清单仅供页面浏览；AI 助手会独立检索全部 {count} 本期刊，不受清单限制。",
     scatterTitle: "JIF 与 JCI 分布",
-    scatterCopy: "每个点是一份教育学 JCR 期刊，横轴为 JIF，纵轴为 JCI；颜色表示 JCR 分区，点大小表示 2025 年发文量。",
+    scatterCopy: "每个点是一份教育期刊，横轴为 JIF，纵轴为 JCI；颜色表示 JCR 分区，点大小表示 2025 年发文量。",
     speedTitle: "审稿速度",
     speedCopy: "一审时长与评审周期的可用数据对比。",
     speedCoverage: "一审 {first}/{total}；评审周期 {review}/{total}；投稿到录用 {accept}/{total}",
@@ -149,7 +165,7 @@ const I18N = {
     publicationsCount: "{value} 篇",
     pointSizeLegend: "点大小 = 2025 年发文量",
     methodTitle: "数据说明",
-    methodCopy: "期刊基础数据来自本地工作簿 Education_JCR_latest_refresh_2026-06-26.xlsx 的总表与本轮更新日志。网页只发布公开指标、官网链接、抓取状态和可引用片段；ModelScope / AI token、访问口令和限额配置只属于阿里云轻量服务器环境变量。",
+    methodCopy: "期刊目录整合原有 JCR 工作簿与公开目录，并在期刊详情列出来源。JIF/JCI 保留原记录年份；目录收录不代表 JCR 收录，空指标表示尚未核验。主题偏好仅依据已抓取的文章样本，未覆盖不代表没有相关研究。",
     footer: "AIED Journal Radar 用于选刊与研究网络理解；最终投稿前仍需回到期刊官网确认最新 scope、格式要求和审稿政策。",
     missing: "未标注",
     noSecondary: "无副标签",
@@ -248,10 +264,10 @@ const I18N = {
     jciAxis: "2025 JCI（对数缩放）",
     apiMissing: "后端 API 尚未配置。部署服务器端 ModelScope 代理后，把公开 API 地址写入 data/radar/radar-config.json 的 api_base_url。",
     questionMissing: "请先输入论文主题或选刊问题。",
-    chatWorking: "正在检索 268 本期刊总库并调用 AI 模型...",
+    chatWorking: "正在检索 {count} 本期刊总库并调用 AI 模型...",
     modelUsed: "模型：{provider} / {model}",
     answerTitle: "选刊建议",
-    answerSubtitle: "基于教育学 JCR 期刊总库、投稿信息和公开来源生成",
+    answerSubtitle: "基于教育期刊总库、投稿信息和公开来源生成",
     fullLibraryScope: "已检索总库：{count} 本期刊",
     answerMeta: "回答信息",
     sourceCount: "引用来源（{count}）",
@@ -295,14 +311,14 @@ const I18N = {
     controlEyebrow: "Journal Intelligence",
     colDecision: "First decision",
     heroTitle: "Find the right journal for your next paper",
-    heroCopy: "Compare metrics, publication volume, and review signals across education JCR journals, then position your submission with evidence-backed AI advice.",
+    heroCopy: "Compare metrics, publication volume, and review signals across education journals, then position your submission with evidence-backed AI advice.",
     heroAsk: "Ask AI",
     heroBrowse: "Browse journals",
     showAllRows: "Show all {total} journals",
     showFewerRows: "Collapse to top {limit}",
     sortHint: "Click a column header to sort",
     retry: "Retry",
-    subtitle: "A research-oriented journal selection workspace for education JCR journals",
+    subtitle: "A research-oriented journal selection workspace for education journals",
     language: "Language",
     downloadData: "Journal data",
     downloadReport: "Crawl report",
@@ -323,7 +339,7 @@ const I18N = {
     chatConnected: "AI connected: {provider} / {model}; full database loaded: {journals} journals. Your today {userQuota}, site today {quota}, public total {total}. Each request is stateless; chat history is not stored.",
     chatQuotaStopped: "AI paused: model free quota may be exhausted, so calls stop for today.",
     chatOffline: "Backend not connected; static radar is available while the ModelScope proxy is pending.",
-    chatIdle: "The AI Advisor independently searches all 268 journals and is not limited by the shortlist or dashboard filters; the ModelScope token stays server-side.",
+    chatIdle: "The AI Advisor independently searches all {count} journals and is not limited by the shortlist or dashboard filters; the ModelScope token stays server-side.",
     chatHealthFailed: "Backend URL is configured, but the health check is temporarily unavailable.",
     accessCode: "Access code",
     accessPlaceholder: "Enter the site access code",
@@ -339,9 +355,9 @@ const I18N = {
     exampleTeacherDev: "Teacher development",
     generateAdvice: "Generate advice",
     shortlistTitle: "Journal shortlist",
-    shortlistCopy: "This list is for browsing only. The AI Advisor independently searches all 268 journals and is not limited by it.",
+    shortlistCopy: "This list is for browsing only. The AI Advisor independently searches all {count} journals and is not limited by it.",
     scatterTitle: "JIF and JCI distribution",
-    scatterCopy: "Each point is an education JCR journal. X = JIF, Y = JCI; color = JCR quartile; point size = 2025 publication volume.",
+    scatterCopy: "Each point is an education journal. X = JIF, Y = JCI; color = JCR quartile; point size = 2025 publication volume.",
     speedTitle: "Review speed",
     speedCopy: "Compares available first-decision and review-time data.",
     speedCoverage: "First decision {first}/{total}; review time {review}/{total}; submission to acceptance {accept}/{total}",
@@ -375,7 +391,7 @@ const I18N = {
     publicationsCount: "{value} articles",
     pointSizeLegend: "Point size = 2025 publication volume",
     methodTitle: "Data notes",
-    methodCopy: "Journal data comes from the local workbook Education_JCR_latest_refresh_2026-06-26.xlsx. The static site publishes only public metrics, source links, crawl status, and citeable snippets; ModelScope / AI tokens, access codes, and quotas belong only in server environment variables.",
+    methodCopy: "The catalog combines the original JCR workbook with public directories; each journal lists its sources. JIF/JCI retain their recorded year. Directory inclusion does not establish JCR coverage, and missing metrics remain unverified. Topic preferences describe captured article samples only; missing coverage does not mean an absence of relevant research.",
     footer: "AIED Journal Radar supports journal selection and research-network interpretation; always confirm current scope, formatting, and review policies on the journal website before submission.",
     missing: "Missing",
     noSecondary: "No secondary tag",
@@ -474,10 +490,10 @@ const I18N = {
     jciAxis: "2025 JCI (log scale)",
     apiMissing: "Backend API is not configured. After deploying the server-side ModelScope proxy, write its public URL to data/radar/radar-config.json.",
     questionMissing: "Please enter a manuscript topic or journal-fit question first.",
-    chatWorking: "Searching the full 268-journal database and calling the AI model...",
+    chatWorking: "Searching the full {count}-journal database and calling the AI model...",
     modelUsed: "Model: {provider} / {model}",
     answerTitle: "Journal-fit advice",
-    answerSubtitle: "Generated from the full education JCR journal database, submission clues, and public sources",
+    answerSubtitle: "Generated from the full education journal database, submission clues, and public sources",
     fullLibraryScope: "Full database searched: {count} journals",
     answerMeta: "Response info",
     sourceCount: "Sources ({count})",
@@ -509,8 +525,44 @@ const I18N = {
   },
 };
 
+Object.assign(I18N.zh, {
+  st_catalog_source: "目录来源",
+  journalLanguage: "期刊语种", catalogFilter: "目录来源", allLanguages: "全部语种", allCatalogs: "全部来源",
+  unknownQuartile: "JCR 未核验", missingMetric: "指标缺失", unknownValue: "未标注",
+  coverage: "已覆盖 {known} / {total} 本；缺失资料不按 0 计算。",
+  scatterCoverage: "可绘制 {known} / {total} 本（需同时有 JIF 和 JCI）；未核验指标不进入散点。",
+  journalCoverage: "有指标 {known} / {total} 本", preferenceLoading: "正在读取这份期刊的文章样本…",
+  preferenceFailed: "这份期刊的文章样本暂时无法加载。", preferenceUncovered: "尚未覆盖文章样本，暂不能判断主题偏好。",
+  catalogSources: "目录与收录来源", catalogNote: "以下记录说明目录来源，不代表 JCR 收录或期刊质量判断。",
+  identifiers: "刊名与标识", aliases: "其他刊名 / 分版", languages: "出版语种", country: "国家或地区", retrievedAt: "记录日期",
+  previousPage: "上一页", nextPage: "下一页", pageStatus: "第 {page} / {pages} 页", tableMeta: "本页 {shown} 本 / 筛选 {filtered} 本；全库 {total} 本。",
+  filteredArticleSamples: "当前筛选已抓取 {count} 篇文章样本。",
+  sourceCoverage: "有官网或文章证据", noCoverage: "未覆盖", metricsYearNote: "JIF / JCI 为原记录的 2025 年指标。",
+  metricsUnavailableNote: "当前目录来源未提供经核验的 JIF / JCI。",
+  publicationTrendUnavailableNote: "年度发文量尚无可用来源；已抓取文章样本不代表全年总量。",
+  noCrawl: "尚未覆盖官网抓取。", noIssue: "尚无已抓取卷期资料", noLatestTitles: "尚未覆盖最新卷期文章样本。",
+});
+Object.assign(I18N.en, {
+  st_catalog_source: "Catalog source",
+  journalLanguage: "Journal language", catalogFilter: "Catalog source", allLanguages: "All languages", allCatalogs: "All sources",
+  unknownQuartile: "JCR unverified", missingMetric: "Metric unavailable", unknownValue: "Not recorded",
+  coverage: "Covered {known} / {total} journals; missing values are not counted as zero.",
+  scatterCoverage: "Plotted {known} / {total} journals with both JIF and JCI; unverified metrics are excluded.",
+  journalCoverage: "Metrics available: {known} / {total}", preferenceLoading: "Loading article samples for this journal…",
+  preferenceFailed: "Article samples for this journal could not be loaded.", preferenceUncovered: "Article samples are not yet covered; topic preferences cannot be inferred.",
+  catalogSources: "Catalog sources", catalogNote: "These records identify directory sources, not JCR coverage or a journal quality assessment.",
+  identifiers: "Names and identifiers", aliases: "Other titles / editions", languages: "Publication languages", country: "Country or region", retrievedAt: "Recorded",
+  previousPage: "Previous page", nextPage: "Next page", pageStatus: "Page {page} / {pages}", tableMeta: "This page: {shown} / {filtered} filtered; {total} journals in the catalog.",
+  filteredArticleSamples: "{count} captured article samples in the current filter.",
+  sourceCoverage: "Website or article evidence", noCoverage: "Not covered", metricsYearNote: "JIF / JCI retain the original 2025 metric year.",
+  metricsUnavailableNote: "The current directory sources do not provide verified JIF / JCI metrics.",
+  publicationTrendUnavailableNote: "No source for annual publication totals is available; captured article samples do not represent a full year.",
+  noCrawl: "Official website crawling is not yet covered.", noIssue: "No captured issue information", noLatestTitles: "Latest issue article samples are not yet covered.",
+});
+
 function t(key, vars = {}) {
   const template = (I18N[state.language] && I18N[state.language][key]) || I18N.zh[key] || key;
+  vars = { count: state.journals.length || "…", ...vars };
   return Object.entries(vars).reduce((text, [name, value]) => text.replaceAll(`{${name}}`, value), template);
 }
 
@@ -1058,6 +1110,7 @@ function countBy(items, key) {
 
 function terms(value) {
   return String(value || "")
+    .normalize("NFKC")
     .toLowerCase()
     .split(/[\s,;，；、/]+/)
     .map((term) => term.trim())
@@ -1068,24 +1121,89 @@ function termJoin(values) {
   return values.filter(Boolean).join(state.language === "zh" ? "、" : ", ");
 }
 
+function quartileKey(journal) {
+  return ["Q1", "Q2", "Q3", "Q4"].includes(journal.quartile) ? journal.quartile : UNKNOWN_FILTER;
+}
+
+function quartileLabel(journal) {
+  return quartileKey(journal) === UNKNOWN_FILTER ? t("unknownQuartile") : journal.quartile;
+}
+
+function metricLabel(value) {
+  return number(value) === null ? t("missingMetric") : fmt(value);
+}
+
+function catalogSources(journal) {
+  return Array.isArray(journal.catalog_sources) ? journal.catalog_sources : [];
+}
+
+function journalLanguages(journal) {
+  return Array.isArray(journal.languages) ? journal.languages.filter(Boolean).map(String) : [];
+}
+
+const LANGUAGE_CODES = Object.freeze({
+  albanian: "sq", arabic: "ar", basque: "eu", bosnian: "bs", bulgarian: "bg", catalan: "ca", chinese: "zh",
+  chuvash: "cv", croatian: "hr", czech: "cs", danish: "da", dutch: "nl", english: "en", estonian: "et",
+  finnish: "fi", french: "fr", galician: "gl", german: "de", hungarian: "hu", icelandic: "is", indonesian: "id",
+  italian: "it", korean: "ko", lithuanian: "lt", macedonian: "mk", "malay (macrolanguage)": "ms", malay: "ms",
+  maori: "mi", "modern greek (1453-)": "el", greek: "el", mongolian: "mn", norwegian: "no", "norwegian bokmål": "nb",
+  "norwegian nynorsk": "nn", persian: "fa", polish: "pl", portuguese: "pt", romanian: "ro", romansh: "rm",
+  russian: "ru", "scottish gaelic": "gd", serbian: "sr", sinhala: "si", slovak: "sk", slovenian: "sl",
+  spanish: "es", swedish: "sv", tagalog: "tl", tamil: "ta", thai: "th", turkish: "tr", ukrainian: "uk",
+  中文: "zh", 英文: "en", chi: "zh", zho: "zh", eng: "en",
+});
+
+function languageCode(value) {
+  const normalized = String(value || "").trim().toLowerCase();
+  return LANGUAGE_CODES[normalized] || normalized.replaceAll("_", "-");
+}
+
+function languageLabel(value, language = state.language) {
+  if (value === UNKNOWN_FILTER) return t("unknownValue");
+  try { return new Intl.DisplayNames([language === "zh" ? "zh-Hans" : "en"], { type: "language" }).of(languageCode(value)) || value; }
+  catch { return value; }
+}
+
+function publicUrl(value) {
+  try {
+    const url = new URL(String(value || ""));
+    return ["http:", "https:"].includes(url.protocol) && !url.username && !url.password ? url.href : "";
+  } catch { return ""; }
+}
+
 function journalSearchText(journal) {
+  const identifiers = [journal.issn, journal.eissn, ...(journal.issns || []), ...(journal.historical_issns || [])].filter(Boolean);
   return [
-    journal.name,
-    journal.abbreviation,
-    journal.main_tag,
-    journal.secondary_tag,
-    journal.publisher,
-    journal.publisher_family,
-    journal.quartile,
-    journal.submission_system,
-    Object.keys(journal.topic_hits || {}).join(" "),
-    Object.keys(journal.method_hits || {}).join(" "),
+    journal.name, journal.abbreviation, ...(journal.aliases || []),
+    ...identifiers, ...identifiers.map((identifier) => String(identifier).replaceAll("-", "")), journal.main_tag, journal.secondary_tag, journal.tag_path,
+    journal.publisher, journal.publisher_family, journal.quartile, journal.submission_system,
+    ...journalLanguages(journal), ...journalLanguages(journal).map(languageCode),
+    ...journalLanguages(journal).map((language) => languageLabel(language, "zh")),
+    ...journalLanguages(journal).map((language) => languageLabel(language, "en")),
+    ...journalLanguages(journal).flatMap((language) => ({ zh: ["中文", "汉语"], en: ["英文", "英语"] }[languageCode(language).split("-")[0]] || [])), journal.country,
+    ...catalogSources(journal).flatMap((source) => [source.id, source.label, source.record_id]),
+    Object.keys(journal.topic_hits || {}).join(" "), Object.keys(journal.method_hits || {}).join(" "),
     Object.keys(journal.article_preferences?.topic_counts || {}).join(" "),
-    Object.keys(journal.article_preferences?.method_counts || {}).join(" "),
-    journal.word_limit,
-  ]
-    .join(" ")
-    .toLowerCase();
+    Object.keys(journal.article_preferences?.method_counts || {}).join(" "), journal.word_limit,
+  ].filter(Boolean).join(" ").normalize("NFKC").toLowerCase();
+}
+
+function buildSearchIndex() {
+  state.journalsById = new Map(state.journals.map((journal) => [journal.id, journal]));
+  state.searchIndex = new Map(state.journals.map((journal) => [journal.id, journalSearchText(journal)]));
+}
+
+function buildNetworkIndex() {
+  state.networkNodesById = new Map((state.network.nodes || []).map((node) => [node.id, node]));
+  state.networkLinksByJournal = new Map();
+  (state.network.links || []).forEach((link) => {
+    [link.source, link.target].forEach((id) => {
+      if (!state.journalsById.has(id)) return;
+      if (!state.networkLinksByJournal.has(id)) state.networkLinksByJournal.set(id, []);
+      state.networkLinksByJournal.get(id).push(link);
+    });
+  });
+  state.networkRenderKey = "";
 }
 
 async function fetchJson(url) {
@@ -1124,10 +1242,15 @@ function refreshFilters() {
     tag: els.tag.value,
     quartile: els.quartile.value,
     publisher: els.publisher.value,
+    journalLanguage: els.journalLanguage.value,
+    catalog: els.catalog.value,
   };
   fillFilter(els.tag, unique(state.journals.map((journal) => journal.main_tag)), t("all"), displayTag);
-  fillFilter(els.quartile, unique(state.journals.map((journal) => journal.quartile)), t("allQuartiles"));
+  fillFilter(els.quartile, ["Q1", "Q2", "Q3", "Q4", UNKNOWN_FILTER].filter((value) => state.journals.some((journal) => quartileKey(journal) === value)), t("allQuartiles"), (value) => value === UNKNOWN_FILTER ? t("unknownQuartile") : value);
   fillFilter(els.publisher, unique(state.journals.map((journal) => journal.publisher_family)), t("all"));
+  fillFilter(els.journalLanguage, unique(state.journals.flatMap((journal) => journalLanguages(journal).length ? journalLanguages(journal) : [UNKNOWN_FILTER])), t("allLanguages"), languageLabel);
+  const catalogs = new Map(state.journals.flatMap((journal) => catalogSources(journal).map((source) => [source.id, source.label || source.id])));
+  fillFilter(els.catalog, unique([...catalogs.keys()]), t("allCatalogs"), (id) => catalogs.get(id));
   Object.entries(previous).forEach(([key, value]) => {
     const select = els[key];
     if ([...select.options].some((option) => option.value === value)) {
@@ -1176,6 +1299,8 @@ async function updateChatStatus() {
     });
     if (!response.ok) throw new Error("health check failed");
     const health = await response.json();
+    state.apiJournalCount = number(health.journal_count);
+    if (els.chatAnswer?.dataset.idle === "true") setChatStatusMessage(t("chatIdle", { count: state.apiJournalCount ?? state.journals.length }), "idle");
     updateAccessMode(Object.prototype.hasOwnProperty.call(health, "access_required") ? Boolean(health.access_required) : state.accessRequired);
     if (health.provider_quota_exhausted) {
       els.chatStatus.textContent = t("chatQuotaStopped");
@@ -1211,7 +1336,12 @@ function filteredJournals() {
   return state.journals
     .filter((journal) => {
       if (els.tag.value !== "all" && journal.main_tag !== els.tag.value) return false;
-      if (els.quartile.value !== "all" && journal.quartile !== els.quartile.value) return false;
+      if (els.quartile.value !== "all" && quartileKey(journal) !== els.quartile.value) return false;
+      if (els.journalLanguage.value !== "all") {
+        const languages = journalLanguages(journal);
+        if (els.journalLanguage.value === UNKNOWN_FILTER ? languages.length > 0 : !languages.includes(els.journalLanguage.value)) return false;
+      }
+      if (els.catalog.value !== "all" && !catalogSources(journal).some((source) => source.id === els.catalog.value)) return false;
       if (els.publisher.value !== "all" && journal.publisher_family !== els.publisher.value) return false;
       if (els.speed.value === "fast" && !(number(journal.first_decision_days) !== null && journal.first_decision_days <= 14)) {
         return false;
@@ -1224,46 +1354,60 @@ function filteredJournals() {
         return false;
       }
       if (queryTerms.length === 0) return true;
-      const haystack = journalSearchText(journal);
+      const haystack = state.searchIndex.get(journal.id) || journalSearchText(journal);
       return queryTerms.every((term) => haystack.includes(term));
     })
-    .sort((a, b) => {
-      const scoreDiff = recommendationScore(b) - recommendationScore(a);
-      if (Math.abs(scoreDiff) > 0.001) return scoreDiff;
-      return (number(b.jif_2025) || 0) - (number(a.jif_2025) || 0);
-    });
+    .map((journal) => ({ journal, score: recommendationScore(journal) }))
+    .sort((a, b) => b.score - a.score || a.journal.name.localeCompare(b.journal.name, state.language === "zh" ? "zh-Hans-CN" : "en"))
+    .map(({ journal }) => journal);
 }
 
 function recommendationScore(journal) {
   const queryTerms = terms(els.search.value);
-  const haystack = journalSearchText(journal);
+  const haystack = state.searchIndex.get(journal.id) || journalSearchText(journal);
   let score = 0;
   queryTerms.forEach((term) => {
     if (haystack.includes(term)) score += 10;
-    if (String(journal.name || "").toLowerCase().includes(term)) score += 6;
+    if ([journal.name, ...(journal.aliases || [])].some((name) => String(name || "").normalize("NFKC").toLowerCase().includes(term))) score += 100;
   });
   score += Math.min(18, (number(journal.jif_2025) || 0) * 1.2);
   score += Math.min(12, (number(journal.jci_2025) || 0) * 2);
   score += Math.min(5, (publicationVolume(journal, "2025") || 0) / 30);
   if (number(journal.first_decision_days) !== null) score += Math.max(0, 12 - journal.first_decision_days / 7);
-  if ((journal.source_pages_crawled || 0) > 0) score += 2;
+  if (websiteEvidenceCount(journal) > 0) score += 2;
   if ((journal.article_count_crawled || 0) > 0) score += 3;
   if (journal.quartile === "Q1") score += 2;
   return score;
 }
 
+function websiteEvidenceCount(journal) {
+  return (state.sourcesByJournal.get(journal.id) || []).filter((source) =>
+    source.status === "ok" && !["article_metadata_api", "journal_catalog"].includes(source.source_type)
+  ).length;
+}
+
+function capturedArticleCount(journal) {
+  return Math.max(0, integerValue(journal.article_count_crawled) ?? 0);
+}
+
+function evidenceSummary(journals) {
+  return {
+    journalCount: journals.filter((journal) => websiteEvidenceCount(journal) > 0 || capturedArticleCount(journal) > 0).length,
+    articleCount: journals.reduce((total, journal) => total + capturedArticleCount(journal), 0),
+  };
+}
+
 function renderKpis(journals) {
-  const report = state.report || {};
-  const sourcePages = report.source_pages || {};
-  const articles = report.articles || {};
+  const evidence = evidenceSummary(journals);
   const q1Count = journals.filter((journal) => journal.quartile === "Q1").length;
+  const firstDecisionMedian = median(journals.map((journal) => journal.first_decision_days));
   const kpis = [
     [t("currentJournals"), journals.length, t("q1InAll", { q1: q1Count, total: state.journals.length })],
-    [t("medianJif"), fmt(median(journals.map((journal) => journal.jif_2025))), "2025 Journal Impact Factor"],
-    [t("medianJci"), fmt(median(journals.map((journal) => journal.jci_2025))), "2025 Journal Citation Indicator"],
-    [t("medianFirstDecision"), t("days", { value: fmt(median(journals.map((journal) => journal.first_decision_days)), 0) }), t("markedOnly")],
+    [t("medianJif"), metricLabel(median(journals.map((journal) => journal.jif_2025))), `2025 · ${t("journalCoverage", { known: journals.filter((journal) => number(journal.jif_2025) !== null).length, total: journals.length })}`],
+    [t("medianJci"), metricLabel(median(journals.map((journal) => journal.jci_2025))), `2025 · ${t("journalCoverage", { known: journals.filter((journal) => number(journal.jci_2025) !== null).length, total: journals.length })}`],
+    [t("medianFirstDecision"), firstDecisionMedian === null ? t("missing") : t("days", { value: fmt(firstDecisionMedian, 0) }), t("markedOnly")],
     [t("medianPublicationVolume"), publicationLabel({ publications: { 2025: median(journals.map((journal) => journal.publications?.["2025"])) } }, "2025"), t("publicationVolumeExcel")],
-    [t("evidenceCoverage"), `${sourcePages.ok || 0}/${sourcePages.total || 0}`, t("articleSamples", { ok: articles.ok || 0, total: articles.total || 0 })],
+    [t("sourceCoverage"), `${evidence.journalCount}/${journals.length}`, t("filteredArticleSamples", { count: evidence.articleCount })],
   ];
   els.kpis.innerHTML = kpis
     .map(
@@ -1298,8 +1442,9 @@ function svgNode(name, attrs = {}) {
 function renderScatter(journals) {
   clear(els.scatter);
   const data = journals.filter((journal) => number(journal.jif_2025) !== null && number(journal.jci_2025) !== null);
-  if (data.length < 8) {
-    els.scatter.innerHTML = `<div class="empty-radar">${t("insufficientScatter")}</div>`;
+  const coverage = `<p class="chart-coverage">${escapeHtml(t("scatterCoverage", { known: data.length, total: journals.length }))}</p>`;
+  if (data.length === 0) {
+    els.scatter.innerHTML = `<div class="empty-radar">${t("insufficientScatter")}</div>${coverage}`;
     return;
   }
 
@@ -1307,8 +1452,8 @@ function renderScatter(journals) {
   const height = 560;
   const margin = { top: 44, right: 80, bottom: 70, left: 76 };
   const chart = svg(width, height);
-  const maxX = Math.log1p(Math.max(...data.map((journal) => number(journal.jif_2025))) * 1.05);
-  const maxY = Math.log1p(Math.max(...data.map((journal) => number(journal.jci_2025))) * 1.08);
+  const maxX = Math.log1p(Math.max(1, ...data.map((journal) => number(journal.jif_2025))) * 1.05);
+  const maxY = Math.log1p(Math.max(1, ...data.map((journal) => number(journal.jci_2025))) * 1.08);
   const x = (value) => margin.left + (Math.log1p(value) / maxX) * (width - margin.left - margin.right);
   const y = (value) => height - margin.bottom - (Math.log1p(value) / maxY) * (height - margin.top - margin.bottom);
   const maxPublications = Math.max(...data.map((journal) => publicationVolume(journal, "2025") || 0), 1);
@@ -1327,7 +1472,7 @@ function renderScatter(journals) {
   });
   const medJif = median(data.map((journal) => journal.jif_2025));
   const medJci = median(data.map((journal) => journal.jci_2025));
-  const quartiles = ["Q1", "Q2", "Q3", "Q4"].filter((quartile) => data.some((journal) => journal.quartile === quartile));
+  const quartiles = ["Q1", "Q2", "Q3", "Q4", UNKNOWN_FILTER].filter((quartile) => data.some((journal) => quartileKey(journal) === quartile));
   const quartileColor = (quartile) => QUARTILE_COLORS[quartile] || COLORS.muted;
   const labelIds = new Set(
     [...data]
@@ -1367,8 +1512,9 @@ function renderScatter(journals) {
       tabindex: "0",
     });
     circle.append(svgNode("title"));
-    circle.querySelector("title").textContent = `${journal.name}\n${journal.quartile} · JIF ${fmt(journal.jif_2025)} · JCI ${fmt(journal.jci_2025)} · ${t("publicationVolume2025")} ${publicationLabel(journal, "2025")}\n${displayTag(journal.main_tag)}`;
+    circle.querySelector("title").textContent = `${journal.name}\n${quartileLabel(journal)} · JIF ${metricLabel(journal.jif_2025)} · JCI ${metricLabel(journal.jci_2025)} · ${t("publicationVolume2025")} ${publicationLabel(journal, "2025")}\n${displayTag(journal.main_tag)}`;
     circle.addEventListener("click", () => navigateToJournal(journal.id));
+    circle.addEventListener("keydown", (event) => { if (["Enter", " "].includes(event.key)) { event.preventDefault(); navigateToJournal(journal.id); } });
     chart.append(circle);
     if (labelIds.has(journal.id)) {
       const label = svgNode("text", {
@@ -1397,9 +1543,10 @@ function renderScatter(journals) {
   const legend = document.createElement("div");
   legend.className = "tag-legend";
   legend.innerHTML = quartiles
-    .map((quartile) => `<span><i style="background:${quartileColor(quartile)}"></i>${escapeHtml(quartile)}</span>`)
+    .map((quartile) => `<span><i style="background:${quartileColor(quartile)}"></i>${escapeHtml(quartile === UNKNOWN_FILTER ? t("unknownQuartile") : quartile)}</span>`)
     .join("") + `<span class="size-legend">${escapeHtml(t("pointSizeLegend"))}</span>`;
   els.scatter.append(legend);
+  els.scatter.insertAdjacentHTML("beforeend", coverage);
 }
 
 function renderHorizontalBars(container, rows, options = {}) {
@@ -1430,7 +1577,6 @@ function renderHorizontalBars(container, rows, options = {}) {
 
 function renderSpeedChart(journals) {
   clear(els.speedChart);
-  const coverage = state.report?.speed_coverage || {};
   const rows = journals
     .filter((journal) => number(journal.first_decision_days) !== null || number(journal.review_time_days) !== null)
     .sort((a, b) => {
@@ -1440,16 +1586,16 @@ function renderSpeedChart(journals) {
     })
     .slice(0, 12);
   if (rows.length === 0) {
-    els.speedChart.innerHTML = `<div class="empty-radar">${t("emptyData")}</div>`;
+    els.speedChart.innerHTML = `<div class="empty-radar">${t("noCoverage")}</div><p class="chart-coverage">${t("coverage", { known: 0, total: journals.length })}</p>`;
     return;
   }
   const note = document.createElement("p");
   note.className = "chart-note";
   note.textContent = t("speedCoverage", {
-    first: coverage.first_decision_days ?? state.journals.filter((journal) => number(journal.first_decision_days) !== null).length,
-    review: coverage.review_time_days ?? state.journals.filter((journal) => number(journal.review_time_days) !== null).length,
-    accept: coverage.submission_to_accept_days ?? state.journals.filter((journal) => number(journal.submission_to_accept_days) !== null).length,
-    total: coverage.total ?? state.journals.length,
+    first: journals.filter((journal) => number(journal.first_decision_days) !== null).length,
+    review: journals.filter((journal) => number(journal.review_time_days) !== null).length,
+    accept: journals.filter((journal) => number(journal.submission_to_accept_days) !== null).length,
+    total: journals.length,
   });
   els.speedChart.append(note);
 
@@ -1557,14 +1703,14 @@ function limitNetworkLinks(rawLinks, expanded = false) {
   const deduped = compactNetworkLinks(rawLinks);
   const grouped = new Map();
   deduped.forEach((link) => {
-    const journalId = String(link.source).startsWith("journal-") ? link.source : String(link.target).startsWith("journal-") ? link.target : "";
+    const journalId = state.journalsById.has(link.source) ? link.source : state.journalsById.has(link.target) ? link.target : "";
     if (!journalId) return;
     if (!grouped.has(journalId)) grouped.set(journalId, []);
     grouped.get(journalId).push(link);
   });
   const relationLimits = expanded
-    ? { publisher: 1, jcr_tag: 1, text_topic: 4, method_or_theme: 2 }
-    : { publisher: 1, jcr_tag: 1, text_topic: 2, method_or_theme: 1 };
+    ? { publisher: 1, jcr_tag: 1, catalog_tag: 1, text_topic: 4, method_or_theme: 2 }
+    : { publisher: 1, jcr_tag: 1, catalog_tag: 1, text_topic: 2, method_or_theme: 1 };
   const kept = [];
   grouped.forEach((links) => {
     const buckets = new Map();
@@ -1584,18 +1730,22 @@ function limitNetworkLinks(rawLinks, expanded = false) {
 
 function renderNetwork(journals) {
   if (!els.network) return;
-  clear(els.network);
+  if (els.dashboard.hidden) return;
   els.network.classList.toggle("is-expanded", state.networkExpanded);
   const hasActiveFilter =
     terms(els.search.value).length > 0 ||
     els.tag.value !== "all" ||
     els.quartile.value !== "all" ||
     els.publisher.value !== "all" ||
-    els.speed.value !== "all";
+    els.speed.value !== "all" || els.journalLanguage.value !== "all" || els.catalog.value !== "all";
   const visibleLimit = state.networkExpanded ? 32 : hasActiveFilter ? 20 : 12;
   const visibleJournalIds = new Set(journals.slice(0, visibleLimit).map((journal) => journal.id));
+  const renderKey = JSON.stringify([state.language, state.networkExpanded, state.selectedJournalId, journals.length, visibleLimit, [...visibleJournalIds]]);
+  if (state.networkRenderKey === renderKey && els.network.childNodes.length) return;
+  state.networkRenderKey = renderKey;
+  clear(els.network);
   const links = limitNetworkLinks(
-    state.network.links.filter((link) => visibleJournalIds.has(link.source) || visibleJournalIds.has(link.target)),
+    [...visibleJournalIds].flatMap((id) => state.networkLinksByJournal.get(id) || []),
     state.networkExpanded
   );
   const needed = new Set();
@@ -1603,9 +1753,10 @@ function renderNetwork(journals) {
     needed.add(link.source);
     needed.add(link.target);
   });
-  const nodes = state.network.nodes.filter((node) => needed.has(node.id));
+  const nodes = [...needed].map((id) => state.networkNodesById.get(id)).filter(Boolean);
   if (nodes.length === 0) {
     els.network.innerHTML = `<div class="empty-radar">${t("emptyNetwork")}</div>`;
+    els.networkNote.textContent = t("coverage", { known: 0, total: journals.length });
     return;
   }
 
@@ -1634,7 +1785,7 @@ function renderNetwork(journals) {
     .map((link) => ({ ...link, sourceNode: nodeMap.get(link.source), targetNode: nodeMap.get(link.target) }))
     .filter((link) => link.sourceNode && link.targetNode);
 
-  for (let tick = 0; tick < 230; tick += 1) {
+  for (let tick = 0; tick < (state.networkExpanded ? 160 : 120); tick += 1) {
     simLinks.forEach((link) => {
       const dx = link.targetNode.x - link.sourceNode.x;
       const dy = link.targetNode.y - link.sourceNode.y;
@@ -1727,6 +1878,9 @@ function renderNetwork(journals) {
     circle.append(svgNode("title"));
     circle.querySelector("title").textContent = node.label;
     if (node.type === "journal") {
+      circle.setAttribute("tabindex", "0");
+      circle.setAttribute("role", "link");
+      circle.addEventListener("keydown", (event) => { if (["Enter", " "].includes(event.key)) { event.preventDefault(); navigateToJournal(node.id); } });
       circle.addEventListener("click", () => navigateToJournal(node.id));
     }
     chart.append(circle);
@@ -1765,7 +1919,7 @@ function renderNetwork(journals) {
     }
   });
 
-  els.networkNote.textContent = t("networkSummary", { nodes: nodes.length, links: simLinks.length, limit: visibleLimit });
+  els.networkNote.textContent = `${t("networkSummary", { nodes: nodes.length, links: simLinks.length, limit: visibleLimit })} ${t("coverage", { known: journals.filter((journal) => state.networkLinksByJournal.has(journal.id)).length, total: journals.length })}`;
   if (els.networkToggle) els.networkToggle.textContent = state.networkExpanded ? t("collapseNetwork") : t("expandNetwork");
   els.network.append(chart);
 }
@@ -1788,9 +1942,9 @@ function renderRecommendations(journals) {
         <article class="recommendation-item">
           <h4>${index + 1}. <button type="button" data-open-journal="${journal.id}">${escapeHtml(journal.name)}</button></h4>
           <div class="recommendation-meta">
-            <span>${escapeHtml(journal.quartile || "JCR")}</span>
-            <span>JIF ${fmt(journal.jif_2025)}</span>
-            <span>JCI ${fmt(journal.jci_2025)}</span>
+            <span>${escapeHtml(quartileLabel(journal))}</span>
+            <span>JIF ${metricLabel(journal.jif_2025)}</span>
+            <span>JCI ${metricLabel(journal.jci_2025)}</span>
             <span>${escapeHtml(t("publicationVolume2025"))} ${escapeHtml(publicationLabel(journal, "2025"))}</span>
             <span>${escapeHtml(speed)}</span>
             <span>${escapeHtml(journal.publisher_family)}</span>
@@ -1807,7 +1961,7 @@ function renderRecommendations(journals) {
 
 const TABLE_SORTERS = {
   name: { value: (journal) => journal.name || "", numeric: false },
-  quartile: { value: (journal) => journal.quartile || "￿", numeric: false },
+  quartile: { value: (journal) => quartileKey(journal) === UNKNOWN_FILTER ? null : Number(journal.quartile[1]), numeric: true },
   jif: { value: (journal) => number(journal.jif_2025), numeric: true },
   jci: { value: (journal) => number(journal.jci_2025), numeric: true },
   volume: { value: (journal) => publicationVolume(journal, "2025"), numeric: true },
@@ -1828,7 +1982,7 @@ function sortedTableJournals(journals) {
       if (vb === null) return -1;
       return (va - vb) * dir;
     }
-    return String(va).localeCompare(String(vb), "en") * dir;
+    return String(va).localeCompare(String(vb), state.language === "zh" ? "zh-Hans-CN" : "en") * dir;
   });
 }
 
@@ -1844,34 +1998,40 @@ function updateSortIndicators() {
 
 function renderTable(journals) {
   const ordered = sortedTableJournals(journals);
-  const rows = state.tableExpanded ? ordered : ordered.slice(0, TABLE_ROW_LIMIT);
+  const pages = Math.max(1, Math.ceil(ordered.length / TABLE_ROW_LIMIT));
+  state.tablePage = Math.min(state.tablePage, pages - 1);
+  const rows = ordered.slice(state.tablePage * TABLE_ROW_LIMIT, (state.tablePage + 1) * TABLE_ROW_LIMIT);
   els.tableMeta.textContent = `${t("tableMeta", { shown: rows.length, filtered: journals.length, total: state.journals.length })} ${t("sortHint")}`;
   els.tableBody.innerHTML = rows
     .map(
       (journal) => `
         <tr>
           <td><button type="button" data-open-journal="${journal.id}">${escapeHtml(journal.name)}</button></td>
-          <td>${escapeHtml(journal.quartile || t("missing"))} · ${escapeHtml(displayTag(journal.tag_path || journal.main_tag) || t("missing"))}</td>
-          <td>${fmt(journal.jif_2025)}</td>
-          <td>${fmt(journal.jci_2025)}</td>
+          <td>${escapeHtml(quartileLabel(journal))} · ${escapeHtml(displayTag(journal.tag_path || journal.main_tag) || t("missing"))}</td>
+          <td>${metricLabel(journal.jif_2025)}</td>
+          <td>${metricLabel(journal.jci_2025)}</td>
           <td>${escapeHtml(publicationLabel(journal, "2025"))}</td>
           <td>${number(journal.first_decision_days) === null ? t("missing") : t("days", { value: journal.first_decision_days })}</td>
           <td>${escapeHtml(journal.publisher_family || journal.publisher || t("missing"))}</td>
-          <td>${t("pagesArticles", { pages: journal.source_pages_crawled || 0, articles: journal.article_count_crawled || 0 })}</td>
+          <td>${websiteEvidenceCount(journal) > 0 || capturedArticleCount(journal) > 0 ? t("pagesArticles", { pages: websiteEvidenceCount(journal), articles: capturedArticleCount(journal) }) : t("noCoverage")}</td>
         </tr>
       `
     )
     .join("");
   updateSortIndicators();
   if (els.toggleRows) {
-    if (journals.length > TABLE_ROW_LIMIT) {
-      els.toggleRows.hidden = false;
-      els.toggleRows.textContent = state.tableExpanded
-        ? t("showFewerRows", { limit: TABLE_ROW_LIMIT })
-        : t("showAllRows", { total: journals.length });
-    } else {
-      els.toggleRows.hidden = true;
-    }
+    els.toggleRows.hidden = pages <= 1;
+    els.toggleRows.disabled = state.tablePage >= pages - 1;
+    els.toggleRows.textContent = t("nextPage");
+  }
+  if (els.previousRows) {
+    els.previousRows.hidden = pages <= 1;
+    els.previousRows.disabled = state.tablePage === 0;
+    els.previousRows.textContent = t("previousPage");
+  }
+  if (els.tablePage) {
+    els.tablePage.hidden = pages <= 1;
+    els.tablePage.textContent = t("pageStatus", { page: state.tablePage + 1, pages });
   }
 }
 
@@ -1990,10 +2150,12 @@ function scrollToPageTop() {
 
 function showDashboard() {
   state.selectedJournalId = "";
+  state.detailRequestToken += 1;
+  window.clearTimeout(state.themeRenderTimer);
   els.dashboard.hidden = false;
   els.detailPage.hidden = true;
   if (els.detailContent) els.detailContent.innerHTML = "";
-  renderNetwork(filteredJournals());
+  renderAll();
 }
 
 function renderRoute() {
@@ -2012,7 +2174,7 @@ function profileRows(journalId) {
   const record = state.editorProfilesByJournal.get(journalId);
   const profiles = record?.profiles || [];
   if (profiles.length > 0) return profiles;
-  const journal = state.journals.find((item) => item.id === journalId);
+  const journal = state.journalsById.get(journalId);
   const editors = journal?.editors || {};
   const rows = [];
   (editors.editors_in_chief || []).forEach((name) => rows.push({ name, role: t("editorChief"), affiliation: "", country_or_region: "", verification_status: t("pendingVerification"), source_url: editors.source_url || "" }));
@@ -2021,7 +2183,7 @@ function profileRows(journalId) {
 }
 
 function sourceListHtml(journal, sources) {
-  const urls = journal.source_urls || [];
+  const urls = (journal.source_urls || []).map(publicUrl).filter(Boolean);
   const sourceLinks =
     urls
       .slice(0, 8)
@@ -2040,7 +2202,26 @@ function sourceListHtml(journal, sources) {
         `
       )
       .join("") || `<li>${t("noCrawl")}</li>`;
+  const origins = [...catalogSources(journal)];
+  if (journal.has_jcr_record && !origins.some((source) => ["jcr", "jcr_workbook"].includes(source.id))) origins.unshift({ id: "jcr_workbook", label: state.language === "zh" ? "原始 JCR 工作簿（2025 指标）" : "Original JCR workbook (2025 metrics)" });
+  const catalogRows = origins.map((source) => {
+    const url = publicUrl(source.evidence_url) || publicUrl(source.url);
+    const label = escapeHtml(source.label || source.id || t("missing"));
+    return `<li>${url ? `<a href="${escapeHtml(url)}" target="_blank" rel="noopener noreferrer">${label}</a>` : label}
+      ${source.record_id ? `<span class="source-record">${escapeHtml(source.record_id)}</span>` : ""}
+      ${source.retrieved_at ? `<small>${escapeHtml(t("retrievedAt"))}: ${escapeHtml(source.retrieved_at)}</small>` : ""}</li>`;
+  }).join("");
   return `
+    <section class="detail-card catalog-source-card">
+      <h3>${t("catalogSources")}</h3><p>${t("catalogNote")}</p>
+      <ul class="drawer-list">${catalogRows || `<li>${t("noSources")}</li>`}</ul>
+      <dl class="catalog-identifiers">
+        <div><dt>${t("aliases")}</dt><dd>${escapeHtml((journal.aliases || []).join(" · ") || t("missing"))}</dd></div>
+        <div><dt>ISSN / eISSN</dt><dd>${escapeHtml(unique([journal.issn, journal.eissn, ...(journal.issns || [])]).join(" · ") || t("missing"))}</dd></div>
+        <div><dt>${t("languages")}</dt><dd>${escapeHtml(journalLanguages(journal).map((language) => languageLabel(language)).join(" · ") || t("missing"))}</dd></div>
+        <div><dt>${t("country")}</dt><dd>${escapeHtml(journal.country || t("missing"))}</dd></div>
+      </dl>
+    </section>
     <div class="detail-two-col">
       <section class="detail-card">
         <h3>${t("journalSources")}</h3>
@@ -2123,6 +2304,7 @@ function localizedRangeDescription(description) {
 }
 
 function rangeMetaText(slice, key) {
+  if (!slice || !slice.sample_count) return t("preferenceUncovered");
   const count = slice?.sample_count || 0;
   const description = localizedRangeDescription(slice?.description || timeSliceLabel(key));
   const fallbackLabels = {
@@ -2184,7 +2366,7 @@ function evidenceListHtml(evidence = []) {
 
 function latestArticleList(preference) {
   const slice = preference?.slices?.latest_issue || preference?.slices?.all;
-  if (!slice || slice.sample_count === 0) return `<div class="empty-radar">${t("noLatestTitles")}</div>`;
+  if (!slice || !slice.sample_count) return `<div class="empty-radar">${t("preferenceUncovered")}</div>`;
   const evidence = collectEvidence([...(slice.general || []), ...(slice.specific || []), ...(slice.very_specific || [])], 10);
   return evidenceListHtml(evidence);
 }
@@ -2223,7 +2405,7 @@ function renderThemeMap(journalId, sliceKey = "all", options = {}) {
     container.replaceChildren();
     const empty = document.createElement("div");
     empty.className = "empty-radar";
-    empty.textContent = t("noPreferenceData");
+    empty.textContent = t("preferenceUncovered");
     container.append(empty);
     renderThemeEvidence(null, shouldAnimate);
     if (shouldAnimate) {
@@ -2379,7 +2561,7 @@ function submissionRequirementsHtml(journal, dayValue) {
       <div class="requirement-block">
         <div class="requirement-block-title">
           <span>${t("publicationTrend")}</span>
-          <small>${t("publicationTrendNote")}</small>
+          <small>${t(journal.has_jcr_record ? "publicationTrendNote" : "publicationTrendUnavailableNote")}</small>
         </div>
         ${publicationTrendHtml(journal)}
       </div>
@@ -2430,6 +2612,7 @@ function topicCluesHtml(topicClues) {
 }
 
 function latestIssueSignalHtml(preference) {
+  if (!preference || !preference.slices?.all?.sample_count) return `<p class="drawer-muted">${t("preferenceUncovered")}</p>`;
   const latestCount = preference?.slices?.latest_issue?.sample_count || 0;
   const allCount = preference?.slices?.all?.sample_count || 0;
   const latestLabel = latestIssueSummary(preference);
@@ -2460,11 +2643,43 @@ function renderThemeMapSlice(journalId, sliceKey) {
   }, 90);
 }
 
+function preferenceNoticeHtml(journalId) {
+  const failed = state.preferenceStatus.get(journalId) === "error";
+  return `<div class="preference-load-state" role="status" ${failed ? "" : 'aria-busy="true"'}>
+    <p>${t(failed ? "preferenceFailed" : "preferenceLoading")}</p>
+    ${failed ? `<button type="button" class="button button-secondary" data-retry-preference>${t("retry")}</button>` : ""}
+  </div>`;
+}
+
+function preferenceRequestIsCurrent(journalId, token) {
+  return state.selectedJournalId === journalId && state.detailRequestToken === token && !els.detailPage.hidden;
+}
+
+async function ensureJournalPreference(journalId) {
+  if (state.preferencesByJournal.has(journalId) || state.preferenceStatus.get(journalId) === "error") return;
+  // Multiple visits can await the same loader promise; each visit keeps its own
+  // route token so an older response cannot replace the visible journal.
+  const token = state.detailRequestToken;
+  state.preferenceStatus.set(journalId, "loading");
+  try {
+    const record = await RadarData.loadPreference(journalId);
+    state.preferencesByJournal.set(journalId, record);
+    state.preferenceStatus.delete(journalId);
+  } catch {
+    state.preferenceStatus.set(journalId, "error");
+  }
+  if (preferenceRequestIsCurrent(journalId, token)) renderJournalDetail(journalId);
+}
+
 function renderJournalDetail(journalId) {
-  const journal = state.journals.find((item) => item.id === journalId);
+  const journal = state.journalsById.get(journalId);
   if (!journal) {
     showDashboard();
     return;
+  }
+  if (state.selectedJournalId !== journalId) {
+    state.detailRequestToken += 1;
+    window.clearTimeout(state.themeRenderTimer);
   }
   state.selectedJournalId = journalId;
   els.dashboard.hidden = true;
@@ -2472,6 +2687,8 @@ function renderJournalDetail(journalId) {
   const sources = state.sourcesByJournal.get(journalId) || [];
   const preference = state.preferencesByJournal.get(journalId);
   const defaultTimeSlice = preferredTimeSlice(preference);
+  const preferencePending = !state.preferencesByJournal.has(journalId);
+  const preferenceNotice = preferenceNoticeHtml(journalId);
   const dayValue = (value) => (number(value) === null ? t("pendingVerification") : t("days", { value }));
   const topicClues =
     termJoin(Object.keys(journal.topic_hits || {}).slice(0, 8)) ||
@@ -2483,13 +2700,14 @@ function renderJournalDetail(journalId) {
       <p class="eyebrow">${t("journalDetail")}</p>
       <h2>${escapeHtml(journal.name)}</h2>
       <div class="recommendation-meta detail-meta">
-        <span>${escapeHtml(journal.quartile || "JCR")}</span>
-        <span>JIF ${fmt(journal.jif_2025)}</span>
-        <span>JCI ${fmt(journal.jci_2025)}</span>
+        <span>${escapeHtml(quartileLabel(journal))}</span>
+        <span>JIF ${metricLabel(journal.jif_2025)}</span>
+        <span>JCI ${metricLabel(journal.jci_2025)}</span>
         <span>${escapeHtml(t("publicationVolume2025"))} ${escapeHtml(publicationLabel(journal, "2025"))}</span>
         <span>${escapeHtml(displayTag(journal.main_tag) || t("missing"))}</span>
         <span>${escapeHtml(journal.publisher_family || t("missing"))}</span>
       </div>
+      <p class="metric-year-note">${t(journal.has_jcr_record ? "metricsYearNote" : "metricsUnavailableNote")}</p>
     </section>
     <section class="detail-grid detail-grid-submission">
       <article class="detail-card submission-requirements-card">
@@ -2503,7 +2721,7 @@ function renderJournalDetail(journalId) {
       </article>
       <article class="detail-card latest-signal-card">
         <h3>${t("latestIssue")}</h3>
-        ${latestIssueSignalHtml(preference)}
+        ${preferencePending ? preferenceNotice : latestIssueSignalHtml(preference)}
       </article>
     </section>
     <section class="detail-card theme-map-card">
@@ -2514,18 +2732,18 @@ function renderJournalDetail(journalId) {
         </div>
         <label class="time-slice-control">
           <span>${t("timeSlice")}</span>
-          <select id="themeTimeSlice">
+          <select id="themeTimeSlice" ${preferencePending ? "disabled" : ""}>
             ${TIME_RANGE_OPTIONS.map((key) => `<option value="${escapeHtml(key)}" ${key === defaultTimeSlice ? "selected" : ""}>${escapeHtml(timeSliceLabel(key))}</option>`).join("")}
           </select>
           <small id="themeRangeMeta" class="time-slice-meta"></small>
         </label>
       </div>
-      <div class="theme-map-shell" id="journalThemeMap"></div>
+      <div class="theme-map-shell" id="journalThemeMap">${preferencePending ? preferenceNotice : ""}</div>
       <div class="theme-evidence" id="themeEvidence">${t("noThemeEvidence")}</div>
     </section>
     <section class="detail-card">
       <h3>${t("latestArticles")}</h3>
-      ${latestArticleList(preference)}
+      ${preferencePending ? preferenceNotice : latestArticleList(preference)}
     </section>
     <section class="detail-card">
       <h3>${t("editorsTitle")}</h3>
@@ -2557,11 +2775,16 @@ function renderJournalDetail(journalId) {
       row.hidden = editorRoleFilter.value !== "all" && row.dataset.editorRole !== editorRoleFilter.value;
     });
   });
-  renderThemeMap(journalId, sliceSelect?.value || defaultTimeSlice, { animate: false });
-  renderNetwork(filteredJournals());
+  if (!preferencePending) renderThemeMap(journalId, sliceSelect?.value || defaultTimeSlice, { animate: false });
+  els.detailContent.querySelectorAll("[data-retry-preference]").forEach((button) => button.addEventListener("click", () => {
+    state.preferenceStatus.delete(journalId);
+    renderJournalDetail(journalId);
+  }));
+  ensureJournalPreference(journalId);
 }
 
 function renderAll() {
+  if (!state.ready || els.dashboard.hidden) return;
   const journals = filteredJournals();
   renderKpis(journals);
   renderScatter(journals);
@@ -2575,7 +2798,7 @@ function renderAll() {
 
 function downloadVisibleCsv() {
   const journals = filteredJournals();
-  const headers = ["name", "quartile", "main_tag", "secondary_tag", "jif_2025", "jci_2025", "publications_2022", "publications_2023", "publications_2024", "publications_2025", "first_decision_days", "publisher_family", "source_url"];
+  const headers = ["name", "aliases", "issn", "eissn", "languages", "country", "catalog_sources", "quartile", "main_tag", "secondary_tag", "jif_2025", "jci_2025", "publications_2022", "publications_2023", "publications_2024", "publications_2025", "first_decision_days", "publisher_family", "source_url"];
   const lines = [
     headers.join(","),
     ...journals.map((journal) =>
@@ -2584,6 +2807,10 @@ function downloadVisibleCsv() {
           const publicationMatch = field.match(/^publications_(\d{4})$/);
           const value = publicationMatch
             ? journal.publications?.[publicationMatch[1]] ?? ""
+            : field === "catalog_sources"
+              ? JSON.stringify(catalogSources(journal))
+              : ["aliases", "languages"].includes(field)
+                ? (journal[field] || []).join("; ")
             : field === "source_url"
               ? (journal.source_urls || [])[0] || ""
               : journal[field] ?? "";
@@ -2625,7 +2852,7 @@ async function submitChat(event) {
     return;
   }
   markAccessCodeInvalid(false);
-  setChatStatusMessage(t("chatWorking"), "loading");
+  setChatStatusMessage(t("chatWorking", { count: state.apiJournalCount ?? state.journals.length }), "loading");
   try {
     const body = {
       question,
@@ -2653,14 +2880,15 @@ async function submitChat(event) {
 async function init() {
   applyTranslations();
   try {
+    state.manifest = await fetchJson(RADAR_URLS.manifest).catch(() => ({}));
     const [journals, sources, network, report, config, preferences, editorProfiles] = await Promise.all([
       fetchJson(RADAR_URLS.journals),
-      fetchJson(RADAR_URLS.sources),
-      fetchJson(RADAR_URLS.network),
-      fetchJson(RADAR_URLS.report),
+      fetchJson(RADAR_URLS.sources).catch(() => []),
+      fetchJson(RADAR_URLS.network).catch(() => ({ nodes: [], links: [] })),
+      fetchJson(RADAR_URLS.report).catch(() => ({})),
       fetchJson(RADAR_URLS.config),
-      fetchJson(RADAR_URLS.preferences),
-      fetchJson(RADAR_URLS.editorProfiles),
+      fetchJson(RADAR_URLS.preferences).catch(() => ({ journals: {} })),
+      fetchJson(RADAR_URLS.editorProfiles).catch(() => []),
     ]);
     state.journals = journals;
     state.network = network;
@@ -2670,7 +2898,9 @@ async function init() {
     if (state.accessRequired && els.chatCode && !els.chatCode.value) {
       els.chatCode.value = storedAccessCode();
     }
-    state.preferencesByJournal = new Map((preferences || []).map((record) => [record.journal_id, record]));
+    state.preferenceIndex = preferences || { journals: {} };
+    buildSearchIndex();
+    buildNetworkIndex();
     state.editorProfilesByJournal = new Map((editorProfiles || []).map((record) => [record.journal_id, record]));
     sources.forEach((source) => {
       if (!state.sourcesByJournal.has(source.journal_id)) state.sourcesByJournal.set(source.journal_id, []);
@@ -2678,9 +2908,9 @@ async function init() {
     });
 
     refreshFilters();
+    applyTranslations();
     updateChatStatus();
     state.ready = true;
-    renderAll();
     renderRoute();
   } catch (error) {
     const notice = document.createElement("section");
@@ -2701,15 +2931,28 @@ async function init() {
   }
 }
 
-[els.search, els.tag, els.quartile, els.publisher, els.speed].forEach((control) => {
-  control.addEventListener("input", renderAll);
-  control.addEventListener("change", renderAll);
+function updateFilters() {
+  state.tablePage = 0;
+  renderAll();
+}
+
+els.search.addEventListener("input", (event) => {
+  window.clearTimeout(state.searchTimer);
+  if (!event.isComposing) state.searchTimer = window.setTimeout(updateFilters, 180);
+});
+els.search.addEventListener("compositionend", () => {
+  window.clearTimeout(state.searchTimer);
+  state.searchTimer = window.setTimeout(updateFilters, 180);
+});
+[els.tag, els.quartile, els.publisher, els.speed, els.journalLanguage, els.catalog].forEach((control) => {
+  control.addEventListener("change", updateFilters);
 });
 if (els.language) {
   els.language.addEventListener("change", () => {
     state.language = els.language.value;
     localStorage.setItem("ajr-language", state.language);
     applyTranslations();
+    buildSearchIndex();
     refreshFilters();
     updateChatStatus();
     renderAll();
@@ -2747,17 +2990,18 @@ els.tableHead?.addEventListener("click", (event) => {
     state.tableSort.dir *= -1;
   } else {
     const numeric = TABLE_SORTERS[key]?.numeric;
-    state.tableSort = { key, dir: numeric ? -1 : 1 };
+    state.tableSort = { key, dir: numeric && key !== "quartile" ? -1 : 1 };
   }
+  state.tablePage = 0;
   renderTable(filteredJournals());
 });
-els.toggleRows?.addEventListener("click", () => {
-  state.tableExpanded = !state.tableExpanded;
+function changeTablePage(delta) {
+  state.tablePage = Math.max(0, state.tablePage + delta);
   renderTable(filteredJournals());
-  if (!state.tableExpanded) {
-    document.querySelector("#journalTable")?.scrollIntoView({ behavior: "smooth", block: "start" });
-  }
-});
+  els.tableBody?.closest(".journal-table-wrap")?.scrollTo({ top: 0 });
+}
+els.toggleRows?.addEventListener("click", () => changeTablePage(1));
+els.previousRows?.addEventListener("click", () => changeTablePage(-1));
 if (els.backToTop) {
   window.addEventListener(
     "scroll",
@@ -2768,9 +3012,6 @@ if (els.backToTop) {
   );
   els.backToTop.addEventListener("click", () => window.scrollTo({ top: 0, behavior: "smooth" }));
 }
-window.addEventListener("resize", () => {
-  if (state.ready) renderNetwork(filteredJournals());
-});
 window.addEventListener("hashchange", renderRoute);
 
 init();

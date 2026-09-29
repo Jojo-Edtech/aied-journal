@@ -11,8 +11,11 @@ on:
     paths:
       - '.github/workflows/daily-research-radar-update.yml'
       - 'scripts/generate-research-radar.py'
+      - 'scripts/radar_pipeline.py'
+      - 'scripts/test_radar_pipeline.py'
       - 'scripts/validate-data.mjs'
       - 'data/radar/source_workbook_snapshot.json'
+      - 'data/catalog/**'
       - 'package.json'
 
 permissions: {}
@@ -25,6 +28,7 @@ jobs:
   refresh-radar:
     name: Refresh research radar data
     runs-on: ubuntu-latest
+    timeout-minutes: 45
     permissions:
       contents: write  # Required to commit regenerated public radar data back to main.
     outputs:
@@ -32,8 +36,12 @@ jobs:
     env:
       TZ: Asia/Hong_Kong
       RADAR_CRAWL_JOURNAL_LIMIT: ${{ vars.RADAR_CRAWL_JOURNAL_LIMIT || '80' }}
+      RADAR_ARTICLE_JOURNAL_LIMIT: ${{ vars.RADAR_ARTICLE_JOURNAL_LIMIT || '500' }}
       RADAR_MAX_PAGES_PER_JOURNAL: ${{ vars.RADAR_MAX_PAGES_PER_JOURNAL || '1' }}
-      RADAR_MAX_ARTICLES_PER_JOURNAL: ${{ vars.RADAR_MAX_ARTICLES_PER_JOURNAL || '80' }}
+      RADAR_MAX_ARTICLES_PER_JOURNAL: ${{ vars.RADAR_MAX_ARTICLES_PER_JOURNAL || '40' }}
+      RADAR_MAX_OFFICIAL_ARTICLES: ${{ vars.RADAR_MAX_OFFICIAL_ARTICLES || '0' }}
+      RADAR_WORKERS: ${{ vars.RADAR_WORKERS || '4' }}
+      RADAR_TIME_BUDGET_SECONDS: ${{ vars.RADAR_TIME_BUDGET_SECONDS || '1800' }}
     steps:
       - name: Check out repository
         uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
@@ -54,18 +62,22 @@ jobs:
       - name: Install radar data dependencies
         run: python -m pip install --upgrade pandas openpyxl
 
+      - name: Test pipeline without network requests
+        run: python -m unittest discover -s scripts -p 'test_radar_pipeline.py'
+
       - name: Refresh radar data
         run: |
           set -euo pipefail
-          DAY_INDEX=$((10#$(date +%j) - 1))
-          CRAWL_OFFSET=$((DAY_INDEX * RADAR_CRAWL_JOURNAL_LIMIT % 268))
           CROSSREF_FROM_DATE=$(date -d '5 years ago' +%Y-%m-%d)
-          echo "Refreshing all article metadata; official-site batch starts at journal offset ${CRAWL_OFFSET}."
+          echo "Refreshing rotating batches across the full catalog using persisted cursors."
           python scripts/generate-research-radar.py \
             --max-pages-per-journal "$RADAR_MAX_PAGES_PER_JOURNAL" \
-            --max-articles-per-journal "$RADAR_MAX_ARTICLES_PER_JOURNAL" \
+            --max-crossref-articles "$RADAR_MAX_ARTICLES_PER_JOURNAL" \
+            --max-official-articles "$RADAR_MAX_OFFICIAL_ARTICLES" \
+            --article-journal-limit "$RADAR_ARTICLE_JOURNAL_LIMIT" \
             --crawl-journal-limit "$RADAR_CRAWL_JOURNAL_LIMIT" \
-            --crawl-journal-offset "$CRAWL_OFFSET" \
+            --workers "$RADAR_WORKERS" \
+            --time-budget-seconds "$RADAR_TIME_BUDGET_SECONDS" \
             --crossref-from-pub-date "$CROSSREF_FROM_DATE" \
             --timeout 8
 
@@ -85,6 +97,9 @@ jobs:
             `- Generated: ${report.generated_at || 'unknown'}`,
             `- Journals: ${report.journal_count || 0}`,
             `- Article samples: ${report.articles?.total || 0}`,
+            `- Article refreshes: ${policy.article_updated || 0} updated, ${policy.article_failed || 0} failed, ${policy.article_budget_deferred || 0} deferred by budget`,
+            `- Journals retaining previous samples: ${policy.article_retained_journals || 0}`,
+            `- Next Crossref cursor: ${policy.article_next_offset || 0}`,
             `- Journals with latest-issue samples: ${coverage.journals_with_latest_issue || 0}/${coverage.total || 0}`,
             `- Official pages refreshed today: ${policy.official_page_batch_size || 0}`,
             `- RAG documents: ${report.rag_documents || 0}`,

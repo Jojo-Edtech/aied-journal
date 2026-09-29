@@ -1,271 +1,175 @@
-import { readFile } from "node:fs/promises";
+import { readFile, realpath } from "node:fs/promises";
 import { existsSync } from "node:fs";
+import path from "node:path";
 
+const args = process.argv.slice(2);
+const directoryAt = args.indexOf("--data-dir");
+const root = path.resolve(directoryAt >= 0 ? args[directoryAt + 1] : "data/radar");
 let failures = 0;
-
-async function readJson(file, fallback = null) {
-  if (!existsSync(file)) {
-    console.error(`${file} does not exist.`);
-    failures += 1;
-    return fallback;
-  }
-  try {
-    return JSON.parse(await readFile(file, "utf8"));
-  } catch (error) {
-    console.error(`${file} is not valid JSON: ${error.message}`);
-    failures += 1;
-    return fallback;
-  }
-}
-
+const fail = (message) => { console.error(message); failures += 1; };
+const same = (left, right) => JSON.stringify(left) === JSON.stringify(right);
+const safeId = /^[A-Za-z0-9][A-Za-z0-9_-]{0,179}$/;
 const emailPattern = /[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}/gi;
-const credentialPattern = /(?<![A-Za-z])(?:sk-[A-Za-z0-9_-]{12,}|gh[pousr]_[A-Za-z0-9]{20,})/g;
+const credentialPattern = /(?:DEEPSEEK_API_KEY|MODELSCOPE_API_KEY|DASHSCOPE_API_KEY|RADAR_ACCESS_CODE|(?<![A-Za-z])sk-[A-Za-z0-9_-]{12,}|gh[pousr]_[A-Za-z0-9]{20,})/g;
 
-async function inspectJsonl(file) {
-  if (!existsSync(file)) {
-    console.error(`${file} does not exist.`);
-    failures += 1;
-    return { count: 0, emails: 0, credentials: 0, parseErrors: 0 };
+function inspectPublic(value, label) {
+  const text = typeof value === "string" ? value : JSON.stringify(value);
+  if ((text.match(emailPattern) || []).length) fail(`${label} contains public email addresses.`);
+  if ((text.match(credentialPattern) || []).length) fail(`${label} contains potential credentials.`);
+}
+
+async function readJson(relative, fallback = null) {
+  try {
+    const value = JSON.parse(await readFile(path.join(root, relative), "utf8"));
+    inspectPublic(value, relative);
+    return value;
+  } catch (error) {
+    fail(`${relative} is missing or invalid: ${error.message}`);
+    return fallback;
   }
-  const text = await readFile(file, "utf8");
-  const lines = text.split(/\r?\n/).filter((line) => line.trim());
-  let emails = 0;
-  let credentials = 0;
-  let parseErrors = 0;
-  for (const line of lines) {
-    try {
-      JSON.parse(line);
-    } catch {
-      parseErrors += 1;
-    }
-    emails += (line.match(emailPattern) || []).length;
-    credentials += (line.match(credentialPattern) || []).length;
-  }
-  return { count: lines.length, emails, credentials, parseErrors };
 }
 
-const journals = await readJson("data/radar/journals.json", []);
-const q1Journals = await readJson("data/radar/journals_q1.json", []);
-const sources = await readJson("data/radar/journal_sources.json", []);
-const network = await readJson("data/radar/research_network.json", { nodes: [], links: [] });
-const report = await readJson("data/radar/crawl_report.json", {});
-const config = await readJson("data/radar/radar-config.json", {});
-const snapshot = await readJson("data/radar/source_workbook_snapshot.json", []);
-const preferences = await readJson("data/radar/journal_preferences.json", []);
-const editorProfiles = await readJson("data/radar/editor_profiles.json", []);
-const articleStats = await inspectJsonl("data/radar/journal_articles.jsonl");
-const ragStats = await inspectJsonl("data/radar/rag_documents.jsonl");
-const articleLines = articleStats.count;
-const ragLines = ragStats.count;
-
-if (!Array.isArray(journals) || journals.length !== 268) {
-  console.error(`data/radar/journals.json expected 268 journals, found ${Array.isArray(journals) ? journals.length : "invalid"}.`);
-  failures += 1;
+async function shardPath(relative, dataset, id, suffix) {
+  if (!safeId.test(id) || relative !== `${dataset}/${id}${suffix}`) throw new Error(`Unsafe ${dataset} shard path for ${id}`);
+  const absolute = await realpath(path.join(root, relative));
+  const realRoot = await realpath(root);
+  if (!absolute.startsWith(`${realRoot}${path.sep}`)) throw new Error(`Shard escapes data directory: ${relative}`);
+  return absolute;
 }
 
-if (!Array.isArray(q1Journals) || q1Journals.length !== 135) {
-  console.error(`data/radar/journals_q1.json expected 135 Q1 journals, found ${Array.isArray(q1Journals) ? q1Journals.length : "invalid"}.`);
-  failures += 1;
-}
-
-const allowedQuartiles = new Set(["Q1", "Q2", "Q3", "Q4"]);
-const journalIds = new Set();
+const journals = await readJson("journals.json", []);
+const q1Journals = await readJson("journals_q1.json", []);
+const sources = await readJson("journal_sources.json", []);
+const network = await readJson("research_network.json", { nodes: [], links: [] });
+const report = await readJson("crawl_report.json", {});
+const config = await readJson("radar-config.json", {});
+const baseline = await readJson("source_workbook_snapshot.json", []);
+const editorProfiles = await readJson("editor_profiles.json", []);
+const manifest = await readJson("data-manifest.json", {});
+const journalMap = new Map();
 const quartileCounts = new Map();
-const requiredFields = ["id", "name", "quartile", "main_tag", "publisher_family"];
+const allowedQuartiles = new Set([null, "Q1", "Q2", "Q3", "Q4"]);
+const metricFields = ["jif_2025", "jci_2025", "quartile", "publications"];
+const slices = ["all", "latest_issue", "recent_3_issues", "rolling_1y", "rolling_2y", "rolling_3y", "rolling_5y"];
 
-for (const [index, journal] of (journals || []).entries()) {
-  const label = `data/radar/journals.json row ${index + 1}`;
-  for (const field of requiredFields) {
-    if (!journal[field]) {
-      console.error(`${label} missing ${field}.`);
-      failures += 1;
-    }
+if (!Array.isArray(journals) || journals.length === 0) fail("journals.json must be a nonempty array.");
+for (const [index, journal] of (Array.isArray(journals) ? journals : []).entries()) {
+  for (const field of ["id", "name", "main_tag", "publisher_family"]) {
+    if (!journal[field]) fail(`Journal row ${index + 1} is missing ${field}.`);
   }
-  if (!allowedQuartiles.has(journal.quartile)) {
-    console.error(`${label} has unsupported quartile ${journal.quartile}.`);
-    failures += 1;
+  if (!safeId.test(journal.id || "") || journalMap.has(journal.id)) fail(`Invalid or duplicate journal ID: ${journal.id}`);
+  if (!allowedQuartiles.has(journal.quartile)) fail(`Invalid quartile for ${journal.id}; unknown must be null.`);
+  for (const field of ["jif_2025", "jci_2025"]) {
+    if (journal[field] !== null && !(typeof journal[field] === "number" && Number.isFinite(journal[field]) && journal[field] >= 0)) fail(`Invalid ${field} for ${journal.id}.`);
   }
-  if (journalIds.has(journal.id)) {
-    console.error(`${label} duplicates id ${journal.id}.`);
-    failures += 1;
+  if (typeof journal.has_jcr_record !== "boolean") fail(`Missing JCR provenance flag for ${journal.id}.`);
+  if (!journal.has_jcr_record && ["jif_2025", "jci_2025", "quartile", "metrics_year"].some((field) => journal[field] !== null)) fail(`Catalog-only journal ${journal.id} must not claim JCR metrics.`);
+  for (const field of ["source_urls", "catalog_sources", "issns"]) {
+    if (!Array.isArray(journal[field])) fail(`Missing ${field} array for ${journal.id}.`);
   }
-  journalIds.add(journal.id);
-  quartileCounts.set(journal.quartile, (quartileCounts.get(journal.quartile) || 0) + 1);
+  journalMap.set(journal.id, journal);
+  quartileCounts.set(journal.quartile || "unknown", (quartileCounts.get(journal.quartile || "unknown") || 0) + 1);
 }
-
-for (const [index, journal] of (q1Journals || []).entries()) {
-  if (journal.quartile !== "Q1") {
-    console.error(`data/radar/journals_q1.json row ${index + 1} has quartile ${journal.quartile}.`);
-    failures += 1;
-  }
+const journalIds = new Set(journalMap.keys());
+function checkIds(records, field, label) {
+  if (!Array.isArray(records)) { fail(`${label} must be an array.`); return; }
+  const ids = new Set(records.map((record) => record[field]));
+  if (ids.size !== records.length || ids.size !== journalIds.size || [...journalIds].some((id) => !ids.has(id))) fail(`${label} must have exactly one record per journal.`);
 }
-
-if (!Array.isArray(sources)) {
-  console.error("data/radar/journal_sources.json must be an array.");
-  failures += 1;
+const actualQ1 = [...journalMap.values()].filter((journal) => journal.quartile === "Q1");
+if (!Array.isArray(q1Journals) || !same(q1Journals.map((j) => j.id).sort(), actualQ1.map((j) => j.id).sort())) fail("Q1 data must exactly equal the verified Q1 subset of the full catalog.");
+for (const journal of Array.isArray(q1Journals) ? q1Journals : []) {
+  if (journal.quartile !== "Q1" || !same(journal, journalMap.get(journal.id))) fail(`Q1 record differs from full catalog: ${journal.id}`);
 }
-
-if (!Array.isArray(network.nodes) || !Array.isArray(network.links) || network.nodes.length === 0 || network.links.length === 0) {
-  console.error("data/radar/research_network.json must include non-empty nodes and links.");
-  failures += 1;
+if (!Array.isArray(baseline) || baseline.length === 0) fail("The independent JCR source snapshot must be preserved.");
+const baselineIds = new Set();
+for (const record of Array.isArray(baseline) ? baseline : []) {
+  if (baselineIds.has(record.id)) fail(`Duplicate baseline ID ${record.id}.`);
+  baselineIds.add(record.id);
+  const journal = journalMap.get(record.id);
+  if (!journal?.has_jcr_record) { fail(`JCR baseline record missing: ${record.id}`); continue; }
+  for (const field of metricFields) if (!same(record[field] ?? null, journal[field] ?? null)) fail(`JCR baseline ${field} changed for ${record.id}.`);
 }
-
+for (const journal of journalMap.values()) if (journal.has_jcr_record && !baselineIds.has(journal.id)) fail(`Unverified JCR provenance for ${journal.id}.`);
+checkIds(editorProfiles, "journal_id", "editor_profiles.json");
+for (const record of Array.isArray(editorProfiles) ? editorProfiles : []) if (!Array.isArray(record.profiles)) fail(`Invalid editor profile list for ${record.journal_id}.`);
+if (!Array.isArray(sources)) fail("journal_sources.json must be an array.");
+for (const source of Array.isArray(sources) ? sources : []) if (!journalIds.has(source.journal_id)) fail(`Unknown journal source reference: ${source.journal_id}.`);
+if (!Array.isArray(network.nodes) || !Array.isArray(network.links)) fail("Research network must contain node/link arrays.");
 const nodeIds = new Set((network.nodes || []).map((node) => node.id));
-for (const link of network.links || []) {
-  if (!nodeIds.has(link.source) || !nodeIds.has(link.target)) {
-    console.error(`data/radar/research_network.json has dangling link ${link.source} -> ${link.target}.`);
-    failures += 1;
-    break;
-  }
+const networkJournals = new Set((network.nodes || []).filter((node) => node.type === "journal").map((node) => node.id));
+if (networkJournals.size !== journalIds.size || [...journalIds].some((id) => !networkJournals.has(id))) fail("Research network omits journal records.");
+for (const link of network.links || []) if (!nodeIds.has(link.source) || !nodeIds.has(link.target)) fail(`Dangling research network link: ${link.source} -> ${link.target}.`);
+if (config.api_base_url && !/^https?:\/\//.test(config.api_base_url)) fail("api_base_url must be HTTP(S) when configured.");
+if (manifest.schema_version !== 1 || !manifest.data_version || manifest.data_version !== report.generated_at) fail("Manifest/report versions are inconsistent.");
+for (const [field, value] of [["journal_count", journals.length], ["jcr_journal_count", baseline.length], ["q1_count", actualQ1.length]]) {
+  if (manifest[field] !== value || report[field] !== value) fail(`Manifest/report ${field} does not match the actual data.`);
 }
+if (report.baseline_preservation?.journal_count !== baseline.length || report.baseline_preservation?.all_ids_preserved !== true || report.baseline_preservation?.metrics_preserved !== true) fail("Baseline preservation was not confirmed.");
 
-if (report.journal_count !== 268 || report.journal_count_matches_expected !== true) {
-  console.error("data/radar/crawl_report.json does not confirm 268 total journals.");
-  failures += 1;
-}
-
-if (report.q1_count !== 135 || report.q1_count_matches_expected !== true) {
-  console.error("data/radar/crawl_report.json does not confirm 135 Q1 journals.");
-  failures += 1;
-}
-
-if (!report.speed_coverage || typeof report.speed_coverage.first_decision_days !== "number") {
-  console.error("data/radar/crawl_report.json missing speed_coverage.");
-  failures += 1;
-}
-
-if (!report.editor_profile_coverage || typeof report.editor_profile_coverage.profiles !== "number") {
-  console.error("data/radar/crawl_report.json missing editor_profile_coverage.");
-  failures += 1;
-}
-
-if (!report.preference_coverage || typeof report.preference_coverage.journals_with_any_articles !== "number") {
-  console.error("data/radar/crawl_report.json missing preference_coverage.");
-  failures += 1;
-}
-
-const expectedPreferenceSlices = ["all", "latest_issue", "recent_3_issues", "rolling_1y", "rolling_2y", "rolling_3y", "rolling_5y"];
-
-if (!Array.isArray(snapshot) || snapshot.length !== 268) {
-  console.error("data/radar/source_workbook_snapshot.json must contain the 268-journal source snapshot.");
-  failures += 1;
-}
-
-if (!Array.isArray(preferences) || preferences.length !== 268) {
-  console.error(`data/radar/journal_preferences.json expected 268 records, found ${Array.isArray(preferences) ? preferences.length : "invalid"}.`);
-  failures += 1;
-} else {
-  for (const record of preferences) {
-    if (!journalIds.has(record.journal_id) || !record.slices || !record.slices.all) {
-      console.error(`data/radar/journal_preferences.json missing all slice for ${record.journal_id || "unknown journal"}.`);
-      failures += 1;
-      break;
-    }
-    for (const key of expectedPreferenceSlices) {
-      const slice = record.slices[key];
-      if (!slice || typeof slice.sample_count !== "number" || typeof slice.description !== "string") {
-        console.error(`data/radar/journal_preferences.json missing ${key} metadata for ${record.journal_id || "unknown journal"}.`);
-        failures += 1;
-        break;
+const totals = { journal_articles: 0, rag_documents: 0 };
+const ranges = Object.fromEntries(slices.map((key) => [key, 0]));
+const articleCounts = new Map();
+const preferenceCounts = new Map();
+const allDocIds = new Set();
+for (const dataset of ["journal_articles", "rag_documents", "journal_preferences"]) {
+  const index = await readJson(`${dataset}_index.json`, {});
+  if (index.schema_version !== 1 || index.data_version !== manifest.data_version || !index.journals || typeof index.journals !== "object" || Array.isArray(index.journals)) { fail(`Invalid ${dataset} index.`); continue; }
+  const ids = Object.keys(index.journals);
+  if (ids.length !== journalIds.size || ids.some((id) => !journalIds.has(id))) fail(`${dataset} index must cover the complete journal catalog.`);
+  if (manifest.datasets?.[dataset] !== `${dataset}_index.json`) fail(`Manifest has an invalid ${dataset} index path.`);
+  for (const [id, entry] of Object.entries(index.journals)) {
+    try {
+      const isPreference = dataset === "journal_preferences";
+      const absolute = await shardPath(entry.path, dataset, id, isPreference ? ".json" : ".jsonl");
+      const text = await readFile(absolute, "utf8");
+      inspectPublic(text, entry.path);
+      if (isPreference) {
+        const record = JSON.parse(text);
+        if (record.journal_id !== id || record.journal_name !== journalMap.get(id)?.name) fail(`Incorrect preference journal identity: ${id}.`);
+        if (!Array.isArray(entry.available_time_slices)) fail(`Missing available preference ranges: ${id}.`);
+        for (const key of slices) {
+          const slice = record.slices?.[key];
+          if (!slice || !Number.isInteger(slice.sample_count) || slice.sample_count < 0 || typeof slice.description !== "string") { fail(`Invalid ${key} preference range for ${id}.`); continue; }
+          if (slice.sample_count > 0) ranges[key] += 1;
+        }
+        if (entry.sample_count !== record.slices?.all?.sample_count || !same(entry.available_time_slices, record.available_time_slices)) fail(`Preference index summary differs from its shard: ${id}.`);
+        preferenceCounts.set(id, entry.sample_count);
+      } else {
+        const rows = text.split(/\r?\n/).filter((line) => line.trim()).map((line) => JSON.parse(line));
+        if (!Number.isInteger(entry.count) || entry.count !== rows.length) fail(`Wrong ${dataset} count for ${id}.`);
+        const seen = new Set();
+        for (const row of rows) {
+          if (row.journal_id !== id || row.journal_name !== journalMap.get(id)?.name) fail(`Incorrect ${dataset} journal identity in ${id}.`);
+          if (dataset === "rag_documents") {
+            if (!row.doc_id || allDocIds.has(row.doc_id)) fail(`Missing or duplicate RAG document ID in ${id}.`);
+            allDocIds.add(row.doc_id);
+            if (row.source_type === "jcr_workbook" && !baselineIds.has(id)) fail(`Catalog record incorrectly labelled as JCR evidence: ${id}.`);
+          } else {
+            const doi = String(row.doi || "").toLowerCase().replace(/^https?:\/\/(?:dx\.)?doi\.org\//, "");
+            const key = doi || row.url || `${row.title}|${row.year || ""}`;
+            if (seen.has(key)) fail(`Duplicate article in ${id}.`);
+            seen.add(key);
+            if (row.status !== "ok" || !row.title) fail(`Failed/empty article counted as valid evidence in ${id}.`);
+          }
+        }
+        if (dataset === "rag_documents" && rows.length === 0) fail(`Missing base source document for ${id}.`);
+        if (dataset === "journal_articles") articleCounts.set(id, rows.length);
+        totals[dataset] += rows.length;
       }
+    } catch (error) {
+      fail(`${dataset}/${id}: ${error.message}`);
     }
   }
 }
-
-for (const key of expectedPreferenceSlices) {
-  if (!report.preference_coverage?.range_slices || typeof report.preference_coverage.range_slices[key] !== "number") {
-    console.error(`data/radar/crawl_report.json missing preference range coverage for ${key}.`);
-    failures += 1;
-    break;
-  }
+for (const id of journalIds) {
+  const count = articleCounts.get(id);
+  if (count !== preferenceCounts.get(id) || count !== journalMap.get(id)?.article_count_crawled || count !== journalMap.get(id)?.article_preferences?.article_sample_count) fail(`Article/preference counts disagree for ${id}.`);
 }
-
-if (!Array.isArray(editorProfiles) || editorProfiles.length !== 268) {
-  console.error(`data/radar/editor_profiles.json expected 268 records, found ${Array.isArray(editorProfiles) ? editorProfiles.length : "invalid"}.`);
-  failures += 1;
-} else {
-  for (const record of editorProfiles) {
-    if (!journalIds.has(record.journal_id) || !Array.isArray(record.profiles)) {
-      console.error(`data/radar/editor_profiles.json has invalid record for ${record.journal_id || "unknown journal"}.`);
-      failures += 1;
-      break;
-    }
-  }
-}
-
-for (const [label, fileData] of [
-  ["journals", journals],
-  ["q1Journals", q1Journals],
-  ["sources", sources],
-  ["network", network],
-  ["snapshot", snapshot],
-  ["preferences", preferences],
-  ["editorProfiles", editorProfiles],
-  ["report", report],
-  ["config", config],
-]) {
-  const text = JSON.stringify(fileData);
-  const emails = (text.match(emailPattern) || []).length;
-  if (emails > 0) {
-    console.error(`Public ${label} data contains ${emails} email address(es); contact details must be redacted.`);
-    failures += 1;
-  }
-  if (/DEEPSEEK_API_KEY|MODELSCOPE_API_KEY|DASHSCOPE_API_KEY|RADAR_ACCESS_CODE|(?<![A-Za-z])sk-[A-Za-z0-9_-]{12,}/.test(text)) {
-    console.error(`Potential secret found in public ${label} data.`);
-    failures += 1;
-  }
-}
-
-if (config.api_base_url && !/^https?:\/\//.test(config.api_base_url)) {
-  console.error("data/radar/radar-config.json api_base_url must be an HTTP(S) URL when configured.");
-  failures += 1;
-}
-
-if (articleLines === 0) {
-  console.error("data/radar/journal_articles.jsonl is empty.");
-  failures += 1;
-}
-
-if (ragLines === 0) {
-  console.error("data/radar/rag_documents.jsonl is empty.");
-  failures += 1;
-}
-
-for (const [file, stats] of [
-  ["data/radar/journal_articles.jsonl", articleStats],
-  ["data/radar/rag_documents.jsonl", ragStats],
-]) {
-  if (stats.parseErrors > 0) {
-    console.error(`${file} contains ${stats.parseErrors} invalid JSONL record(s).`);
-    failures += 1;
-  }
-  if (stats.emails > 0) {
-    console.error(`${file} contains ${stats.emails} email address(es); public text must be redacted.`);
-    failures += 1;
-  }
-  if (stats.credentials > 0) {
-    console.error(`${file} contains ${stats.credentials} potential credential(s).`);
-    failures += 1;
-  }
-}
-
-console.log(
-  [
-    `journals=${Array.isArray(journals) ? journals.length : 0}`,
-    `q1=${Array.isArray(q1Journals) ? q1Journals.length : 0}`,
-    `quartiles=${[...quartileCounts.entries()].map(([quartile, count]) => `${quartile}:${count}`).join(",")}`,
-    `sources=${Array.isArray(sources) ? sources.length : 0}`,
-    `network=${(network.nodes || []).length} nodes/${(network.links || []).length} links`,
-    `articles=${articleLines}`,
-    `rag_docs=${ragLines}`,
-    `speed=first:${report.speed_coverage?.first_decision_days ?? 0}/review:${report.speed_coverage?.review_time_days ?? 0}/accept:${report.speed_coverage?.submission_to_accept_days ?? 0}`,
-    `editors=${report.editor_profile_coverage?.profiles ?? 0} profiles/${report.editor_profile_coverage?.with_affiliation ?? 0} affiliations/${report.editor_profile_coverage?.with_country_or_region ?? 0} regions`,
-    `preferences=${report.preference_coverage?.journals_with_any_articles ?? 0}/${report.preference_coverage?.total ?? 0}`,
-    `ranges=${expectedPreferenceSlices.map((key) => `${key}:${report.preference_coverage?.range_slices?.[key] ?? 0}`).join(",")}`,
-  ].join(" | ")
-);
-
-if (failures > 0) {
-  console.error(`${failures} validation failure(s).`);
-  process.exitCode = 1;
-}
+if (totals.journal_articles !== report.articles?.total || totals.journal_articles !== manifest.article_count) fail("Article counts disagree with the report/manifest.");
+if (totals.rag_documents !== report.rag_documents || totals.rag_documents !== manifest.rag_document_count) fail("RAG counts disagree with the report/manifest.");
+for (const key of slices) if (ranges[key] !== report.preference_coverage?.range_slices?.[key]) fail(`Preference coverage mismatch for ${key}.`);
+if (report.preference_coverage?.total !== journalIds.size || report.speed_coverage?.total !== journalIds.size) fail("Coverage denominators must equal the complete catalog size.");
+for (const relative of ["journal_preferences.json", "journal_articles.jsonl", "rag_documents.jsonl"]) if (existsSync(path.join(root, relative))) fail(`Legacy monolith should not remain in a partitioned build: ${relative}`);
+console.log(`journals=${journalIds.size} | jcr=${baselineIds.size} | q1=${actualQ1.length} | articles=${totals.journal_articles} | rag_docs=${totals.rag_documents} | quartiles=${[...quartileCounts].map(([q, count]) => `${q}:${count}`).join(",")}`);
+if (failures) { console.error(`${failures} validation failure(s).`); process.exitCode = 1; }

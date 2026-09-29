@@ -44,7 +44,9 @@ jobs:
           python -m pip install --disable-pip-version-check \
             pip-audit==2.10.1
           python -m pip_audit -r research_radar_api/requirements.lock.txt
-          python -m unittest research_radar_api/test_security.py
+          python -m unittest research_radar_api/test_security.py research_radar_api/test_catalog_retrieval.py
+          python -m unittest discover -s scripts -p 'test_catalog_import.py'
+          python -m unittest discover -s scripts -p 'test_radar_pipeline.py'
           node --test journal_worker/index.test.mjs
 
       - name: Validate radar data
@@ -54,7 +56,9 @@ jobs:
         run: npm run build:static
 
       - name: Check local and hosted data loading
-        run: npm run check:data-loader
+        run: |
+          npm run check:data-loader
+          npm run check:catalog-ui
 
       - name: Configure GitHub Pages
         uses: actions/configure-pages@983d7736d9b0ae728b81ab479565c72886d7745b # v5.0.0

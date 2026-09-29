@@ -8,13 +8,13 @@
     <title>AIED Journal Radar | AIED选刊</title>
     <meta
       name="description"
-      content="AIED Journal Radar is a bilingual research-oriented journal selection workspace for education JCR journals, topic preferences, latest issues, evidence, and RAG-assisted recommendations."
+      content="AIED Journal Radar is a bilingual research-oriented journal selection workspace for education journals, topic preferences, latest issues, evidence, and RAG-assisted recommendations."
     >
     <meta name="theme-color" content="#6d4df2">
     <link rel="canonical" href="https://jojo-edtech.github.io/aied-journal/">
     <meta property="og:type" content="website">
     <meta property="og:title" content="AIED Journal Radar | AIED选刊">
-    <meta property="og:description" content="A journal-selection workspace for education JCR journals: metrics, topic preferences, review speed, and AI-backed submission advice.">
+    <meta property="og:description" content="A journal-selection workspace for education journals: metrics, topic preferences, review speed, and AI-backed submission advice.">
     <meta property="og:url" content="https://jojo-edtech.github.io/aied-journal/">
     <meta name="twitter:card" content="summary">
     <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%237c5cff'/%3E%3Cstop offset='1' stop-color='%234f8df7'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='64' height='64' rx='14' fill='url(%23g)'/%3E%3Ccircle cx='32' cy='32' r='17' fill='none' stroke='white' stroke-opacity='.55' stroke-width='3'/%3E%3Ccircle cx='32' cy='32' r='8' fill='none' stroke='white' stroke-opacity='.8' stroke-width='3'/%3E%3Cpath d='M32 32L45 19' stroke='white' stroke-width='4' stroke-linecap='round'/%3E%3Ccircle cx='32' cy='32' r='3.4' fill='white'/%3E%3C/svg%3E">
@@ -55,7 +55,7 @@
       <div class="header-inner">
         <div class="header-title">
           <h1>AIED Journal Radar</h1>
-          <p class="subtitle" data-i18n="subtitle">AIED选刊：教育学 JCR 期刊研究与投稿定位工作台</p>
+          <p class="subtitle" data-i18n="subtitle">AIED选刊：教育期刊研究与投稿定位工作台</p>
         </div>
         <div class="header-actions" aria-label="Site actions">
           <label class="language-switcher" for="languageSelect">
@@ -77,7 +77,7 @@
           <div>
             <p class="eyebrow" data-i18n="heroEyebrow">研究工作台</p>
             <h2 data-i18n="heroTitle">为你的下一篇论文找到匹配的期刊</h2>
-            <p data-i18n="heroCopy">对比教育学 JCR 期刊的指标、发文量与审稿信号，并用有证据支撑的 AI 建议定位投稿目标。</p>
+            <p data-i18n="heroCopy">对比教育期刊的指标、发文量与审稿信号，并用有证据支撑的 AI 建议定位投稿目标。</p>
             <div class="hero-actions">
               <a class="button button-light" href="#radarChatForm" data-i18n="heroAsk">问 AI 助手</a>
               <a class="button button-glass" href="#journalTable" data-i18n="heroBrowse">浏览期刊</a>
@@ -112,6 +112,14 @@
             <select id="radarPublisherFilter"></select>
           </label>
           <label>
+            <span data-i18n="journalLanguage">期刊语种</span>
+            <select id="radarJournalLanguageFilter"></select>
+          </label>
+          <label>
+            <span data-i18n="catalogFilter">目录来源</span>
+            <select id="radarCatalogFilter"></select>
+          </label>
+          <label>
             <span data-i18n="speed">审稿速度</span>
             <select id="radarSpeedFilter">
               <option value="all" data-i18n="all">全部</option>
@@ -142,7 +150,7 @@
             </label>
             <div class="chat-examples" aria-label="Example questions">
               <button type="button" data-example-zh="我做生成式AI辅助教师反馈的混合方法研究，研究对象是中学英语教师，哪些期刊更合适？请区分冲 Q1 和稳妥投稿。" data-example-en="I am studying generative AI-supported teacher feedback with secondary English teachers using mixed methods. Which journals fit, separating Q1 stretch targets and safer options?" data-i18n="exampleFeedback">教师反馈</button>
-              <button type="button" data-example-zh="我做高等教育场景下学习分析和AI素养的量化研究，推荐哪些教育学 JCR 期刊？" data-example-en="I am conducting a quantitative study on learning analytics and AI literacy in higher education. Which education JCR journals should I consider?" data-i18n="exampleAnalytics">学习分析</button>
+              <button type="button" data-example-zh="我做高等教育场景下学习分析和AI素养的量化研究，推荐哪些教育期刊？" data-example-en="I am conducting a quantitative study on learning analytics and AI literacy in higher education. Which education journals should I consider?" data-i18n="exampleAnalytics">学习分析</button>
               <button type="button" data-example-zh="我做教师AI competence、teacher wellbeing 和政策采纳的研究，哪些期刊匹配度高？" data-example-en="I study teacher AI competence, teacher wellbeing, and policy adoption. Which journals are the strongest matches?" data-i18n="exampleTeacherDev">教师发展</button>
             </div>
             <button class="button button-primary" type="submit" data-i18n="generateAdvice">生成选刊建议</button>
@@ -168,7 +176,7 @@
           <div class="radar-card-header">
             <div>
               <h3 data-i18n="scatterTitle">JIF 与 JCI 分布</h3>
-              <p data-i18n="scatterCopy">每个点是一份教育学 JCR 期刊，横轴为 JIF，纵轴为 JCI；颜色表示 JCR 分区。</p>
+              <p data-i18n="scatterCopy">每个点是一份教育期刊，横轴为 JIF，纵轴为 JCI；颜色表示 JCR 分区。</p>
             </div>
           </div>
           <div class="chart-shell chart-shell-tall" id="jifJciScatter"></div>
@@ -231,6 +239,8 @@
           </table>
         </div>
         <div class="table-actions">
+          <button class="button button-secondary" id="previousTableRows" type="button" hidden></button>
+          <span id="tablePageStatus" role="status" aria-live="polite" hidden></span>
           <button class="button button-secondary" id="toggleTableRows" type="button" hidden></button>
         </div>
       </section>
@@ -238,7 +248,7 @@
       <section class="radar-methodology">
         <h2 data-i18n="methodTitle">数据说明</h2>
         <p data-i18n="methodCopy">
-          期刊基础数据来自本地工作簿 Education_JCR_latest_refresh_2026-06-26.xlsx 的总表与本轮更新日志。网页只发布公开指标、官网链接、抓取状态和可引用片段；ModelScope / AI token、访问口令和限额配置只属于阿里云轻量服务器环境变量。
+          期刊目录整合原有 JCR 工作簿与公开目录，并在期刊详情列出来源。JIF/JCI 保留原记录年份；目录收录不代表 JCR 收录，空指标表示尚未核验。主题偏好仅依据已抓取的文章样本，未覆盖不代表没有相关研究。
         </p>
       </section>
     </main>
@@ -255,7 +265,7 @@
 
     <button class="back-to-top" id="backToTop" type="button" hidden aria-label="Back to top">↑</button>
 
-    <script src="data-loader.js?v=20260906-local-preview"></script>
-    <script src="app.js?v=20260906-local-preview"></script>
+    <script src="data-loader.js?v=20260929-catalog-shards"></script>
+    <script src="app.js?v=20260929-catalog-shards"></script>
   </body>
 </html>

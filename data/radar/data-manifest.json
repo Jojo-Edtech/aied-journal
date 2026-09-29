@@ -1,0 +1,86 @@
+{
+  "schema_version": 1,
+  "data_version": "2026-09-29T16:14:46+00:00",
+  "journal_count": 3449,
+  "jcr_journal_count": 268,
+  "catalog_journal_count": 3181,
+  "q1_count": 135,
+  "article_count": 106318,
+  "rag_document_count": 110390,
+  "datasets": {
+    "journal_preferences": "journal_preferences_index.json",
+    "journal_articles": "journal_articles_index.json",
+    "rag_documents": "rag_documents_index.json"
+  },
+  "catalog_sources": {
+    "schema_version": 1,
+    "retrieved_at": "2026-09-29T16:01:17.962528+00:00",
+    "sources": [
+      {
+        "id": "doaj",
+        "label": "DOAJ · Education subjects and title matches",
+        "url": "https://doaj.org/csv",
+        "retrieved_at": "2026-09-29T16:01:17.962528+00:00",
+        "extract_path": "sources/doaj-education.json",
+        "sha256": "dab6e730ea054283dee452b7d38973fec6ba1b1ad72cd26b89009c8695e44479",
+        "input_records": 2192,
+        "accepted_candidates": 2171,
+        "excluded_records": 21,
+        "selection_basis_counts": {
+          "education_subject_branch": 2052,
+          "title_keyword_outside_education_branch": 119
+        },
+        "selection_rule": "Education subject branch OR whole-word education|educational|teaching|pedagogy|didactics in Journal title (case-insensitive); exclude continued titles and identified proceedings series."
+      },
+      {
+        "id": "ebsco_education",
+        "label": "EBSCO Education Source · Education",
+        "url": "https://about.ebsco.com/m/ee/Marketing/titleLists/eue-subject.htm",
+        "retrieved_at": "2026-09-29T16:01:17.962528+00:00",
+        "extract_path": "sources/ebsco-education.json",
+        "sha256": "1cbf0dcd88cf10b4edbcc7933aab92083ab57494bb7897cfe5bb30119e1d5b92",
+        "input_records": 882,
+        "accepted_candidates": 882,
+        "excluded_records": 0
+      },
+      {
+        "id": "ncpssd",
+        "label": "国家哲学社会科学文献中心 · 教育学",
+        "url": "https://www.ncpssd.org/journal/list?t=1&langType=1&clazz=C%3DG4%2CG5%2CG6%2CG7",
+        "retrieved_at": "2026-09-29T16:01:17.962528+00:00",
+        "extract_path": "sources/ncpssd-education.json",
+        "sha256": "0a10f5898014be87c131ee5a3339b0f1c7e5cb7b067812f848f288d1481830ef",
+        "input_records": 461,
+        "accepted_candidates": 461,
+        "excluded_records": 0
+      }
+    ],
+    "additional_identity_evidence": {
+      "extract_path": "sources/additional-identity-evidence.json",
+      "sha256": "e096a854c2e18c61f5e79671919ab84d52e3853b7a6ef084383d190479766625",
+      "input_records": 8,
+      "verified_records": 8,
+      "applied_candidates": 15
+    },
+    "baseline_journal_count": 268,
+    "directory_candidate_count": 3514,
+    "directory_unique_count": 3297,
+    "overlap_with_baseline": 116,
+    "new_journal_count": 3181,
+    "expected_merged_count": 3449,
+    "source_membership_counts": {
+      "doaj": 2171,
+      "ebsco_education": 881,
+      "ncpssd": 430
+    },
+    "chinese_language_count": 434,
+    "scope": "Union of the historical JCR workbook, education-category directory records, and DOAJ journals selected by explicit education-related title terms outside its Education subject branch; not an exhaustive registry of every journal worldwide.",
+    "limitations": [
+      "Directory membership is not proof of JCR indexing, journal quality, or continued publication.",
+      "DOAJ title-derived additions retain their original non-Education subject classification. The title rule indicates education relevance, not independently verified publisher scope or current submission activity.",
+      "EBSCO candidates have Education subject, Academic Journal type and no indexing end date; this is not a guarantee of publisher activity.",
+      "NCPSSD education classification includes education-related university journals, not only education-specialist titles.",
+      "Unknown metrics, review times, languages and countries are left missing. No external metric is substituted for JIF/JCI."
+    ]
+  }
+}
