@@ -1,19 +1,19 @@
 {
-  "generated_at": "2026-09-29T16:22:54+00:00",
+  "generated_at": "2026-09-30T00:53:02+00:00",
   "journal_count": 3449,
   "q1_count": 135,
   "jcr_journal_count": 268,
   "unknown_quartile_count": 3181,
   "journals_with_source_urls": 2412,
   "source_pages": {
-    "total": 8812,
-    "ok": 6855,
-    "failed": 1957,
+    "total": 9374,
+    "ok": 7220,
+    "failed": 2154,
     "content_too_short": 0
   },
   "articles": {
-    "total": 106321,
-    "ok": 106321,
+    "total": 106328,
+    "ok": 106328,
     "failed": 0,
     "content_too_short": 0
   },
@@ -47,7 +47,7 @@
     },
     "total": 3449
   },
-  "rag_documents": 110393,
+  "rag_documents": 110400,
   "missing_fields": {
     "jif_2025": {
       "missing": 3182,
@@ -225,16 +225,16 @@
   "refresh_policy": {
     "article_metadata": "rotating_batch",
     "article_batch_size": 500,
-    "article_batch_offset": 0,
-    "article_next_offset": 500,
-    "article_updated": 430,
-    "article_failed": 70,
+    "article_batch_offset": 500,
+    "article_next_offset": 1000,
+    "article_updated": 365,
+    "article_failed": 135,
     "article_budget_deferred": 0,
-    "article_retained_journals": 2082,
+    "article_retained_journals": 2147,
     "official_page_crawl": "rotating_batch",
     "official_page_batch_size": 80,
-    "official_page_batch_offset": 80,
-    "official_next_offset": 160,
+    "official_page_batch_offset": 160,
+    "official_next_offset": 240,
     "crossref_from_pub_date": "2021-09-30",
     "max_crossref_articles": 40,
     "max_official_articles": 0,
