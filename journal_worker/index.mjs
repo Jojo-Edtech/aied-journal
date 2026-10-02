@@ -169,11 +169,22 @@ async function callModelScope(env, question, ranked, searchedJournalCount, optio
         .slice(0, 3)
         .map((source) => `${source.source_type || "source"}: ${source.source_url || ""}`)
         .join(" | ");
+      const indexSnapshots = [...new Set((journal.index_evidence || [])
+        .filter((proof) => (journal.indexes || []).includes(proof.index))
+        .map((proof) => JSON.stringify({
+          index: proof.index,
+          snapshot_date: proof.snapshot_date || null,
+          retrieved_at: proof.retrieved_at || null,
+          source_label: proof.label || proof.source || "source",
+          source_url: proof.url || proof.source_url || proof.evidence_url || "",
+        })))].join("\n");
       return [
         `${index + 1}. ${journal.name} (${journal.abbreviation || "no abbreviation"})`,
         `JCR: ${journal.quartile || "JCR unverified / JCR 未核验"}; 2025 JIF: ${journal.jif_2025 ?? "unavailable / 指标缺失"}; 2025 JCI: ${journal.jci_2025 ?? "unavailable / 指标缺失"}`,
         `Catalog sources (not proof of JCR inclusion): ${catalogRecords(journal).map((source) => `${source.label || source.id}: ${source.evidence_url || source.url || "record only"}`).join(" | ") || "not recorded"}`,
-        `Evidenced indexes: ${(journal.indexes || []).join(", ") || "unverified"}; index sources: ${(journal.index_evidence || []).map((item) => `${item.label || item.source || "source"}: ${item.url || item.source_url || item.evidence_url || ""}`).join(" | ")}`,
+        `JIF/JCI metric_edition_year: ${journal.metrics_year || (journal.has_jcr_record ? 2025 : "unavailable")}; this is not an index snapshot date.`,
+        `Evidenced indexes: ${(journal.indexes || []).join(", ") || "unverified"}`,
+        `Authoritative index snapshot records (JSON):\n${indexSnapshots || "No snapshot dates recorded"}`,
         `Languages: ${(journal.languages || []).join(", ") || "not recorded"}; country or region: ${journal.country || "not recorded"}`,
         `Other names / editions: ${(journal.aliases || []).join("; ") || "none recorded"}; current ISSNs: ${journalIdentifiers(journal, false).join(", ") || "not recorded"}; historical ISSNs: ${(journal.historical_issns || []).join(", ") || "none recorded"}`,
         `Recorded annual publication volume (missing years remain unknown): ${publicationSeries}`,
@@ -188,6 +199,7 @@ async function callModelScope(env, question, ranked, searchedJournalCount, optio
   const system = `You are AIED Journal Radar, an evidence-backed education journal-selection advisor covering English education journals with evidenced SSCI, ESCI or Scopus membership; Chinese-language journals are outside this catalog.
 The retrieval stage scanned the complete database of ${searchedJournalCount} journals. It did not use the frontend shortlist or current dashboard filters.
 Directory inclusion (including DOAJ) does not establish JCR inclusion. Missing quartile, JIF and JCI mean unverified or unavailable, never zero or a negative quality judgment. A request for non-JCR journals can only be supported as JCR-unverified candidates unless explicit verified exclusion evidence exists. Preserve any language, index, directory or quartile constraints in the question. SSCI, ESCI and Scopus membership must come from the explicit index evidence; never infer it from JIF, quartile, publisher or catalog inclusion. Index memberships are dated snapshots, not a guarantee of current coverage.
+For questions about index snapshot dates, use only each index record's snapshot_date and retain its numeric year and month exactly. For example, 2026-06 may be rendered as 2026年6月, never 2025年6月. A source label such as JCR 2025 denotes a metric edition, not its release or snapshot year. metric_edition_year and retrieved_at are separate fields and must never replace snapshot_date. When snapshot_date is null or absent, say the snapshot date is not recorded; do not infer it from the source title, URL, metric year, retrieval date or dataset refresh date.
 Use only the retrieved radar context below. Do not invent journal requirements. If evidence is insufficient, say 当前雷达资料不足.
 Annual publication volumes labelled as coming from the radar workbook are recorded workbook values, not forecasts. Do not call them predicted values.
 Answer in the user's language. If the user asks a factual question about a named journal, answer that journal directly and do not force a recommendation table.

@@ -597,12 +597,17 @@ def context_for(results: list[tuple[Document, float]]) -> str:
             label = str(proof.get("index") or "")
             if label not in doc.indexes:
                 continue
-            dated = str(proof.get("snapshot_date") or proof.get("retrieved_at") or "日期未记录")
-            index_sources.append(f"{label} ({dated}): {url[:500]}")
+            index_sources.append(json.dumps({
+                "index": label,
+                "snapshot_date": proof.get("snapshot_date") or None,
+                "retrieved_at": proof.get("retrieved_at") or None,
+                "source_label": proof.get("label") or proof.get("source") or "source",
+                "source_url": url[:500],
+            }, ensure_ascii=False))
         source = (
             f"[{index}] 期刊：{doc.journal_name}\n"
             f"数据库收录：{', '.join(doc.indexes) or '未记录'}\n"
-            f"收录依据：{'; '.join(index_sources) or '当前片段未提供'}\n"
+            f"索引快照权威记录（JSON）：{' '.join(index_sources) or '当前片段未提供'}\n"
             f"标题：{doc.title}\n"
             f"类型：{doc.source_type}\n"
             f"内容：{snippet}\n"
@@ -722,6 +727,9 @@ def call_llm(question: str, results: list[tuple[Document, float]]) -> str:
         "检索范围是全部期刊总库，不使用网页右侧候选清单或当前筛选。"
         "当前产品仅覆盖有英文出版语种记录、没有中文出版语种记录，且有SSCI、ESCI或Scopus收录依据的教育期刊。"
         "三种索引取并集，期刊可以重复收录；仅按资料中明确记录的标签说明收录情况与来源快照日期，不能从JCR分区、DOAJ或EBSCO目录推断索引。"
+        "回答索引资料的快照日期时，只用对应索引JSON记录的snapshot_date，原样保留其数字年份和月份。"
+        "例如2026-06只能写2026年6月，不能写成2025年6月；来源标题JCR 2025中的2025是指标版次年份，不是其发布日期或快照年份。"
+        "retrieved_at是资料获取日期，也不能代替snapshot_date。snapshot_date为空时须说快照日期未记录，不得从标题、网址、指标年份、获取日期或数据刷新日期推算。"
         "索引收录不等于质量认证或正在收稿。缺失JIF/JCI/分区只能称未提供或未核验，不能当作0或断言未被JCR收录。尊重问题中的数据库索引和分区约束。"
         "若用户询问指定期刊的事实，直接回答该期刊；选刊问题才推荐 3-5 本。"
         "回答要简洁、可操作。"

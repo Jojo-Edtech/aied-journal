@@ -81,7 +81,37 @@ class ScopeTests(unittest.TestCase):
                 with patch.object(api, "load_documents", side_effect=AssertionError("Context must not reload data")):
                     context = api.context_for([(document, 2.0)])
                 self.assertIn("数据库收录：SSCI, Scopus", context)
-                self.assertIn("SSCI (2026-06): https://example.org/index.xlsx", context)
+                self.assertIn('"snapshot_date": "2026-06"', context)
+                self.assertIn('"source_url": "https://example.org/index.xlsx"', context)
+
+    def test_llm_receives_authoritative_snapshot_dates_separate_from_retrieval_and_metric_year(self):
+        for dated in (True, False):
+            with self.subTest(dated=dated):
+                document = api.Document("d", "j", "Journal", "https://example.org", "journal_index", "JCR 2025", "JIF metric year 2025", [], Counter(), 1)
+                document.indexes = ("SSCI",)
+                document.index_evidence = ({
+                    "index": "SSCI", "source": "UEFISCDI published JCR 2025 list (June 2026 release)",
+                    "url": "https://example.org/JCR2025.xlsx", "retrieved_at": "2026-10-02",
+                    **({"snapshot_date": "2026-06"} if dated else {}),
+                },)
+                settings = {
+                    "provider": "modelscope", "model": "test-model", "token": "mock-token-no-network",
+                    "api_base": "https://api-inference.modelscope.cn/v1", "max_tokens": 1100, "temperature": 0.2, "timeout": 10,
+                }
+                with patch.object(api, "llm_settings", return_value=settings), patch.object(api.LLM_HTTP_OPENER, "open") as send:
+                    response = send.return_value.__enter__.return_value
+                    response.headers = {}
+                    response.read.return_value = b'{"choices":[{"message":{"content":"mocked answer"}}]}'
+                    api.call_llm("期刊索引快照日期是什么？", [(document, 1.0)])
+                    sent = json.loads(send.call_args.args[0].data)
+                content = sent["messages"][1]["content"]
+                prefix = "索引快照权威记录（JSON）："
+                record = json.loads(next(line.removeprefix(prefix) for line in content.splitlines() if line.startswith(prefix)))
+                self.assertEqual(record["snapshot_date"], "2026-06" if dated else None)
+                self.assertEqual(record["retrieved_at"], "2026-10-02")
+                self.assertIn("JCR 2025", record["source_label"])
+                self.assertIn("是指标版次年份，不是其发布日期或快照年份", sent["messages"][0]["content"])
+                self.assertIn("snapshot_date为空时须说快照日期未记录", sent["messages"][0]["content"])
 
     def test_legacy_documents_and_unsafe_index_urls_do_not_break_context(self):
         document = api.Document("d", "j", "Journal", "https://example.org", "article", "Title", "Text", [], Counter(), 1)

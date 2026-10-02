@@ -354,6 +354,48 @@ for (const [label, configuredModel, expectedModel, thinkingDisabled] of [
   });
 }
 
+for (const dated of [true, false]) {
+  test(`LLM request separates index snapshot dates from the JCR edition and retrieval date (${dated ? "dated" : "missing date"})`, async (t) => {
+    const host = dated ? "snapshot-dated.example" : "snapshot-unknown.example";
+    const journal = {
+      ...journals[0], languages: ["English"], has_jcr_record: true, metrics_year: 2025, indexes: ["SSCI", "Scopus"],
+      index_evidence: [
+        { index: "SSCI", source: "UEFISCDI published JCR 2025 list (June 2026 release)", ...(dated ? { snapshot_date: "2026-06" } : {}), retrieved_at: "2026-10-02", url: "https://example.org/JCR2025.xlsx" },
+        { index: "Scopus", source: "Elsevier Scopus Source List", ...(dated ? { snapshot_date: "2026-08" } : {}), retrieved_at: "2026-10-02", url: "https://example.org/scopus.xlsx" },
+      ],
+    };
+    const fetchData = radarFetch({ [host]: { version: "date-test", journals: [journal] } }, []);
+    let sent;
+    t.mock.method(globalThis, "fetch", async (input, options) => {
+      const url = new URL(String(input));
+      if (url.hostname === "api-inference.modelscope.cn" && url.pathname === "/v1/chat/completions") {
+        sent = JSON.parse(options.body);
+        return Response.json({ choices: [{ message: { content: "mocked date answer" } }] });
+      }
+      return fetchData(input, options);
+    });
+    const quota = new Map();
+    const env = {
+      MODELSCOPE_API_KEY: "mock-token-no-network", PUBLIC_DATA_BASE: `https://${host}/radar`,
+      AIED_JOURNAL_RADAR_KV: { get: async (key) => quota.get(key) ?? null, put: async (key, value) => quota.set(key, value) },
+    };
+    const response = await worker.fetch(new Request("https://worker.example/api/chat", {
+      method: "POST", headers: { "Content-Type": "application/json", "X-AIED-Client": "snapshot-test" },
+      body: JSON.stringify({ question: "请说明EAIT的SSCI和Scopus索引快照日期" }),
+    }), env);
+    assert.equal(response.status, 200);
+    const context = sent.messages[1].content;
+    const records = context.split("\n").filter((line) => line.startsWith('{"index":')).map(JSON.parse);
+    assert.deepEqual(records.map(({ index, snapshot_date, retrieved_at }) => ({ index, snapshot_date, retrieved_at })), [
+      { index: "SSCI", snapshot_date: dated ? "2026-06" : null, retrieved_at: "2026-10-02" },
+      { index: "Scopus", snapshot_date: dated ? "2026-08" : null, retrieved_at: "2026-10-02" },
+    ]);
+    assert.match(context, /metric_edition_year: 2025; this is not an index snapshot date/);
+    assert.match(sent.messages[0].content, /must never replace snapshot_date/);
+    assert.match(sent.messages[0].content, /snapshot_date is null or absent/);
+  });
+}
+
 test("public JSON GETs retry one transport failure during fetch or body streaming", async (t) => {
   const state = { "transport-retry.example": { version: "v1", journals: [{ id: "recovered" }] } };
   const requests = [];
