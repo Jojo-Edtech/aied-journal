@@ -18,7 +18,7 @@
     <meta property="og:url" content="https://jojo-edtech.github.io/aied-journal/">
     <meta name="twitter:card" content="summary">
     <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%237c5cff'/%3E%3Cstop offset='1' stop-color='%234f8df7'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='64' height='64' rx='14' fill='url(%23g)'/%3E%3Ccircle cx='32' cy='32' r='17' fill='none' stroke='white' stroke-opacity='.55' stroke-width='3'/%3E%3Ccircle cx='32' cy='32' r='8' fill='none' stroke='white' stroke-opacity='.8' stroke-width='3'/%3E%3Cpath d='M32 32L45 19' stroke='white' stroke-width='4' stroke-linecap='round'/%3E%3Ccircle cx='32' cy='32' r='3.4' fill='white'/%3E%3C/svg%3E">
-    <link rel="stylesheet" href="styles.css?v=20261002-mobile-catalog">
+    <link rel="stylesheet" href="styles.css?v=20261002-open-filters-v13">
   </head>
   <body>
     <a class="skip-link" href="#radarDashboard" data-i18n="skip">跳到选刊工作台</a>
@@ -108,13 +108,13 @@
             <span data-i18n="indexFilter">数据库索引</span>
             <select id="radarIndexFilter"></select>
           </label>
-          <details class="advanced-filters" id="filterDisclosure" open>
-            <summary data-i18n="moreFilters">更多筛选</summary>
+          <div class="advanced-filters">
             <div class="advanced-filter-fields">
-              <label><span data-i18n="mainTag">主标签</span><select id="radarTagFilter"></select></label>
-              <label><span data-i18n="quartile">JCR 分区</span><select id="radarQuartileFilter"></select></label>
-              <label><span data-i18n="publisher">出版社</span><select id="radarPublisherFilter"></select></label>
-              <label>
+              <label class="filter-topic"><span data-i18n="mainTag">主标签</span><select id="radarTagFilter"></select></label>
+              <label class="filter-quartile"><span data-i18n="quartile">JCR 分区</span><select id="radarQuartileFilter"></select></label>
+              <label class="mobile-sort"><span data-i18n="sortResults">排序</span><select id="mobileSort"><option value="default" data-i18n="defaultOrder">推荐顺序</option><option value="name" data-i18n="nameOrder">期刊名称</option><option value="jif" data-i18n="jifOrder">JIF 从高到低</option></select></label>
+              <label class="filter-publisher"><span data-i18n="publisher">出版社</span><select id="radarPublisherFilter"></select></label>
+              <label class="filter-speed">
                 <span data-i18n="speed">审稿速度</span>
                 <select id="radarSpeedFilter">
                   <option value="all" data-i18n="all">全部</option>
@@ -122,9 +122,8 @@
                   <option value="known" data-i18n="knownSpeed">有审稿时间数据</option>
                 </select>
               </label>
-              <label class="mobile-sort"><span data-i18n="sortResults">排序</span><select id="mobileSort"><option value="default" data-i18n="defaultOrder">推荐顺序</option><option value="name" data-i18n="nameOrder">期刊名称</option><option value="jif" data-i18n="jifOrder">JIF 从高到低</option></select></label>
             </div>
-          </details>
+          </div>
         </div>
         <div class="active-filter-summary" id="activeFilterSummary" hidden>
           <p id="activeFilterText" aria-live="polite"></p>
@@ -278,6 +277,6 @@
     <button class="back-to-top" id="backToTop" type="button" hidden aria-label="Back to top">↑</button>
 
     <script src="data-loader.js?v=20260929-catalog-shards"></script>
-    <script src="app.js?v=20261002-mobile-catalog"></script>
+    <script src="app.js?v=20261002-open-filters-v13"></script>
   </body>
 </html>

@@ -46,7 +46,6 @@ const els = {
   publisher: document.querySelector("#radarPublisherFilter"),
   speed: document.querySelector("#radarSpeedFilter"),
   index: document.querySelector("#radarIndexFilter"),
-  filterDisclosure: document.querySelector("#filterDisclosure"),
   headerUtilities: document.querySelector("#headerUtilities"),
   advisorDisclosure: document.querySelector("#advisorDisclosure"),
   analyticsDisclosure: document.querySelector("#analyticsDisclosure"),
@@ -540,7 +539,7 @@ const I18N = {
 };
 
 Object.assign(I18N.zh, {
-  siteOptions: "选项", moreFilters: "更多筛选", resetFilters: "重置筛选", sortResults: "排序",
+  siteOptions: "选项", resetFilters: "重置筛选", sortResults: "排序",
   defaultOrder: "推荐顺序", nameOrder: "期刊名称", jifOrder: "JIF 从高到低",
   askAdvisor: "需要选刊建议？问 AI 助手", viewAnalytics: "查看统计与图表",
   controlTitle: "查找英文教育期刊", topicSearch: "搜索期刊", topicPlaceholder: "期刊名、ISSN 或研究主题",
@@ -564,8 +563,8 @@ Object.assign(I18N.zh, {
   noCrawl: "尚未覆盖官网抓取。", noIssue: "尚无已抓取卷期资料", noLatestTitles: "尚未覆盖最新卷期文章样本。",
 });
 Object.assign(I18N.en, {
-  siteOptions: "Options", moreFilters: "More filters", resetFilters: "Reset filters", sortResults: "Sort by",
-  defaultOrder: "Recommended", nameOrder: "Journal name", jifOrder: "JIF: high to low",
+  siteOptions: "Options", resetFilters: "Reset filters", sortResults: "Sort by",
+  defaultOrder: "Relevance", nameOrder: "Name: A–Z", jifOrder: "Highest JIF",
   askAdvisor: "Need a shortlist? Ask AI", viewAnalytics: "View statistics and charts",
   controlTitle: "Find English-language journals", topicSearch: "Search journals", topicPlaceholder: "Journal name, ISSN or research topic",
   mobileResults: "{filtered} journals found", appliedFilters: "Selected: {filters}", clearSearchHint: "Try fewer filters or a different search term.",
@@ -2901,7 +2900,7 @@ function syncResponsiveLayout(mobile) {
   if (state.responsiveInitialized && state.mobile === mobile) return;
   state.mobile = mobile;
   state.responsiveInitialized = true;
-  [els.headerUtilities, els.filterDisclosure, els.advisorDisclosure, els.analyticsDisclosure].forEach((details) => {
+  [els.headerUtilities, els.advisorDisclosure, els.analyticsDisclosure].forEach((details) => {
     if (details) details.open = !mobile;
   });
   // Match keyboard/reading order to the visible order at each breakpoint.

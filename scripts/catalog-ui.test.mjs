@@ -4,6 +4,7 @@ import test from "node:test";
 import vm from "node:vm";
 
 const source = await readFile(new URL("../app.js", import.meta.url), "utf8");
+const pageMarkup = await readFile(new URL("../index.html", import.meta.url), "utf8");
 // Evaluate the actual render/filter functions without starting a browser or API.
 const functionsOnly = source.slice(0, source.indexOf('els.search.addEventListener("input"'));
 class Element {
@@ -170,25 +171,38 @@ test("phone cards paginate the complete index-filtered list without mixing JCR a
   assert.match(api.els.tablePage.textContent, /3 \/ 3/);
 });
 
-test("responsive disclosures preserve chosen filters and do not close user-open panels on ordinary renders", () => {
+test("every journal filter is directly available without a disclosure in the shipped page", () => {
+  const filterMarkup = pageMarkup.slice(pageMarkup.indexOf('<section class="radar-control-band"'), pageMarkup.indexOf('<section class="radar-card journal-results"'));
+  for (const id of ["radarSearch", "radarIndexFilter", "radarTagFilter", "radarQuartileFilter", "radarPublisherFilter", "radarSpeedFilter", "mobileSort"]) {
+    assert.match(filterMarkup, new RegExp(`<(?:input|select)[^>]*id="${id}"`), `${id} must remain a native visible filter control`);
+  }
+  assert.doesNotMatch(filterMarkup, /<(?:details|summary)\b/);
+  assert.doesNotMatch(filterMarkup, /filterDisclosure|data-i18n="moreFilters"/);
+  const fields = filterMarkup.slice(filterMarkup.indexOf('<div class="advanced-filters"'), filterMarkup.indexOf('<div class="active-filter-summary"'));
+  assert.doesNotMatch(fields, /\bhidden\b|aria-hidden="true"/);
+});
+
+test("responsive setup retains always-visible filter selections and only folds secondary panels", () => {
   const api = setup(); load(api); api.refreshFilters();
   api.els.index.value = "Scopus";
   api.els.quartile.value = "__unknown__";
   api.syncResponsiveLayout(true);
   assert.equal(api.els.advisorDisclosure.open, false);
   assert.equal(api.els.analyticsDisclosure.open, false);
-  assert.equal(api.els.filterDisclosure.open, false);
+  assert.equal(api.els.filterDisclosure, undefined, "Filters no longer participate in responsive disclosure logic");
   api.renderFilterSummary();
   assert.equal(api.els.activeFilterSummary.hidden, false);
   assert.match(api.els.activeFilterText.textContent, /Scopus.*JCR 未核验/);
-  api.els.filterDisclosure.open = true;
+  api.els.advisorDisclosure.open = true;
   api.syncResponsiveLayout(true);
-  assert.equal(api.els.filterDisclosure.open, true);
+  assert.equal(api.els.advisorDisclosure.open, true);
+  assert.deepEqual(Array.from(api.filteredJournals(), (journal) => journal.id), ["journal-added"]);
   api.syncResponsiveLayout(false);
   assert.equal(api.els.advisorDisclosure.open, true);
   assert.equal(api.els.analyticsDisclosure.open, true);
   assert.equal(api.els.index.value, "Scopus");
   assert.equal(api.els.quartile.value, "__unknown__");
+  assert.deepEqual(Array.from(api.filteredJournals(), (journal) => journal.id), ["journal-added"]);
   api.resetFilters();
   api.renderFilterSummary();
   assert.equal(api.els.index.value, "all");
