@@ -31,6 +31,7 @@ const state = {
   mobile: false,
   responsiveInitialized: false,
   dashboardScrollY: 0,
+  indexChoiceButtons: new Map(),
 };
 
 const TABLE_ROW_LIMIT = 120;
@@ -46,6 +47,7 @@ const els = {
   publisher: document.querySelector("#radarPublisherFilter"),
   speed: document.querySelector("#radarSpeedFilter"),
   index: document.querySelector("#radarIndexFilter"),
+  mobileIndexChoices: document.querySelector("#mobileIndexChoices"),
   headerUtilities: document.querySelector("#headerUtilities"),
   advisorDisclosure: document.querySelector("#advisorDisclosure"),
   analyticsDisclosure: document.querySelector("#analyticsDisclosure"),
@@ -539,6 +541,7 @@ const I18N = {
 };
 
 Object.assign(I18N.zh, {
+  mobileHeaderSubtitle: "找到适合你研究的英文期刊", indexJournals: "本期刊", selectedIndex: "已选", indexChoiceLabel: "{index}，{count} 本期刊",
   siteOptions: "选项", resetFilters: "重置筛选", sortResults: "排序",
   defaultOrder: "推荐顺序", nameOrder: "期刊名称", jifOrder: "JIF 从高到低",
   askAdvisor: "需要选刊建议？问 AI 助手", viewAnalytics: "查看统计与图表",
@@ -563,6 +566,7 @@ Object.assign(I18N.zh, {
   noCrawl: "尚未覆盖官网抓取。", noIssue: "尚无已抓取卷期资料", noLatestTitles: "尚未覆盖最新卷期文章样本。",
 });
 Object.assign(I18N.en, {
+  mobileHeaderSubtitle: "English journals for your next paper", indexJournals: "journals", selectedIndex: "Selected", indexChoiceLabel: "{index}, {count} journals",
   siteOptions: "Options", resetFilters: "Reset filters", sortResults: "Sort by",
   defaultOrder: "Relevance", nameOrder: "Name: A–Z", jifOrder: "Highest JIF",
   askAdvisor: "Need a shortlist? Ask AI", viewAnalytics: "View statistics and charts",
@@ -1169,7 +1173,7 @@ function journalIndexes(journal) {
 }
 
 function indexBadges(journal) {
-  return journalIndexes(journal).map((index) => `<span class="index-badge">${index}</span>`).join("");
+  return journalIndexes(journal).map((index) => `<span data-index="${index}" class="index-badge">${index}</span>`).join("");
 }
 
 function indexEvidenceHtml(journal) {
@@ -1306,6 +1310,52 @@ function refreshFilters() {
       select.value = value;
     }
   });
+  renderMobileIndexPicker();
+}
+
+function renderMobileIndexPicker() {
+  if (!els.mobileIndexChoices) return;
+  const counts = Object.fromEntries(JOURNAL_INDEXES.map((index) => [index, 0]));
+  state.journals.forEach((journal) => {
+    new Set(journalIndexes(journal)).forEach((index) => { counts[index] += 1; });
+  });
+  ["all", ...JOURNAL_INDEXES].forEach((index) => {
+    let entry = state.indexChoiceButtons.get(index);
+    if (!entry) {
+      const button = document.createElement("button");
+      button.type = "button";
+      button.className = `index-choice index-choice-${index.toLowerCase()}`;
+      button.dataset.indexChoice = index;
+      const label = document.createElement("span");
+      label.className = "index-choice-label";
+      const count = document.createElement("strong");
+      count.className = "index-choice-count";
+      const unit = document.createElement("span");
+      unit.className = "index-choice-unit";
+      const selected = document.createElement("span");
+      selected.className = "index-choice-selected";
+      selected.setAttribute("aria-hidden", "true");
+      button.append(label, count, unit, selected);
+      els.mobileIndexChoices.append(button);
+      entry = { button, label, count, unit, selected };
+      state.indexChoiceButtons.set(index, entry);
+    }
+    const label = index === "all" ? t("all") : index;
+    const count = index === "all" ? state.journals.length : counts[index];
+    entry.label.textContent = label;
+    entry.count.textContent = String(count);
+    entry.unit.textContent = t("indexJournals");
+    entry.selected.textContent = t("selectedIndex");
+    entry.button.setAttribute("aria-label", t("indexChoiceLabel", { index: label, count }));
+    entry.button.setAttribute("aria-pressed", String((els.index.value || "all") === index));
+  });
+}
+
+function selectJournalIndex(index) {
+  if (index !== "all" && !JOURNAL_INDEXES.includes(index)) return;
+  els.index.value = index;
+  renderMobileIndexPicker();
+  updateFilters();
 }
 
 function applyTranslations() {
@@ -2900,6 +2950,7 @@ function syncResponsiveLayout(mobile) {
   if (state.responsiveInitialized && state.mobile === mobile) return;
   state.mobile = mobile;
   state.responsiveInitialized = true;
+  els.index.hidden = mobile;
   [els.headerUtilities, els.advisorDisclosure, els.analyticsDisclosure].forEach((details) => {
     if (details) details.open = !mobile;
   });
@@ -2936,6 +2987,7 @@ function changeTablePage(delta) {
 function renderAll() {
   if (!state.ready || els.dashboard.hidden) return;
   const journals = filteredJournals();
+  renderMobileIndexPicker();
   if (!state.mobile || els.analyticsDisclosure.open) renderAnalytics(journals);
   if (!state.mobile) renderRecommendations(journals);
   renderTable(journals);
@@ -3092,6 +3144,10 @@ els.search.addEventListener("compositionend", () => {
 });
 [els.tag, els.quartile, els.publisher, els.speed, els.index].forEach((control) => {
   control.addEventListener("change", updateFilters);
+});
+els.mobileIndexChoices?.addEventListener("click", (event) => {
+  const button = event.target.closest("[data-index-choice]");
+  if (button) selectJournalIndex(button.dataset.indexChoice);
 });
 els.resetFilters?.addEventListener("click", resetFilters);
 els.mobileSort?.addEventListener("change", () => setMobileSort(els.mobileSort.value));

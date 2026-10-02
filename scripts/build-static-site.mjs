@@ -17,7 +17,7 @@ async function publishFile(source, destination) {
     throw new Error("Public radar exceeds the publishing size budget. Source data is preserved; review retention before deploying.");
   }
 }
-const rootFiles = [".nojekyll", "index.html", "styles.css", "data-loader.js", "app.js"];
+const rootFiles = [".nojekyll", "index.html", "styles.css", "data-loader.js", "app.js", "mobile-hero-v14.png"];
 const publicFiles = [
   "journals.json", "journals_q1.json", "journal_sources.json", "research_network.json",
   "crawl_report.json", "radar-config.json", "editor_profiles.json", "data-manifest.json", "journal-scope-audit.json",

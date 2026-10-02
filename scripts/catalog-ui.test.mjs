@@ -36,7 +36,7 @@ function setup() {
     RadarData: {},
   });
   vm.runInContext(functionsOnly, context);
-  const api = vm.runInContext('({ state, els, quartileKey, quartileLabel, metricLabel, languageLabel, median, buildSearchIndex, filteredJournals, sortedTableJournals, renderTable, renderScatter, renderKpis, renderNetwork, renderRecommendations, downloadVisibleCsv, evidenceSummary, websiteEvidenceCount, sourceListHtml, renderJournalDetail, ensureJournalPreference, latestIssueSignalHtml, rangeMetaText, t, refreshFilters, renderAll, renderFilterSummary, syncResponsiveLayout, resetFilters, setMobileSort, changeTablePage, revealDashboardSection, navigateToJournal, renderRoute })', context);
+  const api = vm.runInContext('({ state, els, quartileKey, quartileLabel, metricLabel, languageLabel, median, buildSearchIndex, filteredJournals, sortedTableJournals, renderTable, renderScatter, renderKpis, renderNetwork, renderRecommendations, downloadVisibleCsv, evidenceSummary, websiteEvidenceCount, sourceListHtml, renderJournalDetail, ensureJournalPreference, latestIssueSignalHtml, rangeMetaText, t, refreshFilters, renderMobileIndexPicker, selectJournalIndex, updateFilters, renderAll, renderFilterSummary, syncResponsiveLayout, resetFilters, setMobileSort, changeTablePage, revealDashboardSection, navigateToJournal, renderRoute })', context);
   api.els.search.value = "";
   return { context, ...api };
 }
@@ -78,6 +78,60 @@ test("index filters select recorded coverage without inferring it from quartile 
   api.els.index.value = "Scopus";
   api.els.quartile.value = "Q4";
   assert.equal(api.filteredJournals().length, 0, "Quartile and index are independent intersecting filters");
+});
+
+test("mobile index cards derive per-index counts from the catalog and do not sum overlapping coverage", () => {
+  const api = setup(); load(api); api.refreshFilters();
+  const choices = api.state.indexChoiceButtons;
+  assert.equal(choices.size, 4);
+  assert.equal(choices.get("all").count.textContent, "3");
+  assert.equal(choices.get("SSCI").count.textContent, "1");
+  assert.equal(choices.get("ESCI").count.textContent, "1");
+  assert.equal(choices.get("Scopus").count.textContent, "2");
+  assert.equal(choices.get("all").button.attributes["aria-pressed"], "true");
+  assert.equal(choices.get("all").selected.textContent, "已选");
+  assert.equal(choices.get("Scopus").button.attributes["aria-label"], "Scopus，2 本期刊");
+  api.state.journals.push({ ...journals[1], id: "added-scopus", indexes: ["Scopus", "Scopus"] });
+  api.renderMobileIndexPicker();
+  assert.equal(choices.get("all").count.textContent, "4");
+  assert.equal(choices.get("Scopus").count.textContent, "3");
+  assert.equal(api.els.mobileIndexChoices.childNodes.length, 4, "Count updates reuse buttons rather than replacing keyboard focus");
+});
+
+test("index cards, native select, resets and language changes share one selected index", () => {
+  const api = setup(); load(api); api.refreshFilters(); api.syncResponsiveLayout(true);
+  api.state.ready = true;
+  const choices = api.state.indexChoiceButtons;
+  const scopusButton = choices.get("Scopus").button;
+  assert.equal(api.els.index.hidden, true, "The duplicate native select is hidden on mobile");
+  api.state.tablePage = 4;
+  api.selectJournalIndex("Scopus");
+  assert.equal(api.state.tablePage, 0);
+  assert.equal(api.els.index.value, "Scopus");
+  assert.equal(api.filteredJournals().length, 2);
+  assert.equal(choices.get("Scopus").button, scopusButton);
+  assert.equal(scopusButton.attributes["aria-pressed"], "true");
+  assert.equal(choices.get("all").button.attributes["aria-pressed"], "false");
+  api.els.index.value = "ESCI";
+  api.updateFilters();
+  assert.equal(choices.get("ESCI").button.attributes["aria-pressed"], "true");
+  assert.equal(scopusButton.attributes["aria-pressed"], "false");
+  assert.deepEqual(Array.from(api.filteredJournals(), (journal) => journal.id), ["journal-zero"]);
+  api.state.language = "en";
+  api.refreshFilters();
+  assert.equal(api.els.index.value, "ESCI");
+  assert.equal(choices.get("all").label.textContent, "All");
+  assert.equal(choices.get("ESCI").selected.textContent, "Selected");
+  api.selectJournalIndex("not-an-index");
+  assert.equal(api.els.index.value, "ESCI");
+  api.resetFilters();
+  assert.equal(api.els.index.value, "all");
+  assert.equal(choices.get("all").button.attributes["aria-pressed"], "true");
+  assert.equal(choices.get("ESCI").button.attributes["aria-pressed"], "false");
+  api.state.ready = false;
+  api.syncResponsiveLayout(false);
+  assert.equal(api.els.index.hidden, false, "Desktop regains the native select without losing its value");
+  assert.equal(api.els.index.value, "all");
 });
 
 test("names, aliases, ISSNs, country, index and source record identifiers are searchable", () => {
