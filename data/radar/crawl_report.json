@@ -1,104 +1,104 @@
 {
-  "generated_at": "2026-10-02T01:11:51+00:00",
-  "journal_count": 3449,
+  "generated_at": "2026-10-02T08:13:49+00:00",
+  "journal_count": 861,
   "q1_count": 135,
-  "jcr_journal_count": 268,
-  "unknown_quartile_count": 3181,
-  "journals_with_source_urls": 2412,
+  "jcr_journal_count": 260,
+  "unknown_quartile_count": 601,
+  "journals_with_source_urls": 628,
   "source_pages": {
-    "total": 10621,
-    "ok": 8184,
-    "failed": 2436,
+    "total": 3254,
+    "ok": 2603,
+    "failed": 650,
     "content_too_short": 1
   },
   "articles": {
-    "total": 106573,
-    "ok": 106573,
+    "total": 41788,
+    "ok": 41788,
     "failed": 0,
     "content_too_short": 0
   },
   "editors": {
-    "journals_with_editor_names": 10,
-    "journals_without_editor_names": 3439
+    "journals_with_editor_names": 2,
+    "journals_without_editor_names": 859
   },
   "speed_coverage": {
-    "first_decision_days": 201,
-    "review_time_days": 116,
+    "first_decision_days": 199,
+    "review_time_days": 115,
     "submission_to_accept_days": 35,
-    "total": 3449
+    "total": 861
   },
   "editor_profile_coverage": {
-    "profiles": 75,
-    "with_affiliation": 3,
+    "profiles": 8,
+    "with_affiliation": 2,
     "with_country_or_region": 1,
-    "pending_verification": 72
+    "pending_verification": 6
   },
   "preference_coverage": {
-    "journals_with_any_articles": 2512,
-    "journals_with_latest_issue": 2512,
+    "journals_with_any_articles": 799,
+    "journals_with_latest_issue": 799,
     "range_slices": {
-      "recent_3_issues": 2512,
-      "latest_issue": 2512,
-      "rolling_1y": 2512,
-      "rolling_2y": 2512,
-      "rolling_3y": 2512,
-      "rolling_5y": 2512,
-      "all": 2512
+      "recent_3_issues": 799,
+      "latest_issue": 799,
+      "rolling_1y": 799,
+      "rolling_2y": 799,
+      "rolling_3y": 799,
+      "rolling_5y": 799,
+      "all": 799
     },
-    "total": 3449
+    "total": 861
   },
-  "rag_documents": 110793,
+  "rag_documents": 44724,
   "missing_fields": {
     "jif_2025": {
-      "missing": 3182,
-      "total": 3449,
-      "rate": 0.9226
+      "missing": 601,
+      "total": 861,
+      "rate": 0.698
     },
     "jci_2025": {
-      "missing": 3181,
-      "total": 3449,
-      "rate": 0.9223
+      "missing": 601,
+      "total": 861,
+      "rate": 0.698
     },
     "main_tag": {
       "missing": 0,
-      "total": 3449,
+      "total": 861,
       "rate": 0.0
     },
     "publisher": {
       "missing": 0,
-      "total": 3449,
+      "total": 861,
       "rate": 0.0
     },
     "issn": {
-      "missing": 847,
-      "total": 3449,
-      "rate": 0.2456
+      "missing": 164,
+      "total": 861,
+      "rate": 0.1905
     },
     "eissn": {
-      "missing": 1109,
-      "total": 3449,
-      "rate": 0.3215
+      "missing": 248,
+      "total": 861,
+      "rate": 0.288
     },
     "source_urls": {
       "missing": 0,
-      "total": 3449,
+      "total": 861,
       "rate": 0.0
     },
     "first_decision_days": {
-      "missing": 3248,
-      "total": 3449,
-      "rate": 0.9417
+      "missing": 662,
+      "total": 861,
+      "rate": 0.7689
     },
     "review_time_days": {
-      "missing": 3333,
-      "total": 3449,
-      "rate": 0.9664
+      "missing": 746,
+      "total": 861,
+      "rate": 0.8664
     }
   },
   "quartiles": [
     [
       "",
-      3181
+      601
     ],
     [
       "Q1",
@@ -106,137 +106,171 @@
     ],
     [
       "Q2",
-      95
+      92
     ],
     [
       "Q3",
-      26
+      25
     ],
     [
       "Q4",
-      12
+      8
     ]
   ],
   "top_publishers": [
     [
       "Taylor & Francis",
-      182
+      164
     ],
     [
       "Springer Nature",
-      87
+      83
     ],
     [
       "SAGE",
-      66
+      64
     ],
     [
       "Wiley",
-      61
-    ],
-    [
-      "Universitas Negeri Semarang",
-      42
+      53
     ],
     [
       "Elsevier",
-      39
-    ],
-    [
-      "Universitas Negeri Malang",
-      21
-    ],
-    [
-      "Universitas Pendidikan Ganesha",
-      16
-    ],
-    [
-      "Emerald",
-      14
+      38
     ],
     [
       "Common Ground Research Networks",
-      14
-    ],
-    [
-      "Universitas Negeri Yogyakarta",
       13
     ],
     [
-      "Universitas Pendidikan Indonesia",
-      12
+      "Hipatia Press",
+      7
+    ],
+    [
+      "Emerald",
+      5
+    ],
+    [
+      "Universitas Negeri Semarang",
+      5
+    ],
+    [
+      "MDPI",
+      5
+    ],
+    [
+      "Cambridge University Press",
+      4
+    ],
+    [
+      "University of Toronto Press",
+      4
     ]
   ],
   "top_main_tags": [
     [
       "综合教育期刊",
-      1641
-    ],
-    [
-      "教育技术",
-      340
+      291
     ],
     [
       "学科教育",
-      310
+      92
+    ],
+    [
+      "教育技术",
+      89
     ],
     [
       "高等教育",
-      221
-    ],
-    [
-      "教师教育与教师发展",
-      190
+      70
     ],
     [
       "语言教育与语言习得",
-      174
+      70
     ],
     [
       "教育政策与社会问题",
-      122
+      52
+    ],
+    [
+      "教师教育与教师发展",
+      45
     ],
     [
       "医学教育",
-      88
+      35
     ],
     [
       "特殊教育",
-      86
-    ],
-    [
-      "儿童与早期教育",
-      77
+      34
     ],
     [
       "教育心理",
-      76
+      30
     ],
     [
       "职业与继续教育",
-      75
+      18
+    ],
+    [
+      "儿童与早期教育",
+      17
     ]
   ],
   "baseline_preservation": {
     "journal_count": 268,
-    "all_ids_preserved": true,
+    "source_snapshot_preserved": true,
+    "all_ids_preserved": false,
+    "included_count": 260,
+    "scope_excluded_count": 8,
     "metrics_preserved": true
   },
+  "journal_scope": {
+    "schema_version": 1,
+    "scope_id": "english-ssci-esci-scopus-v1",
+    "rule": "English explicitly recorded; no Chinese language declaration; at least one evidenced SSCI, ESCI or Scopus index. Unknowns are excluded.",
+    "allowed_indexes": [
+      "SSCI",
+      "ESCI",
+      "Scopus"
+    ],
+    "input_count": 3449,
+    "included_count": 861,
+    "excluded_count": 2588,
+    "index_counts": {
+      "SSCI": 297,
+      "ESCI": 312,
+      "Scopus": 790
+    },
+    "excluded_reason_counts": {
+      "identity_ambiguity": 1,
+      "english_language_unverified": 829,
+      "allowed_index_unverified": 1322,
+      "chinese_language": 436
+    },
+    "identity_exclusions": {
+      "journal-202-educational-studies": "identity_ambiguity"
+    },
+    "data_version": "2026-10-02T08:13:49+00:00",
+    "index_evidence_sha256": "f7c2fc927294a99a50f61924560c33011fa6868bd42f65bf8defc2f313f10f8e",
+    "source_snapshot_count": 268,
+    "source_snapshot_sha256": "97c0fdd562a1299475dd0100186c2808379d66bbd780b48244ba7a300b542188"
+  },
   "refresh_policy": {
-    "article_metadata": "rotating_batch",
-    "article_batch_size": 500,
-    "article_batch_offset": 1500,
-    "article_next_offset": 2000,
-    "article_updated": 425,
-    "article_failed": 75,
+    "article_metadata": "skipped",
+    "article_batch_size": 0,
+    "article_batch_offset": 278,
+    "article_next_offset": 278,
+    "article_updated": 0,
+    "article_failed": 0,
     "article_budget_deferred": 0,
-    "article_retained_journals": 2087,
-    "official_page_crawl": "rotating_batch",
-    "official_page_batch_size": 80,
-    "official_page_batch_offset": 320,
+    "article_retained_journals": 799,
+    "official_page_crawl": "skipped",
+    "official_page_batch_size": 0,
+    "official_page_batch_offset": 400,
     "official_next_offset": 400,
-    "crossref_from_pub_date": "2021-10-02",
-    "max_crossref_articles": 40,
+    "crossref_from_pub_date": "2021-01-01",
+    "max_crossref_articles": 80,
     "max_official_articles": 0,
     "workers": 4,
     "latest_issue_rule": "volume_and_issue; month fallback only when issue metadata is absent",

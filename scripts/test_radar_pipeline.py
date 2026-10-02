@@ -42,6 +42,22 @@ ARTICLE = {
 
 
 class PipelineUnitTests(unittest.TestCase):
+    def test_index_rag_preserves_source_snapshot_and_separate_index_claims(self):
+        shared_url = "https://example.org/index-list.xlsx"
+        journal = {**BASE, "indexes": ["SSCI", "ESCI"], "index_evidence": [
+            {"index": index, "source": "Published index list", "snapshot_date": "2026-06", "retrieved_at": "2026-10-02", "url": shared_url, "row": position}
+            for position, index in enumerate(["SSCI", "ESCI"], 1)
+        ]}
+        documents = generator.base_documents(journal, "today")
+        proofs = [row for row in documents if row["source_type"] == "journal_index"]
+        self.assertEqual(len({row["doc_id"] for row in proofs}), 2)
+        for row in proofs:
+            self.assertIn("Published index list", row["title"])
+            self.assertIn("2026-06", row["title"])
+            self.assertIn(f"Verified index: {row['index']}", row["text_snippet"])
+            self.assertIn("Index snapshot date: 2026-06", row["text_snippet"])
+            self.assertEqual(row["captured_at"], "2026-10-02")
+
     def test_multilingual_network_ids_are_stable_distinct_and_safe(self):
         names = ["Maria Curie-Skłodowska University", "华东师范大学", "华中师范大学"]
         journals = [{**BASE, "id": f"journal-{number}", "publisher_family": name} for number, name in enumerate(names)]
@@ -183,10 +199,16 @@ class GenerationTests(unittest.TestCase):
         self.snapshot.write_text(json.dumps([BASE]))
         self.catalog = self.root / "catalog.json"
         self.catalog.write_text(json.dumps([EXTRA]))
+        self.index_evidence = self.root / "index-evidence.json"
+        self.index_evidence.write_text(json.dumps({"schema_version": 1, "journals": {
+            row["id"]: {"languages": ["English"], "indexes": ["Scopus"],
+                        "evidence": [{"url": "https://www.elsevier.com/products/scopus/content"}]}
+            for row in [BASE, EXTRA]
+        }}))
         (self.output / "journals.json").write_text(json.dumps([BASE]))
         (self.output / "journal_articles.jsonl").write_text(json.dumps(ARTICLE) + "\n")
         (self.output / "rag_documents.jsonl").write_text(json.dumps({"doc_id": "legacy-doc", "journal_id": BASE["id"], "journal_name": BASE["name"], "title": ARTICLE["title"], "text_snippet": "Old metadata", "source_type": "article_metadata", "captured_at": ARTICLE["captured_at"]}) + "\n")
-        self.arguments = ["generator", "--excel", str(self.root / "absent.xlsx"), "--source-snapshot", str(self.snapshot), "--catalog", str(self.catalog), "--output", str(self.output), "--max-pages-per-journal", "0", "--max-editor-pages", "0", "--article-journal-limit", "0", "--workers", "2"]
+        self.arguments = ["generator", "--excel", str(self.root / "absent.xlsx"), "--source-snapshot", str(self.snapshot), "--catalog", str(self.catalog), "--index-evidence", str(self.index_evidence), "--output", str(self.output), "--max-pages-per-journal", "0", "--max-editor-pages", "0", "--article-journal-limit", "0", "--workers", "2"]
 
     def tearDown(self):
         self.temporary.cleanup()
@@ -222,6 +244,24 @@ class GenerationTests(unittest.TestCase):
             self.assertEqual(len(articles[BASE["id"]]), 1)
             self.assertEqual(articles[BASE["id"]][0]["captured_at"], ARTICLE["captured_at"])
             self.assertEqual(self.read("crawl_report.json")["refresh_policy"]["article_failed"], 2)
+
+    def test_scope_excludes_chinese_baseline_but_preserves_complete_source_snapshot(self):
+        self.snapshot.write_text(json.dumps([{**BASE, "languages": ["Chinese"]}]))
+        self.generate("--skip-crawl")
+        self.generate("--skip-crawl")
+        self.assertEqual([row["id"] for row in self.read("journals.json")], [EXTRA["id"]])
+        self.assertEqual(self.read("source_workbook_snapshot.json")[0]["id"], BASE["id"])
+        self.assertEqual(self.read("data-manifest.json")["jcr_journal_count"], 0)
+        self.assertEqual(self.read("journal-scope-audit.json")["excluded"][0]["reason"], "chinese_language")
+        self.assertFalse(self.read("crawl_report.json")["baseline_preservation"]["all_ids_preserved"])
+        self.assertTrue(self.read("crawl_report.json")["baseline_preservation"]["source_snapshot_preserved"])
+
+    def test_missing_index_evidence_fails_before_replacing_existing_output(self):
+        before = (self.output / "journals.json").read_bytes()
+        self.index_evidence.unlink()
+        with self.assertRaises(SystemExit):
+            self.generate("--skip-crawl")
+        self.assertEqual((self.output / "journals.json").read_bytes(), before)
 
     def test_skip_article_api_keeps_previous_evidence(self):
         with patch.object(generator, "request_json", side_effect=AssertionError("API skipped")):

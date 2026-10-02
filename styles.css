@@ -2673,9 +2673,12 @@ main,
   }
 }
 
-/* Expanded catalog controls and explicit evidence coverage. */
+/* Index selection and explicit evidence coverage. */
 .radar-controls > label { min-width: 0; }
 .radar-controls > label:first-child { grid-column: span 2; }
+.scope-note { margin: 6px 0 0; color: var(--muted); font-size: 0.82rem; line-height: 1.5; }
+.journal-indexes { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 6px; }
+.index-badge { display: inline-flex; align-items: center; padding: 2px 7px; border: 1px solid #dcd8f0; border-radius: 5px; color: #514277; background: #f4f1fc; font-size: 0.71rem; font-weight: 650; line-height: 1.45; white-space: nowrap; }
 .chart-coverage, .metric-year-note { color: var(--muted); font-size: 0.82rem; line-height: 1.5; }
 .chart-coverage { margin: 10px 0 0; }
 .preference-load-state { padding: 18px; color: var(--muted); }

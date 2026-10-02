@@ -16,6 +16,7 @@ class Element {
   setAttribute(key, value) { this.attributes[key] = String(value); }
   removeAttribute(key) { delete this.attributes[key]; }
   addEventListener() {}
+  click() {}
   querySelectorAll() { return []; }
   querySelector(tag) { return this.childNodes.find((node) => node.tagName === tag) || null; }
   insertAdjacentHTML(position, html) { this._html += html; }
@@ -24,7 +25,7 @@ class Element {
 function setup() {
   const elements = new Map();
   const context = vm.createContext({
-    localStorage: { getItem: () => "zh" }, Intl, URL,
+    localStorage: { getItem: () => "zh" }, Intl, URL, Blob,
     document: {
       querySelector: (key) => { if (!elements.has(key)) elements.set(key, new Element()); return elements.get(key); },
       createElement: (tag) => new Element(tag), createElementNS: (ns, tag) => new Element(tag),
@@ -33,14 +34,14 @@ function setup() {
     RadarData: {},
   });
   vm.runInContext(functionsOnly, context);
-  const api = vm.runInContext('({ state, els, quartileKey, quartileLabel, metricLabel, languageLabel, median, buildSearchIndex, filteredJournals, sortedTableJournals, renderTable, renderScatter, renderKpis, renderNetwork, evidenceSummary, websiteEvidenceCount, sourceListHtml, renderJournalDetail, ensureJournalPreference, latestIssueSignalHtml, rangeMetaText, t, refreshFilters })', context);
+  const api = vm.runInContext('({ state, els, quartileKey, quartileLabel, metricLabel, languageLabel, median, buildSearchIndex, filteredJournals, sortedTableJournals, renderTable, renderScatter, renderKpis, renderNetwork, renderRecommendations, downloadVisibleCsv, evidenceSummary, websiteEvidenceCount, sourceListHtml, renderJournalDetail, ensureJournalPreference, latestIssueSignalHtml, rangeMetaText, t, refreshFilters })', context);
   api.els.search.value = "";
   return { context, ...api };
 }
 const journals = [
-  { id: "journal-old", name: "Original Journal", quartile: "Q1", jif_2025: 5, jci_2025: 2, main_tag: "教育技术", languages: ["en"], catalog_sources: [{ id: "jcr", label: "JCR workbook" }] },
-  { id: "journal-cn", name: "教育研究", aliases: ["教育探索别名"], issn: "1234-5678", issns: ["1234-5678"], quartile: null, jif_2025: null, jci_2025: null, country: "China", main_tag: "教育技术", languages: ["zh"], catalog_sources: [{ id: "doaj", label: "DOAJ", url: "https://doaj.org", record_id: "entry-cn", retrieved_at: "2026-09-29" }] },
-  { id: "journal-zero", name: "Zero Journal", quartile: "Q4", jif_2025: 0, jci_2025: 0, main_tag: "教育技术", languages: ["en", "zh"], catalog_sources: [{ id: "doaj", label: "DOAJ" }] },
+  { id: "journal-old", name: "Original Journal", quartile: "Q1", jif_2025: 5, jci_2025: 2, main_tag: "教育技术", languages: ["en"], indexes: ["SSCI", "Scopus"], catalog_sources: [{ id: "jcr", label: "JCR workbook" }] },
+  { id: "journal-added", name: "Education Inquiry", aliases: ["Educational Inquiry Review"], issn: "1234-5678", issns: ["1234-5678"], quartile: null, jif_2025: null, jci_2025: null, country: "United Kingdom", main_tag: "教育技术", languages: ["English"], indexes: ["Scopus"], catalog_sources: [{ id: "doaj", label: "DOAJ", url: "https://doaj.org", record_id: "entry-added", retrieved_at: "2026-09-29" }] },
+  { id: "journal-zero", name: "Zero Journal", quartile: "Q4", jif_2025: 0, jci_2025: 0, main_tag: "教育技术", languages: ["en"], indexes: ["ESCI"], catalog_sources: [{ id: "doaj", label: "DOAJ" }] },
 ];
 function load(api) { api.state.journals = structuredClone(journals); api.buildSearchIndex(); }
 
@@ -54,38 +55,73 @@ test("null metrics stay missing, real zero is retained, unknown quartile is not 
   for (const key of ["jif", "jci", "quartile"]) {
     for (const dir of [1, -1]) {
       api.state.tableSort = { key, dir };
-      assert.equal(api.sortedTableJournals(api.state.journals).at(-1).id, "journal-cn");
+      assert.equal(api.sortedTableJournals(api.state.journals).at(-1).id, "journal-added");
     }
   }
 });
 
-test("unknown quartile, language and directory filters cover added journals", () => {
+test("index filters select recorded coverage without inferring it from quartile or directory", () => {
   const api = setup(); load(api); api.refreshFilters();
+  assert.deepEqual(Array.from(api.els.index.options, (option) => option.value), ["all", "SSCI", "ESCI", "Scopus"]);
   assert.ok(api.els.quartile.options.some((option) => option.value === "__unknown__"));
   api.els.quartile.value = "__unknown__";
-  assert.deepEqual(Array.from(api.filteredJournals(), (j) => j.id), ["journal-cn"]);
+  assert.deepEqual(Array.from(api.filteredJournals(), (j) => j.id), ["journal-added"]);
   api.els.quartile.value = "all";
-  api.els.journalLanguage.value = "zh";
-  api.els.catalog.value = "doaj";
-  assert.deepEqual(Array.from(api.filteredJournals(), (j) => j.id).sort(), ["journal-cn", "journal-zero"]);
+  for (const [index, ids] of [["SSCI", ["journal-old"]], ["ESCI", ["journal-zero"]], ["Scopus", ["journal-added", "journal-old"]]]) {
+    api.els.index.value = index;
+    assert.deepEqual(Array.from(api.filteredJournals(), (j) => j.id).sort(), ids);
+  }
+  api.els.index.value = "all";
+  assert.equal(api.filteredJournals().length, 3, "Overlapping SSCI/Scopus coverage must not duplicate a journal");
+  api.els.index.value = "Scopus";
+  api.els.quartile.value = "Q4";
+  assert.equal(api.filteredJournals().length, 0, "Quartile and index are independent intersecting filters");
 });
 
-test("Chinese names, aliases, ISSNs, country and catalog record identifiers are searchable", () => {
+test("names, aliases, ISSNs, country, index and source record identifiers are searchable", () => {
   const api = setup(); load(api);
-  for (const query of ["教育研究", "教育探索别名", "1234-5678", "China", "entry-cn"]) {
+  for (const query of ["Education Inquiry", "Educational Inquiry Review", "1234-5678", "United Kingdom", "entry-added"]) {
     api.els.search.value = query;
-    assert.equal(api.filteredJournals()[0].id, "journal-cn", query);
+    assert.equal(api.filteredJournals()[0].id, "journal-added", query);
   }
+  api.els.search.value = "SSCI";
+  assert.deepEqual(Array.from(api.filteredJournals(), (j) => j.id), ["journal-old"]);
   assert.match(api.t("chatIdle"), /3 本/);
+});
+
+test("index selection drives KPI counts, cards, table badges and exported rows", async () => {
+  const api = setup(); load(api);
+  api.els.index.value = "Scopus";
+  const selected = api.filteredJournals();
+  api.renderKpis(selected);
+  assert.match(api.els.kpis.innerHTML, /<strong>2<\/strong>/);
+  api.renderRecommendations(selected);
+  assert.match(api.els.recommendations.innerHTML, /index-badge">SSCI/);
+  assert.match(api.els.recommendations.innerHTML, /index-badge">Scopus/);
+  assert.ok(!api.els.recommendations.innerHTML.includes("Zero Journal"));
+  api.renderTable(selected);
+  assert.equal((api.els.tableBody.innerHTML.match(/<tr>/g) || []).length, 2);
+  assert.match(api.els.tableBody.innerHTML, /aria-label="数据库收录"/);
+  let download;
+  api.context.URL = {
+    createObjectURL: (blob) => { download = blob; return "blob:test-download"; },
+    revokeObjectURL() {},
+  };
+  api.downloadVisibleCsv();
+  const csv = await download.text();
+  assert.match(csv.split("\n")[0], /languages,indexes,country/);
+  assert.match(csv, /"SSCI; Scopus"/);
+  assert.match(csv, /"Education Inquiry"/);
+  assert.ok(!csv.includes("Zero Journal"));
 });
 
 test("historical ISSNs are searchable in formatted and compact form", () => {
   const api = setup(); load(api);
-  api.state.journals.push({ id: "journal-issn-19847238", name: "Revista Linhas", issns: ["1984-7238"], historical_issns: ["1518-367X"], languages: ["Portuguese"], quartile: null });
+  api.state.journals.push({ id: "journal-historical", name: "Historical Education Review", issns: ["1984-7238"], historical_issns: ["1518-367X"], languages: ["English"], indexes: ["ESCI"], quartile: null });
   api.buildSearchIndex();
   for (const query of ["1518-367X", "1518367x", "19847238"]) {
     api.els.search.value = query;
-    assert.equal(api.filteredJournals()[0]?.id, "journal-issn-19847238", query);
+    assert.equal(api.filteredJournals()[0]?.id, "journal-historical", query);
   }
 });
 
@@ -128,8 +164,9 @@ test("catalog detail distinguishes directory evidence and escapes unsafe source 
   const api = setup(); load(api);
   const journal = { ...journals[1], catalog_sources: [{ id: "doaj", label: "DOAJ", url: "javascript:alert(1)", record_id: "<script>" }] };
   const html = api.sourceListHtml(journal, []);
-  assert.match(html, /不代表 JCR 收录/);
-  assert.match(html, /教育探索别名/);
+  assert.match(html, /不证明 SSCI、ESCI 或 Scopus 收录/);
+  assert.match(html, /Educational Inquiry Review/);
+  assert.match(html, /数据库收录<\/dt><dd>Scopus/);
   assert.match(html, /1234-5678/);
   assert.ok(!html.includes("javascript:"));
   assert.ok(!html.includes("<script>"));
@@ -146,6 +183,20 @@ test("catalog detail distinguishes directory evidence and escapes unsafe source 
   api.renderJournalDetail(journal.id);
   assert.match(api.els.detailContent.innerHTML, /原记录的 2025/);
   assert.match(api.els.detailContent.innerHTML, /来自 Excel/);
+});
+
+test("index evidence details display dated sources without duplicate category rows or unsafe URLs", () => {
+  const api = setup();
+  const proof = { index: "SSCI", source: "UEFISCDI published JCR list", snapshot_date: "2026-06", url: "https://example.org/jcr.xlsx", category: "Education" };
+  const journal = { ...journals[0], index_evidence: [proof, { ...proof, category: "Psychology" }, { index: "Scopus", source: "Elsevier <source>", snapshot_date: "2026-08", url: "javascript:alert(1)" }] };
+  const html = api.sourceListHtml(journal, []);
+  assert.match(html, /数据库收录依据/);
+  assert.match(html, /来源快照: 2026-06/);
+  assert.match(html, /来源快照: 2026-08/);
+  assert.equal((html.match(/href="https:\/\/example.org\/jcr.xlsx"/g) || []).length, 1);
+  assert.match(html, /并非实时收录保证/);
+  assert.match(html, /Elsevier &lt;source&gt;/);
+  assert.ok(!html.includes("javascript:"));
 });
 
 test("slow preference response cannot replace another journal after rapid navigation", async () => {
@@ -182,24 +233,14 @@ test("preference errors show a retry state without claiming zero samples", async
   assert.equal(api.state.preferencesByJournal.get("a").journal_id, "a");
 });
 
-test("real directory language names display in Chinese and remain searchable in either UI language", () => {
+test("English publication language remains searchable in either interface language without a language filter", () => {
   const api = setup();
-  api.state.journals = [
-    { ...journals[1], languages: ["Chinese"] },
-    { ...journals[0], languages: ["English"] },
-  ];
-  assert.equal(api.languageLabel("Chinese"), "中文");
+  api.state.journals = [{ ...journals[0], languages: ["English"] }];
   assert.equal(api.languageLabel("English"), "英语");
   api.buildSearchIndex(); api.refreshFilters();
-  assert.ok(api.els.journalLanguage.options.some((option) => option.value === "Chinese" && option.textContent === "中文"));
-  api.els.journalLanguage.value = "Chinese";
-  assert.deepEqual(Array.from(api.filteredJournals(), (journal) => journal.id), ["journal-cn"]);
-  api.els.journalLanguage.value = "all";
+  assert.equal(api.els.journalLanguage, undefined);
+  assert.equal(api.els.catalog, undefined);
   api.state.language = "en"; api.buildSearchIndex();
-  for (const query of ["中文", "汉语", "Chinese", "zh"]) {
-    api.els.search.value = query;
-    assert.equal(api.filteredJournals()[0].id, "journal-cn", query);
-  }
   for (const query of ["英文", "英语", "English"]) {
     api.els.search.value = query;
     assert.equal(api.filteredJournals()[0].id, "journal-old", query);
@@ -240,7 +281,7 @@ test("network cache invalidates when filtered totals change despite identical vi
   const api = setup();
   const rows = Array.from({ length: 30 }, (_, index) => ({ ...journals[1], id: `journal-${index}` }));
   api.state.journals = rows;
-  api.els.catalog.value = "doaj";
+  api.els.index.value = "Scopus";
   api.renderNetwork(rows);
   const firstKey = api.state.networkRenderKey;
   assert.match(api.els.networkNote.textContent, /0 \/ 30/);

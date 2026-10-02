@@ -32,12 +32,14 @@ from radar_pipeline import (
     BASELINE_FIELDS, article_key, merge_articles, merge_journal_catalog,
     read_partitioned, rotation_indexes, safe_shard_path, write_partition,
 )
+from journal_scope import apply_journal_scope, load_index_evidence
 
 
 DEFAULT_EXCEL = Path("data/source/Education_JCR.xlsx")
 DEFAULT_OUTPUT = Path("data/radar")
 USER_AGENT = "aied-journal/0.1 (+https://jojo-edtech.github.io/aied-journal/)"
 DEFAULT_CATALOG = Path("data/catalog/education-journals.json")
+DEFAULT_INDEX_EVIDENCE = Path("data/catalog/index-evidence.json")
 CROSSREF_API = "https://api.crossref.org"
 EMAIL_PATTERN = re.compile(r"[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}", re.IGNORECASE)
 
@@ -1768,6 +1770,8 @@ def dedupe_records(records: Iterable[dict], key_fields: tuple[str, ...]) -> list
 def base_documents(journal: dict, captured_at: str) -> list[dict]:
     """Emit truthful provenance for JCR records and independently catalogued titles."""
     details = [journal["name"], journal.get("main_tag"), journal.get("secondary_tag"), journal.get("publisher_family")]
+    if journal.get("languages"):
+        details.append(f"Languages: {', '.join(journal['languages'])}")
     if journal.get("has_jcr_record"):
         for field, label in [("jif_2025", "2025 JIF"), ("jci_2025", "2025 JCI"), ("quartile", "JCR quartile")]:
             if journal.get(field) is not None:
@@ -1776,18 +1780,40 @@ def base_documents(journal: dict, captured_at: str) -> list[dict]:
         if journal.get(field) not in (None, ""):
             details.append(f"{label}: {journal[field]}")
     origins = list(journal.get("catalog_sources") or [])
+    for proof in journal.get("index_evidence", []):
+        proof_url = proof.get("url") or proof.get("source_url") or proof.get("evidence_url") or ""
+        if proof_url:
+            origins.append({"id": "index-" + hashlib.sha256(proof_url.encode()).hexdigest()[:16],
+                            "record_id": ":".join(str(proof.get(field) or "") for field in ("index", "sheet", "row")),
+                            "label": proof.get("label") or proof.get("source") or "Journal indexing evidence",
+                            "url": proof_url, "retrieved_at": proof.get("retrieved_at"), "index_evidence": True,
+                            "index": proof.get("index"), "snapshot_date": proof.get("snapshot_date")})
     if journal.get("has_jcr_record"):
         origins.insert(0, {"id": "jcr_workbook", "label": "JCR workbook snapshot", "url": next(iter(journal.get("source_urls") or []), "")})
     if not origins:
         origins = [{"id": "journal_catalog", "label": "Education journal catalog", "url": next(iter(journal.get("source_urls") or []), "")}]
-    return [{
-        "doc_id": make_doc_id(journal["id"], "catalog", str(origin.get("id", "")), str(origin.get("record_id", ""))),
-        "journal_id": journal["id"], "journal_name": journal["name"],
-        "source_url": origin.get("evidence_url") or origin.get("url") or "",
-        "source_type": "jcr_workbook" if origin.get("id") == "jcr_workbook" else "journal_catalog",
-        "title": journal["name"], "captured_at": origin.get("retrieved_at") or captured_at,
-        "text_snippet": "; ".join(str(part) for part in [*details, f"Catalog source: {origin.get('label') or origin.get('id')}"] if part),
-    } for origin in origins]
+    documents = []
+    for origin in origins:
+        label = origin.get("label") or origin.get("id")
+        source_details = [f"Catalog source: {label}"]
+        title = journal["name"]
+        if origin.get("index_evidence"):
+            source_details = [f"Index source: {label}", f"Verified index: {origin.get('index') or ', '.join(journal.get('indexes', []))}"]
+            if origin.get("snapshot_date"):
+                source_details.append(f"Index snapshot date: {origin['snapshot_date']}")
+            title = " · ".join(str(value) for value in (journal["name"], origin.get("index"), label, origin.get("snapshot_date")) if value)
+        document = {
+            "doc_id": make_doc_id(journal["id"], "catalog", str(origin.get("id", "")), str(origin.get("record_id", ""))),
+            "journal_id": journal["id"], "journal_name": journal["name"],
+            "source_url": origin.get("evidence_url") or origin.get("url") or "",
+            "source_type": "jcr_workbook" if origin.get("id") == "jcr_workbook" else "journal_index" if origin.get("index_evidence") else "journal_catalog",
+            "title": title, "captured_at": origin.get("retrieved_at") or captured_at,
+            "text_snippet": "; ".join(str(part) for part in [*details, *source_details] if part),
+        }
+        if origin.get("index_evidence"):
+            document.update(source_label=label, snapshot_date=origin.get("snapshot_date"), index=origin.get("index"))
+        documents.append(document)
+    return documents
 
 
 def article_documents(journal: dict, articles: list[dict], snippet_chars: int) -> list[dict]:
@@ -1851,6 +1877,7 @@ def publish_staging(staging: Path, destination: Path) -> None:
         "journal_preferences.json", "journal_articles.jsonl", "rag_documents.jsonl", "local-data.js",
         "journal_preferences_index.json", "journal_articles_index.json", "rag_documents_index.json", "data-manifest.json",
         "journal_preferences", "journal_articles", "rag_documents",
+        "journal-scope-audit.json",
     }
     if destination.exists():
         unknown = [entry.name for entry in destination.iterdir() if entry.name not in generated_names and entry.name != ".DS_Store"]
@@ -1878,6 +1905,8 @@ def main() -> int:
     parser.add_argument("--source-snapshot", type=Path, default=None)
     parser.add_argument("--catalog", type=Path, default=DEFAULT_CATALOG)
     parser.add_argument("--catalog-manifest", type=Path, default=None)
+    parser.add_argument("--index-evidence", type=Path, default=DEFAULT_INDEX_EVIDENCE,
+                        help="Required source-backed English/index map; missing evidence stops publication.")
     parser.add_argument("--skip-crawl", action="store_true", help="Offline rebuild; retain all previously captured evidence.")
     parser.add_argument("--skip-article-api", action="store_true", help="Retain prior Crossref samples without requesting updates.")
     parser.add_argument("--max-pages-per-journal", type=int, default=1)
@@ -1920,9 +1949,14 @@ def main() -> int:
     catalog = json.loads(args.catalog.read_text(encoding="utf-8")) if args.catalog.exists() else []
     if not isinstance(baseline, list) or not isinstance(catalog, list):
         parser.error("JCR snapshot and catalog must both be arrays")
-    journals = merge_journal_catalog(baseline, catalog)
+    merged_journals = merge_journal_catalog(baseline, catalog)
+    try:
+        index_evidence, evidence_sha256 = load_index_evidence(args.index_evidence)
+        journals, scope_audit = apply_journal_scope(merged_journals, index_evidence)
+    except (OSError, ValueError, TypeError) as error:
+        parser.error(f"Cannot apply required journal scope: {error}")
     if not journals:
-        parser.error("The merged journal database is empty")
+        parser.error("No journals meet the evidenced English SSCI/ESCI/Scopus scope; refusing empty publication")
     journal_ids = {journal["id"] for journal in journals}
     journal_count = len(journals)
     old_report = read_json(args.output / "crawl_report.json")
@@ -1955,6 +1989,10 @@ def main() -> int:
     staging = Path(tempfile.mkdtemp(prefix=f".{args.output.name}-staging-", dir=args.output.parent))
     try:
         write_json(staging / "source_workbook_snapshot.json", baseline)
+        scope_audit.update({"data_version": captured_at, "index_evidence_sha256": evidence_sha256,
+                            "source_snapshot_count": len(baseline),
+                            "source_snapshot_sha256": hashlib.sha256((staging / "source_workbook_snapshot.json").read_bytes()).hexdigest()})
+        write_json(staging / "journal-scope-audit.json", scope_audit)
         indexes = {name: {"schema_version": 1, "data_version": captured_at, "journals": {}} for name in ("journal_preferences", "journal_articles", "rag_documents")}
         articles, docs, preference_summaries = [], [], []
         journal_topics, journal_methods = defaultdict(Counter), defaultdict(Counter)
@@ -1966,7 +2004,7 @@ def main() -> int:
             for article in rows:
                 article["journal_id"], article["journal_name"] = jid, journal["name"]
             sanitize_public_records(rows, ("title", "abstract", "keywords", "error"))
-            journal_docs = [doc for doc in previous_docs.get(jid, []) if doc.get("source_type") not in {"jcr_workbook", "journal_catalog", "article_metadata"}]
+            journal_docs = [doc for doc in previous_docs.get(jid, []) if doc.get("source_type") not in {"jcr_workbook", "journal_catalog", "journal_index", "article_metadata"}]
             journal_docs.extend(result.get("docs", []))
             journal_docs.extend(base_documents(journal, captured_at))
             journal_docs.extend(article_documents(journal, rows, args.snippet_chars))
@@ -2025,7 +2063,16 @@ def main() -> int:
         for dataset, index in indexes.items():
             write_json(staging / f"{dataset}_index.json", index)
         report = summarize(journals, sources, articles, docs, captured_at, editor_profiles, preference_summaries)
-        report["baseline_preservation"] = {"journal_count": len(baseline), "all_ids_preserved": all(row["id"] in journal_ids for row in baseline), "metrics_preserved": all(all(row.get(field) == next(journal for journal in journals if journal["id"] == row["id"]).get(field) for field in BASELINE_FIELDS) for row in baseline)}
+        included_baseline = [row for row in baseline if row["id"] in journal_ids]
+        journal_by_id = {journal["id"]: journal for journal in journals}
+        report["baseline_preservation"] = {
+            "journal_count": len(baseline), "source_snapshot_preserved": True,
+            "all_ids_preserved": len(included_baseline) == len(baseline),
+            "included_count": len(included_baseline), "scope_excluded_count": len(baseline) - len(included_baseline),
+            "metrics_preserved": all(all(row.get(field) == journal_by_id[row["id"]].get(field) for field in BASELINE_FIELDS) for row in included_baseline),
+        }
+        scope_summary = {key: value for key, value in scope_audit.items() if key not in {"included_ids", "excluded"}}
+        report["journal_scope"] = scope_summary
         statuses = Counter(result.get("api_status") for result in results.values())
         report["refresh_policy"] = {
             "article_metadata": "skipped" if not article_indexes else "rotating_batch", "article_batch_size": len(article_indexes),
@@ -2044,15 +2091,16 @@ def main() -> int:
         catalog_manifest = read_json_value(catalog_manifest_path, {})
         write_json(staging / "data-manifest.json", {
             "schema_version": 1, "data_version": captured_at, "journal_count": journal_count,
-            "jcr_journal_count": len(baseline), "catalog_journal_count": journal_count - len(baseline), "q1_count": report["q1_count"],
+            "jcr_journal_count": len(included_baseline), "catalog_journal_count": journal_count - len(included_baseline), "q1_count": report["q1_count"],
             "article_count": len(articles), "rag_document_count": len(docs),
             "datasets": {name: f"{name}_index.json" for name in indexes},
             "catalog_sources": catalog_manifest,
+            "journal_scope": scope_summary, "scope_audit": "journal-scope-audit.json",
         })
         validator = Path(__file__).with_name("validate-data.mjs")
         subprocess.run(["node", str(validator), "--data-dir", str(staging)], check=True)
         publish_staging(staging, args.output)
-        print(json.dumps({"journal_count": journal_count, "jcr_journal_count": len(baseline), "q1_count": report["q1_count"], "articles": len(articles), "rag_documents": len(docs), "output": str(args.output)}, ensure_ascii=False, indent=2))
+        print(json.dumps({"journal_count": journal_count, "jcr_journal_count": len(included_baseline), "q1_count": report["q1_count"], "articles": len(articles), "rag_documents": len(docs), "output": str(args.output)}, ensure_ascii=False, indent=2))
         return 0
     finally:
         if staging.exists():

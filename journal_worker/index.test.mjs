@@ -148,6 +148,60 @@ test("quartile requests filter rather than merely boost mismatching journals", (
   assert.ok(fallbackJournals(data, "Q1 English journals").every((item) => item.journal.quartile === "Q1"));
 });
 
+function indexedData() {
+  const base = { languages: ["English"], quartile: "Q1", has_jcr_record: true, main_tag: "学习科学", topic_hits: { "digital learning": 3 } };
+  return {
+    journals: [
+      { ...base, id: "social", name: "Social Education Review", indexes: ["SSCI"] },
+      { ...base, id: "emerging", name: "Emerging Education Review", indexes: ["ESCI"] },
+      { ...base, id: "abstracts", name: "Education Abstracts Review", indexes: ["Scopus"] },
+      { ...base, id: "overlap", name: "Education Practice Review", indexes: ["SSCI", "Scopus"] },
+      { ...base, id: "other-language", name: "Education Across Languages", languages: ["Chinese"], indexes: ["SSCI", "Scopus"] },
+      { ...base, id: "other-quartile", name: "Education Research Review", quartile: "Q2", indexes: ["ESCI"] },
+      { ...base, id: "metrics-only", name: "Metric Only Education Review", jif_2025: 99, catalog_sources: [{ id: "doaj", label: "DOAJ" }] },
+    ],
+    sourcesByJournal: new Map(),
+  };
+}
+
+test("SSCI, ESCI and Scopus constraints use explicit membership in ranking and fallback", () => {
+  const fixture = indexedData();
+  const expected = {
+    SSCI: ["other-language", "overlap", "social"],
+    ESCI: ["emerging", "other-quartile"],
+    Scopus: ["abstracts", "other-language", "overlap"],
+  };
+  for (const [index, ids] of Object.entries(expected)) {
+    const query = `${index} digital learning journals`;
+    assert.deepEqual(rankJournals(query, fixture).map((item) => item.journal.id).sort(), ids, index);
+    assert.deepEqual(fallbackJournals(fixture, query).map((item) => item.journal.id).sort(), ids, index);
+  }
+});
+
+test("multiple index memberships are ORed and intersected with language and quartile", () => {
+  const fixture = indexedData();
+  for (const [query, expected] of [
+    ["English journals Q1 SSCI or ESCI digital learning", ["emerging", "overlap", "social"]],
+    ["英文期刊 Q1 SSCI 或 ESCI digital learning", ["emerging", "overlap", "social"]],
+    ["English journals Q1 SSCI or Scopus digital learning", ["abstracts", "overlap", "social"]],
+  ]) {
+    assert.deepEqual(rankJournals(query, fixture).map((item) => item.journal.id).sort(), expected, query);
+    assert.deepEqual(fallbackJournals(fixture, query).map((item) => item.journal.id).sort(), expected, query);
+  }
+  const noMatch = "English journals Q4 SSCI or Scopus digital learning";
+  assert.deepEqual(rankJournals(noMatch, fixture), []);
+  assert.deepEqual(fallbackJournals(fixture, noMatch), []);
+});
+
+test("JCR metrics and DOAJ inclusion cannot satisfy an SSCI request, even for a named journal", () => {
+  const fixture = indexedData();
+  assert.equal(rankJournals("Metric Only Education Review", fixture)[0].journal.id, "metrics-only");
+  for (const index of ["SSCI", "ESCI", "Scopus"]) {
+    assert.ok(rankJournals(`Metric Only Education Review ${index}`, fixture).every((item) => item.journal.id !== "metrics-only"));
+    assert.ok(fallbackJournals(fixture, `${index} journals`).every((item) => item.journal.id !== "metrics-only"));
+  }
+});
+
 test("catalog-only journals cite their actual directory and do not acquire a workbook citation", () => {
   const journal = expandedData().journals.find((item) => item.id === "cn-short");
   const sources = sourcePayload({ journal, sources: [] });

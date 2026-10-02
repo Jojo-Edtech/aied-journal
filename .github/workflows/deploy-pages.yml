@@ -44,8 +44,9 @@ jobs:
           python -m pip install --disable-pip-version-check \
             pip-audit==2.10.1
           python -m pip_audit -r research_radar_api/requirements.lock.txt
-          python -m unittest research_radar_api/test_security.py research_radar_api/test_catalog_retrieval.py
+          python -m unittest research_radar_api/test_security.py research_radar_api/test_catalog_retrieval.py research_radar_api/test_scope.py
           python -m unittest discover -s scripts -p 'test_catalog_import.py'
+          npm run check:scope
           python -m unittest discover -s scripts -p 'test_radar_pipeline.py'
           node --test journal_worker/index.test.mjs
 

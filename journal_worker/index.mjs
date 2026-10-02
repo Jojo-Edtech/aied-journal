@@ -173,6 +173,7 @@ async function callModelScope(env, question, ranked, searchedJournalCount, optio
         `${index + 1}. ${journal.name} (${journal.abbreviation || "no abbreviation"})`,
         `JCR: ${journal.quartile || "JCR unverified / JCR 未核验"}; 2025 JIF: ${journal.jif_2025 ?? "unavailable / 指标缺失"}; 2025 JCI: ${journal.jci_2025 ?? "unavailable / 指标缺失"}`,
         `Catalog sources (not proof of JCR inclusion): ${catalogRecords(journal).map((source) => `${source.label || source.id}: ${source.evidence_url || source.url || "record only"}`).join(" | ") || "not recorded"}`,
+        `Evidenced indexes: ${(journal.indexes || []).join(", ") || "unverified"}; index sources: ${(journal.index_evidence || []).map((item) => `${item.label || item.source || "source"}: ${item.url || item.source_url || item.evidence_url || ""}`).join(" | ")}`,
         `Languages: ${(journal.languages || []).join(", ") || "not recorded"}; country or region: ${journal.country || "not recorded"}`,
         `Other names / editions: ${(journal.aliases || []).join("; ") || "none recorded"}; current ISSNs: ${journalIdentifiers(journal, false).join(", ") || "not recorded"}; historical ISSNs: ${(journal.historical_issns || []).join(", ") || "none recorded"}`,
         `Recorded annual publication volume (missing years remain unknown): ${publicationSeries}`,
@@ -184,9 +185,9 @@ async function callModelScope(env, question, ranked, searchedJournalCount, optio
     })
     .join("\n\n");
 
-  const system = `You are AIED Journal Radar, an evidence-backed education journal-selection advisor covering the multilingual education journal catalog.
+  const system = `You are AIED Journal Radar, an evidence-backed education journal-selection advisor covering English education journals with evidenced SSCI, ESCI or Scopus membership; Chinese-language journals are outside this catalog.
 The retrieval stage scanned the complete database of ${searchedJournalCount} journals. It did not use the frontend shortlist or current dashboard filters.
-Directory inclusion (including DOAJ) does not establish JCR inclusion. Missing quartile, JIF and JCI mean unverified or unavailable, never zero or a negative quality judgment. A request for non-JCR journals can only be supported as JCR-unverified candidates unless explicit verified exclusion evidence exists. Preserve any language, directory or quartile constraints in the question.
+Directory inclusion (including DOAJ) does not establish JCR inclusion. Missing quartile, JIF and JCI mean unverified or unavailable, never zero or a negative quality judgment. A request for non-JCR journals can only be supported as JCR-unverified candidates unless explicit verified exclusion evidence exists. Preserve any language, index, directory or quartile constraints in the question. SSCI, ESCI and Scopus membership must come from the explicit index evidence; never infer it from JIF, quartile, publisher or catalog inclusion. Index memberships are dated snapshots, not a guarantee of current coverage.
 Use only the retrieved radar context below. Do not invent journal requirements. If evidence is insufficient, say 当前雷达资料不足.
 Annual publication volumes labelled as coming from the radar workbook are recorded workbook values, not forecasts. Do not call them predicted values.
 Answer in the user's language. If the user asks a factual question about a named journal, answer that journal directly and do not force a recommendation table.
@@ -408,10 +409,12 @@ function queryConstraints(question, data) {
   }));
   const requestedCatalogs = [...requested];
   const verifiedJcr = !unknownJcr && /\bjcr\b/.test(text) && journalSeekingIntent(question);
-  return { language, unknownJcr, verifiedJcr, quartiles, catalogs: requestedCatalogs };
+  const indexes = ["SSCI", "ESCI", "Scopus"].filter((index) => mentionsCatalog(text, index));
+  return { language, unknownJcr, verifiedJcr, quartiles, catalogs: requestedCatalogs, indexes };
 }
 
 function matchesConstraints(journal, constraints) {
+  if (constraints.indexes?.length && !constraints.indexes.some((index) => (journal.indexes || []).includes(index))) return false;
   if (constraints.language && !(journal.languages || []).some((language) => {
     const code = String(language).toLowerCase();
     return constraints.language === "zh" ? /^(zh(?:-|$)|chi$|zho$|chinese$|中文$)/.test(code) : /^(en(?:-|$)|eng$|english$|英文$)/.test(code);
@@ -477,8 +480,14 @@ function sourcePayload(item) {
   if (!catalog.some((source) => source.source_type === "jcr_workbook") && (journal.has_jcr_record === true || (journal.has_jcr_record === undefined && ["Q1", "Q2", "Q3", "Q4"].includes(journal.quartile)))) {
     catalog.push({ journal_name: journal.name, source_url: "", source_type: "jcr_workbook", captured_at: "", text_snippet: "Original JCR workbook record; metrics retain the recorded year" });
   }
+  const indexSources = (journal.index_evidence || []).map((proof) => ({
+    journal_name: journal.name, source_url: proof.url || proof.source_url || proof.evidence_url || "",
+    source_type: "journal_index", title: proof.source || proof.label || "Index evidence",
+    captured_at: proof.retrieved_at || "",
+    text_snippet: `${proof.index || ""} index snapshot ${proof.snapshot_date || "date not recorded"}; ${proof.source || proof.label || ""}`,
+  }));
   const base = displaySources(item.sources, journal).slice(0, 2);
-  return [...catalog, ...base.map((source) => ({ journal_name: journal.name, ...source }))];
+  return [...indexSources, ...catalog, ...base.map((source) => ({ journal_name: journal.name, ...source }))];
 }
 
 function orderedSources(sources) {
@@ -523,6 +532,11 @@ async function loadRadarData(env) {
         throw new Error("Radar dataset changed during loading; retry against the new manifest");
       }
       if (Number(manifest.journal_count) !== journals.length) throw new Error("Radar manifest count mismatch");
+      if (manifest.journal_scope) {
+        if (manifest.journal_scope.scope_id !== "english-ssci-esci-scopus-v1" || journals.some((journal) => !journal.languages?.includes("English") || journal.languages.includes("Chinese") || !journal.indexes?.length || journal.indexes.some((index) => !["SSCI", "ESCI", "Scopus"].includes(index)))) {
+          throw new Error("Radar catalog violates its English indexed-journal scope");
+        }
+      }
     }
     const sourcesByJournal = new Map();
     sources.forEach((source) => {

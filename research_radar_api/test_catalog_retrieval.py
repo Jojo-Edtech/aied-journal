@@ -48,6 +48,57 @@ class CatalogRetrievalTests(unittest.TestCase):
         self.assertEqual(index.search("中文Q1 technology", 8), [])
         self.assertEqual([d.journal_id for d, _ in index.search("中文未核验 technology", 8)], ["cn"])
 
+    def indexed_fixture(self):
+        base = {"languages": ["English"], "quartile": "Q1", "has_jcr_record": True}
+        rows = [
+            journal("social", "Social Education Review", **base, indexes=["SSCI"]),
+            journal("emerging", "Emerging Education Review", **base, indexes=["ESCI"]),
+            journal("abstracts", "Education Abstracts Review", **base, indexes=["Scopus"]),
+            journal("overlap", "Education Practice Review", **base, indexes=["SSCI", "Scopus"]),
+            journal("other-language", "Education Across Languages", **{**base, "languages": ["Chinese"]}, indexes=["SSCI", "Scopus"]),
+            journal("other-quartile", "Education Research Review", **{**base, "quartile": "Q2"}, indexes=["ESCI"]),
+            journal("metrics-only", "Metric Only Education Review", **base, jif_2025=99, catalog_sources=[{"id": "doaj"}]),
+        ]
+        return rows, radar.RadarIndex([document(row, "digital learning") for row in rows], {row["id"]: row for row in rows})
+
+    def test_explicit_index_filters_reach_retrieval_results(self):
+        rows, index = self.indexed_fixture()
+        expected = {
+            "SSCI": {"social", "overlap", "other-language"},
+            "ESCI": {"emerging", "other-quartile"},
+            "Scopus": {"abstracts", "overlap", "other-language"},
+        }
+        for membership, ids in expected.items():
+            with self.subTest(index=membership):
+                query = f"{membership} digital learning journals"
+                constraints = query_constraints(query)
+                self.assertEqual(constraints["indexes"], [membership])
+                self.assertEqual({row["id"] for row in rows if matches_constraints(row, constraints)}, ids)
+                self.assertEqual({doc.journal_id for doc, _ in index.search(query, 20)}, ids)
+
+    def test_multiple_indexes_are_or_and_other_constraints_still_intersect(self):
+        rows, index = self.indexed_fixture()
+        for query, expected in [
+            ("英文期刊 Q1 SSCI 或 ESCI digital learning", {"social", "emerging", "overlap"}),
+            ("English journals Q1 SSCI or ESCI digital learning", {"social", "emerging", "overlap"}),
+            ("English journals Q1 SSCI or Scopus digital learning", {"social", "abstracts", "overlap"}),
+        ]:
+            with self.subTest(query=query):
+                constraints = query_constraints(query)
+                self.assertEqual({row["id"] for row in rows if matches_constraints(row, constraints)}, expected)
+                self.assertEqual({doc.journal_id for doc, _ in index.search(query, 20)}, expected)
+        self.assertEqual(index.search("英文期刊 Q4 SSCI 或 Scopus digital learning", 20), [])
+
+    def test_jcr_and_doaj_do_not_imply_index_membership(self):
+        rows, index = self.indexed_fixture()
+        item = next(row for row in rows if row["id"] == "metrics-only")
+        self.assertTrue(identity_match(item, "Metric Only Education Review"))
+        for membership in ["SSCI", "ESCI", "Scopus"]:
+            with self.subTest(index=membership):
+                query = f"Metric Only Education Review {membership}"
+                self.assertFalse(matches_constraints(item, query_constraints(query)))
+                self.assertNotIn("metrics-only", {doc.journal_id for doc, _ in index.search(query, 20)})
+
     def test_no_unrelated_source_boost_and_diverse_candidates(self):
         a, b = journal("a", "Learning Sciences"), journal("b", "Education Research")
         docs = [document(a, "digital learning", n) for n in range(12)] + [document(b, "digital learning")]

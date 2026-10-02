@@ -1,12 +1,12 @@
 {
   "schema_version": 1,
-  "data_version": "2026-10-02T01:11:51+00:00",
-  "journal_count": 3449,
-  "jcr_journal_count": 268,
-  "catalog_journal_count": 3181,
+  "data_version": "2026-10-02T08:13:49+00:00",
+  "journal_count": 861,
+  "jcr_journal_count": 260,
+  "catalog_journal_count": 601,
   "q1_count": 135,
-  "article_count": 106573,
-  "rag_document_count": 110793,
+  "article_count": 41788,
+  "rag_document_count": 44724,
   "datasets": {
     "journal_preferences": "journal_preferences_index.json",
     "journal_articles": "journal_articles_index.json",
@@ -82,5 +82,37 @@
       "NCPSSD education classification includes education-related university journals, not only education-specialist titles.",
       "Unknown metrics, review times, languages and countries are left missing. No external metric is substituted for JIF/JCI."
     ]
-  }
+  },
+  "journal_scope": {
+    "schema_version": 1,
+    "scope_id": "english-ssci-esci-scopus-v1",
+    "rule": "English explicitly recorded; no Chinese language declaration; at least one evidenced SSCI, ESCI or Scopus index. Unknowns are excluded.",
+    "allowed_indexes": [
+      "SSCI",
+      "ESCI",
+      "Scopus"
+    ],
+    "input_count": 3449,
+    "included_count": 861,
+    "excluded_count": 2588,
+    "index_counts": {
+      "SSCI": 297,
+      "ESCI": 312,
+      "Scopus": 790
+    },
+    "excluded_reason_counts": {
+      "identity_ambiguity": 1,
+      "english_language_unverified": 829,
+      "allowed_index_unverified": 1322,
+      "chinese_language": 436
+    },
+    "identity_exclusions": {
+      "journal-202-educational-studies": "identity_ambiguity"
+    },
+    "data_version": "2026-10-02T08:13:49+00:00",
+    "index_evidence_sha256": "f7c2fc927294a99a50f61924560c33011fa6868bd42f65bf8defc2f313f10f8e",
+    "source_snapshot_count": 268,
+    "source_snapshot_sha256": "97c0fdd562a1299475dd0100186c2808379d66bbd780b48244ba7a300b542188"
+  },
+  "scope_audit": "journal-scope-audit.json"
 }

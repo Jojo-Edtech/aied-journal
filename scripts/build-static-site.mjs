@@ -20,7 +20,7 @@ async function publishFile(source, destination) {
 const rootFiles = [".nojekyll", "index.html", "styles.css", "data-loader.js", "app.js"];
 const publicFiles = [
   "journals.json", "journals_q1.json", "journal_sources.json", "research_network.json",
-  "crawl_report.json", "radar-config.json", "editor_profiles.json", "data-manifest.json",
+  "crawl_report.json", "radar-config.json", "editor_profiles.json", "data-manifest.json", "journal-scope-audit.json",
   "journal_preferences_index.json", "journal_articles_index.json", "rag_documents_index.json",
 ];
 const publicShards = {

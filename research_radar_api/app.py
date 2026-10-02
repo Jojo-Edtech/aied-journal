@@ -183,6 +183,8 @@ class Document:
     tokens: list[str]
     counts: Counter
     length: int
+    indexes: tuple[str, ...] = ()
+    index_evidence: tuple[dict[str, Any], ...] = ()
 
 
 class ChatRequest(BaseModel):
@@ -324,6 +326,33 @@ def load_documents() -> RadarIndex:
         return _load_documents_locked()
 
 
+def validate_journal_scope(journals: list[dict[str, Any]], manifest: dict[str, Any]) -> None:
+    scope = manifest.get("journal_scope") or {}
+    if not isinstance(scope, dict):
+        raise ValueError("Invalid journal scope metadata")
+    scope_id = scope.get("scope_id")
+    if scope_id is None:
+        return  # Older deployments and legacy fixtures predate scoped catalogs.
+    if scope_id != "english-ssci-esci-scopus-v1":
+        raise ValueError("Unsupported journal scope")
+    if not isinstance(journals, list) or not journals:
+        raise ValueError("Scoped journal dataset must be a nonempty list")
+    for journal in journals:
+        if not isinstance(journal, dict):
+            raise ValueError("Invalid scoped journal record")
+        languages = journal.get("languages")
+        indexes = journal.get("indexes")
+        if not isinstance(languages, list) or not all(isinstance(value, str) for value in languages):
+            raise ValueError("Scoped journal has invalid publication languages")
+        language_codes = {value.strip().casefold().replace("_", "-").split("-")[0] for value in languages}
+        if not language_codes.intersection({"english", "en", "eng", "英文", "英语"}) or language_codes.intersection({"chinese", "zh", "chi", "zho", "中文", "汉语"}):
+            raise ValueError("Journal violates English-only/no-Chinese publication scope")
+        if not isinstance(indexes, list) or not indexes or any(value not in ("SSCI", "ESCI", "Scopus") for value in indexes) or len(set(indexes)) != len(indexes):
+            raise ValueError("Journal has no valid SSCI, ESCI or Scopus coverage")
+        if journal.get("scope_id", scope_id) != scope_id:
+            raise ValueError("Journal record and manifest scopes disagree")
+
+
 def _load_documents_locked() -> RadarIndex:
     global INDEX, INDEX_ERROR, INDEX_FINGERPRINT
     fingerprint = data_fingerprint(DATA_DIR)
@@ -331,9 +360,11 @@ def _load_documents_locked() -> RadarIndex:
         return INDEX
 
     try:
+        manifest = load_json(DATA_DIR / "data-manifest.json", {})
         journals_list = load_json(DATA_DIR / "journals.json", [])
         if not journals_list:
             journals_list = load_json(DATA_DIR / "journals_q1.json", [])
+        validate_journal_scope(journals_list, manifest)
         journals = {journal.get("id"): journal for journal in journals_list if journal.get("id")}
         docs: list[Document] = []
         with INDEX_LOCK:
@@ -344,6 +375,7 @@ def _load_documents_locked() -> RadarIndex:
                     f"{item.get('journal_name', '')}\n{journal.get('abbreviation', '')}\n"
                     f"{journal.get('issn', '')} {journal.get('eissn', '')}\n"
                     f"{' '.join(journal.get('aliases') or [])} {' '.join(journal.get('languages') or [])}\n"
+                    f"{' '.join(journal.get('indexes') or [])}\n"
                     f"{item.get('title', '')}\n{text}"
                 )]
                 docs.append(
@@ -358,10 +390,12 @@ def _load_documents_locked() -> RadarIndex:
                         tokens=[],
                         counts=Counter(tokens),
                         length=max(1, len(tokens)),
+                        indexes=tuple(journal.get("indexes") or []),
+                        index_evidence=tuple(dict(proof) for proof in journal.get("index_evidence", []) if isinstance(proof, dict)),
                     )
                 )
         INDEX = RadarIndex(docs, journals)
-        INDEX.data_version = load_json(DATA_DIR / "data-manifest.json", {}).get("data_version", "legacy")
+        INDEX.data_version = manifest.get("data_version", "legacy")
         INDEX_FINGERPRINT = fingerprint
         INDEX_ERROR = None
         return INDEX
@@ -551,8 +585,24 @@ def context_for(results: list[tuple[Document, float]]) -> str:
     used = 0
     for index, (doc, score) in enumerate(results, start=1):
         snippet = re.sub(r"\s+", " ", doc.text)[:1400]
+        index_sources = []
+        for proof in doc.index_evidence[:6]:
+            url = str(proof.get("url") or proof.get("source_url") or proof.get("evidence_url") or "")
+            try:
+                parsed_url = urlsplit(url)
+            except ValueError:
+                continue
+            if parsed_url.scheme not in {"http", "https"} or not parsed_url.hostname or parsed_url.username or parsed_url.password:
+                continue
+            label = str(proof.get("index") or "")
+            if label not in doc.indexes:
+                continue
+            dated = str(proof.get("snapshot_date") or proof.get("retrieved_at") or "日期未记录")
+            index_sources.append(f"{label} ({dated}): {url[:500]}")
         source = (
             f"[{index}] 期刊：{doc.journal_name}\n"
+            f"数据库收录：{', '.join(doc.indexes) or '未记录'}\n"
+            f"收录依据：{'; '.join(index_sources) or '当前片段未提供'}\n"
             f"标题：{doc.title}\n"
             f"类型：{doc.source_type}\n"
             f"内容：{snippet}\n"
@@ -670,8 +720,9 @@ def call_llm(question: str, results: list[tuple[Document, float]]) -> str:
         "研究主题网络、投稿匹配和风险，不代写论文。只能根据给定资料回答；"
         "资料不足时必须说“当前雷达资料不足”。每个推荐期刊都要给出引用编号。"
         "检索范围是全部期刊总库，不使用网页右侧候选清单或当前筛选。"
-        "总库包含原有JCR工作簿和DOAJ、EBSCO、国家哲社中心等教育目录。目录收录不等于JCR收录、质量认证或正在收稿。"
-        "缺失JIF/JCI/分区只能称未提供或未核验，不能当作0或断言未被JCR收录。尊重语种和目录来源约束。"
+        "当前产品仅覆盖有英文出版语种记录、没有中文出版语种记录，且有SSCI、ESCI或Scopus收录依据的教育期刊。"
+        "三种索引取并集，期刊可以重复收录；仅按资料中明确记录的标签说明收录情况与来源快照日期，不能从JCR分区、DOAJ或EBSCO目录推断索引。"
+        "索引收录不等于质量认证或正在收稿。缺失JIF/JCI/分区只能称未提供或未核验，不能当作0或断言未被JCR收录。尊重问题中的数据库索引和分区约束。"
         "若用户询问指定期刊的事实，直接回答该期刊；选刊问题才推荐 3-5 本。"
         "回答要简洁、可操作。"
     )
@@ -780,6 +831,10 @@ def sources() -> dict[str, Any]:
     journals = load_json(DATA_DIR / "journals.json", [])
     if not journals:
         journals = load_json(DATA_DIR / "journals_q1.json", [])
+    try:
+        validate_journal_scope(journals, load_json(DATA_DIR / "data-manifest.json", {}))
+    except ValueError as error:
+        raise HTTPException(status_code=503, detail="期刊数据范围校验未通过，请稍后重试。") from error
     return {
         "report": report,
         "journal_count": len(journals),

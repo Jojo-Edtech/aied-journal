@@ -13,15 +13,18 @@ def normalize_identity(value):
 
 def query_constraints(query):
     lower = query.casefold()
-    language = "Chinese" if re.search(r"中文|chinese[- ]language|journals? in chinese", lower) else "English" if re.search(r"英文|english[- ]language|journals? in english", lower) else None
+    language = "Chinese" if re.search(r"中文|chinese[- ]language|chinese(?:[- ]language)?\s+(?:education\s+)?journals?|journals?\s+(?:in|published in)\s+chinese", lower) else "English" if re.search(r"英文|english[- ]language|english(?:[- ]language)?\s+(?:education\s+)?journals?|journals?\s+(?:in|published in)\s+english", lower) else None
     source = "doaj" if "doaj" in lower else "ebsco_education" if "ebsco" in lower else "ncpssd" if re.search(r"国家哲|ncpssd", lower) else None
     unknown = bool(re.search(r"非\s*jcr|未核验|未验证|non[- ]?jcr|unverified", lower))
     quartile = re.search(r"(?<![a-z0-9])q([1-4])(?![a-z0-9])|([一二三四])区", lower)
     q = ("Q" + (quartile.group(1) or str("一二三四".index(quartile.group(2)) + 1))) if quartile and not unknown else None
-    return {"language": language, "source": source, "unverified": unknown, "quartile": q}
+    indexes = [index for index in ("SSCI", "ESCI", "Scopus") if re.search(r"(?<![a-z0-9])" + index.casefold() + r"(?![a-z0-9])", lower)]
+    return {"language": language, "source": source, "unverified": unknown, "quartile": q, "indexes": indexes}
 
 
 def matches_constraints(journal, constraints):
+    if constraints.get("indexes") and not set(constraints["indexes"]).intersection(journal.get("indexes", [])):
+        return False
     languages = [str(v).casefold() for v in journal.get("languages", [])]
     if constraints["language"] and constraints["language"].casefold() not in languages:
         return False

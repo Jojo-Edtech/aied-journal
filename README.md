@@ -1,6 +1,6 @@
 # AIED Journal Radar
 
-AIED Journal Radar 面向中英文教育及教育相关期刊的投稿定位、主题网络、近期文章样本和 AI 证据辅助选刊。目录由原 JCR 工作簿与可核验的公开教育期刊目录合并；公开目录收录不等于 JCR 收录、质量评级或仍在接收投稿。
+AIED Journal Radar 面向英文教育及教育相关期刊的投稿定位、主题网络、近期文章样本和 AI 证据辅助选刊。公开范围仅包含明确支持英文、未标记中文，且有 SSCI、ESCI 或 Scopus 收录证据的期刊；可按这三种索引筛选，多重收录只计一本。界面仍可使用中文或英文。
 
 在线地址：
 
@@ -31,11 +31,27 @@ python3 -m http.server 4183 --bind 127.0.0.1 --directory dist
 http://localhost:4183
 ```
 
+## 公开期刊范围与索引证据
+
+自 2026-10-02 起，网页、双击本地 HTML 的离线数据、小红书小工具和 AI 检索共用相同范围。SSCI / ESCI 采用 UEFISCDI 公开的 JCR 2025（2026 年 6 月发布）Edition 字段；Scopus 采用 Elsevier 官方 2026 年 8 月 Source List，只将 Active Journal 且未出现在停收列表中的记录标记为 Scopus。它们是有日期的快照，不能保证今天仍在收录；投稿前请查官方当前状态。
+
+`data/catalog/index-evidence.json` 按现用 ISSN/eISSN 与原目录匹配，保留来源、行号、语言及索引证据。历史 ISSN、英语刊名、出版国家、DOAJ/EBSCO 收录、JIF 和 JCR 分区均不能代替所需索引或语言证据。中文声明优先排除；语言未知、索引未知或身份歧义的记录不进入公开产品。历史完整目录、原工作簿快照继续保留，入选期刊的原指标和历史样本不修改。
+
+日常生成强制执行 `scripts/journal_scope.py`；证据文件缺失时停止生成。`journal-scope-audit.json` 记录每本排除原因及范围计数。更新证据源后可运行：
+
+```bash
+python scripts/build-index-evidence.py --scopus /path/to/scopus.xlsx --wos /path/to/readable-jcr.xlsx
+npm run check:scope
+npm run radar:generate:quick
+```
+
+构建证据表需 openpyxl。官方来源表留在本地输入目录，不随网站发布；新源表需核对字段、日期与身份再导入。
+
 ## 数据
 
 静态公开数据在 `data/radar/`：
 
-- `journals.json`：合并后的全量期刊，包含语言、其他刊名/分版、现用及历史 ISSN 和目录来源。
+- `journals.json`：范围筛选后的公开期刊，包含 `indexes`、`index_evidence`、语言、其他刊名/分版、现用及历史 ISSN 和目录来源。
 - `journals_q1.json`：保留原 JCR 工作簿 Q1 字段的子集；未核验指标不参与 JIF/JCI 中位数与散点图。
 - `journal_sources.json`：公开目录来源及官网、投稿指南、metrics、编辑页抓取状态。
 - `research_network.json`：期刊、主题、出版社、方法/主题网络。
@@ -47,7 +63,7 @@ http://localhost:4183
 - `radar-config.json`：公开 API 地址配置，不包含密钥。
 - `source_workbook_snapshot.json`：从本地 Excel 生成的公开源表快照，供 GitHub Actions 在无法访问本机桌面文件时继续刷新。
 
-目录来源与合并审计在 `data/catalog/`，静态发布仅包含前端和检索需要的公开文件。扩充采用以下来源：
+历史候选目录与合并审计在 `data/catalog/`，以下来源只用于建立候选与语言资料；每本仍须通过上述英文和数据库索引规则，才能进入公开产品：
 
 - [DOAJ 官方 CSV](https://doaj.org/csv)：纳入 Education 学科分支；另从该分支之外，按原始 `Journal title` 中的整词 `education`、`educational`、`teaching`、`pedagogy` 或 `didactics` 定位跨学科教育期刊，匹配不区分大小写，不扩展到别名或关键词。两种选择方式共用 `doaj` 来源，分别记录 `selection_basis=education_subject_branch` 与 `selection_basis=title_keyword_outside_education_branch`；后者保留原学科分类，并标注 `education_scope=interdisciplinary_title_derived`。记录中的 `selection_evidence` 保存标题、原学科、命中词、选择规则和 DOAJ 记录链接。已有更名续刊与会议系列排除规则继续适用。
 - [EBSCO Education Source](https://about.ebsco.com/m/ee/Marketing/titleLists/eue-subject.htm)：Education / Academic Journal 记录。
@@ -55,7 +71,7 @@ http://localhost:4183
 
 来源间重叠以 ISSN 和可核验的沿革证据合并；同名但 ISSN 不同的期刊保留为不同记录，原 JCR 期刊 ID 和指标保留。DOAJ 元数据按其 [CC0 条款](https://doaj.org/terms/) 使用。期刊总数随目录与身份核对更新，以 `data/radar/data-manifest.json` 的 `journal_count` 和页面显示为准。
 
-这是一组公开目录的可追溯并集，不是全球教育期刊全集，也不是所有仍在接收投稿期刊的清单。标题命中只说明本目录的教育相关选择依据，不能据此推断当前出版或收稿状态。国家哲社目录含综合性高校学报，记录会标注教育相关范围；目录未提供的语言、出版状态与 JCR 指标不作推断。“未核验 JCR”不代表已确认未被 JCR 收录。来源目录快照需人工核对后更新；日常自动更新刷新文章与官网证据，不自动宣称目录已覆盖所有新刊。
+这些历史候选来源不是全球教育期刊全集，也不是所有仍在接收投稿期刊的清单。公开产品已进一步按英文和索引证据过滤。标题命中只说明本目录的教育相关选择依据，不能据此推断当前出版或收稿状态。国家哲社目录含综合性高校学报，记录会标注教育相关范围；目录未提供的语言、出版状态与 JCR 指标不作推断。“未核验 JCR”不代表已确认未被 JCR 收录。来源目录快照需人工核对后更新；日常自动更新刷新文章与官网证据，不自动宣称目录已覆盖所有新刊。
 
 从已保存来源重新构建目录：
 

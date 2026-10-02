@@ -32,6 +32,7 @@ const state = {
 
 const TABLE_ROW_LIMIT = 120;
 const UNKNOWN_FILTER = "__unknown__";
+const JOURNAL_INDEXES = Object.freeze(["SSCI", "ESCI", "Scopus"]);
 
 const els = {
   language: document.querySelector("#languageSelect"),
@@ -40,8 +41,7 @@ const els = {
   quartile: document.querySelector("#radarQuartileFilter"),
   publisher: document.querySelector("#radarPublisherFilter"),
   speed: document.querySelector("#radarSpeedFilter"),
-  journalLanguage: document.querySelector("#radarJournalLanguageFilter"),
-  catalog: document.querySelector("#radarCatalogFilter"),
+  index: document.querySelector("#radarIndexFilter"),
   kpis: document.querySelector("#radarKpis"),
   scatter: document.querySelector("#jifJciScatter"),
   speedChart: document.querySelector("#speedChart"),
@@ -85,15 +85,15 @@ const I18N = {
     colDecision: "一审时长",
     heroEyebrow: "研究工作台",
     heroTitle: "为你的下一篇论文找到匹配的期刊",
-    heroCopy: "对比教育期刊的指标、发文量与审稿信号，并用有证据支撑的 AI 建议定位投稿目标。",
+    heroCopy: "在 SSCI、ESCI 与 Scopus 收录的英文教育期刊中，对比指标、发文量与审稿信号，定位投稿目标。",
     heroAsk: "问 AI 助手",
     heroBrowse: "浏览期刊",
     showAllRows: "显示全部 {total} 本",
     showFewerRows: "收起，只看前 {limit} 本",
     sortHint: "点击列标题可排序",
     retry: "重试",
-    subtitle: "AIED选刊：教育期刊研究与投稿定位工作台",
-    language: "语言",
+    subtitle: "AIED选刊：英文教育期刊研究与投稿定位工作台",
+    language: "界面语言",
     downloadData: "期刊数据",
     downloadReport: "抓取报告",
     controlTitle: "从期刊指标到研究主题网络",
@@ -165,7 +165,7 @@ const I18N = {
     publicationsCount: "{value} 篇",
     pointSizeLegend: "点大小 = 2025 年发文量",
     methodTitle: "数据说明",
-    methodCopy: "期刊目录整合原有 JCR 工作簿与公开目录，并在期刊详情列出来源。JIF/JCI 保留原记录年份；目录收录不代表 JCR 收录，空指标表示尚未核验。主题偏好仅依据已抓取的文章样本，未覆盖不代表没有相关研究。",
+    methodCopy: "范围限于已记录 SSCI、ESCI 或 Scopus 收录的英文教育期刊，排除含中文出版语种的记录。可按数据库索引筛选，重复收录的期刊只计一次。收录标签与 JCR 分区分别展示；JIF/JCI 保留原记录年份，空指标表示尚未核验。详情保留来源，主题偏好仅依据已抓取的文章样本。",
     footer: "AIED Journal Radar 用于选刊与研究网络理解；最终投稿前仍需回到期刊官网确认最新 scope、格式要求和审稿政策。",
     missing: "未标注",
     noSecondary: "无副标签",
@@ -311,15 +311,15 @@ const I18N = {
     controlEyebrow: "Journal Intelligence",
     colDecision: "First decision",
     heroTitle: "Find the right journal for your next paper",
-    heroCopy: "Compare metrics, publication volume, and review signals across education journals, then position your submission with evidence-backed AI advice.",
+    heroCopy: "Find English-language education journals indexed in SSCI, ESCI, or Scopus, then compare metrics, publication volume, and review signals.",
     heroAsk: "Ask AI",
     heroBrowse: "Browse journals",
     showAllRows: "Show all {total} journals",
     showFewerRows: "Collapse to top {limit}",
     sortHint: "Click a column header to sort",
     retry: "Retry",
-    subtitle: "A research-oriented journal selection workspace for education journals",
-    language: "Language",
+    subtitle: "A research-oriented workspace for English-language education journals",
+    language: "Interface language",
     downloadData: "Journal data",
     downloadReport: "Crawl report",
     controlTitle: "From journal metrics to research-topic networks",
@@ -391,7 +391,7 @@ const I18N = {
     publicationsCount: "{value} articles",
     pointSizeLegend: "Point size = 2025 publication volume",
     methodTitle: "Data notes",
-    methodCopy: "The catalog combines the original JCR workbook with public directories; each journal lists its sources. JIF/JCI retain their recorded year. Directory inclusion does not establish JCR coverage, and missing metrics remain unverified. Topic preferences describe captured article samples only; missing coverage does not mean an absence of relevant research.",
+    methodCopy: "The scope is English-language education journals with recorded SSCI, ESCI, or Scopus coverage; records listing Chinese as a publication language are excluded. Filter by index; journals covered by multiple indexes are counted once. Index coverage and JCR quartiles are shown separately. JIF/JCI retain their recorded year, and missing metrics remain unverified. Journal details retain sources; topic preferences describe captured article samples only.",
     footer: "AIED Journal Radar supports journal selection and research-network interpretation; always confirm current scope, formatting, and review policies on the journal website before submission.",
     missing: "Missing",
     noSecondary: "No secondary tag",
@@ -527,13 +527,15 @@ const I18N = {
 
 Object.assign(I18N.zh, {
   st_catalog_source: "目录来源",
-  journalLanguage: "期刊语种", catalogFilter: "目录来源", allLanguages: "全部语种", allCatalogs: "全部来源",
+  indexFilter: "数据库索引", allIndexes: "全部索引", indexes: "数据库收录",
+  indexEvidence: "数据库收录依据", indexSnapshot: "来源快照", indexSnapshotNote: "收录标签依据注明日期的来源快照，并非实时收录保证；投稿前请核对数据库最新记录。",
+  scopeNote: "仅英文期刊 · SSCI / ESCI / Scopus · 多重收录只计一次",
   unknownQuartile: "JCR 未核验", missingMetric: "指标缺失", unknownValue: "未标注",
   coverage: "已覆盖 {known} / {total} 本；缺失资料不按 0 计算。",
   scatterCoverage: "可绘制 {known} / {total} 本（需同时有 JIF 和 JCI）；未核验指标不进入散点。",
   journalCoverage: "有指标 {known} / {total} 本", preferenceLoading: "正在读取这份期刊的文章样本…",
   preferenceFailed: "这份期刊的文章样本暂时无法加载。", preferenceUncovered: "尚未覆盖文章样本，暂不能判断主题偏好。",
-  catalogSources: "目录与收录来源", catalogNote: "以下记录说明目录来源，不代表 JCR 收录或期刊质量判断。",
+  catalogSources: "资料来源", catalogNote: "数据库收录标签与下方资料来源分别记录；DOAJ 等目录记录本身不证明 SSCI、ESCI 或 Scopus 收录。",
   identifiers: "刊名与标识", aliases: "其他刊名 / 分版", languages: "出版语种", country: "国家或地区", retrievedAt: "记录日期",
   previousPage: "上一页", nextPage: "下一页", pageStatus: "第 {page} / {pages} 页", tableMeta: "本页 {shown} 本 / 筛选 {filtered} 本；全库 {total} 本。",
   filteredArticleSamples: "当前筛选已抓取 {count} 篇文章样本。",
@@ -544,13 +546,15 @@ Object.assign(I18N.zh, {
 });
 Object.assign(I18N.en, {
   st_catalog_source: "Catalog source",
-  journalLanguage: "Journal language", catalogFilter: "Catalog source", allLanguages: "All languages", allCatalogs: "All sources",
+  indexFilter: "Database index", allIndexes: "All indexes", indexes: "Indexed in",
+  indexEvidence: "Index coverage evidence", indexSnapshot: "Source snapshot", indexSnapshotNote: "Index labels reflect the dated source snapshots below, not a live coverage guarantee. Check the database's current record before submission.",
+  scopeNote: "English-language journals · SSCI / ESCI / Scopus · Overlapping coverage counted once",
   unknownQuartile: "JCR unverified", missingMetric: "Metric unavailable", unknownValue: "Not recorded",
   coverage: "Covered {known} / {total} journals; missing values are not counted as zero.",
   scatterCoverage: "Plotted {known} / {total} journals with both JIF and JCI; unverified metrics are excluded.",
   journalCoverage: "Metrics available: {known} / {total}", preferenceLoading: "Loading article samples for this journal…",
   preferenceFailed: "Article samples for this journal could not be loaded.", preferenceUncovered: "Article samples are not yet covered; topic preferences cannot be inferred.",
-  catalogSources: "Catalog sources", catalogNote: "These records identify directory sources, not JCR coverage or a journal quality assessment.",
+  catalogSources: "Data sources", catalogNote: "Index coverage is recorded separately from the sources below; directory records such as DOAJ do not establish SSCI, ESCI, or Scopus coverage.",
   identifiers: "Names and identifiers", aliases: "Other titles / editions", languages: "Publication languages", country: "Country or region", retrievedAt: "Recorded",
   previousPage: "Previous page", nextPage: "Next page", pageStatus: "Page {page} / {pages}", tableMeta: "This page: {shown} / {filtered} filtered; {total} journals in the catalog.",
   filteredArticleSamples: "{count} captured article samples in the current filter.",
@@ -1137,6 +1141,31 @@ function catalogSources(journal) {
   return Array.isArray(journal.catalog_sources) ? journal.catalog_sources : [];
 }
 
+function journalIndexes(journal) {
+  return JOURNAL_INDEXES.filter((index) => Array.isArray(journal.indexes) && journal.indexes.includes(index));
+}
+
+function indexBadges(journal) {
+  return journalIndexes(journal).map((index) => `<span class="index-badge">${index}</span>`).join("");
+}
+
+function indexEvidenceHtml(journal) {
+  const seen = new Set();
+  const rows = (Array.isArray(journal.index_evidence) ? journal.index_evidence : []).flatMap((proof) => {
+    if (!proof || !journalIndexes(journal).includes(proof.index)) return [];
+    const url = publicUrl(proof.url) || publicUrl(proof.source_url) || publicUrl(proof.evidence_url);
+    const date = proof.snapshot_date || t("missing");
+    const key = JSON.stringify([proof.index, url, proof.source, date]);
+    if (seen.has(key)) return [];
+    seen.add(key);
+    const label = escapeHtml(proof.source || proof.index);
+    return [`<li><strong>${escapeHtml(proof.index)}</strong> · ${url ? `<a href="${escapeHtml(url)}" target="_blank" rel="noopener noreferrer">${label}</a>` : label}
+      <small>${escapeHtml(t("indexSnapshot"))}: ${escapeHtml(date)}</small></li>`];
+  });
+  return `<section class="detail-card catalog-source-card"><h3>${t("indexEvidence")}</h3><p>${t("indexSnapshotNote")}</p>
+    <ul class="drawer-list">${rows.join("") || `<li>${t("noSources")}</li>`}</ul></section>`;
+}
+
 function journalLanguages(journal) {
   return Array.isArray(journal.languages) ? journal.languages.filter(Boolean).map(String) : [];
 }
@@ -1176,7 +1205,7 @@ function journalSearchText(journal) {
   return [
     journal.name, journal.abbreviation, ...(journal.aliases || []),
     ...identifiers, ...identifiers.map((identifier) => String(identifier).replaceAll("-", "")), journal.main_tag, journal.secondary_tag, journal.tag_path,
-    journal.publisher, journal.publisher_family, journal.quartile, journal.submission_system,
+    journal.publisher, journal.publisher_family, journal.quartile, journal.submission_system, ...journalIndexes(journal),
     ...journalLanguages(journal), ...journalLanguages(journal).map(languageCode),
     ...journalLanguages(journal).map((language) => languageLabel(language, "zh")),
     ...journalLanguages(journal).map((language) => languageLabel(language, "en")),
@@ -1242,15 +1271,12 @@ function refreshFilters() {
     tag: els.tag.value,
     quartile: els.quartile.value,
     publisher: els.publisher.value,
-    journalLanguage: els.journalLanguage.value,
-    catalog: els.catalog.value,
+    index: els.index.value,
   };
   fillFilter(els.tag, unique(state.journals.map((journal) => journal.main_tag)), t("all"), displayTag);
   fillFilter(els.quartile, ["Q1", "Q2", "Q3", "Q4", UNKNOWN_FILTER].filter((value) => state.journals.some((journal) => quartileKey(journal) === value)), t("allQuartiles"), (value) => value === UNKNOWN_FILTER ? t("unknownQuartile") : value);
   fillFilter(els.publisher, unique(state.journals.map((journal) => journal.publisher_family)), t("all"));
-  fillFilter(els.journalLanguage, unique(state.journals.flatMap((journal) => journalLanguages(journal).length ? journalLanguages(journal) : [UNKNOWN_FILTER])), t("allLanguages"), languageLabel);
-  const catalogs = new Map(state.journals.flatMap((journal) => catalogSources(journal).map((source) => [source.id, source.label || source.id])));
-  fillFilter(els.catalog, unique([...catalogs.keys()]), t("allCatalogs"), (id) => catalogs.get(id));
+  fillFilter(els.index, JOURNAL_INDEXES, t("allIndexes"));
   Object.entries(previous).forEach(([key, value]) => {
     const select = els[key];
     if ([...select.options].some((option) => option.value === value)) {
@@ -1337,11 +1363,7 @@ function filteredJournals() {
     .filter((journal) => {
       if (els.tag.value !== "all" && journal.main_tag !== els.tag.value) return false;
       if (els.quartile.value !== "all" && quartileKey(journal) !== els.quartile.value) return false;
-      if (els.journalLanguage.value !== "all") {
-        const languages = journalLanguages(journal);
-        if (els.journalLanguage.value === UNKNOWN_FILTER ? languages.length > 0 : !languages.includes(els.journalLanguage.value)) return false;
-      }
-      if (els.catalog.value !== "all" && !catalogSources(journal).some((source) => source.id === els.catalog.value)) return false;
+      if (els.index.value !== "all" && !journalIndexes(journal).includes(els.index.value)) return false;
       if (els.publisher.value !== "all" && journal.publisher_family !== els.publisher.value) return false;
       if (els.speed.value === "fast" && !(number(journal.first_decision_days) !== null && journal.first_decision_days <= 14)) {
         return false;
@@ -1737,7 +1759,7 @@ function renderNetwork(journals) {
     els.tag.value !== "all" ||
     els.quartile.value !== "all" ||
     els.publisher.value !== "all" ||
-    els.speed.value !== "all" || els.journalLanguage.value !== "all" || els.catalog.value !== "all";
+    els.speed.value !== "all" || els.index.value !== "all";
   const visibleLimit = state.networkExpanded ? 32 : hasActiveFilter ? 20 : 12;
   const visibleJournalIds = new Set(journals.slice(0, visibleLimit).map((journal) => journal.id));
   const renderKey = JSON.stringify([state.language, state.networkExpanded, state.selectedJournalId, journals.length, visibleLimit, [...visibleJournalIds]]);
@@ -1942,6 +1964,7 @@ function renderRecommendations(journals) {
         <article class="recommendation-item">
           <h4>${index + 1}. <button type="button" data-open-journal="${journal.id}">${escapeHtml(journal.name)}</button></h4>
           <div class="recommendation-meta">
+            ${indexBadges(journal)}
             <span>${escapeHtml(quartileLabel(journal))}</span>
             <span>JIF ${metricLabel(journal.jif_2025)}</span>
             <span>JCI ${metricLabel(journal.jci_2025)}</span>
@@ -2006,7 +2029,7 @@ function renderTable(journals) {
     .map(
       (journal) => `
         <tr>
-          <td><button type="button" data-open-journal="${journal.id}">${escapeHtml(journal.name)}</button></td>
+          <td><button type="button" data-open-journal="${journal.id}">${escapeHtml(journal.name)}</button><div class="journal-indexes" aria-label="${escapeHtml(t("indexes"))}">${indexBadges(journal)}</div></td>
           <td>${escapeHtml(quartileLabel(journal))} · ${escapeHtml(displayTag(journal.tag_path || journal.main_tag) || t("missing"))}</td>
           <td>${metricLabel(journal.jif_2025)}</td>
           <td>${metricLabel(journal.jci_2025)}</td>
@@ -2212,10 +2235,12 @@ function sourceListHtml(journal, sources) {
       ${source.retrieved_at ? `<small>${escapeHtml(t("retrievedAt"))}: ${escapeHtml(source.retrieved_at)}</small>` : ""}</li>`;
   }).join("");
   return `
+    ${indexEvidenceHtml(journal)}
     <section class="detail-card catalog-source-card">
       <h3>${t("catalogSources")}</h3><p>${t("catalogNote")}</p>
       <ul class="drawer-list">${catalogRows || `<li>${t("noSources")}</li>`}</ul>
       <dl class="catalog-identifiers">
+        <div><dt>${t("indexes")}</dt><dd>${escapeHtml(journalIndexes(journal).join(" · ") || t("missing"))}</dd></div>
         <div><dt>${t("aliases")}</dt><dd>${escapeHtml((journal.aliases || []).join(" · ") || t("missing"))}</dd></div>
         <div><dt>ISSN / eISSN</dt><dd>${escapeHtml(unique([journal.issn, journal.eissn, ...(journal.issns || [])]).join(" · ") || t("missing"))}</dd></div>
         <div><dt>${t("languages")}</dt><dd>${escapeHtml(journalLanguages(journal).map((language) => languageLabel(language)).join(" · ") || t("missing"))}</dd></div>
@@ -2700,6 +2725,7 @@ function renderJournalDetail(journalId) {
       <p class="eyebrow">${t("journalDetail")}</p>
       <h2>${escapeHtml(journal.name)}</h2>
       <div class="recommendation-meta detail-meta">
+        ${indexBadges(journal)}
         <span>${escapeHtml(quartileLabel(journal))}</span>
         <span>JIF ${metricLabel(journal.jif_2025)}</span>
         <span>JCI ${metricLabel(journal.jci_2025)}</span>
@@ -2798,7 +2824,7 @@ function renderAll() {
 
 function downloadVisibleCsv() {
   const journals = filteredJournals();
-  const headers = ["name", "aliases", "issn", "eissn", "languages", "country", "catalog_sources", "quartile", "main_tag", "secondary_tag", "jif_2025", "jci_2025", "publications_2022", "publications_2023", "publications_2024", "publications_2025", "first_decision_days", "publisher_family", "source_url"];
+  const headers = ["name", "aliases", "issn", "eissn", "languages", "indexes", "country", "catalog_sources", "quartile", "main_tag", "secondary_tag", "jif_2025", "jci_2025", "publications_2022", "publications_2023", "publications_2024", "publications_2025", "first_decision_days", "publisher_family", "source_url"];
   const lines = [
     headers.join(","),
     ...journals.map((journal) =>
@@ -2809,7 +2835,7 @@ function downloadVisibleCsv() {
             ? journal.publications?.[publicationMatch[1]] ?? ""
             : field === "catalog_sources"
               ? JSON.stringify(catalogSources(journal))
-              : ["aliases", "languages"].includes(field)
+              : ["aliases", "languages", "indexes"].includes(field)
                 ? (journal[field] || []).join("; ")
             : field === "source_url"
               ? (journal.source_urls || [])[0] || ""
@@ -2944,7 +2970,7 @@ els.search.addEventListener("compositionend", () => {
   window.clearTimeout(state.searchTimer);
   state.searchTimer = window.setTimeout(updateFilters, 180);
 });
-[els.tag, els.quartile, els.publisher, els.speed, els.journalLanguage, els.catalog].forEach((control) => {
+[els.tag, els.quartile, els.publisher, els.speed, els.index].forEach((control) => {
   control.addEventListener("change", updateFilters);
 });
 if (els.language) {
