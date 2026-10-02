@@ -17,6 +17,7 @@ class Element {
   removeAttribute(key) { delete this.attributes[key]; }
   addEventListener() {}
   click() {}
+  scrollIntoView(options) { this.lastScroll = options; }
   querySelectorAll() { return []; }
   querySelector(tag) { return this.childNodes.find((node) => node.tagName === tag) || null; }
   insertAdjacentHTML(position, html) { this._html += html; }
@@ -30,11 +31,11 @@ function setup() {
       querySelector: (key) => { if (!elements.has(key)) elements.set(key, new Element()); return elements.get(key); },
       createElement: (tag) => new Element(tag), createElementNS: (ns, tag) => new Element(tag),
     },
-    window: { clearTimeout() {}, setTimeout: () => 0, requestAnimationFrame: (fn) => fn() },
+    window: { clearTimeout() {}, setTimeout: () => 0, requestAnimationFrame: (fn) => fn(), location: { hash: "" }, scrollY: 0, scrollTo(options) { this.scrollY = options.top; } },
     RadarData: {},
   });
   vm.runInContext(functionsOnly, context);
-  const api = vm.runInContext('({ state, els, quartileKey, quartileLabel, metricLabel, languageLabel, median, buildSearchIndex, filteredJournals, sortedTableJournals, renderTable, renderScatter, renderKpis, renderNetwork, renderRecommendations, downloadVisibleCsv, evidenceSummary, websiteEvidenceCount, sourceListHtml, renderJournalDetail, ensureJournalPreference, latestIssueSignalHtml, rangeMetaText, t, refreshFilters })', context);
+  const api = vm.runInContext('({ state, els, quartileKey, quartileLabel, metricLabel, languageLabel, median, buildSearchIndex, filteredJournals, sortedTableJournals, renderTable, renderScatter, renderKpis, renderNetwork, renderRecommendations, downloadVisibleCsv, evidenceSummary, websiteEvidenceCount, sourceListHtml, renderJournalDetail, ensureJournalPreference, latestIssueSignalHtml, rangeMetaText, t, refreshFilters, renderAll, renderFilterSummary, syncResponsiveLayout, resetFilters, setMobileSort, changeTablePage, revealDashboardSection, navigateToJournal, renderRoute })', context);
   api.els.search.value = "";
   return { context, ...api };
 }
@@ -146,6 +147,111 @@ test("table stays at 120 rows per page across a 3000-journal catalog", () => {
   assert.equal((api.els.tableBody.innerHTML.match(/<tr>/g) || []).length, 120);
   assert.equal(api.els.toggleRows.disabled, true);
   assert.match(api.els.tablePage.textContent, /25 \/ 25/);
+});
+
+test("phone cards paginate the complete index-filtered list without mixing JCR and index coverage", () => {
+  const api = setup();
+  api.state.journals = Array.from({ length: 47 }, (_, i) => ({ ...journals[1], id: `mobile-${i}`, name: `Scopus journal ${i}` })).concat(journals[2]);
+  api.buildSearchIndex();
+  api.syncResponsiveLayout(true);
+  api.els.index.value = "Scopus";
+  api.renderTable(api.filteredJournals());
+  assert.equal((api.els.mobileJournalList.innerHTML.match(/class="mobile-journal-card"/g) || []).length, 20);
+  assert.match(api.els.mobileJournalList.innerHTML, /index-badge">Scopus/);
+  assert.match(api.els.mobileJournalList.innerHTML, /mobile-journal-metrics"><span>JCR 未核验/);
+  assert.ok(!api.els.mobileJournalList.innerHTML.includes("Zero Journal"));
+  api.changeTablePage(1);
+  assert.equal(api.state.tablePage, 1);
+  assert.equal(api.els.index.value, "Scopus");
+  assert.equal(api.els.journalResults.lastScroll.block, "start");
+  api.changeTablePage(1);
+  assert.equal((api.els.mobileJournalList.innerHTML.match(/class="mobile-journal-card"/g) || []).length, 7);
+  assert.equal(api.els.toggleRows.disabled, true);
+  assert.match(api.els.tablePage.textContent, /3 \/ 3/);
+});
+
+test("responsive disclosures preserve chosen filters and do not close user-open panels on ordinary renders", () => {
+  const api = setup(); load(api); api.refreshFilters();
+  api.els.index.value = "Scopus";
+  api.els.quartile.value = "__unknown__";
+  api.syncResponsiveLayout(true);
+  assert.equal(api.els.advisorDisclosure.open, false);
+  assert.equal(api.els.analyticsDisclosure.open, false);
+  assert.equal(api.els.filterDisclosure.open, false);
+  api.renderFilterSummary();
+  assert.equal(api.els.activeFilterSummary.hidden, false);
+  assert.match(api.els.activeFilterText.textContent, /Scopus.*JCR 未核验/);
+  api.els.filterDisclosure.open = true;
+  api.syncResponsiveLayout(true);
+  assert.equal(api.els.filterDisclosure.open, true);
+  api.syncResponsiveLayout(false);
+  assert.equal(api.els.advisorDisclosure.open, true);
+  assert.equal(api.els.analyticsDisclosure.open, true);
+  assert.equal(api.els.index.value, "Scopus");
+  assert.equal(api.els.quartile.value, "__unknown__");
+  api.resetFilters();
+  api.renderFilterSummary();
+  assert.equal(api.els.index.value, "all");
+  assert.equal(api.els.quartile.value, "all");
+  assert.equal(api.els.activeFilterSummary.hidden, true);
+});
+
+test("mobile sorting keeps unknown metrics last and resets to the first page", () => {
+  const api = setup(); load(api); api.syncResponsiveLayout(true);
+  api.state.tablePage = 2;
+  api.setMobileSort("jif");
+  assert.equal(api.state.tablePage, 0);
+  const cardNames = [...api.els.mobileJournalList.innerHTML.matchAll(/data-open-journal="([^"]+)"/g)].map((match) => match[1]);
+  assert.deepEqual(cardNames, ["journal-old", "journal-zero", "journal-added"]);
+  assert.match(api.els.activeFilterText.textContent, /JIF 从高到低/);
+  api.resetFilters();
+  assert.equal(api.state.tableSort.key, "");
+  assert.equal(api.els.mobileSort.value, "default");
+});
+
+test("phone searches defer secondary charts until expanded, while desktop renders the full workbench", () => {
+  const api = setup(); load(api);
+  api.context.renderCounts = { analytics: 0, recommendations: 0 };
+  vm.runInContext("renderAnalytics = () => { renderCounts.analytics += 1; }; renderRecommendations = () => { renderCounts.recommendations += 1; };", api.context);
+  api.state.ready = true;
+  api.syncResponsiveLayout(true);
+  assert.equal(api.context.renderCounts.analytics, 0);
+  assert.equal(api.context.renderCounts.recommendations, 0);
+  assert.match(api.els.mobileJournalList.innerHTML, /Original Journal/);
+  api.els.analyticsDisclosure.open = true;
+  api.renderAll();
+  assert.equal(api.context.renderCounts.analytics, 1);
+  api.syncResponsiveLayout(false);
+  assert.equal(api.context.renderCounts.analytics, 2);
+  assert.equal(api.context.renderCounts.recommendations, 1);
+});
+
+test("mobile anchor navigation reveals hidden sections and detail return retains page, filters and scroll", () => {
+  const api = setup();
+  api.state.journals = Array.from({ length: 45 }, (_, i) => ({ ...journals[1], id: `journal-${i}` }));
+  api.buildSearchIndex(); api.syncResponsiveLayout(true); api.state.ready = true;
+  api.els.index.value = "Scopus"; api.state.tablePage = 1;
+  api.context.window.scrollY = 935;
+  api.navigateToJournal("journal-25");
+  api.state.selectedJournalId = "journal-25";
+  api.els.dashboard.hidden = true;
+  api.context.window.location.hash = "";
+  api.context.window.scrollY = 0;
+  api.renderRoute();
+  assert.equal(api.state.tablePage, 1);
+  assert.equal(api.els.index.value, "Scopus");
+  assert.equal(api.context.window.scrollY, 935);
+  assert.equal(api.els.dashboard.hidden, false);
+  assert.equal(api.els.detailPage.hidden, true);
+  assert.equal(api.revealDashboardSection("#journalTable"), true);
+  assert.equal(api.els.journalResults.lastScroll.block, "start");
+  api.revealDashboardSection("#radarChatForm");
+  assert.equal(api.els.advisorDisclosure.open, true);
+  assert.equal(api.els.chatForm.lastScroll.block, "start");
+  vm.runInContext("renderAnalytics = () => {};", api.context);
+  api.revealDashboardSection("#tagHeatmap");
+  assert.equal(api.els.analyticsDisclosure.open, true);
+  assert.equal(api.els.heatmap.lastScroll.block, "start");
 });
 
 test("scatter reports complete-catalog coverage and zero-only points have finite coordinates", () => {

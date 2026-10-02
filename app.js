@@ -28,9 +28,13 @@ const state = {
   language: localStorage.getItem("ajr-language") || "en",
   tableSort: { key: "", dir: 1 },
   tablePage: 0,
+  mobile: false,
+  responsiveInitialized: false,
+  dashboardScrollY: 0,
 };
 
 const TABLE_ROW_LIMIT = 120;
+const MOBILE_ROW_LIMIT = 20;
 const UNKNOWN_FILTER = "__unknown__";
 const JOURNAL_INDEXES = Object.freeze(["SSCI", "ESCI", "Scopus"]);
 
@@ -42,6 +46,16 @@ const els = {
   publisher: document.querySelector("#radarPublisherFilter"),
   speed: document.querySelector("#radarSpeedFilter"),
   index: document.querySelector("#radarIndexFilter"),
+  filterDisclosure: document.querySelector("#filterDisclosure"),
+  headerUtilities: document.querySelector("#headerUtilities"),
+  advisorDisclosure: document.querySelector("#advisorDisclosure"),
+  analyticsDisclosure: document.querySelector("#analyticsDisclosure"),
+  activeFilterSummary: document.querySelector("#activeFilterSummary"),
+  activeFilterText: document.querySelector("#activeFilterText"),
+  resetFilters: document.querySelector("#resetFilters"),
+  mobileSort: document.querySelector("#mobileSort"),
+  mobileJournalList: document.querySelector("#mobileJournalList"),
+  journalResults: document.querySelector("#journalResults"),
   kpis: document.querySelector("#radarKpis"),
   scatter: document.querySelector("#jifJciScatter"),
   speedChart: document.querySelector("#speedChart"),
@@ -526,6 +540,11 @@ const I18N = {
 };
 
 Object.assign(I18N.zh, {
+  siteOptions: "选项", moreFilters: "更多筛选", resetFilters: "重置筛选", sortResults: "排序",
+  defaultOrder: "推荐顺序", nameOrder: "期刊名称", jifOrder: "JIF 从高到低",
+  askAdvisor: "需要选刊建议？问 AI 助手", viewAnalytics: "查看统计与图表",
+  controlTitle: "查找英文教育期刊", topicSearch: "搜索期刊", topicPlaceholder: "期刊名、ISSN 或研究主题",
+  mobileResults: "找到 {filtered} 本期刊", appliedFilters: "已选：{filters}", clearSearchHint: "试试更少的筛选条件或其他关键词。",
   st_catalog_source: "目录来源",
   indexFilter: "数据库索引", allIndexes: "全部索引", indexes: "数据库收录",
   indexEvidence: "数据库收录依据", indexSnapshot: "来源快照", indexSnapshotNote: "收录标签依据注明日期的来源快照，并非实时收录保证；投稿前请核对数据库最新记录。",
@@ -545,6 +564,11 @@ Object.assign(I18N.zh, {
   noCrawl: "尚未覆盖官网抓取。", noIssue: "尚无已抓取卷期资料", noLatestTitles: "尚未覆盖最新卷期文章样本。",
 });
 Object.assign(I18N.en, {
+  siteOptions: "Options", moreFilters: "More filters", resetFilters: "Reset filters", sortResults: "Sort by",
+  defaultOrder: "Recommended", nameOrder: "Journal name", jifOrder: "JIF: high to low",
+  askAdvisor: "Need a shortlist? Ask AI", viewAnalytics: "View statistics and charts",
+  controlTitle: "Find English-language journals", topicSearch: "Search journals", topicPlaceholder: "Journal name, ISSN or research topic",
+  mobileResults: "{filtered} journals found", appliedFilters: "Selected: {filters}", clearSearchHint: "Try fewer filters or a different search term.",
   st_catalog_source: "Catalog source",
   indexFilter: "Database index", allIndexes: "All indexes", indexes: "Indexed in",
   indexEvidence: "Index coverage evidence", indexSnapshot: "Source snapshot", indexSnapshotNote: "Index labels reflect the dated source snapshots below, not a live coverage guarantee. Check the database's current record before submission.",
@@ -2021,10 +2045,23 @@ function updateSortIndicators() {
 
 function renderTable(journals) {
   const ordered = sortedTableJournals(journals);
-  const pages = Math.max(1, Math.ceil(ordered.length / TABLE_ROW_LIMIT));
+  const pageSize = state.mobile ? MOBILE_ROW_LIMIT : TABLE_ROW_LIMIT;
+  const pages = Math.max(1, Math.ceil(ordered.length / pageSize));
   state.tablePage = Math.min(state.tablePage, pages - 1);
-  const rows = ordered.slice(state.tablePage * TABLE_ROW_LIMIT, (state.tablePage + 1) * TABLE_ROW_LIMIT);
-  els.tableMeta.textContent = `${t("tableMeta", { shown: rows.length, filtered: journals.length, total: state.journals.length })} ${t("sortHint")}`;
+  const rows = ordered.slice(state.tablePage * pageSize, (state.tablePage + 1) * pageSize);
+  els.tableMeta.textContent = state.mobile
+    ? t("mobileResults", { filtered: journals.length })
+    : `${t("tableMeta", { shown: rows.length, filtered: journals.length, total: state.journals.length })} ${t("sortHint")}`;
+  if (els.mobileJournalList) {
+    els.mobileJournalList.innerHTML = state.mobile ? (rows.map((journal) => `
+      <article class="mobile-journal-card">
+        <h4><button type="button" data-open-journal="${escapeHtml(journal.id)}">${escapeHtml(journal.name)}</button></h4>
+        <div class="journal-indexes" aria-label="${escapeHtml(t("indexes"))}">${indexBadges(journal)}</div>
+        <p class="mobile-journal-metrics"><span>${quartileKey(journal) === UNKNOWN_FILTER ? escapeHtml(quartileLabel(journal)) : `JCR ${escapeHtml(quartileLabel(journal))}`}</span><span>JIF ${metricLabel(journal.jif_2025)}</span></p>
+        <p class="mobile-journal-publisher">${escapeHtml(journal.publisher_family || journal.publisher || t("missing"))}</p>
+        <p class="mobile-journal-topic">${escapeHtml(displayTag(journal.tag_path || journal.main_tag) || t("missing"))}</p>
+      </article>`).join("") || `<div class="mobile-empty-results"><p>${t("noCandidates")}</p><p>${t("clearSearchHint")}</p></div>`) : "";
+  }
   els.tableBody.innerHTML = rows
     .map(
       (journal) => `
@@ -2157,6 +2194,7 @@ function renderEditorsSection(journal) {
 
 function navigateToJournal(journalId) {
   if (!journalId) return;
+  if (!els.dashboard.hidden) state.dashboardScrollY = window.scrollY || 0;
   const hash = `#journal=${encodeURIComponent(journalId)}`;
   if (window.location.hash === hash) {
     renderRoute();
@@ -2185,12 +2223,35 @@ function renderRoute() {
   if (!state.ready) return;
   const match = window.location.hash.match(/^#journal=([^&]+)/);
   if (!match) {
+    const returningFromDetail = Boolean(state.selectedJournalId);
     showDashboard();
-    scrollToPageTop();
+    if (!revealDashboardSection(window.location.hash)) {
+      if (returningFromDetail && state.mobile) {
+        window.requestAnimationFrame(() => window.scrollTo({ top: state.dashboardScrollY, left: 0, behavior: "auto" }));
+      } else scrollToPageTop();
+    }
     return;
   }
   renderJournalDetail(decodeURIComponent(match[1]));
   scrollToPageTop();
+}
+
+function revealDashboardSection(hash) {
+  let target;
+  if (hash === "#radarChatForm") {
+    els.advisorDisclosure.open = true;
+    if (state.mobile) els.headerUtilities.open = false;
+    target = els.chatForm;
+  } else if (hash === "#tagHeatmap") {
+    els.analyticsDisclosure.open = true;
+    renderAnalytics(filteredJournals());
+    target = els.heatmap;
+  } else if (hash === "#journalTable" || hash === "#journalResults") {
+    target = els.journalResults;
+  }
+  if (!target) return false;
+  window.requestAnimationFrame(() => target.scrollIntoView?.({ block: "start", behavior: "auto" }));
+  return true;
 }
 
 function profileRows(journalId) {
@@ -2791,6 +2852,7 @@ function renderJournalDetail(journalId) {
     els.chatQuestion.value = state.language === "zh"
       ? `请根据雷达资料分析 ${journal.name} 是否适合我的论文，并说明匹配理由、风险和需要回官网确认的信息。`
       : `Using the radar evidence, assess whether ${journal.name} fits my manuscript. Explain fit, risks, and what I should verify on the journal website.`;
+    revealDashboardSection("#radarChatForm");
     els.chatQuestion.focus();
   });
   const sliceSelect = els.detailContent.querySelector("#themeTimeSlice");
@@ -2809,17 +2871,76 @@ function renderJournalDetail(journalId) {
   ensureJournalPreference(journalId);
 }
 
-function renderAll() {
-  if (!state.ready || els.dashboard.hidden) return;
-  const journals = filteredJournals();
+function renderAnalytics(journals) {
   renderKpis(journals);
   renderScatter(journals);
   renderSpeedChart(journals);
   renderPublisherChart(journals);
   renderHeatmap(journals);
   renderNetwork(journals);
-  renderRecommendations(journals);
+}
+
+function renderFilterSummary() {
+  const filters = [];
+  if (els.search.value.trim()) filters.push(`“${els.search.value.trim()}”`);
+  [els.index, els.tag, els.quartile, els.publisher, els.speed].forEach((control) => {
+    if (control.value && control.value !== "all") {
+      const option = Array.from(control.options).find((item) => item.value === control.value);
+      filters.push(option?.textContent || control.value);
+    }
+  });
+  if (state.tableSort.key) {
+    const label = state.tableSort.key === "name" ? t("nameOrder") : state.tableSort.key === "jif" && state.tableSort.dir === -1 ? t("jifOrder") : "";
+    if (label) filters.push(label);
+  }
+  els.activeFilterSummary.hidden = filters.length === 0;
+  els.activeFilterText.textContent = t("appliedFilters", { filters: filters.join(" · ") });
+}
+
+function syncResponsiveLayout(mobile) {
+  if (state.responsiveInitialized && state.mobile === mobile) return;
+  state.mobile = mobile;
+  state.responsiveInitialized = true;
+  [els.headerUtilities, els.filterDisclosure, els.advisorDisclosure, els.analyticsDisclosure].forEach((details) => {
+    if (details) details.open = !mobile;
+  });
+  // Match keyboard/reading order to the visible order at each breakpoint.
+  const followingSection = els.dashboard.querySelector(mobile ? ".radar-top-workbench" : ".radar-methodology");
+  if (followingSection) els.dashboard.insertBefore(els.journalResults, followingSection);
+  state.tablePage = 0;
+  renderAll();
+}
+
+function resetFilters() {
+  window.clearTimeout(state.searchTimer);
+  els.search.value = "";
+  [els.index, els.tag, els.quartile, els.publisher, els.speed].forEach((control) => { control.value = "all"; });
+  state.tableSort = { key: "", dir: 1 };
+  els.mobileSort.value = "default";
+  updateFilters();
+}
+
+function setMobileSort(value) {
+  state.tableSort = value === "jif" ? { key: "jif", dir: -1 } : value === "name" ? { key: "name", dir: 1 } : { key: "", dir: 1 };
+  state.tablePage = 0;
+  renderTable(filteredJournals());
+  renderFilterSummary();
+}
+
+function changeTablePage(delta) {
+  state.tablePage = Math.max(0, state.tablePage + delta);
+  renderTable(filteredJournals());
+  if (state.mobile) els.journalResults.scrollIntoView?.({ block: "start", behavior: "auto" });
+  else els.tableBody?.closest(".journal-table-wrap")?.scrollTo({ top: 0 });
+}
+
+function renderAll() {
+  if (!state.ready || els.dashboard.hidden) return;
+  const journals = filteredJournals();
+  if (!state.mobile || els.analyticsDisclosure.open) renderAnalytics(journals);
+  if (!state.mobile) renderRecommendations(journals);
   renderTable(journals);
+  renderFilterSummary();
 }
 
 function downloadVisibleCsv() {
@@ -2973,6 +3094,23 @@ els.search.addEventListener("compositionend", () => {
 [els.tag, els.quartile, els.publisher, els.speed, els.index].forEach((control) => {
   control.addEventListener("change", updateFilters);
 });
+els.resetFilters?.addEventListener("click", resetFilters);
+els.mobileSort?.addEventListener("change", () => setMobileSort(els.mobileSort.value));
+els.analyticsDisclosure?.addEventListener("toggle", () => {
+  if (state.ready && els.analyticsDisclosure.open && !els.dashboard.hidden) renderAnalytics(filteredJournals());
+});
+els.mobileJournalList?.addEventListener("click", (event) => {
+  const button = event.target.closest("[data-open-journal]");
+  if (button) navigateToJournal(button.dataset.openJournal);
+});
+document.querySelectorAll('a[href="#radarChatForm"], a[href="#journalTable"], a[href="#tagHeatmap"]').forEach((link) => {
+  link.addEventListener("click", (event) => {
+    if (window.location.hash === link.getAttribute("href")) {
+      event.preventDefault();
+      renderRoute();
+    }
+  });
+});
 if (els.language) {
   els.language.addEventListener("change", () => {
     state.language = els.language.value;
@@ -3020,12 +3158,9 @@ els.tableHead?.addEventListener("click", (event) => {
   }
   state.tablePage = 0;
   renderTable(filteredJournals());
+  if (els.mobileSort) els.mobileSort.value = state.tableSort.key === "name" && state.tableSort.dir === 1 ? "name" : state.tableSort.key === "jif" && state.tableSort.dir === -1 ? "jif" : "default";
+  renderFilterSummary();
 });
-function changeTablePage(delta) {
-  state.tablePage = Math.max(0, state.tablePage + delta);
-  renderTable(filteredJournals());
-  els.tableBody?.closest(".journal-table-wrap")?.scrollTo({ top: 0 });
-}
 els.toggleRows?.addEventListener("click", () => changeTablePage(1));
 els.previousRows?.addEventListener("click", () => changeTablePage(-1));
 if (els.backToTop) {
@@ -3040,4 +3175,7 @@ if (els.backToTop) {
 }
 window.addEventListener("hashchange", renderRoute);
 
+const mobileMedia = window.matchMedia("(max-width: 760px)");
+syncResponsiveLayout(mobileMedia.matches);
+mobileMedia.addEventListener("change", (event) => syncResponsiveLayout(event.matches));
 init();
