@@ -1,25 +1,25 @@
 {
-  "generated_at": "2026-10-02T08:20:22+00:00",
+  "generated_at": "2026-10-03T00:49:22+00:00",
   "journal_count": 861,
   "q1_count": 135,
   "jcr_journal_count": 260,
   "unknown_quartile_count": 601,
   "journals_with_source_urls": 628,
   "source_pages": {
-    "total": 3751,
-    "ok": 2990,
-    "failed": 760,
-    "content_too_short": 1
+    "total": 4336,
+    "ok": 3501,
+    "failed": 830,
+    "content_too_short": 5
   },
   "articles": {
-    "total": 42096,
-    "ok": 42096,
+    "total": 42520,
+    "ok": 42520,
     "failed": 0,
     "content_too_short": 0
   },
   "editors": {
-    "journals_with_editor_names": 6,
-    "journals_without_editor_names": 855
+    "journals_with_editor_names": 14,
+    "journals_without_editor_names": 847
   },
   "speed_coverage": {
     "first_decision_days": 199,
@@ -28,10 +28,10 @@
     "total": 861
   },
   "editor_profile_coverage": {
-    "profiles": 47,
-    "with_affiliation": 12,
-    "with_country_or_region": 11,
-    "pending_verification": 35
+    "profiles": 102,
+    "with_affiliation": 21,
+    "with_country_or_region": 14,
+    "pending_verification": 81
   },
   "preference_coverage": {
     "journals_with_any_articles": 799,
@@ -47,7 +47,7 @@
     },
     "total": 861
   },
-  "rag_documents": 45096,
+  "rag_documents": 45563,
   "missing_fields": {
     "jif_2025": {
       "missing": 601,
@@ -251,7 +251,7 @@
     "identity_exclusions": {
       "journal-202-educational-studies": "identity_ambiguity"
     },
-    "data_version": "2026-10-02T08:20:22+00:00",
+    "data_version": "2026-10-03T00:49:22+00:00",
     "index_evidence_sha256": "f7c2fc927294a99a50f61924560c33011fa6868bd42f65bf8defc2f313f10f8e",
     "source_snapshot_count": 268,
     "source_snapshot_sha256": "97c0fdd562a1299475dd0100186c2808379d66bbd780b48244ba7a300b542188"
@@ -259,17 +259,17 @@
   "refresh_policy": {
     "article_metadata": "rotating_batch",
     "article_batch_size": 500,
-    "article_batch_offset": 278,
-    "article_next_offset": 778,
-    "article_updated": 410,
-    "article_failed": 90,
+    "article_batch_offset": 778,
+    "article_next_offset": 417,
+    "article_updated": 468,
+    "article_failed": 32,
     "article_budget_deferred": 0,
-    "article_retained_journals": 389,
+    "article_retained_journals": 331,
     "official_page_crawl": "rotating_batch",
     "official_page_batch_size": 80,
-    "official_page_batch_offset": 400,
-    "official_next_offset": 480,
-    "crossref_from_pub_date": "2021-10-02",
+    "official_page_batch_offset": 480,
+    "official_next_offset": 560,
+    "crossref_from_pub_date": "2021-10-03",
     "max_crossref_articles": 40,
     "max_official_articles": 0,
     "workers": 4,
