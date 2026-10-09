@@ -1,19 +1,19 @@
 {
-  "generated_at": "2026-10-08T01:26:42+00:00",
+  "generated_at": "2026-10-09T01:33:19+00:00",
   "journal_count": 861,
   "q1_count": 135,
   "jcr_journal_count": 260,
   "unknown_quartile_count": 601,
   "journals_with_source_urls": 628,
   "source_pages": {
-    "total": 7324,
-    "ok": 6037,
-    "failed": 1271,
+    "total": 7861,
+    "ok": 6468,
+    "failed": 1377,
     "content_too_short": 16
   },
   "articles": {
-    "total": 43271,
-    "ok": 43271,
+    "total": 43563,
+    "ok": 43563,
     "failed": 0,
     "content_too_short": 0
   },
@@ -47,7 +47,7 @@
     },
     "total": 861
   },
-  "rag_documents": 46601,
+  "rag_documents": 46893,
   "missing_fields": {
     "jif_2025": {
       "missing": 601,
@@ -251,7 +251,7 @@
     "identity_exclusions": {
       "journal-202-educational-studies": "identity_ambiguity"
     },
-    "data_version": "2026-10-08T01:26:42+00:00",
+    "data_version": "2026-10-09T01:33:19+00:00",
     "index_evidence_sha256": "f7c2fc927294a99a50f61924560c33011fa6868bd42f65bf8defc2f313f10f8e",
     "source_snapshot_count": 268,
     "source_snapshot_sha256": "97c0fdd562a1299475dd0100186c2808379d66bbd780b48244ba7a300b542188"
@@ -259,17 +259,17 @@
   "refresh_policy": {
     "article_metadata": "rotating_batch",
     "article_batch_size": 500,
-    "article_batch_offset": 695,
-    "article_next_offset": 334,
-    "article_updated": 459,
-    "article_failed": 41,
+    "article_batch_offset": 334,
+    "article_next_offset": 834,
+    "article_updated": 431,
+    "article_failed": 69,
     "article_budget_deferred": 0,
-    "article_retained_journals": 340,
+    "article_retained_journals": 368,
     "official_page_crawl": "rotating_batch",
     "official_page_batch_size": 80,
-    "official_page_batch_offset": 19,
-    "official_next_offset": 99,
-    "crossref_from_pub_date": "2021-10-08",
+    "official_page_batch_offset": 99,
+    "official_next_offset": 179,
+    "crossref_from_pub_date": "2021-10-09",
     "max_crossref_articles": 40,
     "max_official_articles": 0,
     "workers": 4,
