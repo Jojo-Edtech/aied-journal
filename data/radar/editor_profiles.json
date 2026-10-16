@@ -7432,10 +7432,29 @@
   {
     "journal_id": "journal-issn-24093351",
     "journal_name": "Novìtnâ Osvìta",
-    "source_url": "",
-    "status": "not_found",
-    "profiles": [],
-    "note": ""
+    "source_url": "https://ae.fl.kpi.ua/about/editorialTeam",
+    "status": "ok",
+    "profiles": [
+      {
+        "name": "Zoia Kornieva",
+        "role": "Editor-in-Chief",
+        "affiliation": "National Technical University",
+        "country_or_region": "",
+        "source_url": "https://ae.fl.kpi.ua/about/editorialTeam",
+        "confidence": 0.82,
+        "verification_status": "public_source"
+      },
+      {
+        "name": "Valentyna Lukianenko",
+        "role": "Editor-in-Chief",
+        "affiliation": "",
+        "country_or_region": "",
+        "source_url": "https://ae.fl.kpi.ua/about/editorialTeam",
+        "confidence": 0.55,
+        "verification_status": "待官网核验"
+      }
+    ],
+    "note": "自动从公开编辑页面标题结构抽取，投稿前请回官网核验。"
   },
   {
     "journal_id": "journal-issn-19364660",
