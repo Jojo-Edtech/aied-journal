@@ -41,13 +41,13 @@
       "type": "topic"
     },
     {
-      "id": "topic-1521565a67f5de08",
-      "label": "STEM education",
+      "id": "topic-07fb192d39a14542",
+      "label": "Motivation and wellbeing",
       "type": "topic"
     },
     {
-      "id": "topic-07fb192d39a14542",
-      "label": "Motivation and wellbeing",
+      "id": "topic-1521565a67f5de08",
+      "label": "STEM education",
       "type": "topic"
     },
     {
@@ -10900,13 +10900,13 @@
     },
     {
       "source": "journal-001-international-journal-of-educational-technology-",
-      "target": "topic-1521565a67f5de08",
+      "target": "topic-07fb192d39a14542",
       "weight": 6.0,
       "relation": "text_topic"
     },
     {
       "source": "journal-001-international-journal-of-educational-technology-",
-      "target": "topic-07fb192d39a14542",
+      "target": "topic-1521565a67f5de08",
       "weight": 6.0,
       "relation": "text_topic"
     },
@@ -36550,13 +36550,13 @@
     },
     {
       "source": "journal-issn-15702081",
-      "target": "topic-07fb192d39a14542",
+      "target": "topic-174dec98266f9613",
       "weight": 6.0,
       "relation": "text_topic"
     },
     {
       "source": "journal-issn-15702081",
-      "target": "topic-174dec98266f9613",
+      "target": "topic-07fb192d39a14542",
       "weight": 6.0,
       "relation": "text_topic"
     },
@@ -38866,6 +38866,12 @@
     },
     {
       "source": "journal-issn-23711671",
+      "target": "topic-c95abd40e0f3ef3a",
+      "weight": 2.0,
+      "relation": "text_topic"
+    },
+    {
+      "source": "journal-issn-23711671",
       "target": "method-1e46da15281376a4",
       "weight": 5.0,
       "relation": "method_or_theme"
@@ -38878,13 +38884,13 @@
     },
     {
       "source": "journal-issn-23711671",
-      "target": "method-72bf6e495cc8a5b5",
-      "weight": 4.0,
+      "target": "method-aff0766a5290e117",
+      "weight": 5.0,
       "relation": "method_or_theme"
     },
     {
       "source": "journal-issn-23711671",
-      "target": "method-aff0766a5290e117",
+      "target": "method-72bf6e495cc8a5b5",
       "weight": 4.0,
       "relation": "method_or_theme"
     },
@@ -39928,13 +39934,13 @@
     },
     {
       "source": "journal-issn-09515224",
-      "target": "topic-07fb192d39a14542",
+      "target": "topic-7808eeeb45dfa074",
       "weight": 6.0,
       "relation": "text_topic"
     },
     {
       "source": "journal-issn-09515224",
-      "target": "topic-7808eeeb45dfa074",
+      "target": "topic-07fb192d39a14542",
       "weight": 6.0,
       "relation": "text_topic"
     },
@@ -39952,14 +39958,14 @@
     },
     {
       "source": "journal-issn-09515224",
-      "target": "method-f77fb5fc13e89e5d",
+      "target": "method-aff0766a5290e117",
       "weight": 5.0,
       "relation": "method_or_theme"
     },
     {
       "source": "journal-issn-09515224",
-      "target": "method-aff0766a5290e117",
-      "weight": 4.0,
+      "target": "method-f77fb5fc13e89e5d",
+      "weight": 5.0,
       "relation": "method_or_theme"
     },
     {
@@ -40427,7 +40433,7 @@
     {
       "source": "journal-issn-26319713",
       "target": "method-f77fb5fc13e89e5d",
-      "weight": 3.0,
+      "weight": 4.0,
       "relation": "method_or_theme"
     },
     {
@@ -40847,7 +40853,7 @@
     {
       "source": "journal-issn-23019468",
       "target": "method-f77fb5fc13e89e5d",
-      "weight": 4.0,
+      "weight": 5.0,
       "relation": "method_or_theme"
     },
     {
@@ -41236,20 +41242,20 @@
     },
     {
       "source": "journal-issn-07425627",
-      "target": "topic-07fb192d39a14542",
-      "weight": 6.0,
-      "relation": "text_topic"
-    },
-    {
-      "source": "journal-issn-07425627",
       "target": "topic-7808eeeb45dfa074",
       "weight": 6.0,
       "relation": "text_topic"
     },
     {
       "source": "journal-issn-07425627",
+      "target": "topic-07fb192d39a14542",
+      "weight": 6.0,
+      "relation": "text_topic"
+    },
+    {
+      "source": "journal-issn-07425627",
       "target": "topic-174dec98266f9613",
-      "weight": 5.0,
+      "weight": 6.0,
       "relation": "text_topic"
     },
     {
@@ -42862,6 +42868,12 @@
     },
     {
       "source": "journal-issn-20149018",
+      "target": "topic-cfbe9d9b22501f1c",
+      "weight": 6.0,
+      "relation": "text_topic"
+    },
+    {
+      "source": "journal-issn-20149018",
       "target": "topic-174dec98266f9613",
       "weight": 6.0,
       "relation": "text_topic"
@@ -42870,12 +42882,6 @@
       "source": "journal-issn-20149018",
       "target": "topic-1521565a67f5de08",
       "weight": 6.0,
-      "relation": "text_topic"
-    },
-    {
-      "source": "journal-issn-20149018",
-      "target": "topic-cfbe9d9b22501f1c",
-      "weight": 5.0,
       "relation": "text_topic"
     },
     {
@@ -44777,13 +44783,13 @@
     {
       "source": "journal-issn-2813141X",
       "target": "method-aff0766a5290e117",
-      "weight": 4.0,
+      "weight": 5.0,
       "relation": "method_or_theme"
     },
     {
       "source": "journal-issn-2813141X",
       "target": "method-f77fb5fc13e89e5d",
-      "weight": 4.0,
+      "weight": 5.0,
       "relation": "method_or_theme"
     },
     {
@@ -45646,13 +45652,13 @@
     },
     {
       "source": "journal-issn-23693762",
-      "target": "method-72bf6e495cc8a5b5",
+      "target": "method-1e46da15281376a4",
       "weight": 5.0,
       "relation": "method_or_theme"
     },
     {
       "source": "journal-issn-23693762",
-      "target": "method-1e46da15281376a4",
+      "target": "method-72bf6e495cc8a5b5",
       "weight": 5.0,
       "relation": "method_or_theme"
     },
@@ -45856,14 +45862,14 @@
     },
     {
       "source": "journal-issn-00991333",
-      "target": "topic-cfbe9d9b22501f1c",
+      "target": "topic-c95abd40e0f3ef3a",
       "weight": 4.0,
       "relation": "text_topic"
     },
     {
       "source": "journal-issn-00991333",
-      "target": "topic-c95abd40e0f3ef3a",
-      "weight": 3.0,
+      "target": "topic-cfbe9d9b22501f1c",
+      "weight": 4.0,
       "relation": "text_topic"
     },
     {
@@ -46558,6 +46564,12 @@
     },
     {
       "source": "journal-issn-07377363",
+      "target": "topic-174dec98266f9613",
+      "weight": 2.0,
+      "relation": "text_topic"
+    },
+    {
+      "source": "journal-issn-07377363",
       "target": "method-1e46da15281376a4",
       "weight": 4.0,
       "relation": "method_or_theme"
@@ -47188,13 +47200,13 @@
     },
     {
       "source": "journal-issn-19755937",
-      "target": "method-72bf6e495cc8a5b5",
+      "target": "method-aff0766a5290e117",
       "weight": 5.0,
       "relation": "method_or_theme"
     },
     {
       "source": "journal-issn-19755937",
-      "target": "method-aff0766a5290e117",
+      "target": "method-72bf6e495cc8a5b5",
       "weight": 5.0,
       "relation": "method_or_theme"
     },
@@ -49739,7 +49751,7 @@
     {
       "source": "journal-issn-27694879",
       "target": "method-72bf6e495cc8a5b5",
-      "weight": 3.0,
+      "weight": 5.0,
       "relation": "method_or_theme"
     },
     {
@@ -50927,7 +50939,7 @@
     {
       "source": "journal-issn-23999101",
       "target": "topic-70eaebd2507075d0",
-      "weight": 5.0,
+      "weight": 6.0,
       "relation": "text_topic"
     },
     {
@@ -50945,7 +50957,7 @@
     {
       "source": "journal-issn-23999101",
       "target": "topic-07fb192d39a14542",
-      "weight": 2.0,
+      "weight": 3.0,
       "relation": "text_topic"
     },
     {
@@ -54028,13 +54040,13 @@
     },
     {
       "source": "journal-issn-23127996",
-      "target": "topic-07fb192d39a14542",
+      "target": "topic-1521565a67f5de08",
       "weight": 6.0,
       "relation": "text_topic"
     },
     {
       "source": "journal-issn-23127996",
-      "target": "topic-1521565a67f5de08",
+      "target": "topic-07fb192d39a14542",
       "weight": 6.0,
       "relation": "text_topic"
     },
@@ -54052,13 +54064,13 @@
     },
     {
       "source": "journal-issn-23127996",
-      "target": "method-f77fb5fc13e89e5d",
+      "target": "method-aff0766a5290e117",
       "weight": 5.0,
       "relation": "method_or_theme"
     },
     {
       "source": "journal-issn-23127996",
-      "target": "method-aff0766a5290e117",
+      "target": "method-f77fb5fc13e89e5d",
       "weight": 5.0,
       "relation": "method_or_theme"
     },
@@ -54934,8 +54946,8 @@
     },
     {
       "source": "journal-issn-00288276",
-      "target": "topic-9a87175207a509e4",
-      "weight": 4.0,
+      "target": "topic-7808eeeb45dfa074",
+      "weight": 5.0,
       "relation": "text_topic"
     },
     {
@@ -56249,7 +56261,7 @@
     {
       "source": "journal-issn-16885287",
       "target": "method-f77fb5fc13e89e5d",
-      "weight": 2.0,
+      "weight": 3.0,
       "relation": "method_or_theme"
     },
     {
@@ -60869,7 +60881,7 @@
     {
       "source": "journal-issn-16074041",
       "target": "method-f77fb5fc13e89e5d",
-      "weight": 4.0,
+      "weight": 5.0,
       "relation": "method_or_theme"
     },
     {
@@ -62266,15 +62278,21 @@
     },
     {
       "source": "journal-issn-16138953",
-      "target": "topic-1521565a67f5de08",
+      "target": "topic-cfbe9d9b22501f1c",
+      "weight": 5.0,
+      "relation": "text_topic"
+    },
+    {
+      "source": "journal-issn-16138953",
+      "target": "topic-70eaebd2507075d0",
       "weight": 2.0,
       "relation": "text_topic"
     },
     {
       "source": "journal-issn-16138953",
-      "target": "topic-cfbe9d9b22501f1c",
-      "weight": 2.0,
-      "relation": "text_topic"
+      "target": "method-72bf6e495cc8a5b5",
+      "weight": 3.0,
+      "relation": "method_or_theme"
     },
     {
       "source": "journal-issn-02615479",
@@ -63100,13 +63118,13 @@
     },
     {
       "source": "journal-issn-18037437",
-      "target": "topic-174dec98266f9613",
-      "weight": 6.0,
+      "target": "topic-4100620aa84ca641",
+      "weight": 5.0,
       "relation": "text_topic"
     },
     {
       "source": "journal-issn-18037437",
-      "target": "topic-4100620aa84ca641",
+      "target": "topic-174dec98266f9613",
       "weight": 5.0,
       "relation": "text_topic"
     },
@@ -63227,13 +63245,13 @@
     {
       "source": "journal-issn-26905450",
       "target": "topic-07fb192d39a14542",
-      "weight": 3.0,
+      "weight": 4.0,
       "relation": "text_topic"
     },
     {
       "source": "journal-issn-26905450",
       "target": "topic-cfbe9d9b22501f1c",
-      "weight": 2.0,
+      "weight": 3.0,
       "relation": "text_topic"
     },
     {
@@ -63252,6 +63270,12 @@
       "source": "journal-issn-26905450",
       "target": "method-aff0766a5290e117",
       "weight": 4.0,
+      "relation": "method_or_theme"
+    },
+    {
+      "source": "journal-issn-26905450",
+      "target": "method-72bf6e495cc8a5b5",
+      "weight": 2.0,
       "relation": "method_or_theme"
     },
     {
@@ -64252,13 +64276,13 @@
     },
     {
       "source": "journal-issn-26521687",
-      "target": "topic-174dec98266f9613",
+      "target": "topic-70eaebd2507075d0",
       "weight": 6.0,
       "relation": "text_topic"
     },
     {
       "source": "journal-issn-26521687",
-      "target": "topic-70eaebd2507075d0",
+      "target": "topic-174dec98266f9613",
       "weight": 6.0,
       "relation": "text_topic"
     },
