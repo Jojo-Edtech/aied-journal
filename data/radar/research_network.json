@@ -116,6 +116,11 @@
       "type": "topic"
     },
     {
+      "id": "topic-ee12c8cddb053673",
+      "label": "Educational technology",
+      "type": "topic"
+    },
+    {
       "id": "journal-004-british-journal-of-educational-technology",
       "label": "BRITISH JOURNAL OF EDUCATIONAL TECHNOLOGY",
       "type": "journal",
@@ -374,11 +379,6 @@
       "quartile": "Q1",
       "main_tag": "教育技术",
       "publisher_family": "Elsevier"
-    },
-    {
-      "id": "topic-ee12c8cddb053673",
-      "label": "Educational technology",
-      "type": "topic"
     },
     {
       "id": "journal-022-assessment-evaluation-in-higher-education",
@@ -11032,6 +11032,12 @@
     },
     {
       "source": "journal-003-computers-education",
+      "target": "topic-c95abd40e0f3ef3a",
+      "weight": 6.0,
+      "relation": "text_topic"
+    },
+    {
+      "source": "journal-003-computers-education",
       "target": "topic-07fb192d39a14542",
       "weight": 6.0,
       "relation": "text_topic"
@@ -11044,19 +11050,13 @@
     },
     {
       "source": "journal-003-computers-education",
-      "target": "topic-c95abd40e0f3ef3a",
-      "weight": 6.0,
-      "relation": "text_topic"
-    },
-    {
-      "source": "journal-003-computers-education",
       "target": "topic-1521565a67f5de08",
       "weight": 6.0,
       "relation": "text_topic"
     },
     {
       "source": "journal-003-computers-education",
-      "target": "topic-174dec98266f9613",
+      "target": "topic-ee12c8cddb053673",
       "weight": 6.0,
       "relation": "text_topic"
     },
@@ -11140,7 +11140,7 @@
     },
     {
       "source": "journal-004-british-journal-of-educational-technology",
-      "target": "method-aff0766a5290e117",
+      "target": "method-4100620aa84ca641",
       "weight": 5.0,
       "relation": "method_or_theme"
     },
@@ -11680,13 +11680,13 @@
     },
     {
       "source": "journal-012-journal-of-educational-computing-research",
-      "target": "topic-70eaebd2507075d0",
+      "target": "topic-1521565a67f5de08",
       "weight": 6.0,
       "relation": "text_topic"
     },
     {
       "source": "journal-012-journal-of-educational-computing-research",
-      "target": "topic-1521565a67f5de08",
+      "target": "topic-70eaebd2507075d0",
       "weight": 6.0,
       "relation": "text_topic"
     },
@@ -11698,13 +11698,13 @@
     },
     {
       "source": "journal-012-journal-of-educational-computing-research",
-      "target": "topic-174dec98266f9613",
+      "target": "topic-07fb192d39a14542",
       "weight": 6.0,
       "relation": "text_topic"
     },
     {
       "source": "journal-012-journal-of-educational-computing-research",
-      "target": "topic-07fb192d39a14542",
+      "target": "topic-174dec98266f9613",
       "weight": 6.0,
       "relation": "text_topic"
     },
@@ -11860,13 +11860,13 @@
     },
     {
       "source": "journal-014-language-teaching",
-      "target": "method-f77fb5fc13e89e5d",
+      "target": "method-1e46da15281376a4",
       "weight": 5.0,
       "relation": "method_or_theme"
     },
     {
       "source": "journal-014-language-teaching",
-      "target": "method-1e46da15281376a4",
+      "target": "method-f77fb5fc13e89e5d",
       "weight": 5.0,
       "relation": "method_or_theme"
     },
@@ -12508,13 +12508,13 @@
     },
     {
       "source": "journal-024-interactive-learning-environments",
-      "target": "topic-07fb192d39a14542",
+      "target": "topic-70eaebd2507075d0",
       "weight": 6.0,
       "relation": "text_topic"
     },
     {
       "source": "journal-024-interactive-learning-environments",
-      "target": "topic-70eaebd2507075d0",
+      "target": "topic-07fb192d39a14542",
       "weight": 6.0,
       "relation": "text_topic"
     },
@@ -12670,13 +12670,13 @@
     },
     {
       "source": "journal-026-innovations-in-education-and-teaching-internatio",
-      "target": "topic-c95abd40e0f3ef3a",
+      "target": "topic-07fb192d39a14542",
       "weight": 6.0,
       "relation": "text_topic"
     },
     {
       "source": "journal-026-innovations-in-education-and-teaching-internatio",
-      "target": "topic-07fb192d39a14542",
+      "target": "topic-c95abd40e0f3ef3a",
       "weight": 6.0,
       "relation": "text_topic"
     },
@@ -12707,7 +12707,7 @@
     {
       "source": "journal-026-innovations-in-education-and-teaching-internatio",
       "target": "method-aff0766a5290e117",
-      "weight": 3.0,
+      "weight": 4.0,
       "relation": "method_or_theme"
     },
     {
@@ -12802,13 +12802,13 @@
     },
     {
       "source": "journal-028-journal-of-computer-assisted-learning",
-      "target": "topic-70eaebd2507075d0",
+      "target": "topic-c95abd40e0f3ef3a",
       "weight": 6.0,
       "relation": "text_topic"
     },
     {
       "source": "journal-028-journal-of-computer-assisted-learning",
-      "target": "topic-c95abd40e0f3ef3a",
+      "target": "topic-70eaebd2507075d0",
       "weight": 6.0,
       "relation": "text_topic"
     },
@@ -12874,13 +12874,13 @@
     },
     {
       "source": "journal-029-etr-d-educational-technology-research-and-develo",
-      "target": "topic-1521565a67f5de08",
+      "target": "topic-174dec98266f9613",
       "weight": 6.0,
       "relation": "text_topic"
     },
     {
       "source": "journal-029-etr-d-educational-technology-research-and-develo",
-      "target": "topic-174dec98266f9613",
+      "target": "topic-1521565a67f5de08",
       "weight": 6.0,
       "relation": "text_topic"
     },
@@ -13198,25 +13198,25 @@
     },
     {
       "source": "journal-033-thinking-skills-and-creativity",
-      "target": "topic-c95abd40e0f3ef3a",
-      "weight": 6.0,
-      "relation": "text_topic"
-    },
-    {
-      "source": "journal-033-thinking-skills-and-creativity",
       "target": "topic-7808eeeb45dfa074",
       "weight": 6.0,
       "relation": "text_topic"
     },
     {
       "source": "journal-033-thinking-skills-and-creativity",
-      "target": "topic-cf032eb29801f8f7",
+      "target": "topic-c95abd40e0f3ef3a",
       "weight": 6.0,
       "relation": "text_topic"
     },
     {
       "source": "journal-033-thinking-skills-and-creativity",
       "target": "topic-07fb192d39a14542",
+      "weight": 6.0,
+      "relation": "text_topic"
+    },
+    {
+      "source": "journal-033-thinking-skills-and-creativity",
+      "target": "topic-cf032eb29801f8f7",
       "weight": 6.0,
       "relation": "text_topic"
     },
@@ -13235,7 +13235,7 @@
     {
       "source": "journal-033-thinking-skills-and-creativity",
       "target": "method-1e46da15281376a4",
-      "weight": 4.0,
+      "weight": 5.0,
       "relation": "method_or_theme"
     },
     {
@@ -13366,13 +13366,13 @@
     },
     {
       "source": "journal-035-european-journal-of-education",
-      "target": "topic-1521565a67f5de08",
+      "target": "topic-cfbe9d9b22501f1c",
       "weight": 6.0,
       "relation": "text_topic"
     },
     {
       "source": "journal-035-european-journal-of-education",
-      "target": "topic-cfbe9d9b22501f1c",
+      "target": "topic-1521565a67f5de08",
       "weight": 6.0,
       "relation": "text_topic"
     },
@@ -13564,13 +13564,13 @@
     },
     {
       "source": "journal-038-studies-in-higher-education",
-      "target": "topic-1521565a67f5de08",
+      "target": "topic-cfbe9d9b22501f1c",
       "weight": 6.0,
       "relation": "text_topic"
     },
     {
       "source": "journal-038-studies-in-higher-education",
-      "target": "topic-cfbe9d9b22501f1c",
+      "target": "topic-1521565a67f5de08",
       "weight": 6.0,
       "relation": "text_topic"
     },
@@ -13672,13 +13672,13 @@
     },
     {
       "source": "journal-039-journal-of-research-in-science-teaching",
-      "target": "method-f77fb5fc13e89e5d",
+      "target": "method-72bf6e495cc8a5b5",
       "weight": 5.0,
       "relation": "method_or_theme"
     },
     {
       "source": "journal-039-journal-of-research-in-science-teaching",
-      "target": "method-72bf6e495cc8a5b5",
+      "target": "method-f77fb5fc13e89e5d",
       "weight": 5.0,
       "relation": "method_or_theme"
     },
@@ -13858,7 +13858,7 @@
     },
     {
       "source": "journal-042-modern-language-journal",
-      "target": "topic-1521565a67f5de08",
+      "target": "topic-07fb192d39a14542",
       "weight": 6.0,
       "relation": "text_topic"
     },
@@ -13870,7 +13870,7 @@
     },
     {
       "source": "journal-042-modern-language-journal",
-      "target": "topic-07fb192d39a14542",
+      "target": "topic-1521565a67f5de08",
       "weight": 6.0,
       "relation": "text_topic"
     },
@@ -14302,13 +14302,13 @@
     },
     {
       "source": "journal-048-medical-education-online",
-      "target": "topic-174dec98266f9613",
+      "target": "topic-c95abd40e0f3ef3a",
       "weight": 6.0,
       "relation": "text_topic"
     },
     {
       "source": "journal-048-medical-education-online",
-      "target": "topic-c95abd40e0f3ef3a",
+      "target": "topic-174dec98266f9613",
       "weight": 6.0,
       "relation": "text_topic"
     },
@@ -14326,13 +14326,13 @@
     },
     {
       "source": "journal-048-medical-education-online",
-      "target": "method-1e46da15281376a4",
+      "target": "method-aff0766a5290e117",
       "weight": 5.0,
       "relation": "method_or_theme"
     },
     {
       "source": "journal-048-medical-education-online",
-      "target": "method-aff0766a5290e117",
+      "target": "method-1e46da15281376a4",
       "weight": 5.0,
       "relation": "method_or_theme"
     },
@@ -14374,13 +14374,13 @@
     },
     {
       "source": "journal-049-teaching-and-teacher-education",
-      "target": "topic-174dec98266f9613",
+      "target": "topic-1521565a67f5de08",
       "weight": 6.0,
       "relation": "text_topic"
     },
     {
       "source": "journal-049-teaching-and-teacher-education",
-      "target": "topic-1521565a67f5de08",
+      "target": "topic-174dec98266f9613",
       "weight": 6.0,
       "relation": "text_topic"
     },
@@ -14842,20 +14842,20 @@
     },
     {
       "source": "journal-056-journal-for-research-in-mathematics-education",
-      "target": "topic-7808eeeb45dfa074",
-      "weight": 6.0,
-      "relation": "text_topic"
-    },
-    {
-      "source": "journal-056-journal-for-research-in-mathematics-education",
       "target": "topic-70eaebd2507075d0",
       "weight": 6.0,
       "relation": "text_topic"
     },
     {
       "source": "journal-056-journal-for-research-in-mathematics-education",
+      "target": "topic-7808eeeb45dfa074",
+      "weight": 6.0,
+      "relation": "text_topic"
+    },
+    {
+      "source": "journal-056-journal-for-research-in-mathematics-education",
       "target": "topic-07fb192d39a14542",
-      "weight": 5.0,
+      "weight": 6.0,
       "relation": "text_topic"
     },
     {
@@ -15568,13 +15568,13 @@
     },
     {
       "source": "journal-066-reading-research-quarterly",
-      "target": "topic-cf032eb29801f8f7",
+      "target": "topic-1521565a67f5de08",
       "weight": 6.0,
       "relation": "text_topic"
     },
     {
       "source": "journal-066-reading-research-quarterly",
-      "target": "topic-1521565a67f5de08",
+      "target": "topic-cf032eb29801f8f7",
       "weight": 6.0,
       "relation": "text_topic"
     },
@@ -15604,13 +15604,13 @@
     },
     {
       "source": "journal-066-reading-research-quarterly",
-      "target": "method-aff0766a5290e117",
+      "target": "method-f77fb5fc13e89e5d",
       "weight": 5.0,
       "relation": "method_or_theme"
     },
     {
       "source": "journal-066-reading-research-quarterly",
-      "target": "method-f77fb5fc13e89e5d",
+      "target": "method-aff0766a5290e117",
       "weight": 5.0,
       "relation": "method_or_theme"
     },
@@ -15646,13 +15646,13 @@
     },
     {
       "source": "journal-067-international-journal-of-applied-linguistics",
-      "target": "topic-70eaebd2507075d0",
+      "target": "topic-c95abd40e0f3ef3a",
       "weight": 6.0,
       "relation": "text_topic"
     },
     {
       "source": "journal-067-international-journal-of-applied-linguistics",
-      "target": "topic-c95abd40e0f3ef3a",
+      "target": "topic-70eaebd2507075d0",
       "weight": 6.0,
       "relation": "text_topic"
     },
@@ -16594,13 +16594,13 @@
     },
     {
       "source": "journal-080-journal-of-research-on-technology-in-education",
-      "target": "topic-07fb192d39a14542",
+      "target": "topic-c95abd40e0f3ef3a",
       "weight": 6.0,
       "relation": "text_topic"
     },
     {
       "source": "journal-080-journal-of-research-on-technology-in-education",
-      "target": "topic-c95abd40e0f3ef3a",
+      "target": "topic-07fb192d39a14542",
       "weight": 6.0,
       "relation": "text_topic"
     },
@@ -17087,7 +17087,7 @@
     {
       "source": "journal-086-european-journal-of-teacher-education",
       "target": "method-1e46da15281376a4",
-      "weight": 4.0,
+      "weight": 5.0,
       "relation": "method_or_theme"
     },
     {
@@ -17608,13 +17608,13 @@
     },
     {
       "source": "journal-094-linguistics-and-education",
-      "target": "topic-cf032eb29801f8f7",
+      "target": "topic-174dec98266f9613",
       "weight": 6.0,
       "relation": "text_topic"
     },
     {
       "source": "journal-094-linguistics-and-education",
-      "target": "topic-174dec98266f9613",
+      "target": "topic-cf032eb29801f8f7",
       "weight": 6.0,
       "relation": "text_topic"
     },
@@ -17717,7 +17717,7 @@
     {
       "source": "journal-095-journal-of-higher-education-policy-and-managemen",
       "target": "topic-7808eeeb45dfa074",
-      "weight": 2.0,
+      "weight": 3.0,
       "relation": "text_topic"
     },
     {
@@ -18605,7 +18605,7 @@
     {
       "source": "journal-108-teachers-and-teaching",
       "target": "topic-1521565a67f5de08",
-      "weight": 3.0,
+      "weight": 4.0,
       "relation": "text_topic"
     },
     {
@@ -18748,13 +18748,13 @@
     },
     {
       "source": "journal-110-international-journal-of-science-and-mathematics",
-      "target": "topic-cfbe9d9b22501f1c",
+      "target": "topic-70eaebd2507075d0",
       "weight": 6.0,
       "relation": "text_topic"
     },
     {
       "source": "journal-110-international-journal-of-science-and-mathematics",
-      "target": "topic-70eaebd2507075d0",
+      "target": "topic-cfbe9d9b22501f1c",
       "weight": 6.0,
       "relation": "text_topic"
     },
@@ -20128,13 +20128,13 @@
     },
     {
       "source": "journal-129-science-education",
-      "target": "topic-9a87175207a509e4",
+      "target": "topic-70eaebd2507075d0",
       "weight": 6.0,
       "relation": "text_topic"
     },
     {
       "source": "journal-129-science-education",
-      "target": "topic-70eaebd2507075d0",
+      "target": "topic-9a87175207a509e4",
       "weight": 6.0,
       "relation": "text_topic"
     },
@@ -20770,8 +20770,8 @@
     },
     {
       "source": "journal-138-reading-and-writing",
-      "target": "topic-cfbe9d9b22501f1c",
-      "weight": 5.0,
+      "target": "topic-70eaebd2507075d0",
+      "weight": 6.0,
       "relation": "text_topic"
     },
     {
@@ -21701,7 +21701,7 @@
     {
       "source": "journal-151-international-journal-of-multilingualism",
       "target": "method-1e46da15281376a4",
-      "weight": 3.0,
+      "weight": 4.0,
       "relation": "method_or_theme"
     },
     {
@@ -21736,13 +21736,13 @@
     },
     {
       "source": "journal-152-educational-policy",
-      "target": "topic-1521565a67f5de08",
+      "target": "topic-70eaebd2507075d0",
       "weight": 6.0,
       "relation": "text_topic"
     },
     {
       "source": "journal-152-educational-policy",
-      "target": "topic-70eaebd2507075d0",
+      "target": "topic-1521565a67f5de08",
       "weight": 6.0,
       "relation": "text_topic"
     },
@@ -22336,7 +22336,7 @@
     },
     {
       "source": "journal-160-learning-culture-and-social-interaction",
-      "target": "topic-cf032eb29801f8f7",
+      "target": "topic-70eaebd2507075d0",
       "weight": 5.0,
       "relation": "text_topic"
     },
@@ -23734,13 +23734,13 @@
     },
     {
       "source": "journal-180-current-issues-in-language-planning",
-      "target": "topic-70eaebd2507075d0",
+      "target": "topic-cf032eb29801f8f7",
       "weight": 6.0,
       "relation": "text_topic"
     },
     {
       "source": "journal-180-current-issues-in-language-planning",
-      "target": "topic-cf032eb29801f8f7",
+      "target": "topic-70eaebd2507075d0",
       "weight": 6.0,
       "relation": "text_topic"
     },
@@ -24244,13 +24244,13 @@
     },
     {
       "source": "journal-187-journal-of-research-on-educational-effectiveness",
-      "target": "topic-c95abd40e0f3ef3a",
-      "weight": 3.0,
+      "target": "topic-1521565a67f5de08",
+      "weight": 4.0,
       "relation": "text_topic"
     },
     {
       "source": "journal-187-journal-of-research-on-educational-effectiveness",
-      "target": "topic-1521565a67f5de08",
+      "target": "topic-c95abd40e0f3ef3a",
       "weight": 3.0,
       "relation": "text_topic"
     },
@@ -24275,7 +24275,7 @@
     {
       "source": "journal-187-journal-of-research-on-educational-effectiveness",
       "target": "method-aff0766a5290e117",
-      "weight": 3.0,
+      "weight": 4.0,
       "relation": "method_or_theme"
     },
     {
@@ -29782,6 +29782,12 @@
     },
     {
       "source": "journal-issn-11797258",
+      "target": "topic-07fb192d39a14542",
+      "weight": 6.0,
+      "relation": "text_topic"
+    },
+    {
+      "source": "journal-issn-11797258",
       "target": "topic-174dec98266f9613",
       "weight": 6.0,
       "relation": "text_topic"
@@ -29789,12 +29795,6 @@
     {
       "source": "journal-issn-11797258",
       "target": "topic-cfbe9d9b22501f1c",
-      "weight": 5.0,
-      "relation": "text_topic"
-    },
-    {
-      "source": "journal-issn-11797258",
-      "target": "topic-07fb192d39a14542",
       "weight": 5.0,
       "relation": "text_topic"
     },
@@ -57604,13 +57604,13 @@
     },
     {
       "source": "journal-issn-19937989",
-      "target": "topic-70eaebd2507075d0",
+      "target": "topic-cfbe9d9b22501f1c",
       "weight": 6.0,
       "relation": "text_topic"
     },
     {
       "source": "journal-issn-19937989",
-      "target": "topic-cfbe9d9b22501f1c",
+      "target": "topic-70eaebd2507075d0",
       "weight": 6.0,
       "relation": "text_topic"
     },
@@ -58133,7 +58133,7 @@
     {
       "source": "journal-issn-1045988X",
       "target": "method-72bf6e495cc8a5b5",
-      "weight": 4.0,
+      "weight": 5.0,
       "relation": "method_or_theme"
     },
     {
@@ -60605,7 +60605,7 @@
     {
       "source": "journal-issn-00806234",
       "target": "method-f77fb5fc13e89e5d",
-      "weight": 4.0,
+      "weight": 5.0,
       "relation": "method_or_theme"
     },
     {
@@ -62260,13 +62260,19 @@
     },
     {
       "source": "journal-issn-21828474",
-      "target": "topic-4cc50c4b915a50c2",
-      "weight": 2.0,
+      "target": "topic-70eaebd2507075d0",
+      "weight": 4.0,
       "relation": "text_topic"
     },
     {
       "source": "journal-issn-21828474",
-      "target": "topic-c95abd40e0f3ef3a",
+      "target": "topic-cfbe9d9b22501f1c",
+      "weight": 3.0,
+      "relation": "text_topic"
+    },
+    {
+      "source": "journal-issn-21828474",
+      "target": "topic-1521565a67f5de08",
       "weight": 2.0,
       "relation": "text_topic"
     },
@@ -62278,9 +62284,9 @@
     },
     {
       "source": "journal-issn-21828474",
-      "target": "topic-70eaebd2507075d0",
+      "target": "method-aff0766a5290e117",
       "weight": 2.0,
-      "relation": "text_topic"
+      "relation": "method_or_theme"
     },
     {
       "source": "journal-issn-27732339",
@@ -62464,6 +62470,12 @@
     },
     {
       "source": "journal-issn-02615479",
+      "target": "topic-70eaebd2507075d0",
+      "weight": 6.0,
+      "relation": "text_topic"
+    },
+    {
+      "source": "journal-issn-02615479",
       "target": "topic-174dec98266f9613",
       "weight": 6.0,
       "relation": "text_topic"
@@ -62471,12 +62483,6 @@
     {
       "source": "journal-issn-02615479",
       "target": "topic-cfbe9d9b22501f1c",
-      "weight": 6.0,
-      "relation": "text_topic"
-    },
-    {
-      "source": "journal-issn-02615479",
-      "target": "topic-70eaebd2507075d0",
       "weight": 6.0,
       "relation": "text_topic"
     },
@@ -63713,7 +63719,7 @@
     {
       "source": "journal-issn-17425964",
       "target": "topic-cfbe9d9b22501f1c",
-      "weight": 4.0,
+      "weight": 5.0,
       "relation": "text_topic"
     },
     {
@@ -63982,7 +63988,7 @@
     },
     {
       "source": "journal-issn-21674779",
-      "target": "topic-cfbe9d9b22501f1c",
+      "target": "topic-cf032eb29801f8f7",
       "weight": 6.0,
       "relation": "text_topic"
     },
