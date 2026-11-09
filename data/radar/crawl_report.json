@@ -1,19 +1,19 @@
 {
-  "generated_at": "2026-11-08T00:58:30+00:00",
+  "generated_at": "2026-11-09T01:18:48+00:00",
   "journal_count": 861,
   "q1_count": 135,
   "jcr_journal_count": 260,
   "unknown_quartile_count": 601,
   "journals_with_source_urls": 628,
   "source_pages": {
-    "total": 23952,
-    "ok": 19982,
-    "failed": 3953,
+    "total": 24484,
+    "ok": 20409,
+    "failed": 4058,
     "content_too_short": 17
   },
   "articles": {
-    "total": 48706,
-    "ok": 48706,
+    "total": 48751,
+    "ok": 48751,
     "failed": 0,
     "content_too_short": 0
   },
@@ -47,7 +47,7 @@
     },
     "total": 861
   },
-  "rag_documents": 52165,
+  "rag_documents": 52210,
   "missing_fields": {
     "jif_2025": {
       "missing": 601,
@@ -251,7 +251,7 @@
     "identity_exclusions": {
       "journal-202-educational-studies": "identity_ambiguity"
     },
-    "data_version": "2026-11-08T00:58:30+00:00",
+    "data_version": "2026-11-09T01:18:48+00:00",
     "index_evidence_sha256": "f7c2fc927294a99a50f61924560c33011fa6868bd42f65bf8defc2f313f10f8e",
     "source_snapshot_count": 268,
     "source_snapshot_sha256": "97c0fdd562a1299475dd0100186c2808379d66bbd780b48244ba7a300b542188"
@@ -259,17 +259,17 @@
   "refresh_policy": {
     "article_metadata": "rotating_batch",
     "article_batch_size": 500,
-    "article_batch_offset": 697,
-    "article_next_offset": 336,
-    "article_updated": 467,
-    "article_failed": 33,
+    "article_batch_offset": 336,
+    "article_next_offset": 836,
+    "article_updated": 429,
+    "article_failed": 71,
     "article_budget_deferred": 0,
-    "article_retained_journals": 333,
+    "article_retained_journals": 371,
     "official_page_crawl": "rotating_batch",
     "official_page_batch_size": 80,
-    "official_page_batch_offset": 777,
-    "official_next_offset": 857,
-    "crossref_from_pub_date": "2021-11-08",
+    "official_page_batch_offset": 857,
+    "official_next_offset": 76,
+    "crossref_from_pub_date": "2021-11-09",
     "max_crossref_articles": 40,
     "max_official_articles": 0,
     "workers": 4,
