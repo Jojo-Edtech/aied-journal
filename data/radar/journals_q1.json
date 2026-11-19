@@ -41,12 +41,343 @@
     ],
     "crawl_notes": "https://link.springer.com/journal/41239/submission-guidelines#cms-Prepare-your-manuscript :: GET failed: https://r.jina.ai/http://https://link.springer.com/journal/41239/submission-guidelines#cms-Prepare-your-manuscript :: HTTP Error 429: Too Many Requests",
     "editors": {
-      "status": "not_found",
-      "source_url": "",
-      "editors_in_chief": [],
+      "status": "ok",
+      "source_url": "https://link.springer.com/journal/41239/editors",
+      "editors_in_chief": [
+        "Marc Romero Carbonell",
+        "David Contreras",
+        "Morris Jong",
+        "Jin Li",
+        "Mairéad Nic Giolla Mhichíl"
+      ],
       "associate_editors": [],
-      "profiles": [],
-      "note": ""
+      "profiles": [
+        {
+          "name": "Marc Romero Carbonell",
+          "role": "Editor-in-Chief",
+          "affiliation": "Universitat Oberta de Catalunya",
+          "country_or_region": "Spain",
+          "source_url": "https://link.springer.com/journal/41239/editors",
+          "confidence": 0.88,
+          "verification_status": "public_source"
+        },
+        {
+          "name": "David Contreras",
+          "role": "Editor-in-Chief",
+          "affiliation": "Pontificia Universidad Católica de Valparaíso",
+          "country_or_region": "Chile",
+          "source_url": "https://link.springer.com/journal/41239/editors",
+          "confidence": 0.88,
+          "verification_status": "public_source"
+        },
+        {
+          "name": "Morris Jong",
+          "role": "Editor-in-Chief",
+          "affiliation": "Chinese University of Hong Kong",
+          "country_or_region": "Hong Kong",
+          "source_url": "https://link.springer.com/journal/41239/editors",
+          "confidence": 0.88,
+          "verification_status": "public_source"
+        },
+        {
+          "name": "Jin Li",
+          "role": "Editor-in-Chief",
+          "affiliation": "Guangzhou University",
+          "country_or_region": "China",
+          "source_url": "https://link.springer.com/journal/41239/editors",
+          "confidence": 0.88,
+          "verification_status": "public_source"
+        },
+        {
+          "name": "Mairéad Nic Giolla Mhichíl",
+          "role": "Editor-in-Chief",
+          "affiliation": "Dublin City University",
+          "country_or_region": "Ireland",
+          "source_url": "https://link.springer.com/journal/41239/editors",
+          "confidence": 0.88,
+          "verification_status": "public_source"
+        },
+        {
+          "name": "Greig Krull",
+          "role": "Editorial Board",
+          "affiliation": "University of Cape Town",
+          "country_or_region": "South Africa",
+          "source_url": "https://link.springer.com/journal/41239/editors",
+          "confidence": 0.88,
+          "verification_status": "public_source"
+        },
+        {
+          "name": "Melissa Bond",
+          "role": "Editorial Board",
+          "affiliation": "University College London",
+          "country_or_region": "United Kingdom",
+          "source_url": "https://link.springer.com/journal/41239/editors",
+          "confidence": 0.88,
+          "verification_status": "public_source"
+        },
+        {
+          "name": "Mark Brown",
+          "role": "Editorial Board",
+          "affiliation": "Dublin City University",
+          "country_or_region": "Ireland",
+          "source_url": "https://link.springer.com/journal/41239/editors",
+          "confidence": 0.88,
+          "verification_status": "public_source"
+        },
+        {
+          "name": "Alexandra Mihai",
+          "role": "Editorial Board",
+          "affiliation": "Maastricht University",
+          "country_or_region": "",
+          "source_url": "https://link.springer.com/journal/41239/editors",
+          "confidence": 0.88,
+          "verification_status": "public_source"
+        },
+        {
+          "name": "Aras Bozkurt",
+          "role": "Editorial Board",
+          "affiliation": "Usak University",
+          "country_or_region": "Türkiye",
+          "source_url": "https://link.springer.com/journal/41239/editors",
+          "confidence": 0.88,
+          "verification_status": "public_source"
+        },
+        {
+          "name": "Anat Cohen",
+          "role": "Editorial Board",
+          "affiliation": "Tel Aviv University",
+          "country_or_region": "Israel",
+          "source_url": "https://link.springer.com/journal/41239/editors",
+          "confidence": 0.88,
+          "verification_status": "public_source"
+        },
+        {
+          "name": "Lee Skallerup Bessette",
+          "role": "Editorial Board",
+          "affiliation": "Georgetown University",
+          "country_or_region": "United States",
+          "source_url": "https://link.springer.com/journal/41239/editors",
+          "confidence": 0.88,
+          "verification_status": "public_source"
+        },
+        {
+          "name": "Simon Cheung",
+          "role": "Editorial Board",
+          "affiliation": "Hong Kong Metropolitan University",
+          "country_or_region": "Hong Kong",
+          "source_url": "https://link.springer.com/journal/41239/editors",
+          "confidence": 0.88,
+          "verification_status": "public_source"
+        },
+        {
+          "name": "Charles Dziuban",
+          "role": "Editorial Board",
+          "affiliation": "University of Central Florida",
+          "country_or_region": "United States",
+          "source_url": "https://link.springer.com/journal/41239/editors",
+          "confidence": 0.88,
+          "verification_status": "public_source"
+        },
+        {
+          "name": "Nicole Johnson",
+          "role": "Editorial Board",
+          "affiliation": "Canadian Digital Learning Research Association",
+          "country_or_region": "Canada",
+          "source_url": "https://link.springer.com/journal/41239/editors",
+          "confidence": 0.88,
+          "verification_status": "public_source"
+        },
+        {
+          "name": "Jihyun Lee",
+          "role": "Editorial Board",
+          "affiliation": "Seoul National University",
+          "country_or_region": "South Korea",
+          "source_url": "https://link.springer.com/journal/41239/editors",
+          "confidence": 0.88,
+          "verification_status": "public_source"
+        },
+        {
+          "name": "Lisa Unangst",
+          "role": "Editorial Board",
+          "affiliation": "Empire State University",
+          "country_or_region": "United States",
+          "source_url": "https://link.springer.com/journal/41239/editors",
+          "confidence": 0.88,
+          "verification_status": "public_source"
+        },
+        {
+          "name": "Zehui Zhan",
+          "role": "Editorial Board",
+          "affiliation": "South China Normal University",
+          "country_or_region": "China",
+          "source_url": "https://link.springer.com/journal/41239/editors",
+          "confidence": 0.88,
+          "verification_status": "public_source"
+        },
+        {
+          "name": "Patricia Behar",
+          "role": "Editorial Board",
+          "affiliation": "Universidade Federal do Rio Grande do Sul",
+          "country_or_region": "Brazil",
+          "source_url": "https://link.springer.com/journal/41239/editors",
+          "confidence": 0.88,
+          "verification_status": "public_source"
+        },
+        {
+          "name": "Juan Carlos Oyanedel Sepúlveda",
+          "role": "Editorial Board",
+          "affiliation": "Universidad Andrés Bello",
+          "country_or_region": "Chile",
+          "source_url": "https://link.springer.com/journal/41239/editors",
+          "confidence": 0.88,
+          "verification_status": "public_source"
+        },
+        {
+          "name": "Mark Nichols",
+          "role": "Editorial Board",
+          "affiliation": "Open Polytechnic",
+          "country_or_region": "New Zealand",
+          "source_url": "https://link.springer.com/journal/41239/editors",
+          "confidence": 0.88,
+          "verification_status": "public_source"
+        },
+        {
+          "name": "Bernardo Nunes",
+          "role": "Editorial Board",
+          "affiliation": "Australian National University",
+          "country_or_region": "Australia",
+          "source_url": "https://link.springer.com/journal/41239/editors",
+          "confidence": 0.88,
+          "verification_status": "public_source"
+        },
+        {
+          "name": "Ekaterina Pechenkina",
+          "role": "Editorial Board",
+          "affiliation": "Swinburne University of Technology",
+          "country_or_region": "Australia",
+          "source_url": "https://link.springer.com/journal/41239/editors",
+          "confidence": 0.88,
+          "verification_status": "public_source"
+        },
+        {
+          "name": "Brandford Bervell",
+          "role": "Editorial Board",
+          "affiliation": "University of Cape Coast",
+          "country_or_region": "",
+          "source_url": "https://link.springer.com/journal/41239/editors",
+          "confidence": 0.88,
+          "verification_status": "public_source"
+        },
+        {
+          "name": "Linda Van Ryneveld",
+          "role": "Editorial Board",
+          "affiliation": "University of Pretoria",
+          "country_or_region": "South Africa",
+          "source_url": "https://link.springer.com/journal/41239/editors",
+          "confidence": 0.88,
+          "verification_status": "public_source"
+        },
+        {
+          "name": "Maha Bali",
+          "role": "Editorial Board",
+          "affiliation": "American University in Cairo",
+          "country_or_region": "Egypt",
+          "source_url": "https://link.springer.com/journal/41239/editors",
+          "confidence": 0.88,
+          "verification_status": "public_source"
+        },
+        {
+          "name": "Jill Buban",
+          "role": "Editorial Board",
+          "affiliation": "Unizen Organization",
+          "country_or_region": "United States",
+          "source_url": "https://link.springer.com/journal/41239/editors",
+          "confidence": 0.88,
+          "verification_status": "public_source"
+        },
+        {
+          "name": "Martha Burkle",
+          "role": "Editorial Board",
+          "affiliation": "Assiniboine Community College",
+          "country_or_region": "Canada",
+          "source_url": "https://link.springer.com/journal/41239/editors",
+          "confidence": 0.88,
+          "verification_status": "public_source"
+        },
+        {
+          "name": "Linda Castañeda",
+          "role": "Editorial Board",
+          "affiliation": "Universidad de Murcia",
+          "country_or_region": "Spain",
+          "source_url": "https://link.springer.com/journal/41239/editors",
+          "confidence": 0.88,
+          "verification_status": "public_source"
+        },
+        {
+          "name": "Narciso Cerpa",
+          "role": "Editorial Board",
+          "affiliation": "University of Talca",
+          "country_or_region": "Chile",
+          "source_url": "https://link.springer.com/journal/41239/editors",
+          "confidence": 0.88,
+          "verification_status": "public_source"
+        },
+        {
+          "name": "César A. Collazos",
+          "role": "Editorial Board",
+          "affiliation": "University of Cauca",
+          "country_or_region": "",
+          "source_url": "https://link.springer.com/journal/41239/editors",
+          "confidence": 0.88,
+          "verification_status": "public_source"
+        },
+        {
+          "name": "Dianne Conrad",
+          "role": "Editorial Board",
+          "affiliation": "Athabasca University",
+          "country_or_region": "Canada",
+          "source_url": "https://link.springer.com/journal/41239/editors",
+          "confidence": 0.88,
+          "verification_status": "public_source"
+        },
+        {
+          "name": "Cristina Costa",
+          "role": "Editorial Board",
+          "affiliation": "Durham University",
+          "country_or_region": "United Kingdom",
+          "source_url": "https://link.springer.com/journal/41239/editors",
+          "confidence": 0.88,
+          "verification_status": "public_source"
+        },
+        {
+          "name": "Hans Cuypers",
+          "role": "Editorial Board",
+          "affiliation": "Eindhoven University of Technology",
+          "country_or_region": "",
+          "source_url": "https://link.springer.com/journal/41239/editors",
+          "confidence": 0.88,
+          "verification_status": "public_source"
+        },
+        {
+          "name": "Ineta Dabašinskienė",
+          "role": "Editorial Board",
+          "affiliation": "Vytautas Magnus University",
+          "country_or_region": "",
+          "source_url": "https://link.springer.com/journal/41239/editors",
+          "confidence": 0.88,
+          "verification_status": "public_source"
+        },
+        {
+          "name": "Thanasis Daradoumis",
+          "role": "Editorial Board",
+          "affiliation": "University of the Aegean",
+          "country_or_region": "Greece",
+          "source_url": "https://link.springer.com/journal/41239/editors",
+          "confidence": 0.88,
+          "verification_status": "public_source"
+        }
+      ],
+      "note": "自动从公开编辑页面结构化条目抽取，投稿前请回官网核验。"
     },
     "article_preferences": {
       "article_sample_count": 93,
@@ -261,14 +592,15 @@
     ],
     "scope_id": "english-ssci-esci-scopus-v1",
     "article_refresh": {
-      "status": "updated",
+      "status": "not_scheduled",
       "last_attempt_at": "2026-11-18T03:14:17+00:00",
       "last_success_at": "2026-11-18T03:16:10+00:00",
-      "retained_article_count": 0
+      "retained_article_count": 93
     },
     "topic_hits": {
-      "Educational technology": 13,
-      "Higher education": 93,
+      "Educational technology": 15,
+      "Higher education": 96,
+      "Equity and policy": 26,
       "Generative AI": 84,
       "STEM education": 38,
       "Assessment": 65,
@@ -276,7 +608,6 @@
       "Motivation and wellbeing": 39,
       "Learning analytics": 25,
       "AI literacy": 10,
-      "Equity and policy": 24,
       "Language learning": 11,
       "Teacher education": 1
     },
@@ -335,12 +666,361 @@
     ],
     "crawl_notes": "",
     "editors": {
-      "status": "not_found",
-      "source_url": "",
-      "editors_in_chief": [],
-      "associate_editors": [],
-      "profiles": [],
-      "note": ""
+      "status": "ok",
+      "source_url": "https://link.springer.com/journal/40561/editors",
+      "editors_in_chief": [
+        "Ronghuai Huang",
+        "Elvira Popescu",
+        "Elliot Soloway",
+        "Ahmed Tlili"
+      ],
+      "associate_editors": [
+        "Arif Altun",
+        "Guang Chen",
+        "Fabiano Dorça",
+        "Fathi Essalmi",
+        "Juan Garzon",
+        "Wu-Yuin Hwang",
+        "Mohamed Koutheair Khribi",
+        "Andreas Lingnau",
+        ". Sonsoles López-Pernas",
+        "Rwitajit Majumdar",
+        "Jon Mason",
+        "Bernardo Pereira Nunes",
+        "Kyparisia Papanikolaou",
+        "Filippo Sciarrone",
+        ". Rustam Shadiev",
+        "Marco Temperini",
+        "Arif Cem Topuz",
+        "Junfeng Yang"
+      ],
+      "profiles": [
+        {
+          "name": "Ronghuai Huang",
+          "role": "Editor-in-Chief",
+          "affiliation": "Beijing Normal University",
+          "country_or_region": "China",
+          "source_url": "https://link.springer.com/journal/40561/editors",
+          "confidence": 0.88,
+          "verification_status": "public_source"
+        },
+        {
+          "name": "Elvira Popescu",
+          "role": "Editor-in-Chief",
+          "affiliation": "University of Craiova",
+          "country_or_region": "Romania",
+          "source_url": "https://link.springer.com/journal/40561/editors",
+          "confidence": 0.88,
+          "verification_status": "public_source"
+        },
+        {
+          "name": "Elliot Soloway",
+          "role": "Editor-in-Chief",
+          "affiliation": "University of Michigan",
+          "country_or_region": "United States",
+          "source_url": "https://link.springer.com/journal/40561/editors",
+          "confidence": 0.88,
+          "verification_status": "public_source"
+        },
+        {
+          "name": "Ahmed Tlili",
+          "role": "Editor-in-Chief",
+          "affiliation": "Beijing Normal University",
+          "country_or_region": "China",
+          "source_url": "https://link.springer.com/journal/40561/editors",
+          "confidence": 0.88,
+          "verification_status": "public_source"
+        },
+        {
+          "name": "Arif Altun",
+          "role": "Associate Editor",
+          "affiliation": "Hacettepe University",
+          "country_or_region": "Türkiye",
+          "source_url": "https://link.springer.com/journal/40561/editors",
+          "confidence": 0.88,
+          "verification_status": "public_source"
+        },
+        {
+          "name": "Guang Chen",
+          "role": "Associate Editor",
+          "affiliation": "Beijing Normal University",
+          "country_or_region": "China",
+          "source_url": "https://link.springer.com/journal/40561/editors",
+          "confidence": 0.88,
+          "verification_status": "public_source"
+        },
+        {
+          "name": "Fabiano Dorça",
+          "role": "Associate Editor",
+          "affiliation": "Universidade Federal de Uberlândia",
+          "country_or_region": "Brazil",
+          "source_url": "https://link.springer.com/journal/40561/editors",
+          "confidence": 0.88,
+          "verification_status": "public_source"
+        },
+        {
+          "name": "Fathi Essalmi",
+          "role": "Associate Editor",
+          "affiliation": "University of Jeddah",
+          "country_or_region": "Saudi Arabia",
+          "source_url": "https://link.springer.com/journal/40561/editors",
+          "confidence": 0.88,
+          "verification_status": "public_source"
+        },
+        {
+          "name": "Juan Garzon",
+          "role": "Associate Editor",
+          "affiliation": "Universidad Católica de Oriente",
+          "country_or_region": "",
+          "source_url": "https://link.springer.com/journal/40561/editors",
+          "confidence": 0.88,
+          "verification_status": "public_source"
+        },
+        {
+          "name": "Wu-Yuin Hwang",
+          "role": "Associate Editor",
+          "affiliation": "National Central University",
+          "country_or_region": "Taiwan",
+          "source_url": "https://link.springer.com/journal/40561/editors",
+          "confidence": 0.88,
+          "verification_status": "public_source"
+        },
+        {
+          "name": "Mohamed Koutheair Khribi",
+          "role": "Associate Editor",
+          "affiliation": "Mada Center",
+          "country_or_region": "",
+          "source_url": "https://link.springer.com/journal/40561/editors",
+          "confidence": 0.88,
+          "verification_status": "public_source"
+        },
+        {
+          "name": "Andreas Lingnau",
+          "role": "Associate Editor",
+          "affiliation": "Deutsche Hochschule für angewandte Wissenschaften",
+          "country_or_region": "Germany",
+          "source_url": "https://link.springer.com/journal/40561/editors",
+          "confidence": 0.88,
+          "verification_status": "public_source"
+        },
+        {
+          "name": ". Sonsoles López-Pernas",
+          "role": "Associate Editor",
+          "affiliation": "University of Eastern Finland",
+          "country_or_region": "Finland",
+          "source_url": "https://link.springer.com/journal/40561/editors",
+          "confidence": 0.88,
+          "verification_status": "public_source"
+        },
+        {
+          "name": "Rwitajit Majumdar",
+          "role": "Associate Editor",
+          "affiliation": "Kyoto University",
+          "country_or_region": "Japan",
+          "source_url": "https://link.springer.com/journal/40561/editors",
+          "confidence": 0.88,
+          "verification_status": "public_source"
+        },
+        {
+          "name": "Jon Mason",
+          "role": "Associate Editor",
+          "affiliation": "Charles Darwin University",
+          "country_or_region": "Australia",
+          "source_url": "https://link.springer.com/journal/40561/editors",
+          "confidence": 0.88,
+          "verification_status": "public_source"
+        },
+        {
+          "name": "Bernardo Pereira Nunes",
+          "role": "Associate Editor",
+          "affiliation": "Australian National University",
+          "country_or_region": "Australia",
+          "source_url": "https://link.springer.com/journal/40561/editors",
+          "confidence": 0.88,
+          "verification_status": "public_source"
+        },
+        {
+          "name": "Kyparisia Papanikolaou",
+          "role": "Associate Editor",
+          "affiliation": "School of Pedagogical and Technological Education",
+          "country_or_region": "Greece",
+          "source_url": "https://link.springer.com/journal/40561/editors",
+          "confidence": 0.88,
+          "verification_status": "public_source"
+        },
+        {
+          "name": "Filippo Sciarrone",
+          "role": "Associate Editor",
+          "affiliation": "Mercatorum University",
+          "country_or_region": "Italy",
+          "source_url": "https://link.springer.com/journal/40561/editors",
+          "confidence": 0.88,
+          "verification_status": "public_source"
+        },
+        {
+          "name": ". Rustam Shadiev",
+          "role": "Associate Editor",
+          "affiliation": "Nanjing Normal University",
+          "country_or_region": "China",
+          "source_url": "https://link.springer.com/journal/40561/editors",
+          "confidence": 0.88,
+          "verification_status": "public_source"
+        },
+        {
+          "name": "Marco Temperini",
+          "role": "Associate Editor",
+          "affiliation": "Sapienza University of Rome",
+          "country_or_region": "Italy",
+          "source_url": "https://link.springer.com/journal/40561/editors",
+          "confidence": 0.88,
+          "verification_status": "public_source"
+        },
+        {
+          "name": "Arif Cem Topuz",
+          "role": "Associate Editor",
+          "affiliation": "Ardahan University",
+          "country_or_region": "Türkiye",
+          "source_url": "https://link.springer.com/journal/40561/editors",
+          "confidence": 0.88,
+          "verification_status": "public_source"
+        },
+        {
+          "name": "Junfeng Yang",
+          "role": "Associate Editor",
+          "affiliation": "Hangzhou Normal University",
+          "country_or_region": "China",
+          "source_url": "https://link.springer.com/journal/40561/editors",
+          "confidence": 0.88,
+          "verification_status": "public_source"
+        },
+        {
+          "name": "Ana Paula Varela Pereira Afonso",
+          "role": "Editorial Board",
+          "affiliation": "Universidade Aberta",
+          "country_or_region": "Portugal",
+          "source_url": "https://link.springer.com/journal/40561/editors",
+          "confidence": 0.88,
+          "verification_status": "public_source"
+        },
+        {
+          "name": "Gautam Biswas",
+          "role": "Editorial Board",
+          "affiliation": "Vanderbilt University",
+          "country_or_region": "United States",
+          "source_url": "https://link.springer.com/journal/40561/editors",
+          "confidence": 0.88,
+          "verification_status": "public_source"
+        },
+        {
+          "name": "Gwo-Dong Chen",
+          "role": "Editorial Board",
+          "affiliation": "National Central University",
+          "country_or_region": "Taiwan",
+          "source_url": "https://link.springer.com/journal/40561/editors",
+          "confidence": 0.88,
+          "verification_status": "public_source"
+        },
+        {
+          "name": "Claude Frasson",
+          "role": "Editorial Board",
+          "affiliation": "Université de Montréal",
+          "country_or_region": "Canada",
+          "source_url": "https://link.springer.com/journal/40561/editors",
+          "confidence": 0.88,
+          "verification_status": "public_source"
+        },
+        {
+          "name": "Michail N. Giannakos",
+          "role": "Editorial Board",
+          "affiliation": "Norwegian University of Science and Technology",
+          "country_or_region": "Norway",
+          "source_url": "https://link.springer.com/journal/40561/editors",
+          "confidence": 0.88,
+          "verification_status": "public_source"
+        },
+        {
+          "name": "Ton de Jong",
+          "role": "Editorial Board",
+          "affiliation": "University of Twente",
+          "country_or_region": "",
+          "source_url": "https://link.springer.com/journal/40561/editors",
+          "confidence": 0.88,
+          "verification_status": "public_source"
+        },
+        {
+          "name": "Siu-cheung Kong",
+          "role": "Editorial Board",
+          "affiliation": "Education University of Hong Kong",
+          "country_or_region": "Hong Kong",
+          "source_url": "https://link.springer.com/journal/40561/editors",
+          "confidence": 0.88,
+          "verification_status": "public_source"
+        },
+        {
+          "name": "Rob Koper",
+          "role": "Editorial Board",
+          "affiliation": "Open University of the Netherlands",
+          "country_or_region": "",
+          "source_url": "https://link.springer.com/journal/40561/editors",
+          "confidence": 0.88,
+          "verification_status": "public_source"
+        },
+        {
+          "name": "Diana Laurillard",
+          "role": "Editorial Board",
+          "affiliation": "University College London",
+          "country_or_region": "United Kingdom",
+          "source_url": "https://link.springer.com/journal/40561/editors",
+          "confidence": 0.88,
+          "verification_status": "public_source"
+        },
+        {
+          "name": ". Yanyan Li",
+          "role": "Editorial Board",
+          "affiliation": "Beijing Normal University",
+          "country_or_region": "China",
+          "source_url": "https://link.springer.com/journal/40561/editors",
+          "confidence": 0.88,
+          "verification_status": "public_source"
+        },
+        {
+          "name": "Chee-Kit Looi",
+          "role": "Editorial Board",
+          "affiliation": "Nanyang Technological University",
+          "country_or_region": "Singapore",
+          "source_url": "https://link.springer.com/journal/40561/editors",
+          "confidence": 0.88,
+          "verification_status": "public_source"
+        },
+        {
+          "name": "Alke Martens",
+          "role": "Editorial Board",
+          "affiliation": "University of Rostock",
+          "country_or_region": "Germany",
+          "source_url": "https://link.springer.com/journal/40561/editors",
+          "confidence": 0.88,
+          "verification_status": "public_source"
+        },
+        {
+          "name": "Marcelo Milrad",
+          "role": "Editorial Board",
+          "affiliation": "Linnaeus University",
+          "country_or_region": "Sweden",
+          "source_url": "https://link.springer.com/journal/40561/editors",
+          "confidence": 0.88,
+          "verification_status": "public_source"
+        },
+        {
+          "name": "Miguel Nussbaum",
+          "role": "Editorial Board",
+          "affiliation": "Pontificia Universidad Católica de Chile",
+          "country_or_region": "Chile",
+          "source_url": "https://link.springer.com/journal/40561/editors",
+          "confidence": 0.88,
+          "verification_status": "public_source"
+        }
+      ],
+      "note": "自动从公开编辑页面结构化条目抽取，投稿前请回官网核验。"
     },
     "article_preferences": {
       "article_sample_count": 89,
@@ -533,13 +1213,14 @@
     ],
     "scope_id": "english-ssci-esci-scopus-v1",
     "article_refresh": {
-      "status": "updated",
+      "status": "not_scheduled",
       "last_attempt_at": "2026-11-18T03:14:17+00:00",
       "last_success_at": "2026-11-18T03:16:10+00:00",
-      "retained_article_count": 0
+      "retained_article_count": 89
     },
     "topic_hits": {
-      "Higher education": 43,
+      "Equity and policy": 24,
+      "Higher education": 44,
       "STEM education": 54,
       "Learning analytics": 21,
       "Motivation and wellbeing": 34,
@@ -547,7 +1228,6 @@
       "Educational technology": 6,
       "Generative AI": 19,
       "Assessment": 28,
-      "Equity and policy": 22,
       "Language learning": 12,
       "Teacher education": 2,
       "AI literacy": 1
@@ -738,10 +1418,10 @@
     ],
     "scope_id": "english-ssci-esci-scopus-v1",
     "article_refresh": {
-      "status": "updated",
+      "status": "not_scheduled",
       "last_attempt_at": "2026-11-18T03:14:17+00:00",
       "last_success_at": "2026-11-18T03:16:11+00:00",
-      "retained_article_count": 0
+      "retained_article_count": 109
     },
     "topic_hits": {
       "Language learning": 16,
@@ -969,10 +1649,10 @@
     ],
     "scope_id": "english-ssci-esci-scopus-v1",
     "article_refresh": {
-      "status": "updated",
+      "status": "not_scheduled",
       "last_attempt_at": "2026-11-18T03:14:17+00:00",
       "last_success_at": "2026-11-18T03:16:11+00:00",
-      "retained_article_count": 0
+      "retained_article_count": 92
     },
     "topic_hits": {
       "Educational technology": 13,
@@ -1041,12 +1721,327 @@
     ],
     "crawl_notes": "",
     "editors": {
-      "status": "not_found",
-      "source_url": "",
-      "editors_in_chief": [],
-      "associate_editors": [],
-      "profiles": [],
-      "note": ""
+      "status": "ok",
+      "source_url": "https://link.springer.com/journal/40594/editors",
+      "editors_in_chief": [
+        "Yeping Li"
+      ],
+      "associate_editors": [
+        "Thomas Kin-fung Chiu",
+        "Meixia Ding",
+        "Jonas Hallström",
+        "Milo David Koretsky",
+        "Gillian Roehrig"
+      ],
+      "profiles": [
+        {
+          "name": "Yeping Li",
+          "role": "Editor-in-Chief",
+          "affiliation": "Texas A&M University",
+          "country_or_region": "United States",
+          "source_url": "https://link.springer.com/journal/40594/editors",
+          "confidence": 0.88,
+          "verification_status": "public_source"
+        },
+        {
+          "name": "Thomas Kin-fung Chiu",
+          "role": "Associate Editor",
+          "affiliation": "Chinese University of Hong Kong",
+          "country_or_region": "Hong Kong",
+          "source_url": "https://link.springer.com/journal/40594/editors",
+          "confidence": 0.88,
+          "verification_status": "public_source"
+        },
+        {
+          "name": "Meixia Ding",
+          "role": "Associate Editor",
+          "affiliation": "Temple University",
+          "country_or_region": "United States",
+          "source_url": "https://link.springer.com/journal/40594/editors",
+          "confidence": 0.88,
+          "verification_status": "public_source"
+        },
+        {
+          "name": "Jonas Hallström",
+          "role": "Associate Editor",
+          "affiliation": "Linköping University",
+          "country_or_region": "Sweden",
+          "source_url": "https://link.springer.com/journal/40594/editors",
+          "confidence": 0.88,
+          "verification_status": "public_source"
+        },
+        {
+          "name": "Milo David Koretsky",
+          "role": "Associate Editor",
+          "affiliation": "Tufts University",
+          "country_or_region": "United States",
+          "source_url": "https://link.springer.com/journal/40594/editors",
+          "confidence": 0.88,
+          "verification_status": "public_source"
+        },
+        {
+          "name": "Gillian Roehrig",
+          "role": "Associate Editor",
+          "affiliation": "University of Minnesota",
+          "country_or_region": "United States",
+          "source_url": "https://link.springer.com/journal/40594/editors",
+          "confidence": 0.88,
+          "verification_status": "public_source"
+        },
+        {
+          "name": "Ryan S. Baker",
+          "role": "Editorial Board",
+          "affiliation": "University of Pennsylvania",
+          "country_or_region": "United States",
+          "source_url": "https://link.springer.com/journal/40594/editors",
+          "confidence": 0.88,
+          "verification_status": "public_source"
+        },
+        {
+          "name": "Gautam Biswas",
+          "role": "Editorial Board",
+          "affiliation": "Vanderbilt University",
+          "country_or_region": "United States",
+          "source_url": "https://link.springer.com/journal/40594/editors",
+          "confidence": 0.88,
+          "verification_status": "public_source"
+        },
+        {
+          "name": "David M. Bressoud",
+          "role": "Editorial Board",
+          "affiliation": "Macalester College",
+          "country_or_region": "United States",
+          "source_url": "https://link.springer.com/journal/40594/editors",
+          "confidence": 0.88,
+          "verification_status": "public_source"
+        },
+        {
+          "name": "Scotty D. Craig MS",
+          "role": "Editorial Board",
+          "affiliation": "Arizona State University",
+          "country_or_region": "United States",
+          "source_url": "https://link.springer.com/journal/40594/editors",
+          "confidence": 0.88,
+          "verification_status": "public_source"
+        },
+        {
+          "name": "Sibel Erduran",
+          "role": "Editorial Board",
+          "affiliation": "University of Oxford",
+          "country_or_region": "United Kingdom",
+          "source_url": "https://link.springer.com/journal/40594/editors",
+          "confidence": 0.88,
+          "verification_status": "public_source"
+        },
+        {
+          "name": "Manfred Euler",
+          "role": "Editorial Board",
+          "affiliation": "Christian-Albrechts-Universität zu Kiel",
+          "country_or_region": "Germany",
+          "source_url": "https://link.springer.com/journal/40594/editors",
+          "confidence": 0.88,
+          "verification_status": "public_source"
+        },
+        {
+          "name": "Roger Hadgraft",
+          "role": "Editorial Board",
+          "affiliation": "University of Technology Sydney",
+          "country_or_region": "Australia",
+          "source_url": "https://link.springer.com/journal/40594/editors",
+          "confidence": 0.88,
+          "verification_status": "public_source"
+        },
+        {
+          "name": "Greg J. Strimel",
+          "role": "Editorial Board",
+          "affiliation": "Purdue University",
+          "country_or_region": "United States",
+          "source_url": "https://link.springer.com/journal/40594/editors",
+          "confidence": 0.88,
+          "verification_status": "public_source"
+        },
+        {
+          "name": "Hanno van Keulen",
+          "role": "Editorial Board",
+          "affiliation": "Delft University of Technology",
+          "country_or_region": "",
+          "source_url": "https://link.springer.com/journal/40594/editors",
+          "confidence": 0.88,
+          "verification_status": "public_source"
+        },
+        {
+          "name": ". Joseph Krajcik",
+          "role": "Editorial Board",
+          "affiliation": "Michigan State University",
+          "country_or_region": "United States",
+          "source_url": "https://link.springer.com/journal/40594/editors",
+          "confidence": 0.88,
+          "verification_status": "public_source"
+        },
+        {
+          "name": "Richard Lehrer",
+          "role": "Editorial Board",
+          "affiliation": "Vanderbilt University",
+          "country_or_region": "United States",
+          "source_url": "https://link.springer.com/journal/40594/editors",
+          "confidence": 0.88,
+          "verification_status": "public_source"
+        },
+        {
+          "name": "Roza Leikin",
+          "role": "Editorial Board",
+          "affiliation": "University of Haifa",
+          "country_or_region": "Israel",
+          "source_url": "https://link.springer.com/journal/40594/editors",
+          "confidence": 0.88,
+          "verification_status": "public_source"
+        },
+        {
+          "name": "James Lester",
+          "role": "Editorial Board",
+          "affiliation": "North Carolina State University",
+          "country_or_region": "United States",
+          "source_url": "https://link.springer.com/journal/40594/editors",
+          "confidence": 0.88,
+          "verification_status": "public_source"
+        },
+        {
+          "name": "Xin Ma",
+          "role": "Editorial Board",
+          "affiliation": "University of Kentucky",
+          "country_or_region": "United States",
+          "source_url": "https://link.springer.com/journal/40594/editors",
+          "confidence": 0.88,
+          "verification_status": "public_source"
+        },
+        {
+          "name": "Neil Mickleborough",
+          "role": "Editorial Board",
+          "affiliation": "Hong Kong University of Science and Technology",
+          "country_or_region": "Hong Kong",
+          "source_url": "https://link.springer.com/journal/40594/editors",
+          "confidence": 0.88,
+          "verification_status": "public_source"
+        },
+        {
+          "name": "Punya Mishra",
+          "role": "Editorial Board",
+          "affiliation": "Arizona State University",
+          "country_or_region": "United States",
+          "source_url": "https://link.springer.com/journal/40594/editors",
+          "confidence": 0.88,
+          "verification_status": "public_source"
+        },
+        {
+          "name": "Tamara Moore",
+          "role": "Editorial Board",
+          "affiliation": "Purdue University System",
+          "country_or_region": "United States",
+          "source_url": "https://link.springer.com/journal/40594/editors",
+          "confidence": 0.88,
+          "verification_status": "public_source"
+        },
+        {
+          "name": "Jason Power",
+          "role": "Editorial Board",
+          "affiliation": "University of Limerick",
+          "country_or_region": "Ireland",
+          "source_url": "https://link.springer.com/journal/40594/editors",
+          "confidence": 0.88,
+          "verification_status": "public_source"
+        },
+        {
+          "name": "Alan H. Schoenfeld",
+          "role": "Editorial Board",
+          "affiliation": "University of California",
+          "country_or_region": "United States",
+          "source_url": "https://link.springer.com/journal/40594/editors",
+          "confidence": 0.88,
+          "verification_status": "public_source"
+        },
+        {
+          "name": ". Christian Schunn",
+          "role": "Editorial Board",
+          "affiliation": "University of Pittsburgh",
+          "country_or_region": "United States",
+          "source_url": "https://link.springer.com/journal/40594/editors",
+          "confidence": 0.88,
+          "verification_status": "public_source"
+        },
+        {
+          "name": "David W. Shaffer",
+          "role": "Editorial Board",
+          "affiliation": "University of Wisconsin–Madison",
+          "country_or_region": "United States",
+          "source_url": "https://link.springer.com/journal/40594/editors",
+          "confidence": 0.88,
+          "verification_status": "public_source"
+        },
+        {
+          "name": "Edward A. Silver",
+          "role": "Editorial Board",
+          "affiliation": "University of Michigan",
+          "country_or_region": "United States",
+          "source_url": "https://link.springer.com/journal/40594/editors",
+          "confidence": 0.88,
+          "verification_status": "public_source"
+        },
+        {
+          "name": "Kaye Stacey",
+          "role": "Editorial Board",
+          "affiliation": "The University of Melbourne",
+          "country_or_region": "Australia",
+          "source_url": "https://link.springer.com/journal/40594/editors",
+          "confidence": 0.88,
+          "verification_status": "public_source"
+        },
+        {
+          "name": "Marilyne Stains",
+          "role": "Editorial Board",
+          "affiliation": "University of Virginia",
+          "country_or_region": "United States",
+          "source_url": "https://link.springer.com/journal/40594/editors",
+          "confidence": 0.88,
+          "verification_status": "public_source"
+        },
+        {
+          "name": "Jon R. Star",
+          "role": "Editorial Board",
+          "affiliation": "Harvard University",
+          "country_or_region": "United States",
+          "source_url": "https://link.springer.com/journal/40594/editors",
+          "confidence": 0.88,
+          "verification_status": "public_source"
+        },
+        {
+          "name": "Kok-Sing Tang",
+          "role": "Editorial Board",
+          "affiliation": "Curtin University",
+          "country_or_region": "Australia",
+          "source_url": "https://link.springer.com/journal/40594/editors",
+          "confidence": 0.88,
+          "verification_status": "public_source"
+        },
+        {
+          "name": "P. John Williams",
+          "role": "Editorial Board",
+          "affiliation": "Curtin University",
+          "country_or_region": "Australia",
+          "source_url": "https://link.springer.com/journal/40594/editors",
+          "confidence": 0.88,
+          "verification_status": "public_source"
+        },
+        {
+          "name": "Jiun-Yu Wu",
+          "role": "Editorial Board",
+          "affiliation": "National Yang Ming Chiao Tung University",
+          "country_or_region": "Taiwan",
+          "source_url": "https://link.springer.com/journal/40594/editors",
+          "confidence": 0.88,
+          "verification_status": "public_source"
+        }
+      ],
+      "note": "自动从公开编辑页面结构化条目抽取，投稿前请回官网核验。"
     },
     "article_preferences": {
       "article_sample_count": 89,
@@ -1244,20 +2239,20 @@
     ],
     "scope_id": "english-ssci-esci-scopus-v1",
     "article_refresh": {
-      "status": "updated",
+      "status": "not_scheduled",
       "last_attempt_at": "2026-11-18T03:14:17+00:00",
       "last_success_at": "2026-11-18T03:16:11+00:00",
-      "retained_article_count": 0
+      "retained_article_count": 89
     },
     "topic_hits": {
-      "STEM education": 76,
+      "STEM education": 78,
+      "Equity and policy": 10,
+      "Higher education": 33,
       "Generative AI": 17,
       "Assessment": 8,
       "Curriculum and pedagogy": 14,
       "Motivation and wellbeing": 15,
-      "Higher education": 31,
       "AI literacy": 3,
-      "Equity and policy": 8,
       "Educational technology": 1,
       "Learning analytics": 2
     },
@@ -1465,10 +2460,10 @@
     ],
     "scope_id": "english-ssci-esci-scopus-v1",
     "article_refresh": {
-      "status": "updated",
+      "status": "not_scheduled",
       "last_attempt_at": "2026-11-18T03:14:17+00:00",
       "last_success_at": "2026-11-18T03:16:11+00:00",
-      "retained_article_count": 0
+      "retained_article_count": 86
     },
     "topic_hits": {
       "Higher education": 30,
@@ -1721,10 +2716,10 @@
     ],
     "scope_id": "english-ssci-esci-scopus-v1",
     "article_refresh": {
-      "status": "updated",
+      "status": "not_scheduled",
       "last_attempt_at": "2026-11-18T03:14:17+00:00",
       "last_success_at": "2026-11-18T03:16:13+00:00",
-      "retained_article_count": 0
+      "retained_article_count": 80
     },
     "topic_hits": {
       "Assessment": 8,
@@ -1933,10 +2928,10 @@
     ],
     "scope_id": "english-ssci-esci-scopus-v1",
     "article_refresh": {
-      "status": "updated",
+      "status": "not_scheduled",
       "last_attempt_at": "2026-11-18T03:14:17+00:00",
       "last_success_at": "2026-11-18T03:16:12+00:00",
-      "retained_article_count": 0
+      "retained_article_count": 45
     },
     "topic_hits": {
       "STEM education": 40,
@@ -2131,10 +3126,10 @@
     ],
     "scope_id": "english-ssci-esci-scopus-v1",
     "article_refresh": {
-      "status": "updated",
+      "status": "not_scheduled",
       "last_attempt_at": "2026-11-18T03:14:17+00:00",
       "last_success_at": "2026-11-18T03:16:11+00:00",
-      "retained_article_count": 0
+      "retained_article_count": 97
     },
     "topic_hits": {
       "Assessment": 6,
@@ -2352,10 +3347,10 @@
     ],
     "scope_id": "english-ssci-esci-scopus-v1",
     "article_refresh": {
-      "status": "updated",
+      "status": "not_scheduled",
       "last_attempt_at": "2026-11-18T03:14:17+00:00",
       "last_success_at": "2026-11-18T03:16:11+00:00",
-      "retained_article_count": 0
+      "retained_article_count": 87
     },
     "topic_hits": {
       "Language learning": 46,
@@ -2549,10 +3544,10 @@
     ],
     "scope_id": "english-ssci-esci-scopus-v1",
     "article_refresh": {
-      "status": "updated",
+      "status": "not_scheduled",
       "last_attempt_at": "2026-11-18T03:14:17+00:00",
       "last_success_at": "2026-11-18T03:16:12+00:00",
-      "retained_article_count": 0
+      "retained_article_count": 92
     },
     "topic_hits": {
       "STEM education": 58,
@@ -2764,10 +3759,10 @@
     ],
     "scope_id": "english-ssci-esci-scopus-v1",
     "article_refresh": {
-      "status": "updated",
+      "status": "not_scheduled",
       "last_attempt_at": "2026-11-18T03:14:17+00:00",
       "last_success_at": "2026-11-18T03:16:12+00:00",
-      "retained_article_count": 0
+      "retained_article_count": 89
     },
     "topic_hits": {
       "STEM education": 44,
@@ -2986,10 +3981,10 @@
     ],
     "scope_id": "english-ssci-esci-scopus-v1",
     "article_refresh": {
-      "status": "updated",
+      "status": "not_scheduled",
       "last_attempt_at": "2026-11-18T03:14:17+00:00",
       "last_success_at": "2026-11-18T03:16:13+00:00",
-      "retained_article_count": 0
+      "retained_article_count": 109
     },
     "topic_hits": {
       "STEM education": 9,
@@ -3210,10 +4205,10 @@
     ],
     "scope_id": "english-ssci-esci-scopus-v1",
     "article_refresh": {
-      "status": "updated",
+      "status": "not_scheduled",
       "last_attempt_at": "2026-11-18T03:14:17+00:00",
       "last_success_at": "2026-11-18T03:16:13+00:00",
-      "retained_article_count": 0
+      "retained_article_count": 87
     },
     "topic_hits": {
       "STEM education": 10,
@@ -3447,10 +4442,10 @@
     ],
     "scope_id": "english-ssci-esci-scopus-v1",
     "article_refresh": {
-      "status": "updated",
+      "status": "not_scheduled",
       "last_attempt_at": "2026-11-18T03:14:17+00:00",
       "last_success_at": "2026-11-18T03:16:13+00:00",
-      "retained_article_count": 0
+      "retained_article_count": 113
     },
     "topic_hits": {
       "Equity and policy": 2,
@@ -3691,10 +4686,10 @@
     ],
     "scope_id": "english-ssci-esci-scopus-v1",
     "article_refresh": {
-      "status": "updated",
+      "status": "not_scheduled",
       "last_attempt_at": "2026-11-18T03:14:17+00:00",
       "last_success_at": "2026-11-18T03:16:13+00:00",
-      "retained_article_count": 0
+      "retained_article_count": 85
     },
     "topic_hits": {
       "Language learning": 107,
@@ -3914,10 +4909,10 @@
     ],
     "scope_id": "english-ssci-esci-scopus-v1",
     "article_refresh": {
-      "status": "updated",
+      "status": "not_scheduled",
       "last_attempt_at": "2026-11-18T03:14:17+00:00",
       "last_success_at": "2026-11-18T03:16:13+00:00",
-      "retained_article_count": 0
+      "retained_article_count": 98
     },
     "topic_hits": {
       "Language learning": 80,
@@ -4113,10 +5108,10 @@
     ],
     "scope_id": "english-ssci-esci-scopus-v1",
     "article_refresh": {
-      "status": "updated",
+      "status": "not_scheduled",
       "last_attempt_at": "2026-11-18T03:14:17+00:00",
       "last_success_at": "2026-11-18T03:16:14+00:00",
-      "retained_article_count": 0
+      "retained_article_count": 85
     },
     "topic_hits": {
       "Equity and policy": 2,
@@ -4317,10 +5312,10 @@
     ],
     "scope_id": "english-ssci-esci-scopus-v1",
     "article_refresh": {
-      "status": "updated",
+      "status": "not_scheduled",
       "last_attempt_at": "2026-11-18T03:14:17+00:00",
       "last_success_at": "2026-11-18T03:16:15+00:00",
-      "retained_article_count": 0
+      "retained_article_count": 83
     },
     "topic_hits": {
       "STEM education": 2,
@@ -4534,10 +5529,10 @@
     ],
     "scope_id": "english-ssci-esci-scopus-v1",
     "article_refresh": {
-      "status": "updated",
+      "status": "not_scheduled",
       "last_attempt_at": "2026-11-18T03:14:17+00:00",
       "last_success_at": "2026-11-18T03:16:14+00:00",
-      "retained_article_count": 0
+      "retained_article_count": 103
     },
     "topic_hits": {
       "Generative AI": 27,
@@ -4760,9 +5755,8 @@
       }
     ],
     "scope_id": "english-ssci-esci-scopus-v1",
-    "article_api_error": "HTTP 404",
     "article_refresh": {
-      "status": "failed",
+      "status": "not_scheduled",
       "last_attempt_at": "2026-11-18T03:14:17+00:00",
       "last_success_at": null,
       "retained_article_count": 0
@@ -4963,10 +5957,10 @@
     ],
     "scope_id": "english-ssci-esci-scopus-v1",
     "article_refresh": {
-      "status": "updated",
+      "status": "not_scheduled",
       "last_attempt_at": "2026-11-18T03:14:17+00:00",
       "last_success_at": "2026-11-18T03:16:14+00:00",
-      "retained_article_count": 0
+      "retained_article_count": 93
     },
     "topic_hits": {
       "Higher education": 43,
@@ -5216,10 +6210,10 @@
     ],
     "scope_id": "english-ssci-esci-scopus-v1",
     "article_refresh": {
-      "status": "updated",
+      "status": "not_scheduled",
       "last_attempt_at": "2026-11-18T03:14:17+00:00",
       "last_success_at": "2026-11-18T03:16:14+00:00",
-      "retained_article_count": 0
+      "retained_article_count": 81
     },
     "topic_hits": {
       "STEM education": 11,
@@ -5419,10 +6413,10 @@
     ],
     "scope_id": "english-ssci-esci-scopus-v1",
     "article_refresh": {
-      "status": "updated",
+      "status": "not_scheduled",
       "last_attempt_at": "2026-11-18T03:14:17+00:00",
       "last_success_at": "2026-11-18T03:16:15+00:00",
-      "retained_article_count": 0
+      "retained_article_count": 123
     },
     "topic_hits": {
       "Generative AI": 40,
@@ -5709,10 +6703,10 @@
     ],
     "scope_id": "english-ssci-esci-scopus-v1",
     "article_refresh": {
-      "status": "updated",
+      "status": "not_scheduled",
       "last_attempt_at": "2026-11-18T03:14:17+00:00",
       "last_success_at": "2026-11-18T03:16:16+00:00",
-      "retained_article_count": 0
+      "retained_article_count": 84
     },
     "topic_hits": {
       "Educational technology": 27,
@@ -5927,10 +6921,10 @@
     ],
     "scope_id": "english-ssci-esci-scopus-v1",
     "article_refresh": {
-      "status": "updated",
+      "status": "not_scheduled",
       "last_attempt_at": "2026-11-18T03:14:17+00:00",
       "last_success_at": "2026-11-18T03:16:15+00:00",
-      "retained_article_count": 0
+      "retained_article_count": 110
     },
     "topic_hits": {
       "Higher education": 41,
@@ -6148,10 +7142,10 @@
     ],
     "scope_id": "english-ssci-esci-scopus-v1",
     "article_refresh": {
-      "status": "updated",
+      "status": "not_scheduled",
       "last_attempt_at": "2026-11-18T03:14:17+00:00",
       "last_success_at": "2026-11-18T03:16:15+00:00",
-      "retained_article_count": 0
+      "retained_article_count": 103
     },
     "topic_hits": {
       "Language learning": 7,
@@ -6348,10 +7342,10 @@
     ],
     "scope_id": "english-ssci-esci-scopus-v1",
     "article_refresh": {
-      "status": "updated",
+      "status": "not_scheduled",
       "last_attempt_at": "2026-11-18T03:14:17+00:00",
       "last_success_at": "2026-11-18T03:16:16+00:00",
-      "retained_article_count": 0
+      "retained_article_count": 114
     },
     "topic_hits": {
       "Higher education": 54,
@@ -6575,10 +7569,10 @@
     ],
     "scope_id": "english-ssci-esci-scopus-v1",
     "article_refresh": {
-      "status": "updated",
+      "status": "not_scheduled",
       "last_attempt_at": "2026-11-18T03:14:17+00:00",
       "last_success_at": "2026-11-18T03:16:16+00:00",
-      "retained_article_count": 0
+      "retained_article_count": 117
     },
     "topic_hits": {
       "Educational technology": 9,
@@ -6812,10 +7806,10 @@
     ],
     "scope_id": "english-ssci-esci-scopus-v1",
     "article_refresh": {
-      "status": "updated",
+      "status": "not_scheduled",
       "last_attempt_at": "2026-11-18T03:14:17+00:00",
       "last_success_at": "2026-11-18T03:16:16+00:00",
-      "retained_article_count": 0
+      "retained_article_count": 95
     },
     "topic_hits": {
       "STEM education": 45,
@@ -7026,10 +8020,10 @@
     ],
     "scope_id": "english-ssci-esci-scopus-v1",
     "article_refresh": {
-      "status": "updated",
+      "status": "not_scheduled",
       "last_attempt_at": "2026-11-18T03:14:17+00:00",
       "last_success_at": "2026-11-18T03:16:16+00:00",
-      "retained_article_count": 0
+      "retained_article_count": 115
     },
     "topic_hits": {
       "Language learning": 46,
@@ -7233,10 +8227,10 @@
     ],
     "scope_id": "english-ssci-esci-scopus-v1",
     "article_refresh": {
-      "status": "updated",
+      "status": "not_scheduled",
       "last_attempt_at": "2026-11-18T03:14:17+00:00",
       "last_success_at": "2026-11-18T03:16:16+00:00",
-      "retained_article_count": 0
+      "retained_article_count": 91
     },
     "topic_hits": {
       "Equity and policy": 58,
@@ -7438,10 +8432,10 @@
     ],
     "scope_id": "english-ssci-esci-scopus-v1",
     "article_refresh": {
-      "status": "updated",
+      "status": "not_scheduled",
       "last_attempt_at": "2026-11-18T03:14:17+00:00",
       "last_success_at": "2026-11-18T03:16:16+00:00",
-      "retained_article_count": 0
+      "retained_article_count": 117
     },
     "topic_hits": {
       "Higher education": 12,
@@ -7663,10 +8657,10 @@
     ],
     "scope_id": "english-ssci-esci-scopus-v1",
     "article_refresh": {
-      "status": "updated",
+      "status": "not_scheduled",
       "last_attempt_at": "2026-11-18T03:14:17+00:00",
       "last_success_at": "2026-11-18T03:16:18+00:00",
-      "retained_article_count": 0
+      "retained_article_count": 101
     },
     "topic_hits": {
       "STEM education": 76,
@@ -7881,10 +8875,10 @@
     ],
     "scope_id": "english-ssci-esci-scopus-v1",
     "article_refresh": {
-      "status": "updated",
+      "status": "not_scheduled",
       "last_attempt_at": "2026-11-18T03:14:17+00:00",
       "last_success_at": "2026-11-18T03:16:18+00:00",
-      "retained_article_count": 0
+      "retained_article_count": 132
     },
     "topic_hits": {
       "STEM education": 29,
@@ -8087,10 +9081,10 @@
     ],
     "scope_id": "english-ssci-esci-scopus-v1",
     "article_refresh": {
-      "status": "updated",
+      "status": "not_scheduled",
       "last_attempt_at": "2026-11-18T03:14:17+00:00",
       "last_success_at": "2026-11-18T03:16:18+00:00",
-      "retained_article_count": 0
+      "retained_article_count": 100
     },
     "topic_hits": {
       "Language learning": 72,
@@ -8302,10 +9296,10 @@
     ],
     "scope_id": "english-ssci-esci-scopus-v1",
     "article_refresh": {
-      "status": "updated",
+      "status": "not_scheduled",
       "last_attempt_at": "2026-11-18T03:14:17+00:00",
       "last_success_at": "2026-11-18T03:16:18+00:00",
-      "retained_article_count": 0
+      "retained_article_count": 89
     },
     "topic_hits": {
       "Equity and policy": 67,
@@ -8511,10 +9505,10 @@
     ],
     "scope_id": "english-ssci-esci-scopus-v1",
     "article_refresh": {
-      "status": "updated",
+      "status": "not_scheduled",
       "last_attempt_at": "2026-11-18T03:14:17+00:00",
       "last_success_at": "2026-11-18T03:16:18+00:00",
-      "retained_article_count": 0
+      "retained_article_count": 108
     },
     "topic_hits": {
       "Higher education": 55,
@@ -8728,10 +9722,10 @@
     ],
     "scope_id": "english-ssci-esci-scopus-v1",
     "article_refresh": {
-      "status": "updated",
+      "status": "not_scheduled",
       "last_attempt_at": "2026-11-18T03:14:17+00:00",
       "last_success_at": "2026-11-18T03:16:19+00:00",
-      "retained_article_count": 0
+      "retained_article_count": 88
     },
     "topic_hits": {
       "STEM education": 63,
@@ -8939,10 +9933,10 @@
     ],
     "scope_id": "english-ssci-esci-scopus-v1",
     "article_refresh": {
-      "status": "updated",
+      "status": "not_scheduled",
       "last_attempt_at": "2026-11-18T03:14:17+00:00",
       "last_success_at": "2026-11-18T03:16:21+00:00",
-      "retained_article_count": 0
+      "retained_article_count": 111
     },
     "topic_hits": {
       "Higher education": 41,
@@ -9164,10 +10158,10 @@
     ],
     "scope_id": "english-ssci-esci-scopus-v1",
     "article_refresh": {
-      "status": "updated",
+      "status": "not_scheduled",
       "last_attempt_at": "2026-11-18T03:14:17+00:00",
       "last_success_at": "2026-11-18T03:16:19+00:00",
-      "retained_article_count": 0
+      "retained_article_count": 81
     },
     "topic_hits": {
       "STEM education": 15,
@@ -9378,10 +10372,10 @@
     ],
     "scope_id": "english-ssci-esci-scopus-v1",
     "article_refresh": {
-      "status": "updated",
+      "status": "not_scheduled",
       "last_attempt_at": "2026-11-18T03:14:17+00:00",
       "last_success_at": "2026-11-18T03:16:20+00:00",
-      "retained_article_count": 0
+      "retained_article_count": 93
     },
     "topic_hits": {
       "Higher education": 17,
@@ -9654,10 +10648,10 @@
     ],
     "scope_id": "english-ssci-esci-scopus-v1",
     "article_refresh": {
-      "status": "updated",
+      "status": "not_scheduled",
       "last_attempt_at": "2026-11-18T03:14:17+00:00",
       "last_success_at": "2026-11-18T03:16:19+00:00",
-      "retained_article_count": 0
+      "retained_article_count": 84
     },
     "topic_hits": {
       "Higher education": 38,
@@ -9874,10 +10868,10 @@
     ],
     "scope_id": "english-ssci-esci-scopus-v1",
     "article_refresh": {
-      "status": "updated",
+      "status": "not_scheduled",
       "last_attempt_at": "2026-11-18T03:14:17+00:00",
       "last_success_at": "2026-11-18T03:16:20+00:00",
-      "retained_article_count": 0
+      "retained_article_count": 86
     },
     "topic_hits": {
       "Teacher education": 42,
@@ -10155,10 +11149,10 @@
     ],
     "scope_id": "english-ssci-esci-scopus-v1",
     "article_refresh": {
-      "status": "updated",
+      "status": "not_scheduled",
       "last_attempt_at": "2026-11-18T03:14:17+00:00",
       "last_success_at": "2026-11-18T03:16:20+00:00",
-      "retained_article_count": 0
+      "retained_article_count": 80
     },
     "topic_hits": {
       "Generative AI": 22,
@@ -10384,10 +11378,10 @@
     ],
     "scope_id": "english-ssci-esci-scopus-v1",
     "article_refresh": {
-      "status": "updated",
+      "status": "not_scheduled",
       "last_attempt_at": "2026-11-18T03:14:17+00:00",
       "last_success_at": "2026-11-18T03:16:20+00:00",
-      "retained_article_count": 0
+      "retained_article_count": 81
     },
     "topic_hits": {
       "Equity and policy": 2,
@@ -10626,10 +11620,10 @@
     ],
     "scope_id": "english-ssci-esci-scopus-v1",
     "article_refresh": {
-      "status": "updated",
+      "status": "not_scheduled",
       "last_attempt_at": "2026-11-18T03:14:17+00:00",
       "last_success_at": "2026-11-18T03:16:20+00:00",
-      "retained_article_count": 0
+      "retained_article_count": 83
     },
     "topic_hits": {
       "Assessment": 9,
@@ -10887,10 +11881,10 @@
     ],
     "scope_id": "english-ssci-esci-scopus-v1",
     "article_refresh": {
-      "status": "updated",
+      "status": "not_scheduled",
       "last_attempt_at": "2026-11-18T03:14:17+00:00",
       "last_success_at": "2026-11-18T03:16:20+00:00",
-      "retained_article_count": 0
+      "retained_article_count": 97
     },
     "topic_hits": {
       "Curriculum and pedagogy": 5,
@@ -11079,9 +12073,8 @@
       }
     ],
     "scope_id": "english-ssci-esci-scopus-v1",
-    "article_api_error": "HTTP 404",
     "article_refresh": {
-      "status": "failed",
+      "status": "not_scheduled",
       "last_attempt_at": "2026-11-18T03:14:17+00:00",
       "last_success_at": "2026-11-17T04:15:32+00:00",
       "retained_article_count": 124
@@ -11354,10 +12347,10 @@
     ],
     "scope_id": "english-ssci-esci-scopus-v1",
     "article_refresh": {
-      "status": "updated",
+      "status": "not_scheduled",
       "last_attempt_at": "2026-11-18T03:14:17+00:00",
       "last_success_at": "2026-11-18T03:16:21+00:00",
-      "retained_article_count": 0
+      "retained_article_count": 87
     },
     "topic_hits": {
       "Higher education": 6,
@@ -11571,10 +12564,10 @@
     ],
     "scope_id": "english-ssci-esci-scopus-v1",
     "article_refresh": {
-      "status": "updated",
+      "status": "not_scheduled",
       "last_attempt_at": "2026-11-18T03:14:17+00:00",
       "last_success_at": "2026-11-18T03:16:21+00:00",
-      "retained_article_count": 0
+      "retained_article_count": 83
     },
     "topic_hits": {
       "STEM education": 14,
@@ -11796,10 +12789,10 @@
     ],
     "scope_id": "english-ssci-esci-scopus-v1",
     "article_refresh": {
-      "status": "updated",
+      "status": "not_scheduled",
       "last_attempt_at": "2026-11-18T03:14:17+00:00",
       "last_success_at": "2026-11-18T03:16:21+00:00",
-      "retained_article_count": 0
+      "retained_article_count": 115
     },
     "topic_hits": {
       "Higher education": 90,
@@ -11990,10 +12983,10 @@
     ],
     "scope_id": "english-ssci-esci-scopus-v1",
     "article_refresh": {
-      "status": "updated",
+      "status": "not_scheduled",
       "last_attempt_at": "2026-11-18T03:14:17+00:00",
       "last_success_at": "2026-11-18T03:16:22+00:00",
-      "retained_article_count": 0
+      "retained_article_count": 85
     },
     "topic_hits": {
       "Curriculum and pedagogy": 6,
@@ -12189,10 +13182,10 @@
     ],
     "scope_id": "english-ssci-esci-scopus-v1",
     "article_refresh": {
-      "status": "updated",
+      "status": "not_scheduled",
       "last_attempt_at": "2026-11-18T03:14:17+00:00",
       "last_success_at": "2026-11-18T03:16:22+00:00",
-      "retained_article_count": 0
+      "retained_article_count": 82
     },
     "topic_hits": {
       "STEM education": 7
@@ -12433,10 +13426,10 @@
     ],
     "scope_id": "english-ssci-esci-scopus-v1",
     "article_refresh": {
-      "status": "updated",
+      "status": "not_scheduled",
       "last_attempt_at": "2026-11-18T03:14:17+00:00",
       "last_success_at": "2026-11-18T03:16:24+00:00",
-      "retained_article_count": 0
+      "retained_article_count": 430
     },
     "topic_hits": {
       "STEM education": 39,
@@ -12668,10 +13661,10 @@
     ],
     "scope_id": "english-ssci-esci-scopus-v1",
     "article_refresh": {
-      "status": "updated",
+      "status": "not_scheduled",
       "last_attempt_at": "2026-11-18T03:14:17+00:00",
       "last_success_at": "2026-11-18T03:16:22+00:00",
-      "retained_article_count": 0
+      "retained_article_count": 85
     },
     "topic_hits": {
       "STEM education": 42,
@@ -12870,10 +13863,10 @@
     ],
     "scope_id": "english-ssci-esci-scopus-v1",
     "article_refresh": {
-      "status": "updated",
+      "status": "not_scheduled",
       "last_attempt_at": "2026-11-18T03:14:17+00:00",
       "last_success_at": "2026-11-18T03:16:23+00:00",
-      "retained_article_count": 0
+      "retained_article_count": 87
     },
     "topic_hits": {
       "Curriculum and pedagogy": 15,
@@ -13096,10 +14089,10 @@
     ],
     "scope_id": "english-ssci-esci-scopus-v1",
     "article_refresh": {
-      "status": "updated",
+      "status": "not_scheduled",
       "last_attempt_at": "2026-11-18T03:14:17+00:00",
       "last_success_at": "2026-11-18T03:16:23+00:00",
-      "retained_article_count": 0
+      "retained_article_count": 91
     },
     "topic_hits": {
       "STEM education": 82,
@@ -13300,10 +14293,10 @@
     ],
     "scope_id": "english-ssci-esci-scopus-v1",
     "article_refresh": {
-      "status": "updated",
+      "status": "not_scheduled",
       "last_attempt_at": "2026-11-18T03:14:17+00:00",
       "last_success_at": "2026-11-18T03:16:25+00:00",
-      "retained_article_count": 0
+      "retained_article_count": 95
     },
     "topic_hits": {
       "Higher education": 8,
@@ -13510,10 +14503,10 @@
     ],
     "scope_id": "english-ssci-esci-scopus-v1",
     "article_refresh": {
-      "status": "updated",
+      "status": "not_scheduled",
       "last_attempt_at": "2026-11-18T03:14:17+00:00",
       "last_success_at": "2026-11-18T03:16:24+00:00",
-      "retained_article_count": 0
+      "retained_article_count": 91
     },
     "topic_hits": {
       "Generative AI": 10,
@@ -13721,10 +14714,10 @@
     ],
     "scope_id": "english-ssci-esci-scopus-v1",
     "article_refresh": {
-      "status": "updated",
+      "status": "not_scheduled",
       "last_attempt_at": "2026-11-18T03:14:17+00:00",
       "last_success_at": "2026-11-18T03:16:24+00:00",
-      "retained_article_count": 0
+      "retained_article_count": 94
     },
     "topic_hits": {
       "Higher education": 52,
@@ -13921,10 +14914,10 @@
     ],
     "scope_id": "english-ssci-esci-scopus-v1",
     "article_refresh": {
-      "status": "updated",
+      "status": "not_scheduled",
       "last_attempt_at": "2026-11-18T03:14:17+00:00",
       "last_success_at": "2026-11-18T03:16:24+00:00",
-      "retained_article_count": 0
+      "retained_article_count": 95
     },
     "topic_hits": {
       "Language learning": 5,
@@ -14107,10 +15100,10 @@
     ],
     "scope_id": "english-ssci-esci-scopus-v1",
     "article_refresh": {
-      "status": "updated",
+      "status": "not_scheduled",
       "last_attempt_at": "2026-11-18T03:14:17+00:00",
       "last_success_at": "2026-11-18T03:16:24+00:00",
-      "retained_article_count": 0
+      "retained_article_count": 112
     },
     "topic_hits": {
       "STEM education": 44,
@@ -14388,10 +15381,10 @@
     ],
     "scope_id": "english-ssci-esci-scopus-v1",
     "article_refresh": {
-      "status": "updated",
+      "status": "not_scheduled",
       "last_attempt_at": "2026-11-18T03:14:17+00:00",
       "last_success_at": "2026-11-18T03:16:25+00:00",
-      "retained_article_count": 0
+      "retained_article_count": 80
     },
     "topic_hits": {
       "Higher education": 20,
@@ -14586,10 +15579,10 @@
     ],
     "scope_id": "english-ssci-esci-scopus-v1",
     "article_refresh": {
-      "status": "updated",
+      "status": "not_scheduled",
       "last_attempt_at": "2026-11-18T03:14:17+00:00",
       "last_success_at": "2026-11-18T03:16:25+00:00",
-      "retained_article_count": 0
+      "retained_article_count": 90
     },
     "topic_hits": {
       "STEM education": 35,
@@ -14826,10 +15819,10 @@
     ],
     "scope_id": "english-ssci-esci-scopus-v1",
     "article_refresh": {
-      "status": "updated",
+      "status": "not_scheduled",
       "last_attempt_at": "2026-11-18T03:14:17+00:00",
       "last_success_at": "2026-11-18T03:16:25+00:00",
-      "retained_article_count": 0
+      "retained_article_count": 85
     },
     "topic_hits": {
       "Assessment": 14,
@@ -15031,10 +16024,10 @@
     ],
     "scope_id": "english-ssci-esci-scopus-v1",
     "article_refresh": {
-      "status": "updated",
+      "status": "not_scheduled",
       "last_attempt_at": "2026-11-18T03:14:17+00:00",
       "last_success_at": "2026-11-18T03:16:27+00:00",
-      "retained_article_count": 0
+      "retained_article_count": 122
     },
     "topic_hits": {
       "Language learning": 93,
@@ -15254,10 +16247,10 @@
     ],
     "scope_id": "english-ssci-esci-scopus-v1",
     "article_refresh": {
-      "status": "updated",
+      "status": "not_scheduled",
       "last_attempt_at": "2026-11-18T03:14:17+00:00",
       "last_success_at": "2026-11-18T03:16:25+00:00",
-      "retained_article_count": 0
+      "retained_article_count": 98
     },
     "topic_hits": {
       "Teacher education": 3,
@@ -15456,10 +16449,10 @@
     ],
     "scope_id": "english-ssci-esci-scopus-v1",
     "article_refresh": {
-      "status": "updated",
+      "status": "not_scheduled",
       "last_attempt_at": "2026-11-18T03:14:17+00:00",
       "last_success_at": "2026-11-18T03:16:26+00:00",
-      "retained_article_count": 0
+      "retained_article_count": 96
     },
     "topic_hits": {
       "Equity and policy": 50,
@@ -15671,10 +16664,10 @@
     ],
     "scope_id": "english-ssci-esci-scopus-v1",
     "article_refresh": {
-      "status": "updated",
+      "status": "not_scheduled",
       "last_attempt_at": "2026-11-18T03:14:17+00:00",
       "last_success_at": "2026-11-18T03:16:26+00:00",
-      "retained_article_count": 0
+      "retained_article_count": 92
     },
     "topic_hits": {
       "Equity and policy": 78,
@@ -15864,10 +16857,10 @@
     ],
     "scope_id": "english-ssci-esci-scopus-v1",
     "article_refresh": {
-      "status": "updated",
+      "status": "not_scheduled",
       "last_attempt_at": "2026-11-18T03:14:17+00:00",
       "last_success_at": "2026-11-18T03:16:26+00:00",
-      "retained_article_count": 0
+      "retained_article_count": 96
     },
     "topic_hits": {
       "Curriculum and pedagogy": 13,
@@ -16054,10 +17047,10 @@
     ],
     "scope_id": "english-ssci-esci-scopus-v1",
     "article_refresh": {
-      "status": "updated",
+      "status": "not_scheduled",
       "last_attempt_at": "2026-11-18T03:14:17+00:00",
       "last_success_at": "2026-11-18T03:16:26+00:00",
-      "retained_article_count": 0
+      "retained_article_count": 102
     },
     "topic_hits": {
       "Higher education": 47,
@@ -16256,10 +17249,10 @@
     ],
     "scope_id": "english-ssci-esci-scopus-v1",
     "article_refresh": {
-      "status": "updated",
+      "status": "not_scheduled",
       "last_attempt_at": "2026-11-18T03:14:17+00:00",
       "last_success_at": "2026-11-18T03:16:27+00:00",
-      "retained_article_count": 0
+      "retained_article_count": 83
     },
     "topic_hits": {
       "STEM education": 16,
@@ -16484,10 +17477,10 @@
     ],
     "scope_id": "english-ssci-esci-scopus-v1",
     "article_refresh": {
-      "status": "updated",
+      "status": "not_scheduled",
       "last_attempt_at": "2026-11-18T03:14:17+00:00",
       "last_success_at": "2026-11-18T03:16:28+00:00",
-      "retained_article_count": 0
+      "retained_article_count": 107
     },
     "topic_hits": {
       "Higher education": 4,
@@ -16686,10 +17679,10 @@
     ],
     "scope_id": "english-ssci-esci-scopus-v1",
     "article_refresh": {
-      "status": "updated",
+      "status": "not_scheduled",
       "last_attempt_at": "2026-11-18T03:14:17+00:00",
       "last_success_at": "2026-11-18T03:16:27+00:00",
-      "retained_article_count": 0
+      "retained_article_count": 84
     },
     "topic_hits": {
       "Higher education": 21,
@@ -16957,10 +17950,10 @@
     ],
     "scope_id": "english-ssci-esci-scopus-v1",
     "article_refresh": {
-      "status": "updated",
+      "status": "not_scheduled",
       "last_attempt_at": "2026-11-18T03:14:17+00:00",
       "last_success_at": "2026-11-18T03:16:28+00:00",
-      "retained_article_count": 0
+      "retained_article_count": 94
     },
     "topic_hits": {
       "Higher education": 36,
@@ -17219,10 +18212,10 @@
     ],
     "scope_id": "english-ssci-esci-scopus-v1",
     "article_refresh": {
-      "status": "updated",
+      "status": "not_scheduled",
       "last_attempt_at": "2026-11-18T03:14:17+00:00",
       "last_success_at": "2026-11-18T03:16:29+00:00",
-      "retained_article_count": 0
+      "retained_article_count": 98
     },
     "topic_hits": {
       "Assessment": 27,
@@ -17484,10 +18477,10 @@
     ],
     "scope_id": "english-ssci-esci-scopus-v1",
     "article_refresh": {
-      "status": "updated",
+      "status": "not_scheduled",
       "last_attempt_at": "2026-11-18T03:14:17+00:00",
       "last_success_at": "2026-11-18T03:16:28+00:00",
-      "retained_article_count": 0
+      "retained_article_count": 121
     },
     "topic_hits": {
       "Motivation and wellbeing": 22,
@@ -17704,10 +18697,10 @@
     ],
     "scope_id": "english-ssci-esci-scopus-v1",
     "article_refresh": {
-      "status": "updated",
+      "status": "not_scheduled",
       "last_attempt_at": "2026-11-18T03:14:17+00:00",
       "last_success_at": "2026-11-18T03:16:28+00:00",
-      "retained_article_count": 0
+      "retained_article_count": 85
     },
     "topic_hits": {
       "Language learning": 78,
@@ -17937,10 +18930,10 @@
     ],
     "scope_id": "english-ssci-esci-scopus-v1",
     "article_refresh": {
-      "status": "updated",
+      "status": "not_scheduled",
       "last_attempt_at": "2026-11-18T03:14:17+00:00",
       "last_success_at": "2026-11-18T03:16:28+00:00",
-      "retained_article_count": 0
+      "retained_article_count": 92
     },
     "topic_hits": {
       "STEM education": 10,
@@ -18136,10 +19129,10 @@
     ],
     "scope_id": "english-ssci-esci-scopus-v1",
     "article_refresh": {
-      "status": "updated",
+      "status": "not_scheduled",
       "last_attempt_at": "2026-11-18T03:14:17+00:00",
       "last_success_at": "2026-11-18T03:16:30+00:00",
-      "retained_article_count": 0
+      "retained_article_count": 95
     },
     "topic_hits": {
       "Motivation and wellbeing": 15,
@@ -18351,10 +19344,10 @@
     ],
     "scope_id": "english-ssci-esci-scopus-v1",
     "article_refresh": {
-      "status": "updated",
+      "status": "not_scheduled",
       "last_attempt_at": "2026-11-18T03:14:17+00:00",
       "last_success_at": "2026-11-18T03:16:29+00:00",
-      "retained_article_count": 0
+      "retained_article_count": 88
     },
     "topic_hits": {
       "Higher education": 115,
@@ -18595,10 +19588,10 @@
     ],
     "scope_id": "english-ssci-esci-scopus-v1",
     "article_refresh": {
-      "status": "updated",
+      "status": "not_scheduled",
       "last_attempt_at": "2026-11-18T03:14:17+00:00",
       "last_success_at": "2026-11-18T03:16:29+00:00",
-      "retained_article_count": 0
+      "retained_article_count": 86
     },
     "topic_hits": {
       "STEM education": 32,
@@ -18799,10 +19792,10 @@
     ],
     "scope_id": "english-ssci-esci-scopus-v1",
     "article_refresh": {
-      "status": "updated",
+      "status": "not_scheduled",
       "last_attempt_at": "2026-11-18T03:14:17+00:00",
       "last_success_at": "2026-11-18T03:16:29+00:00",
-      "retained_article_count": 0
+      "retained_article_count": 111
     },
     "topic_hits": {
       "Higher education": 149,
@@ -19001,10 +19994,10 @@
     ],
     "scope_id": "english-ssci-esci-scopus-v1",
     "article_refresh": {
-      "status": "updated",
+      "status": "not_scheduled",
       "last_attempt_at": "2026-11-18T03:14:17+00:00",
       "last_success_at": "2026-11-18T03:16:31+00:00",
-      "retained_article_count": 0
+      "retained_article_count": 110
     },
     "topic_hits": {
       "Language learning": 8,
@@ -19215,10 +20208,10 @@
     ],
     "scope_id": "english-ssci-esci-scopus-v1",
     "article_refresh": {
-      "status": "updated",
+      "status": "not_scheduled",
       "last_attempt_at": "2026-11-18T03:14:17+00:00",
       "last_success_at": "2026-11-18T03:16:30+00:00",
-      "retained_article_count": 0
+      "retained_article_count": 91
     },
     "topic_hits": {
       "Teacher education": 26,
@@ -19426,10 +20419,10 @@
     ],
     "scope_id": "english-ssci-esci-scopus-v1",
     "article_refresh": {
-      "status": "updated",
+      "status": "not_scheduled",
       "last_attempt_at": "2026-11-18T03:14:17+00:00",
       "last_success_at": "2026-11-18T03:16:32+00:00",
-      "retained_article_count": 0
+      "retained_article_count": 109
     },
     "topic_hits": {
       "Assessment": 18,
@@ -19625,10 +20618,10 @@
     ],
     "scope_id": "english-ssci-esci-scopus-v1",
     "article_refresh": {
-      "status": "updated",
+      "status": "not_scheduled",
       "last_attempt_at": "2026-11-18T03:14:17+00:00",
       "last_success_at": "2026-11-18T03:16:31+00:00",
-      "retained_article_count": 0
+      "retained_article_count": 89
     },
     "topic_hits": {
       "Equity and policy": 53,
@@ -19848,10 +20841,10 @@
     ],
     "scope_id": "english-ssci-esci-scopus-v1",
     "article_refresh": {
-      "status": "updated",
+      "status": "not_scheduled",
       "last_attempt_at": "2026-11-18T03:14:17+00:00",
       "last_success_at": "2026-11-18T03:16:31+00:00",
-      "retained_article_count": 0
+      "retained_article_count": 88
     },
     "topic_hits": {
       "STEM education": 45,
@@ -20062,10 +21055,10 @@
     ],
     "scope_id": "english-ssci-esci-scopus-v1",
     "article_refresh": {
-      "status": "updated",
+      "status": "not_scheduled",
       "last_attempt_at": "2026-11-18T03:14:17+00:00",
       "last_success_at": "2026-11-18T03:16:31+00:00",
-      "retained_article_count": 0
+      "retained_article_count": 92
     },
     "topic_hits": {
       "Curriculum and pedagogy": 8,
@@ -20297,10 +21290,10 @@
     ],
     "scope_id": "english-ssci-esci-scopus-v1",
     "article_refresh": {
-      "status": "updated",
+      "status": "not_scheduled",
       "last_attempt_at": "2026-11-18T03:14:17+00:00",
       "last_success_at": "2026-11-18T03:16:31+00:00",
-      "retained_article_count": 0
+      "retained_article_count": 91
     },
     "topic_hits": {
       "Assessment": 1,
@@ -20514,10 +21507,10 @@
     ],
     "scope_id": "english-ssci-esci-scopus-v1",
     "article_refresh": {
-      "status": "updated",
+      "status": "not_scheduled",
       "last_attempt_at": "2026-11-18T03:14:17+00:00",
       "last_success_at": "2026-11-18T03:16:33+00:00",
-      "retained_article_count": 0
+      "retained_article_count": 92
     },
     "topic_hits": {
       "Assessment": 8,
@@ -20713,10 +21706,10 @@
     ],
     "scope_id": "english-ssci-esci-scopus-v1",
     "article_refresh": {
-      "status": "updated",
+      "status": "not_scheduled",
       "last_attempt_at": "2026-11-18T03:14:17+00:00",
       "last_success_at": "2026-11-18T03:16:33+00:00",
-      "retained_article_count": 0
+      "retained_article_count": 87
     },
     "topic_hits": {
       "Curriculum and pedagogy": 22,
@@ -20919,9 +21912,8 @@
       }
     ],
     "scope_id": "english-ssci-esci-scopus-v1",
-    "article_api_error": "HTTP 404",
     "article_refresh": {
-      "status": "failed",
+      "status": "not_scheduled",
       "last_attempt_at": "2026-11-18T03:14:17+00:00",
       "last_success_at": "2026-11-17T04:15:45+00:00",
       "retained_article_count": 90
@@ -21146,10 +22138,10 @@
     ],
     "scope_id": "english-ssci-esci-scopus-v1",
     "article_refresh": {
-      "status": "updated",
+      "status": "not_scheduled",
       "last_attempt_at": "2026-11-18T03:14:17+00:00",
       "last_success_at": "2026-11-18T03:16:33+00:00",
-      "retained_article_count": 0
+      "retained_article_count": 88
     },
     "topic_hits": {
       "Higher education": 50,
@@ -21373,10 +22365,10 @@
     ],
     "scope_id": "english-ssci-esci-scopus-v1",
     "article_refresh": {
-      "status": "updated",
+      "status": "not_scheduled",
       "last_attempt_at": "2026-11-18T03:14:17+00:00",
       "last_success_at": "2026-11-18T03:16:34+00:00",
-      "retained_article_count": 0
+      "retained_article_count": 81
     },
     "topic_hits": {
       "Equity and policy": 9,
@@ -21580,10 +22572,10 @@
     ],
     "scope_id": "english-ssci-esci-scopus-v1",
     "article_refresh": {
-      "status": "updated",
+      "status": "not_scheduled",
       "last_attempt_at": "2026-11-18T03:14:17+00:00",
       "last_success_at": "2026-11-18T03:16:36+00:00",
-      "retained_article_count": 0
+      "retained_article_count": 83
     },
     "topic_hits": {
       "Motivation and wellbeing": 9,
@@ -21782,10 +22774,10 @@
     ],
     "scope_id": "english-ssci-esci-scopus-v1",
     "article_refresh": {
-      "status": "updated",
+      "status": "not_scheduled",
       "last_attempt_at": "2026-11-18T03:14:17+00:00",
       "last_success_at": "2026-11-18T03:16:34+00:00",
-      "retained_article_count": 0
+      "retained_article_count": 96
     },
     "topic_hits": {
       "Equity and policy": 45,
@@ -21975,10 +22967,10 @@
     ],
     "scope_id": "english-ssci-esci-scopus-v1",
     "article_refresh": {
-      "status": "updated",
+      "status": "not_scheduled",
       "last_attempt_at": "2026-11-18T03:14:17+00:00",
       "last_success_at": "2026-11-18T03:16:35+00:00",
-      "retained_article_count": 0
+      "retained_article_count": 102
     },
     "topic_hits": {
       "STEM education": 12,
@@ -22226,10 +23218,10 @@
     ],
     "scope_id": "english-ssci-esci-scopus-v1",
     "article_refresh": {
-      "status": "updated",
+      "status": "not_scheduled",
       "last_attempt_at": "2026-11-18T03:14:17+00:00",
       "last_success_at": "2026-11-18T03:16:36+00:00",
-      "retained_article_count": 0
+      "retained_article_count": 93
     },
     "topic_hits": {
       "STEM education": 23,
@@ -22436,10 +23428,10 @@
     ],
     "scope_id": "english-ssci-esci-scopus-v1",
     "article_refresh": {
-      "status": "updated",
+      "status": "not_scheduled",
       "last_attempt_at": "2026-11-18T03:14:17+00:00",
       "last_success_at": "2026-11-18T03:16:35+00:00",
-      "retained_article_count": 0
+      "retained_article_count": 82
     },
     "topic_hits": {
       "Higher education": 70,
@@ -22654,10 +23646,10 @@
     ],
     "scope_id": "english-ssci-esci-scopus-v1",
     "article_refresh": {
-      "status": "updated",
+      "status": "not_scheduled",
       "last_attempt_at": "2026-11-18T03:14:17+00:00",
       "last_success_at": "2026-11-18T03:16:36+00:00",
-      "retained_article_count": 0
+      "retained_article_count": 92
     },
     "topic_hits": {
       "Equity and policy": 10,
@@ -22857,10 +23849,10 @@
     ],
     "scope_id": "english-ssci-esci-scopus-v1",
     "article_refresh": {
-      "status": "updated",
+      "status": "not_scheduled",
       "last_attempt_at": "2026-11-18T03:14:17+00:00",
       "last_success_at": "2026-11-18T03:16:37+00:00",
-      "retained_article_count": 0
+      "retained_article_count": 86
     },
     "topic_hits": {
       "Assessment": 18,
@@ -23085,10 +24077,10 @@
     ],
     "scope_id": "english-ssci-esci-scopus-v1",
     "article_refresh": {
-      "status": "updated",
+      "status": "not_scheduled",
       "last_attempt_at": "2026-11-18T03:14:17+00:00",
       "last_success_at": "2026-11-18T03:16:36+00:00",
-      "retained_article_count": 0
+      "retained_article_count": 86
     },
     "topic_hits": {
       "Higher education": 11,
@@ -23287,10 +24279,10 @@
     ],
     "scope_id": "english-ssci-esci-scopus-v1",
     "article_refresh": {
-      "status": "updated",
+      "status": "not_scheduled",
       "last_attempt_at": "2026-11-18T03:14:17+00:00",
       "last_success_at": "2026-11-18T03:16:36+00:00",
-      "retained_article_count": 0
+      "retained_article_count": 94
     },
     "topic_hits": {
       "Assessment": 74,
@@ -23511,10 +24503,10 @@
     ],
     "scope_id": "english-ssci-esci-scopus-v1",
     "article_refresh": {
-      "status": "updated",
+      "status": "not_scheduled",
       "last_attempt_at": "2026-11-18T03:14:17+00:00",
       "last_success_at": "2026-11-18T03:16:38+00:00",
-      "retained_article_count": 0
+      "retained_article_count": 98
     },
     "topic_hits": {
       "Teacher education": 40,
@@ -23735,10 +24727,10 @@
     ],
     "scope_id": "english-ssci-esci-scopus-v1",
     "article_refresh": {
-      "status": "updated",
+      "status": "not_scheduled",
       "last_attempt_at": "2026-11-18T03:14:17+00:00",
       "last_success_at": "2026-11-18T03:16:36+00:00",
-      "retained_article_count": 0
+      "retained_article_count": 88
     },
     "topic_hits": {
       "Equity and policy": 10,
@@ -23924,10 +24916,10 @@
     ],
     "scope_id": "english-ssci-esci-scopus-v1",
     "article_refresh": {
-      "status": "updated",
+      "status": "not_scheduled",
       "last_attempt_at": "2026-11-18T03:14:17+00:00",
       "last_success_at": "2026-11-18T03:16:39+00:00",
-      "retained_article_count": 0
+      "retained_article_count": 102
     },
     "topic_hits": {
       "STEM education": 4,
@@ -24139,10 +25131,10 @@
     ],
     "scope_id": "english-ssci-esci-scopus-v1",
     "article_refresh": {
-      "status": "updated",
+      "status": "not_scheduled",
       "last_attempt_at": "2026-11-18T03:14:17+00:00",
       "last_success_at": "2026-11-18T03:16:37+00:00",
-      "retained_article_count": 0
+      "retained_article_count": 89
     },
     "topic_hits": {
       "Curriculum and pedagogy": 12,
@@ -24353,10 +25345,10 @@
     ],
     "scope_id": "english-ssci-esci-scopus-v1",
     "article_refresh": {
-      "status": "updated",
+      "status": "not_scheduled",
       "last_attempt_at": "2026-11-18T03:14:17+00:00",
       "last_success_at": "2026-11-18T03:16:37+00:00",
-      "retained_article_count": 0
+      "retained_article_count": 91
     },
     "topic_hits": {
       "Equity and policy": 9,
@@ -24592,10 +25584,10 @@
     ],
     "scope_id": "english-ssci-esci-scopus-v1",
     "article_refresh": {
-      "status": "updated",
+      "status": "not_scheduled",
       "last_attempt_at": "2026-11-18T03:14:17+00:00",
       "last_success_at": "2026-11-18T03:16:38+00:00",
-      "retained_article_count": 0
+      "retained_article_count": 90
     },
     "topic_hits": {
       "Assessment": 75,
@@ -24851,10 +25843,10 @@
     ],
     "scope_id": "english-ssci-esci-scopus-v1",
     "article_refresh": {
-      "status": "updated",
+      "status": "not_scheduled",
       "last_attempt_at": "2026-11-18T03:14:17+00:00",
       "last_success_at": "2026-11-18T03:16:38+00:00",
-      "retained_article_count": 0
+      "retained_article_count": 92
     },
     "topic_hits": {
       "Generative AI": 11,
@@ -25051,10 +26043,10 @@
     ],
     "scope_id": "english-ssci-esci-scopus-v1",
     "article_refresh": {
-      "status": "updated",
+      "status": "not_scheduled",
       "last_attempt_at": "2026-11-18T03:14:17+00:00",
       "last_success_at": "2026-11-18T03:16:40+00:00",
-      "retained_article_count": 0
+      "retained_article_count": 82
     },
     "topic_hits": {
       "Equity and policy": 2,
@@ -25269,10 +26261,10 @@
     ],
     "scope_id": "english-ssci-esci-scopus-v1",
     "article_refresh": {
-      "status": "updated",
+      "status": "not_scheduled",
       "last_attempt_at": "2026-11-18T03:14:17+00:00",
       "last_success_at": "2026-11-18T03:16:39+00:00",
-      "retained_article_count": 0
+      "retained_article_count": 84
     },
     "topic_hits": {
       "Teacher education": 15,
@@ -25475,10 +26467,10 @@
     ],
     "scope_id": "english-ssci-esci-scopus-v1",
     "article_refresh": {
-      "status": "updated",
+      "status": "not_scheduled",
       "last_attempt_at": "2026-11-18T03:14:17+00:00",
       "last_success_at": "2026-11-18T03:16:39+00:00",
-      "retained_article_count": 0
+      "retained_article_count": 119
     },
     "topic_hits": {
       "Motivation and wellbeing": 4,
@@ -25687,10 +26679,10 @@
     ],
     "scope_id": "english-ssci-esci-scopus-v1",
     "article_refresh": {
-      "status": "updated",
+      "status": "not_scheduled",
       "last_attempt_at": "2026-11-18T03:14:17+00:00",
       "last_success_at": "2026-11-18T03:16:39+00:00",
-      "retained_article_count": 0
+      "retained_article_count": 88
     },
     "topic_hits": {
       "Higher education": 1,
@@ -25875,10 +26867,10 @@
     ],
     "scope_id": "english-ssci-esci-scopus-v1",
     "article_refresh": {
-      "status": "updated",
+      "status": "not_scheduled",
       "last_attempt_at": "2026-11-18T03:14:17+00:00",
       "last_success_at": "2026-11-18T03:16:40+00:00",
-      "retained_article_count": 0
+      "retained_article_count": 83
     },
     "topic_hits": {
       "STEM education": 20,
@@ -26098,10 +27090,10 @@
     ],
     "scope_id": "english-ssci-esci-scopus-v1",
     "article_refresh": {
-      "status": "updated",
+      "status": "not_scheduled",
       "last_attempt_at": "2026-11-18T03:14:17+00:00",
       "last_success_at": "2026-11-18T03:16:40+00:00",
-      "retained_article_count": 0
+      "retained_article_count": 90
     },
     "topic_hits": {
       "Curriculum and pedagogy": 40,
@@ -26311,10 +27303,10 @@
     ],
     "scope_id": "english-ssci-esci-scopus-v1",
     "article_refresh": {
-      "status": "updated",
+      "status": "not_scheduled",
       "last_attempt_at": "2026-11-18T03:14:17+00:00",
       "last_success_at": "2026-11-18T03:16:40+00:00",
-      "retained_article_count": 0
+      "retained_article_count": 91
     },
     "topic_hits": {
       "Language learning": 90,
@@ -26555,10 +27547,10 @@
     ],
     "scope_id": "english-ssci-esci-scopus-v1",
     "article_refresh": {
-      "status": "updated",
+      "status": "not_scheduled",
       "last_attempt_at": "2026-11-18T03:14:17+00:00",
       "last_success_at": "2026-11-18T03:16:42+00:00",
-      "retained_article_count": 0
+      "retained_article_count": 87
     },
     "topic_hits": {
       "Curriculum and pedagogy": 36,
@@ -26778,10 +27770,10 @@
     ],
     "scope_id": "english-ssci-esci-scopus-v1",
     "article_refresh": {
-      "status": "updated",
+      "status": "not_scheduled",
       "last_attempt_at": "2026-11-18T03:14:17+00:00",
       "last_success_at": "2026-11-18T03:16:40+00:00",
-      "retained_article_count": 0
+      "retained_article_count": 88
     },
     "topic_hits": {
       "Higher education": 50,
@@ -26956,10 +27948,10 @@
     ],
     "scope_id": "english-ssci-esci-scopus-v1",
     "article_refresh": {
-      "status": "updated",
+      "status": "not_scheduled",
       "last_attempt_at": "2026-11-18T03:14:17+00:00",
       "last_success_at": "2026-11-18T03:16:40+00:00",
-      "retained_article_count": 0
+      "retained_article_count": 96
     },
     "topic_hits": {
       "Equity and policy": 17,
@@ -27151,10 +28143,10 @@
     ],
     "scope_id": "english-ssci-esci-scopus-v1",
     "article_refresh": {
-      "status": "updated",
+      "status": "not_scheduled",
       "last_attempt_at": "2026-11-18T03:14:17+00:00",
       "last_success_at": "2026-11-18T03:16:40+00:00",
-      "retained_article_count": 0
+      "retained_article_count": 98
     },
     "topic_hits": {
       "Higher education": 72,
@@ -27360,10 +28352,10 @@
     ],
     "scope_id": "english-ssci-esci-scopus-v1",
     "article_refresh": {
-      "status": "updated",
+      "status": "not_scheduled",
       "last_attempt_at": "2026-11-18T03:14:17+00:00",
       "last_success_at": "2026-11-18T03:16:41+00:00",
-      "retained_article_count": 0
+      "retained_article_count": 95
     },
     "topic_hits": {
       "Motivation and wellbeing": 16,
@@ -27568,10 +28560,10 @@
     ],
     "scope_id": "english-ssci-esci-scopus-v1",
     "article_refresh": {
-      "status": "updated",
+      "status": "not_scheduled",
       "last_attempt_at": "2026-11-18T03:14:17+00:00",
       "last_success_at": "2026-11-18T03:16:42+00:00",
-      "retained_article_count": 0
+      "retained_article_count": 83
     },
     "topic_hits": {
       "STEM education": 2,
@@ -27775,10 +28767,10 @@
     ],
     "scope_id": "english-ssci-esci-scopus-v1",
     "article_refresh": {
-      "status": "updated",
+      "status": "not_scheduled",
       "last_attempt_at": "2026-11-18T03:14:17+00:00",
       "last_success_at": "2026-11-18T03:16:42+00:00",
-      "retained_article_count": 0
+      "retained_article_count": 127
     },
     "topic_hits": {
       "Assessment": 44,
@@ -27984,10 +28976,10 @@
     ],
     "scope_id": "english-ssci-esci-scopus-v1",
     "article_refresh": {
-      "status": "updated",
+      "status": "not_scheduled",
       "last_attempt_at": "2026-11-18T03:14:17+00:00",
       "last_success_at": "2026-11-18T03:16:42+00:00",
-      "retained_article_count": 0
+      "retained_article_count": 112
     },
     "topic_hits": {
       "Generative AI": 2,
@@ -28186,10 +29178,10 @@
     ],
     "scope_id": "english-ssci-esci-scopus-v1",
     "article_refresh": {
-      "status": "updated",
+      "status": "not_scheduled",
       "last_attempt_at": "2026-11-18T03:14:17+00:00",
       "last_success_at": "2026-11-18T03:16:42+00:00",
-      "retained_article_count": 0
+      "retained_article_count": 91
     },
     "topic_hits": {
       "Curriculum and pedagogy": 15,
@@ -28413,10 +29405,10 @@
     ],
     "scope_id": "english-ssci-esci-scopus-v1",
     "article_refresh": {
-      "status": "updated",
+      "status": "not_scheduled",
       "last_attempt_at": "2026-11-18T03:14:17+00:00",
       "last_success_at": "2026-11-18T03:16:43+00:00",
-      "retained_article_count": 0
+      "retained_article_count": 94
     },
     "topic_hits": {
       "STEM education": 55,
@@ -28622,10 +29614,10 @@
     ],
     "scope_id": "english-ssci-esci-scopus-v1",
     "article_refresh": {
-      "status": "updated",
+      "status": "not_scheduled",
       "last_attempt_at": "2026-11-18T03:14:17+00:00",
       "last_success_at": "2026-11-18T03:16:43+00:00",
-      "retained_article_count": 0
+      "retained_article_count": 83
     },
     "topic_hits": {
       "Higher education": 91,
@@ -28867,10 +29859,10 @@
     ],
     "scope_id": "english-ssci-esci-scopus-v1",
     "article_refresh": {
-      "status": "updated",
+      "status": "not_scheduled",
       "last_attempt_at": "2026-11-18T03:14:17+00:00",
       "last_success_at": "2026-11-18T03:16:42+00:00",
-      "retained_article_count": 0
+      "retained_article_count": 82
     },
     "topic_hits": {
       "Higher education": 70,
@@ -29070,10 +30062,10 @@
     ],
     "scope_id": "english-ssci-esci-scopus-v1",
     "article_refresh": {
-      "status": "updated",
+      "status": "not_scheduled",
       "last_attempt_at": "2026-11-18T03:14:17+00:00",
       "last_success_at": "2026-11-18T03:16:43+00:00",
-      "retained_article_count": 0
+      "retained_article_count": 92
     },
     "topic_hits": {
       "Generative AI": 4,
@@ -29284,10 +30276,10 @@
     ],
     "scope_id": "english-ssci-esci-scopus-v1",
     "article_refresh": {
-      "status": "updated",
+      "status": "not_scheduled",
       "last_attempt_at": "2026-11-18T03:14:17+00:00",
       "last_success_at": "2026-11-18T03:16:43+00:00",
-      "retained_article_count": 0
+      "retained_article_count": 99
     },
     "topic_hits": {
       "Higher education": 13,
@@ -29502,10 +30494,10 @@
     ],
     "scope_id": "english-ssci-esci-scopus-v1",
     "article_refresh": {
-      "status": "updated",
+      "status": "not_scheduled",
       "last_attempt_at": "2026-11-18T03:14:17+00:00",
       "last_success_at": "2026-11-18T03:16:43+00:00",
-      "retained_article_count": 0
+      "retained_article_count": 92
     },
     "topic_hits": {
       "Language learning": 10,
@@ -29704,10 +30696,10 @@
     ],
     "scope_id": "english-ssci-esci-scopus-v1",
     "article_refresh": {
-      "status": "updated",
+      "status": "not_scheduled",
       "last_attempt_at": "2026-11-18T03:14:17+00:00",
       "last_success_at": "2026-11-18T03:16:43+00:00",
-      "retained_article_count": 0
+      "retained_article_count": 90
     },
     "topic_hits": {
       "Curriculum and pedagogy": 6,
