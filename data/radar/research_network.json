@@ -111,11 +111,6 @@
       "type": "topic"
     },
     {
-      "id": "topic-ee12c8cddb053673",
-      "label": "Educational technology",
-      "type": "topic"
-    },
-    {
       "id": "journal-004-british-journal-of-educational-technology",
       "label": "BRITISH JOURNAL OF EDUCATIONAL TECHNOLOGY",
       "type": "journal",
@@ -379,6 +374,11 @@
       "quartile": "Q1",
       "main_tag": "教育技术",
       "publisher_family": "Elsevier"
+    },
+    {
+      "id": "topic-ee12c8cddb053673",
+      "label": "Educational technology",
+      "type": "topic"
     },
     {
       "id": "journal-022-assessment-evaluation-in-higher-education",
@@ -11056,7 +11056,7 @@
     },
     {
       "source": "journal-003-computers-education",
-      "target": "topic-ee12c8cddb053673",
+      "target": "topic-174dec98266f9613",
       "weight": 6.0,
       "relation": "text_topic"
     },
@@ -11477,7 +11477,7 @@
     {
       "source": "journal-009-educational-research-review",
       "target": "topic-cf032eb29801f8f7",
-      "weight": 4.0,
+      "weight": 5.0,
       "relation": "text_topic"
     },
     {
@@ -11698,13 +11698,13 @@
     },
     {
       "source": "journal-012-journal-of-educational-computing-research",
-      "target": "topic-7808eeeb45dfa074",
+      "target": "topic-174dec98266f9613",
       "weight": 6.0,
       "relation": "text_topic"
     },
     {
       "source": "journal-012-journal-of-educational-computing-research",
-      "target": "topic-174dec98266f9613",
+      "target": "topic-7808eeeb45dfa074",
       "weight": 6.0,
       "relation": "text_topic"
     },
@@ -11728,7 +11728,7 @@
     },
     {
       "source": "journal-012-journal-of-educational-computing-research",
-      "target": "method-f77fb5fc13e89e5d",
+      "target": "method-4db675e0158265a5",
       "weight": 5.0,
       "relation": "method_or_theme"
     },
@@ -12274,13 +12274,13 @@
     },
     {
       "source": "journal-020-education-and-information-technologies",
-      "target": "topic-7808eeeb45dfa074",
+      "target": "topic-07fb192d39a14542",
       "weight": 6.0,
       "relation": "text_topic"
     },
     {
       "source": "journal-020-education-and-information-technologies",
-      "target": "topic-07fb192d39a14542",
+      "target": "topic-7808eeeb45dfa074",
       "weight": 6.0,
       "relation": "text_topic"
     },
@@ -12304,20 +12304,20 @@
     },
     {
       "source": "journal-020-education-and-information-technologies",
-      "target": "method-1e46da15281376a4",
-      "weight": 5.0,
-      "relation": "method_or_theme"
-    },
-    {
-      "source": "journal-020-education-and-information-technologies",
       "target": "method-4100620aa84ca641",
       "weight": 5.0,
       "relation": "method_or_theme"
     },
     {
       "source": "journal-020-education-and-information-technologies",
+      "target": "method-1e46da15281376a4",
+      "weight": 5.0,
+      "relation": "method_or_theme"
+    },
+    {
+      "source": "journal-020-education-and-information-technologies",
       "target": "method-4db675e0158265a5",
-      "weight": 3.0,
+      "weight": 4.0,
       "relation": "method_or_theme"
     },
     {
@@ -13888,13 +13888,13 @@
     },
     {
       "source": "journal-042-modern-language-journal",
-      "target": "method-f77fb5fc13e89e5d",
+      "target": "method-72bf6e495cc8a5b5",
       "weight": 5.0,
       "relation": "method_or_theme"
     },
     {
       "source": "journal-042-modern-language-journal",
-      "target": "method-72bf6e495cc8a5b5",
+      "target": "method-f77fb5fc13e89e5d",
       "weight": 5.0,
       "relation": "method_or_theme"
     },
@@ -14788,13 +14788,13 @@
     },
     {
       "source": "journal-055-bmc-medical-education",
-      "target": "method-72bf6e495cc8a5b5",
+      "target": "method-1e46da15281376a4",
       "weight": 5.0,
       "relation": "method_or_theme"
     },
     {
       "source": "journal-055-bmc-medical-education",
-      "target": "method-1e46da15281376a4",
+      "target": "method-72bf6e495cc8a5b5",
       "weight": 5.0,
       "relation": "method_or_theme"
     },
@@ -14908,13 +14908,13 @@
     },
     {
       "source": "journal-057-asia-pacific-journal-of-education",
-      "target": "topic-70eaebd2507075d0",
+      "target": "topic-174dec98266f9613",
       "weight": 6.0,
       "relation": "text_topic"
     },
     {
       "source": "journal-057-asia-pacific-journal-of-education",
-      "target": "topic-174dec98266f9613",
+      "target": "topic-70eaebd2507075d0",
       "weight": 6.0,
       "relation": "text_topic"
     },
@@ -14938,7 +14938,7 @@
     },
     {
       "source": "journal-057-asia-pacific-journal-of-education",
-      "target": "topic-07fb192d39a14542",
+      "target": "topic-cf032eb29801f8f7",
       "weight": 4.0,
       "relation": "text_topic"
     },
@@ -15646,6 +15646,12 @@
     },
     {
       "source": "journal-067-international-journal-of-applied-linguistics",
+      "target": "topic-c95abd40e0f3ef3a",
+      "weight": 6.0,
+      "relation": "text_topic"
+    },
+    {
+      "source": "journal-067-international-journal-of-applied-linguistics",
       "target": "topic-07fb192d39a14542",
       "weight": 6.0,
       "relation": "text_topic"
@@ -15653,12 +15659,6 @@
     {
       "source": "journal-067-international-journal-of-applied-linguistics",
       "target": "topic-70eaebd2507075d0",
-      "weight": 6.0,
-      "relation": "text_topic"
-    },
-    {
-      "source": "journal-067-international-journal-of-applied-linguistics",
-      "target": "topic-c95abd40e0f3ef3a",
       "weight": 6.0,
       "relation": "text_topic"
     },
@@ -16924,13 +16924,13 @@
     },
     {
       "source": "journal-084-international-journal-of-sustainability-in-highe",
-      "target": "topic-7808eeeb45dfa074",
+      "target": "topic-07fb192d39a14542",
       "weight": 6.0,
       "relation": "text_topic"
     },
     {
       "source": "journal-084-international-journal-of-sustainability-in-highe",
-      "target": "topic-07fb192d39a14542",
+      "target": "topic-7808eeeb45dfa074",
       "weight": 6.0,
       "relation": "text_topic"
     },
@@ -17711,7 +17711,7 @@
     {
       "source": "journal-095-journal-of-higher-education-policy-and-managemen",
       "target": "topic-1521565a67f5de08",
-      "weight": 5.0,
+      "weight": 6.0,
       "relation": "text_topic"
     },
     {
@@ -17722,13 +17722,13 @@
     },
     {
       "source": "journal-095-journal-of-higher-education-policy-and-managemen",
-      "target": "topic-07fb192d39a14542",
-      "weight": 3.0,
+      "target": "topic-7808eeeb45dfa074",
+      "weight": 4.0,
       "relation": "text_topic"
     },
     {
       "source": "journal-095-journal-of-higher-education-policy-and-managemen",
-      "target": "topic-7808eeeb45dfa074",
+      "target": "topic-07fb192d39a14542",
       "weight": 3.0,
       "relation": "text_topic"
     },
@@ -18760,13 +18760,13 @@
     },
     {
       "source": "journal-110-international-journal-of-science-and-mathematics",
-      "target": "topic-70eaebd2507075d0",
+      "target": "topic-07fb192d39a14542",
       "weight": 6.0,
       "relation": "text_topic"
     },
     {
       "source": "journal-110-international-journal-of-science-and-mathematics",
-      "target": "topic-07fb192d39a14542",
+      "target": "topic-70eaebd2507075d0",
       "weight": 6.0,
       "relation": "text_topic"
     },
@@ -19486,13 +19486,13 @@
     },
     {
       "source": "journal-120-instructional-science",
-      "target": "topic-7808eeeb45dfa074",
+      "target": "topic-70eaebd2507075d0",
       "weight": 6.0,
       "relation": "text_topic"
     },
     {
       "source": "journal-120-instructional-science",
-      "target": "topic-70eaebd2507075d0",
+      "target": "topic-7808eeeb45dfa074",
       "weight": 6.0,
       "relation": "text_topic"
     },
@@ -19769,7 +19769,7 @@
     {
       "source": "journal-124-early-childhood-research-quarterly",
       "target": "topic-7808eeeb45dfa074",
-      "weight": 5.0,
+      "weight": 6.0,
       "relation": "text_topic"
     },
     {
@@ -20416,13 +20416,13 @@
     },
     {
       "source": "journal-133-educational-studies-in-mathematics",
-      "target": "topic-9a87175207a509e4",
+      "target": "topic-07fb192d39a14542",
       "weight": 6.0,
       "relation": "text_topic"
     },
     {
       "source": "journal-133-educational-studies-in-mathematics",
-      "target": "topic-07fb192d39a14542",
+      "target": "topic-9a87175207a509e4",
       "weight": 6.0,
       "relation": "text_topic"
     },
@@ -21346,13 +21346,13 @@
     },
     {
       "source": "journal-146-research-in-higher-education",
-      "target": "method-f77fb5fc13e89e5d",
-      "weight": 3.0,
+      "target": "method-1e46da15281376a4",
+      "weight": 4.0,
       "relation": "method_or_theme"
     },
     {
       "source": "journal-146-research-in-higher-education",
-      "target": "method-1e46da15281376a4",
+      "target": "method-f77fb5fc13e89e5d",
       "weight": 3.0,
       "relation": "method_or_theme"
     },
@@ -21701,7 +21701,7 @@
     {
       "source": "journal-151-international-journal-of-multilingualism",
       "target": "topic-174dec98266f9613",
-      "weight": 3.0,
+      "weight": 4.0,
       "relation": "text_topic"
     },
     {
@@ -22054,13 +22054,13 @@
     },
     {
       "source": "journal-156-asia-pacific-education-review",
-      "target": "topic-cfbe9d9b22501f1c",
+      "target": "topic-07fb192d39a14542",
       "weight": 6.0,
       "relation": "text_topic"
     },
     {
       "source": "journal-156-asia-pacific-education-review",
-      "target": "topic-07fb192d39a14542",
+      "target": "topic-cfbe9d9b22501f1c",
       "weight": 6.0,
       "relation": "text_topic"
     },
@@ -22235,6 +22235,12 @@
     {
       "source": "journal-158-research-papers-in-education",
       "target": "method-8d9b7097add05fee",
+      "weight": 2.0,
+      "relation": "method_or_theme"
+    },
+    {
+      "source": "journal-158-research-papers-in-education",
+      "target": "method-f77fb5fc13e89e5d",
       "weight": 2.0,
       "relation": "method_or_theme"
     },
@@ -22510,8 +22516,8 @@
     },
     {
       "source": "journal-162-higher-education-policy",
-      "target": "topic-ee12c8cddb053673",
-      "weight": 2.0,
+      "target": "topic-c95abd40e0f3ef3a",
+      "weight": 3.0,
       "relation": "text_topic"
     },
     {
@@ -25330,26 +25336,26 @@
     },
     {
       "source": "journal-203-educational-gerontology",
+      "target": "topic-1521565a67f5de08",
+      "weight": 6.0,
+      "relation": "text_topic"
+    },
+    {
+      "source": "journal-203-educational-gerontology",
       "target": "topic-7808eeeb45dfa074",
       "weight": 6.0,
       "relation": "text_topic"
     },
     {
       "source": "journal-203-educational-gerontology",
-      "target": "topic-1521565a67f5de08",
-      "weight": 5.0,
+      "target": "topic-cfbe9d9b22501f1c",
+      "weight": 4.0,
       "relation": "text_topic"
     },
     {
       "source": "journal-203-educational-gerontology",
       "target": "topic-174dec98266f9613",
       "weight": 4.0,
-      "relation": "text_topic"
-    },
-    {
-      "source": "journal-203-educational-gerontology",
-      "target": "topic-cfbe9d9b22501f1c",
-      "weight": 3.0,
       "relation": "text_topic"
     },
     {
@@ -26608,13 +26614,13 @@
     },
     {
       "source": "journal-222-journal-of-adolescent-adult-literacy",
-      "target": "topic-70eaebd2507075d0",
+      "target": "topic-cfbe9d9b22501f1c",
       "weight": 6.0,
       "relation": "text_topic"
     },
     {
       "source": "journal-222-journal-of-adolescent-adult-literacy",
-      "target": "topic-cfbe9d9b22501f1c",
+      "target": "topic-70eaebd2507075d0",
       "weight": 6.0,
       "relation": "text_topic"
     },
@@ -26850,6 +26856,12 @@
       "source": "journal-226-journal-of-beliefs-values-studies-in-religion-ed",
       "target": "method-1e46da15281376a4",
       "weight": 4.0,
+      "relation": "method_or_theme"
+    },
+    {
+      "source": "journal-226-journal-of-beliefs-values-studies-in-religion-ed",
+      "target": "method-72bf6e495cc8a5b5",
+      "weight": 2.0,
       "relation": "method_or_theme"
     },
     {
@@ -29842,6 +29854,12 @@
     },
     {
       "source": "journal-issn-11797258",
+      "target": "topic-07fb192d39a14542",
+      "weight": 6.0,
+      "relation": "text_topic"
+    },
+    {
+      "source": "journal-issn-11797258",
       "target": "topic-174dec98266f9613",
       "weight": 6.0,
       "relation": "text_topic"
@@ -29855,12 +29873,6 @@
     {
       "source": "journal-issn-11797258",
       "target": "topic-cfbe9d9b22501f1c",
-      "weight": 6.0,
-      "relation": "text_topic"
-    },
-    {
-      "source": "journal-issn-11797258",
-      "target": "topic-07fb192d39a14542",
       "weight": 6.0,
       "relation": "text_topic"
     },
@@ -30981,6 +30993,12 @@
       "relation": "method_or_theme"
     },
     {
+      "source": "journal-issn-27527271",
+      "target": "method-4100620aa84ca641",
+      "weight": 2.0,
+      "relation": "method_or_theme"
+    },
+    {
       "source": "journal-issn-10262652",
       "target": "publisher-5f7183459972ec3d",
       "weight": 1.0,
@@ -31612,13 +31630,13 @@
     },
     {
       "source": "journal-issn-08140626",
-      "target": "topic-cfbe9d9b22501f1c",
+      "target": "topic-70eaebd2507075d0",
       "weight": 6.0,
       "relation": "text_topic"
     },
     {
       "source": "journal-issn-08140626",
-      "target": "topic-70eaebd2507075d0",
+      "target": "topic-cfbe9d9b22501f1c",
       "weight": 6.0,
       "relation": "text_topic"
     },
@@ -31630,13 +31648,13 @@
     },
     {
       "source": "journal-issn-08140626",
-      "target": "topic-07fb192d39a14542",
+      "target": "topic-174dec98266f9613",
       "weight": 6.0,
       "relation": "text_topic"
     },
     {
       "source": "journal-issn-08140626",
-      "target": "topic-174dec98266f9613",
+      "target": "topic-07fb192d39a14542",
       "weight": 6.0,
       "relation": "text_topic"
     },
@@ -31661,7 +31679,7 @@
     {
       "source": "journal-issn-08140626",
       "target": "method-f77fb5fc13e89e5d",
-      "weight": 4.0,
+      "weight": 5.0,
       "relation": "method_or_theme"
     },
     {
@@ -51491,7 +51509,7 @@
     {
       "source": "journal-issn-21512612",
       "target": "topic-70eaebd2507075d0",
-      "weight": 4.0,
+      "weight": 5.0,
       "relation": "text_topic"
     },
     {
@@ -53915,7 +53933,7 @@
     {
       "source": "journal-issn-23237112",
       "target": "method-f77fb5fc13e89e5d",
-      "weight": 4.0,
+      "weight": 5.0,
       "relation": "method_or_theme"
     },
     {
@@ -58661,7 +58679,7 @@
     {
       "source": "journal-issn-00333123",
       "target": "topic-1521565a67f5de08",
-      "weight": 4.0,
+      "weight": 5.0,
       "relation": "text_topic"
     },
     {
@@ -58673,6 +58691,12 @@
     {
       "source": "journal-issn-00333123",
       "target": "topic-174dec98266f9613",
+      "weight": 2.0,
+      "relation": "text_topic"
+    },
+    {
+      "source": "journal-issn-00333123",
+      "target": "topic-c95abd40e0f3ef3a",
       "weight": 2.0,
       "relation": "text_topic"
     },
@@ -58691,7 +58715,7 @@
     {
       "source": "journal-issn-00333123",
       "target": "method-1e46da15281376a4",
-      "weight": 3.0,
+      "weight": 4.0,
       "relation": "method_or_theme"
     },
     {
@@ -59020,7 +59044,7 @@
     },
     {
       "source": "journal-issn-29769310",
-      "target": "topic-9a87175207a509e4",
+      "target": "topic-7808eeeb45dfa074",
       "weight": 5.0,
       "relation": "text_topic"
     },
@@ -59446,13 +59470,13 @@
     },
     {
       "source": "journal-issn-00336882",
-      "target": "topic-174dec98266f9613",
+      "target": "topic-7808eeeb45dfa074",
       "weight": 6.0,
       "relation": "text_topic"
     },
     {
       "source": "journal-issn-00336882",
-      "target": "topic-7808eeeb45dfa074",
+      "target": "topic-174dec98266f9613",
       "weight": 6.0,
       "relation": "text_topic"
     },
@@ -60023,7 +60047,7 @@
     {
       "source": "journal-issn-19404476",
       "target": "topic-1521565a67f5de08",
-      "weight": 5.0,
+      "weight": 6.0,
       "relation": "text_topic"
     },
     {
@@ -60052,13 +60076,13 @@
     },
     {
       "source": "journal-issn-19404476",
-      "target": "method-f77fb5fc13e89e5d",
-      "weight": 2.0,
+      "target": "method-72bf6e495cc8a5b5",
+      "weight": 3.0,
       "relation": "method_or_theme"
     },
     {
       "source": "journal-issn-19404476",
-      "target": "method-72bf6e495cc8a5b5",
+      "target": "method-f77fb5fc13e89e5d",
       "weight": 2.0,
       "relation": "method_or_theme"
     },
@@ -61168,25 +61192,25 @@
     },
     {
       "source": "journal-issn-16074041",
-      "target": "topic-70eaebd2507075d0",
-      "weight": 6.0,
-      "relation": "text_topic"
-    },
-    {
-      "source": "journal-issn-16074041",
       "target": "topic-cfbe9d9b22501f1c",
       "weight": 6.0,
       "relation": "text_topic"
     },
     {
       "source": "journal-issn-16074041",
-      "target": "topic-7808eeeb45dfa074",
+      "target": "topic-70eaebd2507075d0",
       "weight": 6.0,
       "relation": "text_topic"
     },
     {
       "source": "journal-issn-16074041",
       "target": "topic-1521565a67f5de08",
+      "weight": 6.0,
+      "relation": "text_topic"
+    },
+    {
+      "source": "journal-issn-16074041",
+      "target": "topic-7808eeeb45dfa074",
       "weight": 6.0,
       "relation": "text_topic"
     },
@@ -61223,7 +61247,7 @@
     {
       "source": "journal-issn-16074041",
       "target": "method-aff0766a5290e117",
-      "weight": 2.0,
+      "weight": 3.0,
       "relation": "method_or_theme"
     },
     {
@@ -65428,13 +65452,13 @@
     },
     {
       "source": "journal-issn-20586310",
-      "target": "topic-174dec98266f9613",
+      "target": "topic-c95abd40e0f3ef3a",
       "weight": 6.0,
       "relation": "text_topic"
     },
     {
       "source": "journal-issn-20586310",
-      "target": "topic-c95abd40e0f3ef3a",
+      "target": "topic-174dec98266f9613",
       "weight": 6.0,
       "relation": "text_topic"
     },
@@ -65818,25 +65842,25 @@
     },
     {
       "source": "journal-issn-02711214",
-      "target": "topic-1521565a67f5de08",
-      "weight": 6.0,
-      "relation": "text_topic"
-    },
-    {
-      "source": "journal-issn-02711214",
       "target": "topic-cfbe9d9b22501f1c",
       "weight": 6.0,
       "relation": "text_topic"
     },
     {
       "source": "journal-issn-02711214",
-      "target": "topic-07fb192d39a14542",
+      "target": "topic-1521565a67f5de08",
       "weight": 6.0,
       "relation": "text_topic"
     },
     {
       "source": "journal-issn-02711214",
       "target": "topic-174dec98266f9613",
+      "weight": 6.0,
+      "relation": "text_topic"
+    },
+    {
+      "source": "journal-issn-02711214",
+      "target": "topic-07fb192d39a14542",
       "weight": 6.0,
       "relation": "text_topic"
     },

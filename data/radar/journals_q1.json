@@ -380,11 +380,11 @@
       "note": "自动从公开编辑页面结构化条目抽取，投稿前请回官网核验。"
     },
     "article_preferences": {
-      "article_sample_count": 96,
+      "article_sample_count": 98,
       "topic_counts": {
-        "Higher education": 90,
-        "Generative AI": 88,
-        "Assessment": 65,
+        "Higher education": 92,
+        "Generative AI": 91,
+        "Assessment": 66,
         "Motivation and wellbeing": 41,
         "STEM education": 39,
         "Curriculum and pedagogy": 28,
@@ -396,8 +396,8 @@
         "Teacher education": 2
       },
       "method_counts": {
-        "Mixed methods": 40,
-        "Experiment": 30,
+        "Mixed methods": 42,
+        "Experiment": 31,
         "RAG": 18,
         "Learning analytics": 13,
         "Review": 13,
@@ -408,9 +408,9 @@
         {
           "year": "2026",
           "topics": {
-            "Generative AI": 71,
-            "Higher education": 66,
-            "Assessment": 45,
+            "Generative AI": 74,
+            "Higher education": 68,
+            "Assessment": 46,
             "Motivation and wellbeing": 28,
             "STEM education": 26
           }
@@ -430,11 +430,11 @@
         "year": "2026",
         "volume": "23",
         "issue": "1",
-        "article_count": 66,
+        "article_count": 68,
         "top_topics": {
-          "Generative AI": 71,
-          "Higher education": 66,
-          "Assessment": 45,
+          "Generative AI": 74,
+          "Higher education": 68,
+          "Assessment": 46,
           "Motivation and wellbeing": 28,
           "STEM education": 26,
           "Curriculum and pedagogy": 20
@@ -592,18 +592,18 @@
     ],
     "scope_id": "english-ssci-esci-scopus-v1",
     "article_refresh": {
-      "status": "not_scheduled",
-      "last_attempt_at": "2026-11-25T04:41:47+00:00",
-      "last_success_at": "2026-11-25T04:43:27+00:00",
-      "retained_article_count": 96
+      "status": "updated",
+      "last_attempt_at": "2026-11-27T03:52:40+00:00",
+      "last_success_at": "2026-11-27T03:53:54+00:00",
+      "retained_article_count": 0
     },
     "topic_hits": {
       "Educational technology": 15,
-      "Higher education": 98,
+      "Higher education": 100,
       "Equity and policy": 26,
-      "Generative AI": 88,
+      "Generative AI": 91,
       "STEM education": 39,
-      "Assessment": 65,
+      "Assessment": 66,
       "Curriculum and pedagogy": 28,
       "Motivation and wellbeing": 41,
       "Learning analytics": 25,
@@ -612,15 +612,15 @@
       "Teacher education": 2
     },
     "method_hits": {
-      "Mixed methods": 40,
+      "Mixed methods": 42,
       "Review": 13,
       "Learning analytics": 13,
-      "Experiment": 30,
+      "Experiment": 31,
       "RAG": 18,
       "Chatbot": 5,
       "Computer-supported collaboration": 1
     },
-    "article_count_crawled": 96,
+    "article_count_crawled": 98,
     "source_pages_crawled": 2
   },
   {
@@ -1213,10 +1213,10 @@
     ],
     "scope_id": "english-ssci-esci-scopus-v1",
     "article_refresh": {
-      "status": "not_scheduled",
-      "last_attempt_at": "2026-11-25T04:41:47+00:00",
-      "last_success_at": "2026-11-25T04:43:27+00:00",
-      "retained_article_count": 90
+      "status": "updated",
+      "last_attempt_at": "2026-11-27T03:52:40+00:00",
+      "last_success_at": "2026-11-27T03:53:54+00:00",
+      "retained_article_count": 0
     },
     "topic_hits": {
       "Equity and policy": 25,
@@ -1291,23 +1291,23 @@
       "note": ""
     },
     "article_preferences": {
-      "article_sample_count": 113,
+      "article_sample_count": 115,
       "topic_counts": {
         "Generative AI": 17,
-        "Motivation and wellbeing": 14,
+        "Motivation and wellbeing": 15,
         "STEM education": 13,
         "Assessment": 13,
         "Language learning": 13,
+        "Curriculum and pedagogy": 7,
         "Educational technology": 7,
-        "Curriculum and pedagogy": 6,
         "Higher education": 4,
         "Equity and policy": 3,
         "Teacher education": 3,
         "Learning analytics": 1
       },
       "method_counts": {
-        "Review": 5,
-        "Experiment": 5
+        "Experiment": 6,
+        "Review": 5
       },
       "yearly_topics": [
         {
@@ -1316,8 +1316,8 @@
             "Generative AI": 7,
             "STEM education": 7,
             "Assessment": 6,
-            "Language learning": 5,
-            "Motivation and wellbeing": 4
+            "Motivation and wellbeing": 5,
+            "Language learning": 5
           }
         },
         {
@@ -1333,22 +1333,14 @@
       ],
       "latest_issue": {
         "year": "2027",
-        "volume": "258",
+        "volume": "259",
         "issue": "",
-        "article_count": 8,
+        "article_count": 1,
         "top_topics": {
-          "Generative AI": 3,
-          "STEM education": 2,
-          "Motivation and wellbeing": 1,
-          "Equity and policy": 1
+          "Motivation and wellbeing": 1
         },
         "sample_titles": [
-          "Promoting or hindering: How do low and high self-regulated learning abilities moderate the role of GenAI scaffolding in video learning?",
-          "From potential to practice: A critical realist exploration of GenAI use in Australian early childhood education and care",
-          "Assessing engagement in academic contexts: A multitrait, multimethod, multimodal data approach",
-          "Automatic mind wandering detection in educational settings: A systematic review and multimodal benchmarking",
-          "Synergizing mind and machine: Unlocking the potential of generative AI with metacognitive scaffolding to optimize upper elementary student learning",
-          "Orchestrating scaffolding AI agents: How delivery order shapes learning in problem-solving tasks"
+          "Teachers’ TPACK as digital capital and its links to teaching and wellbeing: Cross-country evidence from PISA 2022"
         ]
       }
     },
@@ -1421,17 +1413,17 @@
     ],
     "scope_id": "english-ssci-esci-scopus-v1",
     "article_refresh": {
-      "status": "not_scheduled",
-      "last_attempt_at": "2026-11-25T04:41:47+00:00",
-      "last_success_at": "2026-11-25T04:43:28+00:00",
-      "retained_article_count": 113
+      "status": "updated",
+      "last_attempt_at": "2026-11-27T03:52:40+00:00",
+      "last_success_at": "2026-11-27T03:53:54+00:00",
+      "retained_article_count": 0
     },
     "topic_hits": {
       "Language learning": 16,
       "STEM education": 13,
       "Teacher education": 3,
-      "Curriculum and pedagogy": 6,
-      "Motivation and wellbeing": 14,
+      "Curriculum and pedagogy": 7,
+      "Motivation and wellbeing": 15,
       "Assessment": 13,
       "Higher education": 4,
       "Equity and policy": 3,
@@ -1440,10 +1432,10 @@
       "Learning analytics": 1
     },
     "method_hits": {
-      "Experiment": 5,
+      "Experiment": 6,
       "Review": 5
     },
-    "article_count_crawled": 113,
+    "article_count_crawled": 115,
     "source_pages_crawled": 2
   },
   {
@@ -1652,10 +1644,10 @@
     ],
     "scope_id": "english-ssci-esci-scopus-v1",
     "article_refresh": {
-      "status": "not_scheduled",
-      "last_attempt_at": "2026-11-25T04:41:47+00:00",
-      "last_success_at": "2026-11-25T04:43:28+00:00",
-      "retained_article_count": 92
+      "status": "updated",
+      "last_attempt_at": "2026-11-27T03:52:40+00:00",
+      "last_success_at": "2026-11-27T03:53:56+00:00",
+      "retained_article_count": 0
     },
     "topic_hits": {
       "Educational technology": 13,
@@ -2047,7 +2039,7 @@
       "note": "自动从公开编辑页面结构化条目抽取，投稿前请回官网核验。"
     },
     "article_preferences": {
-      "article_sample_count": 89,
+      "article_sample_count": 90,
       "topic_counts": {
         "STEM education": 72,
         "Higher education": 31,
@@ -2094,7 +2086,7 @@
         "year": "2026",
         "volume": "13",
         "issue": "1",
-        "article_count": 68,
+        "article_count": 69,
         "top_topics": {
           "STEM education": 55,
           "Higher education": 27,
@@ -2107,9 +2099,9 @@
           "Understanding STEM students’ perspectives on undergraduate research at a Hispanic-Serving Institution",
           "Why some STEM subjects lead to STEM careers: domain-specific attitudes and aspirations in junior secondary students",
           "Learning on the record: the observability–authenticity paradox in AI-era STEM assessment",
+          "Coping strategies used by science graduate students with depression in U.S. research environments",
           "Student GenAI use under changing institutional policies: a mixed-methods case study in undergraduate physics",
-          "From answer machine to collaborative partner: impact of structured generative AI training on scientific problem solving in STEM education",
-          "AI literacy and STEM education: emerging frontiers and research priorities"
+          "From answer machine to collaborative partner: impact of structured generative AI training on scientific problem solving in STEM education"
         ]
       }
     },
@@ -2242,10 +2234,10 @@
     ],
     "scope_id": "english-ssci-esci-scopus-v1",
     "article_refresh": {
-      "status": "not_scheduled",
-      "last_attempt_at": "2026-11-25T04:41:47+00:00",
-      "last_success_at": "2026-11-25T04:43:28+00:00",
-      "retained_article_count": 89
+      "status": "updated",
+      "last_attempt_at": "2026-11-27T03:52:40+00:00",
+      "last_success_at": "2026-11-27T03:53:56+00:00",
+      "retained_article_count": 0
     },
     "topic_hits": {
       "STEM education": 78,
@@ -2267,7 +2259,7 @@
       "Chatbot": 1,
       "Learning analytics": 1
     },
-    "article_count_crawled": 89,
+    "article_count_crawled": 90,
     "source_pages_crawled": 2
   },
   {
@@ -2462,9 +2454,10 @@
       }
     ],
     "scope_id": "english-ssci-esci-scopus-v1",
+    "article_api_error": "HTTP 404",
     "article_refresh": {
-      "status": "not_scheduled",
-      "last_attempt_at": "2026-11-25T04:41:47+00:00",
+      "status": "failed",
+      "last_attempt_at": "2026-11-27T03:52:40+00:00",
       "last_success_at": "2026-11-25T04:43:29+00:00",
       "retained_article_count": 89
     },
@@ -2719,10 +2712,10 @@
     ],
     "scope_id": "english-ssci-esci-scopus-v1",
     "article_refresh": {
-      "status": "not_scheduled",
-      "last_attempt_at": "2026-11-25T04:41:47+00:00",
-      "last_success_at": "2026-11-25T04:43:30+00:00",
-      "retained_article_count": 80
+      "status": "updated",
+      "last_attempt_at": "2026-11-27T03:52:40+00:00",
+      "last_success_at": "2026-11-27T03:53:57+00:00",
+      "retained_article_count": 0
     },
     "topic_hits": {
       "Assessment": 8,
@@ -2931,10 +2924,10 @@
     ],
     "scope_id": "english-ssci-esci-scopus-v1",
     "article_refresh": {
-      "status": "not_scheduled",
-      "last_attempt_at": "2026-11-25T04:41:47+00:00",
-      "last_success_at": "2026-11-25T04:43:29+00:00",
-      "retained_article_count": 45
+      "status": "updated",
+      "last_attempt_at": "2026-11-27T03:52:40+00:00",
+      "last_success_at": "2026-11-27T03:53:58+00:00",
+      "retained_article_count": 0
     },
     "topic_hits": {
       "STEM education": 40,
@@ -2998,21 +2991,21 @@
       "note": ""
     },
     "article_preferences": {
-      "article_sample_count": 99,
+      "article_sample_count": 100,
       "topic_counts": {
-        "STEM education": 61,
+        "STEM education": 62,
         "Assessment": 7,
         "Higher education": 7,
         "Motivation and wellbeing": 6,
         "Curriculum and pedagogy": 4,
+        "Language learning": 4,
         "Teacher education": 3,
-        "Language learning": 3,
         "Educational technology": 2,
         "AI literacy": 1,
         "Generative AI": 1
       },
       "method_counts": {
-        "Review": 90,
+        "Review": 91,
         "Experiment": 13,
         "Computer-supported collaboration": 1,
         "Mixed methods": 1,
@@ -3022,7 +3015,7 @@
         {
           "year": "2026",
           "topics": {
-            "STEM education": 60,
+            "STEM education": 61,
             "Assessment": 7,
             "Higher education": 7,
             "Motivation and wellbeing": 5,
@@ -3041,9 +3034,9 @@
         "year": "2026",
         "volume": "53",
         "issue": "",
-        "article_count": 31,
+        "article_count": 32,
         "top_topics": {
-          "STEM education": 14,
+          "STEM education": 15,
           "Assessment": 5,
           "Higher education": 4,
           "Curriculum and pedagogy": 3,
@@ -3129,31 +3122,31 @@
     ],
     "scope_id": "english-ssci-esci-scopus-v1",
     "article_refresh": {
-      "status": "not_scheduled",
-      "last_attempt_at": "2026-11-25T04:41:47+00:00",
-      "last_success_at": "2026-11-25T04:43:30+00:00",
-      "retained_article_count": 99
+      "status": "updated",
+      "last_attempt_at": "2026-11-27T03:52:40+00:00",
+      "last_success_at": "2026-11-27T03:53:58+00:00",
+      "retained_article_count": 0
     },
     "topic_hits": {
       "Assessment": 7,
-      "STEM education": 61,
+      "STEM education": 62,
       "Higher education": 7,
       "Motivation and wellbeing": 6,
       "Curriculum and pedagogy": 4,
-      "Language learning": 3,
+      "Language learning": 4,
       "Teacher education": 3,
       "AI literacy": 1,
       "Educational technology": 2,
       "Generative AI": 1
     },
     "method_hits": {
-      "Review": 90,
+      "Review": 91,
       "Experiment": 13,
       "Computer-supported collaboration": 1,
       "Mixed methods": 1,
       "Chatbot": 1
     },
-    "article_count_crawled": 99,
+    "article_count_crawled": 100,
     "source_pages_crawled": 2
   },
   {
@@ -3350,10 +3343,10 @@
     ],
     "scope_id": "english-ssci-esci-scopus-v1",
     "article_refresh": {
-      "status": "not_scheduled",
-      "last_attempt_at": "2026-11-25T04:41:47+00:00",
-      "last_success_at": "2026-11-25T04:43:29+00:00",
-      "retained_article_count": 88
+      "status": "updated",
+      "last_attempt_at": "2026-11-27T03:52:40+00:00",
+      "last_success_at": "2026-11-27T03:53:57+00:00",
+      "retained_article_count": 0
     },
     "topic_hits": {
       "Language learning": 46,
@@ -3421,10 +3414,10 @@
       "note": ""
     },
     "article_preferences": {
-      "article_sample_count": 97,
+      "article_sample_count": 98,
       "topic_counts": {
-        "STEM education": 62,
-        "Equity and policy": 52,
+        "STEM education": 63,
+        "Equity and policy": 54,
         "Motivation and wellbeing": 22,
         "Curriculum and pedagogy": 20,
         "Higher education": 19,
@@ -3436,7 +3429,7 @@
         "Educational technology": 1
       },
       "method_counts": {
-        "Review": 83,
+        "Review": 84,
         "Experiment": 29,
         "RAG": 18,
         "Mixed methods": 9,
@@ -3448,8 +3441,8 @@
         {
           "year": "2026",
           "topics": {
-            "STEM education": 41,
-            "Equity and policy": 38,
+            "STEM education": 42,
+            "Equity and policy": 40,
             "Higher education": 19,
             "Curriculum and pedagogy": 14,
             "Motivation and wellbeing": 13
@@ -3547,16 +3540,16 @@
     ],
     "scope_id": "english-ssci-esci-scopus-v1",
     "article_refresh": {
-      "status": "not_scheduled",
-      "last_attempt_at": "2026-11-25T04:41:47+00:00",
-      "last_success_at": "2026-11-25T04:43:29+00:00",
-      "retained_article_count": 97
+      "status": "updated",
+      "last_attempt_at": "2026-11-27T03:52:40+00:00",
+      "last_success_at": "2026-11-27T03:53:58+00:00",
+      "retained_article_count": 0
     },
     "topic_hits": {
-      "STEM education": 62,
+      "STEM education": 63,
       "Assessment": 13,
       "Curriculum and pedagogy": 20,
-      "Equity and policy": 52,
+      "Equity and policy": 54,
       "Higher education": 19,
       "Language learning": 6,
       "Motivation and wellbeing": 22,
@@ -3566,7 +3559,7 @@
       "Educational technology": 1
     },
     "method_hits": {
-      "Review": 83,
+      "Review": 84,
       "RAG": 18,
       "Experiment": 29,
       "Mixed methods": 9,
@@ -3574,7 +3567,7 @@
       "Chatbot": 1,
       "Computer-supported collaboration": 1
     },
-    "article_count_crawled": 97,
+    "article_count_crawled": 98,
     "source_pages_crawled": 2
   },
   {
@@ -3623,27 +3616,27 @@
       "note": ""
     },
     "article_preferences": {
-      "article_sample_count": 92,
+      "article_sample_count": 94,
       "topic_counts": {
-        "Generative AI": 51,
-        "STEM education": 45,
+        "Generative AI": 52,
+        "STEM education": 47,
         "Higher education": 45,
-        "Motivation and wellbeing": 42,
+        "Motivation and wellbeing": 43,
+        "Curriculum and pedagogy": 41,
         "Assessment": 40,
-        "Curriculum and pedagogy": 40,
         "Language learning": 17,
-        "Equity and policy": 8,
+        "Equity and policy": 9,
         "Educational technology": 8,
         "Learning analytics": 5,
         "AI literacy": 4,
         "Teacher education": 3
       },
       "method_counts": {
-        "Experiment": 91,
-        "Mixed methods": 28,
-        "Review": 19,
+        "Experiment": 93,
+        "Mixed methods": 29,
+        "Review": 20,
+        "Chatbot": 8,
         "RAG": 6,
-        "Chatbot": 6,
         "Computer-supported collaboration": 2,
         "Learning analytics": 1
       },
@@ -3651,11 +3644,11 @@
         {
           "year": "2026",
           "topics": {
-            "Generative AI": 48,
+            "Generative AI": 49,
+            "STEM education": 44,
             "Higher education": 44,
-            "STEM education": 42,
-            "Motivation and wellbeing": 40,
-            "Curriculum and pedagogy": 38
+            "Motivation and wellbeing": 41,
+            "Curriculum and pedagogy": 39
           }
         },
         {
@@ -3673,14 +3666,14 @@
         "year": "2026",
         "volume": "",
         "issue": "",
-        "article_count": 28,
+        "article_count": 30,
         "top_topics": {
-          "Generative AI": 23,
-          "Motivation and wellbeing": 18,
-          "STEM education": 16,
+          "Generative AI": 24,
+          "Motivation and wellbeing": 19,
+          "STEM education": 18,
           "Assessment": 16,
           "Higher education": 15,
-          "Curriculum and pedagogy": 14
+          "Curriculum and pedagogy": 15
         },
         "sample_titles": [
           "Unraveling the Effects of Block-Based Visual Programming on Students’ Computational Thinking",
@@ -3762,35 +3755,35 @@
     ],
     "scope_id": "english-ssci-esci-scopus-v1",
     "article_refresh": {
-      "status": "not_scheduled",
-      "last_attempt_at": "2026-11-25T04:41:47+00:00",
-      "last_success_at": "2026-11-25T04:43:33+00:00",
-      "retained_article_count": 92
+      "status": "updated",
+      "last_attempt_at": "2026-11-27T03:52:40+00:00",
+      "last_success_at": "2026-11-27T03:53:58+00:00",
+      "retained_article_count": 0
     },
     "topic_hits": {
-      "STEM education": 45,
+      "STEM education": 47,
       "Assessment": 40,
-      "Curriculum and pedagogy": 40,
+      "Curriculum and pedagogy": 41,
       "Higher education": 45,
-      "Motivation and wellbeing": 42,
-      "Generative AI": 51,
+      "Motivation and wellbeing": 43,
+      "Generative AI": 52,
       "Teacher education": 3,
       "Language learning": 17,
       "AI literacy": 4,
-      "Equity and policy": 8,
+      "Equity and policy": 9,
       "Educational technology": 8,
       "Learning analytics": 5
     },
     "method_hits": {
-      "Experiment": 91,
-      "Review": 19,
-      "Mixed methods": 28,
+      "Experiment": 93,
+      "Review": 20,
+      "Mixed methods": 29,
       "RAG": 6,
-      "Chatbot": 6,
+      "Chatbot": 8,
       "Learning analytics": 1,
       "Computer-supported collaboration": 2
     },
-    "article_count_crawled": 92,
+    "article_count_crawled": 94,
     "source_pages_crawled": 2
   },
   {
@@ -3837,15 +3830,15 @@
       "note": ""
     },
     "article_preferences": {
-      "article_sample_count": 117,
+      "article_sample_count": 122,
       "topic_counts": {
-        "Language learning": 29,
-        "Generative AI": 14,
-        "Motivation and wellbeing": 12,
+        "Language learning": 30,
+        "Generative AI": 15,
+        "Motivation and wellbeing": 14,
         "Assessment": 8,
         "Curriculum and pedagogy": 8,
         "Higher education": 8,
-        "STEM education": 5,
+        "STEM education": 6,
         "AI literacy": 4,
         "Educational technology": 1,
         "Equity and policy": 1,
@@ -3862,9 +3855,9 @@
         {
           "year": "2027",
           "topics": {
-            "Motivation and wellbeing": 5,
-            "Generative AI": 2,
-            "Language learning": 2,
+            "Motivation and wellbeing": 6,
+            "Language learning": 4,
+            "Generative AI": 3,
             "Curriculum and pedagogy": 2,
             "Assessment": 1
           }
@@ -3872,11 +3865,11 @@
         {
           "year": "2026",
           "topics": {
-            "Language learning": 27,
+            "Language learning": 26,
             "Generative AI": 12,
+            "Motivation and wellbeing": 8,
             "Assessment": 7,
-            "Higher education": 7,
-            "Motivation and wellbeing": 7
+            "Higher education": 7
           }
         }
       ],
@@ -3884,11 +3877,11 @@
         "year": "2027",
         "volume": "144",
         "issue": "",
-        "article_count": 18,
+        "article_count": 24,
         "top_topics": {
-          "Motivation and wellbeing": 5,
-          "Generative AI": 2,
-          "Language learning": 2,
+          "Motivation and wellbeing": 6,
+          "Language learning": 4,
+          "Generative AI": 3,
           "Curriculum and pedagogy": 2,
           "Assessment": 1,
           "Higher education": 1
@@ -3987,19 +3980,19 @@
     ],
     "scope_id": "english-ssci-esci-scopus-v1",
     "article_refresh": {
-      "status": "not_scheduled",
-      "last_attempt_at": "2026-11-25T04:41:47+00:00",
-      "last_success_at": "2026-11-25T04:43:30+00:00",
-      "retained_article_count": 117
+      "status": "updated",
+      "last_attempt_at": "2026-11-27T03:52:40+00:00",
+      "last_success_at": "2026-11-27T03:53:58+00:00",
+      "retained_article_count": 0
     },
     "topic_hits": {
-      "STEM education": 9,
+      "STEM education": 10,
       "Curriculum and pedagogy": 8,
-      "Language learning": 29,
+      "Language learning": 30,
       "Assessment": 8,
       "Higher education": 8,
-      "Motivation and wellbeing": 12,
-      "Generative AI": 14,
+      "Motivation and wellbeing": 14,
+      "Generative AI": 15,
       "AI literacy": 4,
       "Equity and policy": 1,
       "Teacher education": 1,
@@ -4012,7 +4005,7 @@
       "RAG": 2,
       "Experiment": 4
     },
-    "article_count_crawled": 117,
+    "article_count_crawled": 122,
     "source_pages_crawled": 2
   },
   {
@@ -4211,10 +4204,10 @@
     ],
     "scope_id": "english-ssci-esci-scopus-v1",
     "article_refresh": {
-      "status": "not_scheduled",
-      "last_attempt_at": "2026-11-25T04:41:47+00:00",
-      "last_success_at": "2026-11-23T02:06:29+00:00",
-      "retained_article_count": 88
+      "status": "updated",
+      "last_attempt_at": "2026-11-27T03:52:40+00:00",
+      "last_success_at": "2026-11-27T03:54:02+00:00",
+      "retained_article_count": 0
     },
     "topic_hits": {
       "STEM education": 10,
@@ -4448,10 +4441,10 @@
     ],
     "scope_id": "english-ssci-esci-scopus-v1",
     "article_refresh": {
-      "status": "not_scheduled",
-      "last_attempt_at": "2026-11-25T04:41:47+00:00",
-      "last_success_at": "2026-11-25T04:43:31+00:00",
-      "retained_article_count": 116
+      "status": "updated",
+      "last_attempt_at": "2026-11-27T03:52:40+00:00",
+      "last_success_at": "2026-11-27T03:53:58+00:00",
+      "retained_article_count": 0
     },
     "topic_hits": {
       "Equity and policy": 2,
@@ -4692,10 +4685,10 @@
     ],
     "scope_id": "english-ssci-esci-scopus-v1",
     "article_refresh": {
-      "status": "not_scheduled",
-      "last_attempt_at": "2026-11-25T04:41:47+00:00",
-      "last_success_at": "2026-11-25T04:43:31+00:00",
-      "retained_article_count": 85
+      "status": "updated",
+      "last_attempt_at": "2026-11-27T03:52:40+00:00",
+      "last_success_at": "2026-11-27T03:53:59+00:00",
+      "retained_article_count": 0
     },
     "topic_hits": {
       "Language learning": 107,
@@ -4770,9 +4763,9 @@
       "note": ""
     },
     "article_preferences": {
-      "article_sample_count": 99,
+      "article_sample_count": 100,
       "topic_counts": {
-        "Language learning": 77,
+        "Language learning": 78,
         "Assessment": 46,
         "Generative AI": 18,
         "Motivation and wellbeing": 14,
@@ -4791,7 +4784,7 @@
         {
           "year": "2027",
           "topics": {
-            "Language learning": 6,
+            "Language learning": 7,
             "Motivation and wellbeing": 4,
             "Generative AI": 3,
             "Assessment": 2,
@@ -4813,9 +4806,9 @@
         "year": "2027",
         "volume": "71",
         "issue": "",
-        "article_count": 7,
+        "article_count": 8,
         "top_topics": {
-          "Language learning": 6,
+          "Language learning": 7,
           "Motivation and wellbeing": 4,
           "Generative AI": 3,
           "Assessment": 2,
@@ -4915,13 +4908,13 @@
     ],
     "scope_id": "english-ssci-esci-scopus-v1",
     "article_refresh": {
-      "status": "not_scheduled",
-      "last_attempt_at": "2026-11-25T04:41:47+00:00",
-      "last_success_at": "2026-11-23T02:06:29+00:00",
-      "retained_article_count": 99
+      "status": "updated",
+      "last_attempt_at": "2026-11-27T03:52:40+00:00",
+      "last_success_at": "2026-11-27T03:53:59+00:00",
+      "retained_article_count": 0
     },
     "topic_hits": {
-      "Language learning": 81,
+      "Language learning": 82,
       "Assessment": 46,
       "STEM education": 5,
       "Motivation and wellbeing": 14,
@@ -4936,7 +4929,7 @@
       "Mixed methods": 2,
       "Experiment": 2
     },
-    "article_count_crawled": 99,
+    "article_count_crawled": 100,
     "source_pages_crawled": 2
   },
   {
@@ -5114,10 +5107,10 @@
     ],
     "scope_id": "english-ssci-esci-scopus-v1",
     "article_refresh": {
-      "status": "not_scheduled",
-      "last_attempt_at": "2026-11-25T04:41:47+00:00",
-      "last_success_at": "2026-11-25T04:43:33+00:00",
-      "retained_article_count": 85
+      "status": "updated",
+      "last_attempt_at": "2026-11-27T03:52:40+00:00",
+      "last_success_at": "2026-11-27T03:54:00+00:00",
+      "retained_article_count": 0
     },
     "topic_hits": {
       "Equity and policy": 2,
@@ -5318,10 +5311,10 @@
     ],
     "scope_id": "english-ssci-esci-scopus-v1",
     "article_refresh": {
-      "status": "not_scheduled",
-      "last_attempt_at": "2026-11-25T04:41:47+00:00",
-      "last_success_at": "2026-11-25T04:43:33+00:00",
-      "retained_article_count": 83
+      "status": "updated",
+      "last_attempt_at": "2026-11-27T03:52:40+00:00",
+      "last_success_at": "2026-11-27T03:53:59+00:00",
+      "retained_article_count": 0
     },
     "topic_hits": {
       "STEM education": 2,
@@ -5693,60 +5686,60 @@
       "note": "自动从公开编辑页面结构化条目抽取，投稿前请回官网核验。"
     },
     "article_preferences": {
-      "article_sample_count": 103,
+      "article_sample_count": 111,
       "topic_counts": {
-        "Generative AI": 27,
-        "Higher education": 20,
+        "Generative AI": 30,
+        "Higher education": 22,
+        "Motivation and wellbeing": 18,
         "Assessment": 18,
-        "STEM education": 16,
-        "Motivation and wellbeing": 16,
-        "Curriculum and pedagogy": 11,
-        "Learning analytics": 6,
+        "STEM education": 17,
+        "Curriculum and pedagogy": 12,
+        "Learning analytics": 8,
+        "Equity and policy": 4,
         "AI literacy": 4,
         "Educational technology": 3,
-        "Equity and policy": 3,
         "Language learning": 2,
         "Teacher education": 2
       },
       "method_counts": {
         "Experiment": 23,
-        "Learning analytics": 4,
+        "Learning analytics": 5,
         "Mixed methods": 4,
-        "Chatbot": 2,
+        "Chatbot": 3,
         "RAG": 2
       },
       "yearly_topics": [
         {
           "year": "2026",
           "topics": {
-            "Generative AI": 27,
-            "Higher education": 20,
+            "Generative AI": 30,
+            "Higher education": 22,
+            "Motivation and wellbeing": 18,
             "Assessment": 18,
-            "STEM education": 16,
-            "Motivation and wellbeing": 16
+            "STEM education": 17
           }
         }
       ],
       "latest_issue": {
         "year": "2026",
-        "volume": "31",
-        "issue": "18",
-        "article_count": 12,
+        "volume": "32",
+        "issue": "1",
+        "article_count": 8,
         "top_topics": {
-          "Generative AI": 4,
-          "Learning analytics": 3,
-          "STEM education": 2,
+          "Generative AI": 3,
           "Higher education": 2,
+          "Learning analytics": 2,
           "Motivation and wellbeing": 2,
-          "Curriculum and pedagogy": 2
+          "STEM education": 1,
+          "Curriculum and pedagogy": 1
         },
         "sample_titles": [
-          "Learner-differentiated recovery support strategies for task interruptions in STEM learning",
-          "Correction to: Redefining job satisfaction in the digital era: Herzberg’s two-factor theory and the mediating role of digital transformation in higher education",
-          "Unlocking student engagement with generative ai: need satisfaction as the key, self-efficacy as the gatekeeper",
-          "Are AI Multimodal Learning Assistants Up to the Task? Evaluating NotebookLM Through the Task-Technology Fit Model",
-          "Negotiating agency: university students’ experiences of co-creating content with generative AI",
-          "Balancing empowerment and threat: deciphering the sustainable integration of Gen AI in creative pedagogy"
+          "Emotional intelligence, digital technologies and sustainable value creation readiness within higher education: insights from a SEM–ANN analysis",
+          "Interactions between POE and NPEM in AR-supported STEM education: evidence from quantitative and behavioral pattern analysis",
+          "Childlike curiosity by generative AI: a child-simulation chatbot for training preservice teachers’ scaffolding skills to naive science questions",
+          "Investigating the effectiveness and boundary conditions of generative AI scaffolding in science game-based learning",
+          "From learning analytics engagement indicators to learning pathways: Examining motivation and instructional context in a K-12 science PBL program",
+          "Intensifying trainees’ case-analyzing performance and case-handling skills in workplaces: a graphic decision knowledge-reinforcing mechanism-based virtual reality approach"
         ]
       }
     },
@@ -5842,33 +5835,33 @@
     ],
     "scope_id": "english-ssci-esci-scopus-v1",
     "article_refresh": {
-      "status": "not_scheduled",
-      "last_attempt_at": "2026-11-25T04:41:47+00:00",
-      "last_success_at": "2026-11-25T04:43:34+00:00",
-      "retained_article_count": 103
+      "status": "updated",
+      "last_attempt_at": "2026-11-27T03:52:40+00:00",
+      "last_success_at": "2026-11-27T03:54:00+00:00",
+      "retained_article_count": 0
     },
     "topic_hits": {
-      "Equity and policy": 5,
-      "Curriculum and pedagogy": 12,
-      "Higher education": 21,
-      "Generative AI": 27,
-      "Motivation and wellbeing": 16,
-      "STEM education": 16,
+      "Equity and policy": 6,
+      "Curriculum and pedagogy": 13,
+      "Higher education": 23,
+      "Generative AI": 30,
+      "Motivation and wellbeing": 18,
+      "STEM education": 17,
       "Assessment": 18,
       "Educational technology": 3,
       "Teacher education": 2,
       "Language learning": 2,
       "AI literacy": 4,
-      "Learning analytics": 6
+      "Learning analytics": 8
     },
     "method_hits": {
-      "Chatbot": 2,
+      "Chatbot": 3,
       "Experiment": 23,
       "RAG": 2,
       "Mixed methods": 4,
-      "Learning analytics": 4
+      "Learning analytics": 5
     },
-    "article_count_crawled": 103,
+    "article_count_crawled": 111,
     "source_pages_crawled": 2
   },
   {
@@ -6068,9 +6061,10 @@
       }
     ],
     "scope_id": "english-ssci-esci-scopus-v1",
+    "article_api_error": "HTTP 429",
     "article_refresh": {
-      "status": "not_scheduled",
-      "last_attempt_at": "2026-11-25T04:41:47+00:00",
+      "status": "failed",
+      "last_attempt_at": "2026-11-27T03:52:40+00:00",
       "last_success_at": null,
       "retained_article_count": 0
     },
@@ -6270,10 +6264,10 @@
     ],
     "scope_id": "english-ssci-esci-scopus-v1",
     "article_refresh": {
-      "status": "not_scheduled",
-      "last_attempt_at": "2026-11-25T04:41:47+00:00",
-      "last_success_at": "2026-11-25T04:43:34+00:00",
-      "retained_article_count": 96
+      "status": "updated",
+      "last_attempt_at": "2026-11-27T03:52:40+00:00",
+      "last_success_at": "2026-11-27T03:54:00+00:00",
+      "retained_article_count": 0
     },
     "topic_hits": {
       "Higher education": 45,
@@ -6871,10 +6865,10 @@
     ],
     "scope_id": "english-ssci-esci-scopus-v1",
     "article_refresh": {
-      "status": "not_scheduled",
-      "last_attempt_at": "2026-11-25T04:41:47+00:00",
-      "last_success_at": "2026-11-25T04:43:34+00:00",
-      "retained_article_count": 81
+      "status": "updated",
+      "last_attempt_at": "2026-11-27T03:52:40+00:00",
+      "last_success_at": "2026-11-27T03:54:00+00:00",
+      "retained_article_count": 0
     },
     "topic_hits": {
       "STEM education": 12,
@@ -6946,13 +6940,13 @@
       "note": ""
     },
     "article_preferences": {
-      "article_sample_count": 131,
+      "article_sample_count": 134,
       "topic_counts": {
-        "Generative AI": 41,
-        "Higher education": 31,
-        "Motivation and wellbeing": 27,
+        "Generative AI": 44,
+        "Higher education": 32,
+        "Motivation and wellbeing": 29,
         "STEM education": 20,
-        "Assessment": 16,
+        "Assessment": 17,
         "AI literacy": 12,
         "Curriculum and pedagogy": 10,
         "Language learning": 8,
@@ -6974,11 +6968,11 @@
         {
           "year": "2026",
           "topics": {
-            "Generative AI": 41,
-            "Higher education": 31,
-            "Motivation and wellbeing": 27,
+            "Generative AI": 44,
+            "Higher education": 32,
+            "Motivation and wellbeing": 29,
             "STEM education": 20,
-            "Assessment": 16
+            "Assessment": 17
           }
         }
       ],
@@ -6986,13 +6980,13 @@
         "year": "2026",
         "volume": "",
         "issue": "",
-        "article_count": 128,
+        "article_count": 131,
         "top_topics": {
-          "Generative AI": 41,
-          "Higher education": 30,
-          "Motivation and wellbeing": 27,
+          "Generative AI": 44,
+          "Higher education": 31,
+          "Motivation and wellbeing": 29,
           "STEM education": 20,
-          "Assessment": 16,
+          "Assessment": 17,
           "AI literacy": 12
         },
         "sample_titles": [
@@ -7075,20 +7069,20 @@
     ],
     "scope_id": "english-ssci-esci-scopus-v1",
     "article_refresh": {
-      "status": "not_scheduled",
-      "last_attempt_at": "2026-11-25T04:41:47+00:00",
-      "last_success_at": "2026-11-25T04:43:36+00:00",
-      "retained_article_count": 131
+      "status": "updated",
+      "last_attempt_at": "2026-11-27T03:52:40+00:00",
+      "last_success_at": "2026-11-27T03:54:02+00:00",
+      "retained_article_count": 0
     },
     "topic_hits": {
-      "Generative AI": 41,
+      "Generative AI": 44,
       "STEM education": 20,
-      "Assessment": 16,
+      "Assessment": 17,
       "Equity and policy": 5,
       "Curriculum and pedagogy": 10,
       "Language learning": 8,
-      "Higher education": 31,
-      "Motivation and wellbeing": 27,
+      "Higher education": 32,
+      "Motivation and wellbeing": 29,
       "Teacher education": 1,
       "AI literacy": 12,
       "Educational technology": 2,
@@ -7103,7 +7097,7 @@
       "RAG": 1,
       "Learning analytics": 2
     },
-    "article_count_crawled": 131,
+    "article_count_crawled": 134,
     "source_pages_crawled": 2
   },
   {
@@ -7364,9 +7358,10 @@
       }
     ],
     "scope_id": "english-ssci-esci-scopus-v1",
+    "article_api_error": "HTTP 429",
     "article_refresh": {
-      "status": "not_scheduled",
-      "last_attempt_at": "2026-11-25T04:41:47+00:00",
+      "status": "failed",
+      "last_attempt_at": "2026-11-27T03:52:40+00:00",
       "last_success_at": "2026-11-25T04:43:39+00:00",
       "retained_article_count": 84
     },
@@ -7443,23 +7438,23 @@
       "note": ""
     },
     "article_preferences": {
-      "article_sample_count": 112,
+      "article_sample_count": 116,
       "topic_counts": {
-        "Higher education": 41,
+        "Higher education": 42,
+        "Motivation and wellbeing": 15,
         "Generative AI": 15,
         "Curriculum and pedagogy": 15,
-        "Motivation and wellbeing": 14,
-        "Assessment": 12,
+        "Assessment": 13,
         "Language learning": 5,
+        "STEM education": 5,
         "Equity and policy": 4,
-        "STEM education": 4,
         "AI literacy": 1,
         "Educational technology": 1,
         "Teacher education": 1
       },
       "method_counts": {
+        "Review": 5,
         "Experiment": 5,
-        "Review": 4,
         "Mixed methods": 3,
         "Computer-supported collaboration": 2,
         "RAG": 1
@@ -7468,11 +7463,11 @@
         {
           "year": "2026",
           "topics": {
-            "Higher education": 41,
+            "Higher education": 42,
+            "Motivation and wellbeing": 15,
             "Generative AI": 15,
             "Curriculum and pedagogy": 15,
-            "Motivation and wellbeing": 14,
-            "Assessment": 12
+            "Assessment": 13
           }
         }
       ],
@@ -7583,20 +7578,20 @@
     ],
     "scope_id": "english-ssci-esci-scopus-v1",
     "article_refresh": {
-      "status": "not_scheduled",
-      "last_attempt_at": "2026-11-25T04:41:47+00:00",
-      "last_success_at": "2026-11-25T04:43:35+00:00",
-      "retained_article_count": 112
+      "status": "updated",
+      "last_attempt_at": "2026-11-27T03:52:40+00:00",
+      "last_success_at": "2026-11-27T03:54:03+00:00",
+      "retained_article_count": 0
     },
     "topic_hits": {
-      "Higher education": 41,
+      "Higher education": 42,
       "Curriculum and pedagogy": 15,
       "Generative AI": 15,
-      "Assessment": 12,
-      "Motivation and wellbeing": 14,
+      "Assessment": 13,
+      "Motivation and wellbeing": 15,
       "Language learning": 5,
       "Teacher education": 1,
-      "STEM education": 4,
+      "STEM education": 5,
       "Equity and policy": 4,
       "Educational technology": 1,
       "AI literacy": 1
@@ -7605,10 +7600,10 @@
       "Mixed methods": 3,
       "RAG": 1,
       "Experiment": 5,
-      "Review": 4,
+      "Review": 5,
       "Computer-supported collaboration": 2
     },
-    "article_count_crawled": 112,
+    "article_count_crawled": 116,
     "source_pages_crawled": 2
   },
   {
@@ -7655,9 +7650,9 @@
       "note": ""
     },
     "article_preferences": {
-      "article_sample_count": 103,
+      "article_sample_count": 105,
       "topic_counts": {
-        "Curriculum and pedagogy": 12,
+        "Curriculum and pedagogy": 13,
         "Motivation and wellbeing": 10,
         "STEM education": 6,
         "Assessment": 5,
@@ -7679,7 +7674,7 @@
         {
           "year": "2027",
           "topics": {
-            "Curriculum and pedagogy": 3,
+            "Curriculum and pedagogy": 5,
             "Assessment": 2,
             "STEM education": 2,
             "Language learning": 2,
@@ -7690,7 +7685,7 @@
           "year": "2026",
           "topics": {
             "Motivation and wellbeing": 9,
-            "Curriculum and pedagogy": 9,
+            "Curriculum and pedagogy": 8,
             "STEM education": 4,
             "Assessment": 3,
             "Generative AI": 2
@@ -7701,9 +7696,9 @@
         "year": "2027",
         "volume": "107",
         "issue": "",
-        "article_count": 35,
+        "article_count": 38,
         "top_topics": {
-          "Curriculum and pedagogy": 3,
+          "Curriculum and pedagogy": 5,
           "Assessment": 2,
           "STEM education": 2,
           "Language learning": 2,
@@ -7804,14 +7799,14 @@
     ],
     "scope_id": "english-ssci-esci-scopus-v1",
     "article_refresh": {
-      "status": "not_scheduled",
-      "last_attempt_at": "2026-11-25T04:41:47+00:00",
-      "last_success_at": "2026-11-25T04:43:35+00:00",
-      "retained_article_count": 103
+      "status": "updated",
+      "last_attempt_at": "2026-11-27T03:52:40+00:00",
+      "last_success_at": "2026-11-27T03:54:03+00:00",
+      "retained_article_count": 0
     },
     "topic_hits": {
       "Language learning": 7,
-      "Curriculum and pedagogy": 16,
+      "Curriculum and pedagogy": 17,
       "Assessment": 5,
       "Higher education": 1,
       "STEM education": 6,
@@ -7828,7 +7823,7 @@
       "Computer-supported collaboration": 1,
       "RAG": 1
     },
-    "article_count_crawled": 103,
+    "article_count_crawled": 105,
     "source_pages_crawled": 2
   },
   {
@@ -8004,10 +7999,10 @@
     ],
     "scope_id": "english-ssci-esci-scopus-v1",
     "article_refresh": {
-      "status": "not_scheduled",
-      "last_attempt_at": "2026-11-25T04:41:47+00:00",
-      "last_success_at": "2026-11-25T04:43:36+00:00",
-      "retained_article_count": 114
+      "status": "updated",
+      "last_attempt_at": "2026-11-27T03:52:40+00:00",
+      "last_success_at": "2026-11-27T03:54:04+00:00",
+      "retained_article_count": 0
     },
     "topic_hits": {
       "Higher education": 54,
@@ -8423,10 +8418,10 @@
     ],
     "scope_id": "english-ssci-esci-scopus-v1",
     "article_refresh": {
-      "status": "not_scheduled",
-      "last_attempt_at": "2026-11-25T04:41:47+00:00",
-      "last_success_at": "2026-11-25T04:43:36+00:00",
-      "retained_article_count": 121
+      "status": "updated",
+      "last_attempt_at": "2026-11-27T03:52:40+00:00",
+      "last_success_at": "2026-11-27T03:54:04+00:00",
+      "retained_article_count": 0
     },
     "topic_hits": {
       "Educational technology": 11,
@@ -8985,10 +8980,10 @@
     ],
     "scope_id": "english-ssci-esci-scopus-v1",
     "article_refresh": {
-      "status": "not_scheduled",
-      "last_attempt_at": "2026-11-25T04:41:47+00:00",
-      "last_success_at": "2026-11-25T04:43:37+00:00",
-      "retained_article_count": 95
+      "status": "updated",
+      "last_attempt_at": "2026-11-27T03:52:40+00:00",
+      "last_success_at": "2026-11-27T03:54:05+00:00",
+      "retained_article_count": 0
     },
     "topic_hits": {
       "STEM education": 46,
@@ -9060,14 +9055,14 @@
       "note": ""
     },
     "article_preferences": {
-      "article_sample_count": 121,
+      "article_sample_count": 122,
       "topic_counts": {
         "Language learning": 44,
         "Generative AI": 35,
-        "Motivation and wellbeing": 26,
-        "Assessment": 19,
+        "Motivation and wellbeing": 27,
+        "Assessment": 20,
         "Curriculum and pedagogy": 14,
-        "Higher education": 7,
+        "Higher education": 8,
         "STEM education": 5,
         "Educational technology": 5,
         "AI literacy": 2,
@@ -9085,8 +9080,8 @@
           "topics": {
             "Language learning": 44,
             "Generative AI": 35,
-            "Motivation and wellbeing": 26,
-            "Assessment": 19,
+            "Motivation and wellbeing": 27,
+            "Assessment": 20,
             "Curriculum and pedagogy": 14
           }
         }
@@ -9095,14 +9090,14 @@
         "year": "2026",
         "volume": "",
         "issue": "",
-        "article_count": 121,
+        "article_count": 122,
         "top_topics": {
           "Language learning": 44,
           "Generative AI": 35,
-          "Motivation and wellbeing": 26,
-          "Assessment": 19,
+          "Motivation and wellbeing": 27,
+          "Assessment": 20,
           "Curriculum and pedagogy": 14,
-          "Higher education": 7
+          "Higher education": 8
         },
         "sample_titles": [
           "A mixed-methods study on the contributions of AI-supported mediation modes to L2 learners’ speaking skills",
@@ -9199,10 +9194,10 @@
     ],
     "scope_id": "english-ssci-esci-scopus-v1",
     "article_refresh": {
-      "status": "not_scheduled",
-      "last_attempt_at": "2026-11-25T04:41:47+00:00",
-      "last_success_at": "2026-11-25T04:43:37+00:00",
-      "retained_article_count": 121
+      "status": "updated",
+      "last_attempt_at": "2026-11-27T03:52:40+00:00",
+      "last_success_at": "2026-11-27T03:54:04+00:00",
+      "retained_article_count": 0
     },
     "topic_hits": {
       "Language learning": 48,
@@ -9210,11 +9205,11 @@
       "Curriculum and pedagogy": 18,
       "Educational technology": 5,
       "Generative AI": 35,
-      "Assessment": 19,
+      "Assessment": 20,
       "STEM education": 5,
-      "Motivation and wellbeing": 26,
+      "Motivation and wellbeing": 27,
       "AI literacy": 2,
-      "Higher education": 7,
+      "Higher education": 8,
       "Teacher education": 1
     },
     "method_hits": {
@@ -9223,7 +9218,7 @@
       "Mixed methods": 3,
       "Review": 6
     },
-    "article_count_crawled": 121,
+    "article_count_crawled": 122,
     "source_pages_crawled": 2
   },
   {
@@ -9405,10 +9400,10 @@
     ],
     "scope_id": "english-ssci-esci-scopus-v1",
     "article_refresh": {
-      "status": "not_scheduled",
-      "last_attempt_at": "2026-11-25T04:41:47+00:00",
-      "last_success_at": "2026-11-25T04:43:38+00:00",
-      "retained_article_count": 92
+      "status": "updated",
+      "last_attempt_at": "2026-11-27T03:52:40+00:00",
+      "last_success_at": "2026-11-27T03:54:04+00:00",
+      "retained_article_count": 0
     },
     "topic_hits": {
       "Equity and policy": 58,
@@ -9477,9 +9472,9 @@
       "note": ""
     },
     "article_preferences": {
-      "article_sample_count": 121,
+      "article_sample_count": 122,
       "topic_counts": {
-        "STEM education": 21,
+        "STEM education": 22,
         "Assessment": 15,
         "Higher education": 12,
         "Generative AI": 10,
@@ -9501,7 +9496,7 @@
         {
           "year": "2027",
           "topics": {
-            "STEM education": 10,
+            "STEM education": 11,
             "Assessment": 9,
             "Higher education": 6,
             "Motivation and wellbeing": 6,
@@ -9523,9 +9518,9 @@
         "year": "2027",
         "volume": "63",
         "issue": "",
-        "article_count": 59,
+        "article_count": 60,
         "top_topics": {
-          "STEM education": 10,
+          "STEM education": 11,
           "Assessment": 9,
           "Higher education": 6,
           "Motivation and wellbeing": 6,
@@ -9611,14 +9606,14 @@
     ],
     "scope_id": "english-ssci-esci-scopus-v1",
     "article_refresh": {
-      "status": "not_scheduled",
-      "last_attempt_at": "2026-11-25T04:41:47+00:00",
-      "last_success_at": "2026-11-25T04:43:38+00:00",
-      "retained_article_count": 121
+      "status": "updated",
+      "last_attempt_at": "2026-11-27T03:52:40+00:00",
+      "last_success_at": "2026-11-27T03:54:04+00:00",
+      "retained_article_count": 0
     },
     "topic_hits": {
       "Higher education": 12,
-      "STEM education": 21,
+      "STEM education": 22,
       "Generative AI": 10,
       "Teacher education": 5,
       "Assessment": 15,
@@ -9635,7 +9630,7 @@
       "Experiment": 7,
       "RAG": 1
     },
-    "article_count_crawled": 121,
+    "article_count_crawled": 122,
     "source_pages_crawled": 2
   },
   {
@@ -9837,10 +9832,10 @@
     ],
     "scope_id": "english-ssci-esci-scopus-v1",
     "article_refresh": {
-      "status": "not_scheduled",
-      "last_attempt_at": "2026-11-25T04:41:47+00:00",
-      "last_success_at": "2026-11-25T04:43:40+00:00",
-      "retained_article_count": 102
+      "status": "updated",
+      "last_attempt_at": "2026-11-27T03:52:40+00:00",
+      "last_success_at": "2026-11-27T03:54:05+00:00",
+      "retained_article_count": 0
     },
     "topic_hits": {
       "STEM education": 76,
@@ -9905,10 +9900,10 @@
       "note": ""
     },
     "article_preferences": {
-      "article_sample_count": 146,
+      "article_sample_count": 150,
       "topic_counts": {
-        "Higher education": 74,
-        "Motivation and wellbeing": 61,
+        "Higher education": 77,
+        "Motivation and wellbeing": 63,
         "Language learning": 45,
         "Curriculum and pedagogy": 35,
         "Equity and policy": 33,
@@ -9916,12 +9911,12 @@
         "Assessment": 32,
         "Generative AI": 20,
         "Teacher education": 12,
-        "AI literacy": 11,
+        "AI literacy": 12,
         "Educational technology": 9,
         "Learning analytics": 1
       },
       "method_counts": {
-        "Mixed methods": 71,
+        "Mixed methods": 73,
         "Experiment": 31,
         "RAG": 11,
         "Chatbot": 7,
@@ -9932,8 +9927,8 @@
         {
           "year": "2026",
           "topics": {
-            "Higher education": 74,
-            "Motivation and wellbeing": 61,
+            "Higher education": 77,
+            "Motivation and wellbeing": 63,
             "Language learning": 45,
             "Curriculum and pedagogy": 35,
             "Equity and policy": 33
@@ -9942,24 +9937,16 @@
       ],
       "latest_issue": {
         "year": "2026",
-        "volume": "61",
-        "issue": "4",
-        "article_count": 116,
+        "volume": "62",
+        "issue": "1",
+        "article_count": 2,
         "top_topics": {
-          "Higher education": 50,
-          "Motivation and wellbeing": 48,
-          "Language learning": 32,
-          "Curriculum and pedagogy": 31,
-          "STEM education": 26,
-          "Assessment": 26
+          "Higher education": 2,
+          "Motivation and wellbeing": 2
         },
         "sample_titles": [
-          "Artificial Intelligence‐Supported Adaptive Flipped Learning and Changes in Autonomy, Competence, Relatedness and Novelty in Higher Education: A Quasi‐Experimental Study",
-          "Exploring the Network Structure and Interplay of EFL Students' Grit, Growth Mindset, and Engagement: A Multilayer Network Analysis",
-          "Attitude of Parents and Its Predictive Variables to the Inclusion of Children With Disabilities in the Mainstream Classroom of Primary Schools, Ethiopia",
-          "Exploring the Epistemic Agency of Induction‐Year English Language Teachers in Hong Kong: A Qualitative Study",
-          "“I'd Love to Work in a School That Did Something Like This”: The Development of Pre‐Service Teacher Professionalism Through Outdoor Learning in Forest School Contexts",
-          "When AI Anxiety Coexists With Capability: ICT Self‐Efficacy and Institutional Support in Preservice Teacher Education"
+          "Issue Information",
+          "How AI Shapes Student Engagement in Mainstream Education: The Role of Emotional Intelligence, Motivation, Academic Buoyancy and Grit"
         ]
       }
     },
@@ -10055,34 +10042,34 @@
     ],
     "scope_id": "english-ssci-esci-scopus-v1",
     "article_refresh": {
-      "status": "not_scheduled",
-      "last_attempt_at": "2026-11-25T04:41:47+00:00",
-      "last_success_at": "2026-11-25T04:43:40+00:00",
-      "retained_article_count": 146
+      "status": "updated",
+      "last_attempt_at": "2026-11-27T03:52:40+00:00",
+      "last_success_at": "2026-11-27T03:54:05+00:00",
+      "retained_article_count": 0
     },
     "topic_hits": {
       "STEM education": 32,
       "Equity and policy": 33,
       "Assessment": 32,
-      "Motivation and wellbeing": 61,
+      "Motivation and wellbeing": 63,
       "Curriculum and pedagogy": 35,
-      "Higher education": 74,
+      "Higher education": 77,
       "Generative AI": 20,
       "Educational technology": 9,
       "Language learning": 45,
-      "AI literacy": 11,
+      "AI literacy": 12,
       "Teacher education": 12,
       "Learning analytics": 1
     },
     "method_hits": {
       "RAG": 11,
-      "Mixed methods": 71,
+      "Mixed methods": 73,
       "Chatbot": 7,
       "Experiment": 31,
       "Computer-supported collaboration": 2,
       "Review": 2
     },
-    "article_count_crawled": 146,
+    "article_count_crawled": 150,
     "source_pages_crawled": 1
   },
   {
@@ -10261,10 +10248,10 @@
     ],
     "scope_id": "english-ssci-esci-scopus-v1",
     "article_refresh": {
-      "status": "not_scheduled",
-      "last_attempt_at": "2026-11-25T04:41:47+00:00",
-      "last_success_at": "2026-11-25T04:43:39+00:00",
-      "retained_article_count": 102
+      "status": "updated",
+      "last_attempt_at": "2026-11-27T03:52:40+00:00",
+      "last_success_at": "2026-11-27T03:54:05+00:00",
+      "retained_article_count": 0
     },
     "topic_hits": {
       "Language learning": 73,
@@ -10476,10 +10463,10 @@
     ],
     "scope_id": "english-ssci-esci-scopus-v1",
     "article_refresh": {
-      "status": "not_scheduled",
-      "last_attempt_at": "2026-11-25T04:41:47+00:00",
-      "last_success_at": "2026-11-25T04:43:40+00:00",
-      "retained_article_count": 90
+      "status": "updated",
+      "last_attempt_at": "2026-11-27T03:52:40+00:00",
+      "last_success_at": "2026-11-27T03:54:05+00:00",
+      "retained_article_count": 0
     },
     "topic_hits": {
       "Equity and policy": 67,
@@ -10546,9 +10533,9 @@
       "note": ""
     },
     "article_preferences": {
-      "article_sample_count": 109,
+      "article_sample_count": 111,
       "topic_counts": {
-        "Higher education": 52,
+        "Higher education": 53,
         "Equity and policy": 15,
         "STEM education": 14,
         "Curriculum and pedagogy": 7,
@@ -10569,7 +10556,7 @@
         {
           "year": "2026",
           "topics": {
-            "Higher education": 52,
+            "Higher education": 53,
             "Equity and policy": 15,
             "STEM education": 14,
             "Curriculum and pedagogy": 7,
@@ -10581,9 +10568,9 @@
         "year": "2026",
         "volume": "",
         "issue": "",
-        "article_count": 98,
+        "article_count": 100,
         "top_topics": {
-          "Higher education": 48,
+          "Higher education": 49,
           "Equity and policy": 15,
           "STEM education": 14,
           "Curriculum and pedagogy": 7,
@@ -10685,13 +10672,13 @@
     ],
     "scope_id": "english-ssci-esci-scopus-v1",
     "article_refresh": {
-      "status": "not_scheduled",
-      "last_attempt_at": "2026-11-25T04:41:47+00:00",
-      "last_success_at": "2026-11-25T04:43:42+00:00",
-      "retained_article_count": 109
+      "status": "updated",
+      "last_attempt_at": "2026-11-27T03:52:40+00:00",
+      "last_success_at": "2026-11-27T03:54:05+00:00",
+      "retained_article_count": 0
     },
     "topic_hits": {
-      "Higher education": 56,
+      "Higher education": 57,
       "STEM education": 14,
       "Equity and policy": 15,
       "Curriculum and pedagogy": 7,
@@ -10708,7 +10695,7 @@
       "Review": 2,
       "RAG": 1
     },
-    "article_count_crawled": 109,
+    "article_count_crawled": 111,
     "source_pages_crawled": 2
   },
   {
@@ -10903,10 +10890,10 @@
     ],
     "scope_id": "english-ssci-esci-scopus-v1",
     "article_refresh": {
-      "status": "not_scheduled",
-      "last_attempt_at": "2026-11-25T04:41:47+00:00",
-      "last_success_at": "2026-11-25T04:43:41+00:00",
-      "retained_article_count": 89
+      "status": "updated",
+      "last_attempt_at": "2026-11-27T03:52:40+00:00",
+      "last_success_at": "2026-11-27T03:54:05+00:00",
+      "retained_article_count": 0
     },
     "topic_hits": {
       "STEM education": 64,
@@ -11114,10 +11101,10 @@
     ],
     "scope_id": "english-ssci-esci-scopus-v1",
     "article_refresh": {
-      "status": "not_scheduled",
-      "last_attempt_at": "2026-11-25T04:41:47+00:00",
-      "last_success_at": "2026-11-25T04:43:41+00:00",
-      "retained_article_count": 118
+      "status": "updated",
+      "last_attempt_at": "2026-11-27T03:52:40+00:00",
+      "last_success_at": "2026-11-27T03:54:05+00:00",
+      "retained_article_count": 0
     },
     "topic_hits": {
       "Higher education": 46,
@@ -11187,7 +11174,7 @@
       "note": ""
     },
     "article_preferences": {
-      "article_sample_count": 85,
+      "article_sample_count": 86,
       "topic_counts": {
         "STEM education": 15,
         "Assessment": 7,
@@ -11243,7 +11230,7 @@
         "year": "2026",
         "volume": "",
         "issue": "",
-        "article_count": 4,
+        "article_count": 5,
         "top_topics": {
           "Language learning": 1
         },
@@ -11251,7 +11238,8 @@
           "Remembering Allan Collins: a founder of the learning sciences",
           "Learning to fail forward: interactional insights on failure from an escape room",
           "Qualities of disciplinary learning in critical approaches to history education",
-          "Balancing scaffolding and agency: how AI story suggestions shape children’s writing processes and narrative development"
+          "Balancing scaffolding and agency: how AI story suggestions shape children’s writing processes and narrative development",
+          "Coordinating collaborative problem solving in physics with held gestures: A conversation analytic perspective"
         ]
       }
     },
@@ -11340,10 +11328,10 @@
     ],
     "scope_id": "english-ssci-esci-scopus-v1",
     "article_refresh": {
-      "status": "not_scheduled",
-      "last_attempt_at": "2026-11-25T04:41:47+00:00",
-      "last_success_at": "2026-11-25T04:43:42+00:00",
-      "retained_article_count": 85
+      "status": "updated",
+      "last_attempt_at": "2026-11-27T03:52:40+00:00",
+      "last_success_at": "2026-11-27T03:54:06+00:00",
+      "retained_article_count": 0
     },
     "topic_hits": {
       "STEM education": 15,
@@ -11360,7 +11348,7 @@
       "Computer-supported collaboration": 1,
       "Mixed methods": 1
     },
-    "article_count_crawled": 85,
+    "article_count_crawled": 86,
     "source_pages_crawled": 2
   },
   {
@@ -11407,10 +11395,10 @@
       "note": ""
     },
     "article_preferences": {
-      "article_sample_count": 93,
+      "article_sample_count": 97,
       "topic_counts": {
-        "Language learning": 50,
-        "Curriculum and pedagogy": 21,
+        "Language learning": 51,
+        "Curriculum and pedagogy": 24,
         "Higher education": 17,
         "Motivation and wellbeing": 16,
         "Equity and policy": 15,
@@ -11421,7 +11409,7 @@
       },
       "method_counts": {
         "Mixed methods": 33,
-        "Experiment": 8,
+        "Experiment": 9,
         "RAG": 8,
         "Review": 3
       },
@@ -11429,8 +11417,8 @@
         {
           "year": "2026",
           "topics": {
-            "Language learning": 46,
-            "Curriculum and pedagogy": 20,
+            "Language learning": 47,
+            "Curriculum and pedagogy": 23,
             "Motivation and wellbeing": 16,
             "Higher education": 16,
             "Equity and policy": 13
@@ -11449,24 +11437,24 @@
       ],
       "latest_issue": {
         "year": "2026",
-        "volume": "",
-        "issue": "",
-        "article_count": 21,
+        "volume": "110",
+        "issue": "4",
+        "article_count": 17,
         "top_topics": {
-          "Language learning": 18,
-          "Motivation and wellbeing": 9,
-          "Curriculum and pedagogy": 7,
-          "Generative AI": 7,
-          "Higher education": 6,
-          "Assessment": 4
+          "Language learning": 16,
+          "Motivation and wellbeing": 8,
+          "Curriculum and pedagogy": 4,
+          "STEM education": 4,
+          "Higher education": 4,
+          "Assessment": 3
         },
         "sample_titles": [
           "Untangling and Intertwining Queer Pedagogy and Queer Inclusion in Language Education",
           "Boredom Beyond Disengagement: The DRIVE Heuristic for Boredom‐Related Action in Language Learning",
           "Metamotivation in L2/L3 Student Teachers’ Metalinguistic Reasoning",
-          "Uneven Critical Pedagogies: Ideological Persistence and Lateral Violence in a Hong Kong Translanguaging Classroom",
-          "From Material Ruptures to Visceral Adaptations: Reassembling Novice Language Teacher Agency Through a Sociomaterial Lens",
-          "Portrait of an AfroLatina Spanish Teacher: From Stories of Pain to Stories of Healing"
+          "Issue Information",
+          "Issue Information",
+          "Rethinking Second Language Anxiety: Looking Beyond the Classic View of the Anxiety → Achievement Relationship"
         ]
       }
     },
@@ -11555,29 +11543,29 @@
     ],
     "scope_id": "english-ssci-esci-scopus-v1",
     "article_refresh": {
-      "status": "not_scheduled",
-      "last_attempt_at": "2026-11-25T04:41:47+00:00",
-      "last_success_at": "2026-11-25T04:43:43+00:00",
-      "retained_article_count": 93
+      "status": "updated",
+      "last_attempt_at": "2026-11-27T03:52:40+00:00",
+      "last_success_at": "2026-11-27T03:54:06+00:00",
+      "retained_article_count": 0
     },
     "topic_hits": {
       "Higher education": 17,
-      "Language learning": 50,
+      "Language learning": 51,
       "Motivation and wellbeing": 16,
       "STEM education": 14,
       "Assessment": 11,
       "Generative AI": 8,
-      "Curriculum and pedagogy": 21,
+      "Curriculum and pedagogy": 24,
       "Equity and policy": 15,
       "Teacher education": 6
     },
     "method_hits": {
       "Mixed methods": 33,
       "RAG": 8,
-      "Experiment": 8,
+      "Experiment": 9,
       "Review": 3
     },
-    "article_count_crawled": 93,
+    "article_count_crawled": 97,
     "source_pages_crawled": 1
   },
   {
@@ -11831,10 +11819,10 @@
     ],
     "scope_id": "english-ssci-esci-scopus-v1",
     "article_refresh": {
-      "status": "not_scheduled",
-      "last_attempt_at": "2026-11-25T04:41:47+00:00",
-      "last_success_at": "2026-11-25T04:43:44+00:00",
-      "retained_article_count": 85
+      "status": "updated",
+      "last_attempt_at": "2026-11-27T03:52:40+00:00",
+      "last_success_at": "2026-11-27T03:54:06+00:00",
+      "retained_article_count": 0
     },
     "topic_hits": {
       "Higher education": 39,
@@ -12052,10 +12040,10 @@
     ],
     "scope_id": "english-ssci-esci-scopus-v1",
     "article_refresh": {
-      "status": "not_scheduled",
-      "last_attempt_at": "2026-11-25T04:41:47+00:00",
-      "last_success_at": "2026-11-25T04:43:45+00:00",
-      "retained_article_count": 87
+      "status": "updated",
+      "last_attempt_at": "2026-11-27T03:52:40+00:00",
+      "last_success_at": "2026-11-27T03:54:06+00:00",
+      "retained_article_count": 0
     },
     "topic_hits": {
       "Teacher education": 42,
@@ -12333,10 +12321,10 @@
     ],
     "scope_id": "english-ssci-esci-scopus-v1",
     "article_refresh": {
-      "status": "not_scheduled",
-      "last_attempt_at": "2026-11-25T04:41:47+00:00",
-      "last_success_at": "2026-11-25T04:43:44+00:00",
-      "retained_article_count": 80
+      "status": "updated",
+      "last_attempt_at": "2026-11-27T03:52:40+00:00",
+      "last_success_at": "2026-11-27T03:54:06+00:00",
+      "retained_article_count": 0
     },
     "topic_hits": {
       "Generative AI": 22,
@@ -12856,10 +12844,10 @@
     ],
     "scope_id": "english-ssci-esci-scopus-v1",
     "article_refresh": {
-      "status": "not_scheduled",
-      "last_attempt_at": "2026-11-25T04:41:47+00:00",
-      "last_success_at": "2026-11-25T04:43:45+00:00",
-      "retained_article_count": 86
+      "status": "updated",
+      "last_attempt_at": "2026-11-27T03:52:40+00:00",
+      "last_success_at": "2026-11-27T03:54:07+00:00",
+      "retained_article_count": 0
     },
     "topic_hits": {
       "Equity and policy": 4,
@@ -13101,10 +13089,10 @@
     ],
     "scope_id": "english-ssci-esci-scopus-v1",
     "article_refresh": {
-      "status": "not_scheduled",
-      "last_attempt_at": "2026-11-25T04:41:47+00:00",
-      "last_success_at": "2026-11-25T04:43:46+00:00",
-      "retained_article_count": 85
+      "status": "updated",
+      "last_attempt_at": "2026-11-27T03:52:40+00:00",
+      "last_success_at": "2026-11-27T03:54:08+00:00",
+      "retained_article_count": 0
     },
     "topic_hits": {
       "Assessment": 9,
@@ -13174,7 +13162,7 @@
       "note": ""
     },
     "article_preferences": {
-      "article_sample_count": 101,
+      "article_sample_count": 103,
       "topic_counts": {
         "Higher education": 11,
         "Assessment": 9,
@@ -13186,7 +13174,7 @@
         "AI literacy": 1
       },
       "method_counts": {
-        "Mixed methods": 11,
+        "Mixed methods": 12,
         "Review": 10,
         "Experiment": 8,
         "RAG": 2
@@ -13216,7 +13204,7 @@
         "year": "2026",
         "volume": "31",
         "issue": "1",
-        "article_count": 90,
+        "article_count": 92,
         "top_topics": {
           "Higher education": 10,
           "Assessment": 8,
@@ -13362,10 +13350,10 @@
     ],
     "scope_id": "english-ssci-esci-scopus-v1",
     "article_refresh": {
-      "status": "not_scheduled",
-      "last_attempt_at": "2026-11-25T04:41:47+00:00",
-      "last_success_at": "2026-11-25T04:43:46+00:00",
-      "retained_article_count": 101
+      "status": "updated",
+      "last_attempt_at": "2026-11-27T03:52:40+00:00",
+      "last_success_at": "2026-11-27T03:54:06+00:00",
+      "retained_article_count": 0
     },
     "topic_hits": {
       "Curriculum and pedagogy": 5,
@@ -13380,10 +13368,10 @@
     "method_hits": {
       "Review": 10,
       "Experiment": 8,
-      "Mixed methods": 11,
+      "Mixed methods": 12,
       "RAG": 2
     },
-    "article_count_crawled": 101,
+    "article_count_crawled": 103,
     "source_pages_crawled": 2
   },
   {
@@ -13432,7 +13420,7 @@
       "note": ""
     },
     "article_preferences": {
-      "article_sample_count": 133,
+      "article_sample_count": 135,
       "topic_counts": {
         "Teacher education": 24,
         "Motivation and wellbeing": 17,
@@ -13446,7 +13434,7 @@
       },
       "method_counts": {
         "Review": 7,
-        "Mixed methods": 5,
+        "Mixed methods": 6,
         "Experiment": 2,
         "Computer-supported collaboration": 1
       },
@@ -13474,24 +13462,12 @@
       ],
       "latest_issue": {
         "year": "2027",
-        "volume": "186",
+        "volume": "187",
         "issue": "",
-        "article_count": 10,
-        "top_topics": {
-          "Curriculum and pedagogy": 1,
-          "Language learning": 1,
-          "Generative AI": 1,
-          "Higher education": 1,
-          "Assessment": 1,
-          "Teacher education": 1
-        },
+        "article_count": 1,
+        "top_topics": {},
         "sample_titles": [
-          "Hitting the Wall: Feminist Teachers and the Continuum of Resistance to Gender Equality in Secondary Schools",
-          "Developing Sixth Grade Students’ Scientific Thinking Through “Scientific Thinking Chain (QODTSE)” Teaching Practice: Multidimensional Evidence from Cognition, Emotion, and Neuroscience",
-          "Teacher Identity Transformation Through Project-Based Learning from a Collaborative Autoethnographic Perspective",
-          "Perceived Teacher Digital Competence in Teaching Chinese as a Second Language: Teacher-Student Alignment and Mismatch",
-          "Teacher Agency in the Integration of Pedagogical AI Agents: Insights from Teacher Experiences in Taiwan",
-          "Taking the Parent Perspective: The Development of Action-Oriented Teachers’ Professional Discourse"
+          "Rethinking Belief–Practice Relations in Mandarin Immersion Classrooms: A Case Study of Content–Language Integration"
         ]
       }
     },
@@ -13564,10 +13540,10 @@
     ],
     "scope_id": "english-ssci-esci-scopus-v1",
     "article_refresh": {
-      "status": "not_scheduled",
-      "last_attempt_at": "2026-11-25T04:41:47+00:00",
-      "last_success_at": "2026-11-25T04:43:45+00:00",
-      "retained_article_count": 133
+      "status": "updated",
+      "last_attempt_at": "2026-11-27T03:52:40+00:00",
+      "last_success_at": "2026-11-27T03:54:08+00:00",
+      "retained_article_count": 0
     },
     "topic_hits": {
       "Teacher education": 27,
@@ -13581,12 +13557,12 @@
       "Language learning": 3
     },
     "method_hits": {
-      "Mixed methods": 5,
+      "Mixed methods": 6,
       "Experiment": 2,
       "Review": 7,
       "Computer-supported collaboration": 1
     },
-    "article_count_crawled": 133,
+    "article_count_crawled": 135,
     "source_pages_crawled": 2
   },
   {
@@ -13837,10 +13813,10 @@
     ],
     "scope_id": "english-ssci-esci-scopus-v1",
     "article_refresh": {
-      "status": "not_scheduled",
-      "last_attempt_at": "2026-11-25T04:41:47+00:00",
-      "last_success_at": "2026-11-25T04:43:45+00:00",
-      "retained_article_count": 87
+      "status": "updated",
+      "last_attempt_at": "2026-11-27T03:52:40+00:00",
+      "last_success_at": "2026-11-27T03:54:08+00:00",
+      "retained_article_count": 0
     },
     "topic_hits": {
       "Higher education": 6,
@@ -14315,10 +14291,10 @@
     ],
     "scope_id": "english-ssci-esci-scopus-v1",
     "article_refresh": {
-      "status": "not_scheduled",
-      "last_attempt_at": "2026-11-25T04:41:47+00:00",
-      "last_success_at": "2026-11-25T04:43:46+00:00",
-      "retained_article_count": 83
+      "status": "updated",
+      "last_attempt_at": "2026-11-27T03:52:40+00:00",
+      "last_success_at": "2026-11-27T03:54:07+00:00",
+      "retained_article_count": 0
     },
     "topic_hits": {
       "STEM education": 15,
@@ -14723,11 +14699,11 @@
       "note": "自动从公开编辑页面结构化条目抽取，投稿前请回官网核验。"
     },
     "article_preferences": {
-      "article_sample_count": 119,
+      "article_sample_count": 120,
       "topic_counts": {
-        "Higher education": 89,
-        "Equity and policy": 32,
-        "STEM education": 18,
+        "Higher education": 90,
+        "Equity and policy": 33,
+        "STEM education": 19,
         "Motivation and wellbeing": 13,
         "Assessment": 9,
         "Generative AI": 8,
@@ -14735,7 +14711,7 @@
         "Learning analytics": 3
       },
       "method_counts": {
-        "Mixed methods": 18,
+        "Mixed methods": 19,
         "RAG": 5,
         "Review": 2,
         "Learning analytics": 2,
@@ -14745,9 +14721,9 @@
         {
           "year": "2026",
           "topics": {
-            "Higher education": 89,
-            "Equity and policy": 32,
-            "STEM education": 18,
+            "Higher education": 90,
+            "Equity and policy": 33,
+            "STEM education": 19,
             "Motivation and wellbeing": 13,
             "Assessment": 9
           }
@@ -14757,11 +14733,11 @@
         "year": "2026",
         "volume": "",
         "issue": "",
-        "article_count": 119,
+        "article_count": 120,
         "top_topics": {
-          "Higher education": 89,
-          "Equity and policy": 32,
-          "STEM education": 18,
+          "Higher education": 90,
+          "Equity and policy": 33,
+          "STEM education": 19,
           "Motivation and wellbeing": 13,
           "Assessment": 9,
           "Generative AI": 8
@@ -14869,29 +14845,29 @@
     ],
     "scope_id": "english-ssci-esci-scopus-v1",
     "article_refresh": {
-      "status": "not_scheduled",
-      "last_attempt_at": "2026-11-25T04:41:47+00:00",
-      "last_success_at": "2026-11-25T04:43:46+00:00",
-      "retained_article_count": 119
+      "status": "updated",
+      "last_attempt_at": "2026-11-27T03:52:40+00:00",
+      "last_success_at": "2026-11-27T03:54:09+00:00",
+      "retained_article_count": 0
     },
     "topic_hits": {
-      "Higher education": 97,
-      "Equity and policy": 34,
+      "Higher education": 98,
+      "Equity and policy": 35,
       "Curriculum and pedagogy": 4,
       "Assessment": 9,
-      "STEM education": 18,
+      "STEM education": 19,
       "Motivation and wellbeing": 13,
       "Learning analytics": 3,
       "Generative AI": 8
     },
     "method_hits": {
-      "Mixed methods": 18,
+      "Mixed methods": 19,
       "Learning analytics": 2,
       "RAG": 5,
       "Review": 2,
       "Experiment": 1
     },
-    "article_count_crawled": 119,
+    "article_count_crawled": 120,
     "source_pages_crawled": 2
   },
   {
@@ -14936,7 +14912,7 @@
       "note": ""
     },
     "article_preferences": {
-      "article_sample_count": 86,
+      "article_sample_count": 87,
       "topic_counts": {
         "Higher education": 19,
         "Equity and policy": 12,
@@ -14975,7 +14951,7 @@
         "year": "2026",
         "volume": "",
         "issue": "",
-        "article_count": 27,
+        "article_count": 28,
         "top_topics": {
           "Equity and policy": 5,
           "Higher education": 5,
@@ -14988,8 +14964,8 @@
           "What makes a partnership strategic? Examining Canadian and German approaches to partnerships in higher education",
           "Classroom participation as ethical coordination: cultural rationalities of legitimation in East Asian classrooms",
           "Forever Hong Kong: a global city’s decolonization struggle",
-          "Between the nation and Europe: identity framing in lower-secondary geography curricula across six central and Eastern European countries",
-          "Educational strategies of religious global middle class parents: an analysis of school choice during international mobility"
+          "Development, education and learning in Sri Lanka: an international research journey",
+          "Between the nation and Europe: identity framing in lower-secondary geography curricula across six central and Eastern European countries"
         ]
       }
     },
@@ -15063,10 +15039,10 @@
     ],
     "scope_id": "english-ssci-esci-scopus-v1",
     "article_refresh": {
-      "status": "not_scheduled",
-      "last_attempt_at": "2026-11-25T04:41:47+00:00",
-      "last_success_at": "2026-11-25T04:43:46+00:00",
-      "retained_article_count": 86
+      "status": "updated",
+      "last_attempt_at": "2026-11-27T03:52:40+00:00",
+      "last_success_at": "2026-11-27T03:54:08+00:00",
+      "retained_article_count": 0
     },
     "topic_hits": {
       "Curriculum and pedagogy": 6,
@@ -15080,7 +15056,7 @@
     "method_hits": {
       "Review": 1
     },
-    "article_count_crawled": 86,
+    "article_count_crawled": 87,
     "source_pages_crawled": 2
   },
   {
@@ -15262,10 +15238,10 @@
     ],
     "scope_id": "english-ssci-esci-scopus-v1",
     "article_refresh": {
-      "status": "not_scheduled",
-      "last_attempt_at": "2026-11-25T04:41:47+00:00",
-      "last_success_at": "2026-11-25T04:43:46+00:00",
-      "retained_article_count": 82
+      "status": "updated",
+      "last_attempt_at": "2026-11-27T03:52:40+00:00",
+      "last_success_at": "2026-11-27T03:54:08+00:00",
+      "retained_article_count": 0
     },
     "topic_hits": {
       "STEM education": 7
@@ -15663,36 +15639,36 @@
       "note": "自动从公开编辑页面结构化条目抽取，投稿前请回官网核验。"
     },
     "article_preferences": {
-      "article_sample_count": 491,
+      "article_sample_count": 509,
       "topic_counts": {
-        "Higher education": 164,
-        "Assessment": 132,
+        "Higher education": 167,
+        "Assessment": 138,
         "Curriculum and pedagogy": 49,
-        "STEM education": 43,
-        "Motivation and wellbeing": 33,
-        "Equity and policy": 28,
+        "STEM education": 44,
+        "Motivation and wellbeing": 34,
+        "Equity and policy": 29,
         "Generative AI": 28,
         "Educational technology": 8,
         "AI literacy": 3,
         "Language learning": 1
       },
       "method_counts": {
+        "Mixed methods": 99,
         "Experiment": 97,
-        "Mixed methods": 94,
-        "Review": 32,
+        "Review": 34,
         "RAG": 12,
-        "Chatbot": 5,
+        "Chatbot": 6,
         "Computer-supported collaboration": 1
       },
       "yearly_topics": [
         {
           "year": "2026",
           "topics": {
-            "Higher education": 164,
-            "Assessment": 132,
+            "Higher education": 167,
+            "Assessment": 138,
             "Curriculum and pedagogy": 49,
-            "STEM education": 43,
-            "Motivation and wellbeing": 33
+            "STEM education": 44,
+            "Motivation and wellbeing": 34
           }
         }
       ],
@@ -15700,7 +15676,7 @@
         "year": "2026",
         "volume": "26",
         "issue": "1",
-        "article_count": 44,
+        "article_count": 45,
         "top_topics": {
           "Higher education": 25,
           "Assessment": 13,
@@ -15845,18 +15821,18 @@
     ],
     "scope_id": "english-ssci-esci-scopus-v1",
     "article_refresh": {
-      "status": "not_scheduled",
-      "last_attempt_at": "2026-11-25T04:41:47+00:00",
-      "last_success_at": "2026-11-25T04:43:46+00:00",
-      "retained_article_count": 491
+      "status": "updated",
+      "last_attempt_at": "2026-11-27T03:52:40+00:00",
+      "last_success_at": "2026-11-27T03:54:08+00:00",
+      "retained_article_count": 0
     },
     "topic_hits": {
-      "STEM education": 44,
-      "Equity and policy": 30,
+      "STEM education": 45,
+      "Equity and policy": 31,
       "Curriculum and pedagogy": 50,
-      "Higher education": 166,
-      "Assessment": 132,
-      "Motivation and wellbeing": 33,
+      "Higher education": 169,
+      "Assessment": 138,
+      "Motivation and wellbeing": 34,
       "Educational technology": 8,
       "Generative AI": 28,
       "AI literacy": 3,
@@ -15865,12 +15841,12 @@
     "method_hits": {
       "Experiment": 97,
       "RAG": 12,
-      "Mixed methods": 94,
-      "Review": 32,
-      "Chatbot": 5,
+      "Mixed methods": 99,
+      "Review": 34,
+      "Chatbot": 6,
       "Computer-supported collaboration": 1
     },
-    "article_count_crawled": 491,
+    "article_count_crawled": 509,
     "source_pages_crawled": 2
   },
   {
@@ -16407,10 +16383,10 @@
     ],
     "scope_id": "english-ssci-esci-scopus-v1",
     "article_refresh": {
-      "status": "not_scheduled",
-      "last_attempt_at": "2026-11-25T04:41:47+00:00",
-      "last_success_at": "2026-11-25T04:43:48+00:00",
-      "retained_article_count": 85
+      "status": "updated",
+      "last_attempt_at": "2026-11-27T03:52:40+00:00",
+      "last_success_at": "2026-11-27T03:54:08+00:00",
+      "retained_article_count": 0
     },
     "topic_hits": {
       "Higher education": 9,
@@ -16477,16 +16453,16 @@
       "note": ""
     },
     "article_preferences": {
-      "article_sample_count": 87,
+      "article_sample_count": 89,
       "topic_counts": {
+        "Curriculum and pedagogy": 16,
         "Higher education": 16,
-        "Curriculum and pedagogy": 15,
         "STEM education": 10,
         "Equity and policy": 8,
         "Assessment": 5,
+        "Language learning": 3,
         "Motivation and wellbeing": 3,
         "Generative AI": 2,
-        "Language learning": 2,
         "Teacher education": 1
       },
       "method_counts": {
@@ -16498,7 +16474,7 @@
         {
           "year": "2026",
           "topics": {
-            "Curriculum and pedagogy": 11,
+            "Curriculum and pedagogy": 12,
             "Higher education": 10,
             "STEM education": 5,
             "Assessment": 4,
@@ -16520,22 +16496,22 @@
         "year": "2026",
         "volume": "",
         "issue": "",
-        "article_count": 46,
+        "article_count": 48,
         "top_topics": {
-          "Curriculum and pedagogy": 11,
+          "Curriculum and pedagogy": 12,
           "Higher education": 8,
           "Assessment": 4,
           "STEM education": 4,
           "Equity and policy": 4,
-          "Generative AI": 2
+          "Language learning": 3
         },
         "sample_titles": [
           "Correction",
+          "English as a foreign language teachers’ perspectives on student GAI use: a Q methodology study in Taiwan",
+          "Mapping teachers’ roles in curriculum making: a bibliometric review of international research",
           "Exploring the prediction of English learning self-efficacy by behavioural intention to use AI, dangerous beliefs in AI and AI skills",
           "Universal by whose reckoning? Reading A decolonial curriculum from the Asia-pacific",
-          "“Navigating joy and pressure”: emotion regulation among Chinese secondary school EFL teachers in the high-stakes testing context",
-          "Examining undergraduate students’ demonstrated and perceived reliance on ChatGPT in collaborative problem solving",
-          "Cultivating multicultural competence: pre-service teachers’ descriptions and responses to cultural diversity in Hong Kong"
+          "“Navigating joy and pressure”: emotion regulation among Chinese secondary school EFL teachers in the high-stakes testing context"
         ]
       }
     },
@@ -16609,16 +16585,16 @@
     ],
     "scope_id": "english-ssci-esci-scopus-v1",
     "article_refresh": {
-      "status": "not_scheduled",
-      "last_attempt_at": "2026-11-25T04:41:47+00:00",
-      "last_success_at": "2026-11-25T04:43:48+00:00",
-      "retained_article_count": 87
+      "status": "updated",
+      "last_attempt_at": "2026-11-27T03:52:40+00:00",
+      "last_success_at": "2026-11-27T03:54:10+00:00",
+      "retained_article_count": 0
     },
     "topic_hits": {
-      "Curriculum and pedagogy": 15,
+      "Curriculum and pedagogy": 16,
       "STEM education": 10,
       "Assessment": 5,
-      "Language learning": 2,
+      "Language learning": 3,
       "Equity and policy": 8,
       "Higher education": 16,
       "Teacher education": 1,
@@ -16630,7 +16606,7 @@
       "Review": 1,
       "RAG": 1
     },
-    "article_count_crawled": 87,
+    "article_count_crawled": 89,
     "source_pages_crawled": 2
   },
   {
@@ -16835,10 +16811,10 @@
     ],
     "scope_id": "english-ssci-esci-scopus-v1",
     "article_refresh": {
-      "status": "not_scheduled",
-      "last_attempt_at": "2026-11-25T04:41:47+00:00",
-      "last_success_at": "2026-11-25T04:43:47+00:00",
-      "retained_article_count": 92
+      "status": "updated",
+      "last_attempt_at": "2026-11-27T03:52:40+00:00",
+      "last_success_at": "2026-11-27T03:54:11+00:00",
+      "retained_article_count": 0
     },
     "topic_hits": {
       "STEM education": 84,
@@ -17039,10 +17015,10 @@
     ],
     "scope_id": "english-ssci-esci-scopus-v1",
     "article_refresh": {
-      "status": "not_scheduled",
-      "last_attempt_at": "2026-11-25T04:41:47+00:00",
-      "last_success_at": "2026-11-25T04:43:47+00:00",
-      "retained_article_count": 98
+      "status": "updated",
+      "last_attempt_at": "2026-11-27T03:52:40+00:00",
+      "last_success_at": "2026-11-27T03:54:08+00:00",
+      "retained_article_count": 0
     },
     "topic_hits": {
       "Higher education": 8,
@@ -17249,10 +17225,10 @@
     ],
     "scope_id": "english-ssci-esci-scopus-v1",
     "article_refresh": {
-      "status": "not_scheduled",
-      "last_attempt_at": "2026-11-25T04:41:47+00:00",
-      "last_success_at": "2026-11-25T04:43:48+00:00",
-      "retained_article_count": 96
+      "status": "updated",
+      "last_attempt_at": "2026-11-27T03:52:40+00:00",
+      "last_success_at": "2026-11-27T03:54:09+00:00",
+      "retained_article_count": 0
     },
     "topic_hits": {
       "Generative AI": 10,
@@ -17319,7 +17295,7 @@
       "note": ""
     },
     "article_preferences": {
-      "article_sample_count": 96,
+      "article_sample_count": 97,
       "topic_counts": {
         "Higher education": 48,
         "STEM education": 15,
@@ -17349,7 +17325,7 @@
         "year": "2026",
         "volume": "",
         "issue": "",
-        "article_count": 70,
+        "article_count": 71,
         "top_topics": {
           "Higher education": 34,
           "STEM education": 11,
@@ -17460,10 +17436,10 @@
     ],
     "scope_id": "english-ssci-esci-scopus-v1",
     "article_refresh": {
-      "status": "not_scheduled",
-      "last_attempt_at": "2026-11-25T04:41:47+00:00",
-      "last_success_at": "2026-11-25T04:43:49+00:00",
-      "retained_article_count": 96
+      "status": "updated",
+      "last_attempt_at": "2026-11-27T03:52:40+00:00",
+      "last_success_at": "2026-11-27T03:54:10+00:00",
+      "retained_article_count": 0
     },
     "topic_hits": {
       "Higher education": 52,
@@ -17478,7 +17454,7 @@
     "method_hits": {
       "Mixed methods": 2
     },
-    "article_count_crawled": 96,
+    "article_count_crawled": 97,
     "source_pages_crawled": 2
   },
   {
@@ -17660,10 +17636,10 @@
     ],
     "scope_id": "english-ssci-esci-scopus-v1",
     "article_refresh": {
-      "status": "not_scheduled",
-      "last_attempt_at": "2026-11-25T04:41:47+00:00",
-      "last_success_at": "2026-11-25T04:43:49+00:00",
-      "retained_article_count": 100
+      "status": "updated",
+      "last_attempt_at": "2026-11-27T03:52:40+00:00",
+      "last_success_at": "2026-11-27T03:54:09+00:00",
+      "retained_article_count": 0
     },
     "topic_hits": {
       "Language learning": 5,
@@ -17731,11 +17707,11 @@
       "note": ""
     },
     "article_preferences": {
-      "article_sample_count": 119,
+      "article_sample_count": 121,
       "topic_counts": {
-        "STEM education": 46,
+        "STEM education": 47,
         "Equity and policy": 46,
-        "Motivation and wellbeing": 34,
+        "Motivation and wellbeing": 35,
         "Curriculum and pedagogy": 29,
         "Higher education": 19,
         "Assessment": 10,
@@ -17745,18 +17721,18 @@
         "Learning analytics": 1
       },
       "method_counts": {
-        "Mixed methods": 80,
-        "RAG": 17,
-        "Review": 8,
+        "Mixed methods": 83,
+        "RAG": 18,
+        "Review": 9,
         "Experiment": 3
       },
       "yearly_topics": [
         {
           "year": "2026",
           "topics": {
-            "STEM education": 46,
+            "STEM education": 47,
             "Equity and policy": 46,
-            "Motivation and wellbeing": 34,
+            "Motivation and wellbeing": 35,
             "Curriculum and pedagogy": 29,
             "Higher education": 19
           }
@@ -17846,15 +17822,15 @@
     ],
     "scope_id": "english-ssci-esci-scopus-v1",
     "article_refresh": {
-      "status": "not_scheduled",
-      "last_attempt_at": "2026-11-25T04:41:47+00:00",
-      "last_success_at": "2026-11-25T04:43:48+00:00",
-      "retained_article_count": 119
+      "status": "updated",
+      "last_attempt_at": "2026-11-27T03:52:40+00:00",
+      "last_success_at": "2026-11-27T03:54:10+00:00",
+      "retained_article_count": 0
     },
     "topic_hits": {
-      "STEM education": 46,
+      "STEM education": 47,
       "Equity and policy": 46,
-      "Motivation and wellbeing": 34,
+      "Motivation and wellbeing": 35,
       "Curriculum and pedagogy": 29,
       "Teacher education": 3,
       "Assessment": 10,
@@ -17864,12 +17840,12 @@
       "Generative AI": 2
     },
     "method_hits": {
-      "RAG": 17,
-      "Mixed methods": 80,
+      "RAG": 18,
+      "Mixed methods": 83,
       "Experiment": 3,
-      "Review": 8
+      "Review": 9
     },
-    "article_count_crawled": 119,
+    "article_count_crawled": 121,
     "source_pages_crawled": 2
   },
   {
@@ -18127,10 +18103,10 @@
     ],
     "scope_id": "english-ssci-esci-scopus-v1",
     "article_refresh": {
-      "status": "not_scheduled",
-      "last_attempt_at": "2026-11-25T04:41:47+00:00",
-      "last_success_at": "2026-11-25T04:43:49+00:00",
-      "retained_article_count": 80
+      "status": "updated",
+      "last_attempt_at": "2026-11-27T03:52:40+00:00",
+      "last_success_at": "2026-11-27T03:54:13+00:00",
+      "retained_article_count": 0
     },
     "topic_hits": {
       "Higher education": 20,
@@ -18559,10 +18535,10 @@
     ],
     "scope_id": "english-ssci-esci-scopus-v1",
     "article_refresh": {
-      "status": "not_scheduled",
-      "last_attempt_at": "2026-11-25T04:41:47+00:00",
-      "last_success_at": "2026-11-25T04:43:49+00:00",
-      "retained_article_count": 91
+      "status": "updated",
+      "last_attempt_at": "2026-11-27T03:52:40+00:00",
+      "last_success_at": "2026-11-27T03:54:11+00:00",
+      "retained_article_count": 0
     },
     "topic_hits": {
       "STEM education": 37,
@@ -18801,10 +18777,10 @@
     ],
     "scope_id": "english-ssci-esci-scopus-v1",
     "article_refresh": {
-      "status": "not_scheduled",
-      "last_attempt_at": "2026-11-25T04:41:47+00:00",
-      "last_success_at": "2026-11-25T04:43:51+00:00",
-      "retained_article_count": 86
+      "status": "updated",
+      "last_attempt_at": "2026-11-27T03:52:40+00:00",
+      "last_success_at": "2026-11-27T03:54:11+00:00",
+      "retained_article_count": 0
     },
     "topic_hits": {
       "Assessment": 14,
@@ -18872,37 +18848,37 @@
       "note": ""
     },
     "article_preferences": {
-      "article_sample_count": 126,
+      "article_sample_count": 130,
       "topic_counts": {
-        "Language learning": 89,
-        "Curriculum and pedagogy": 45,
-        "Motivation and wellbeing": 37,
+        "Language learning": 93,
+        "Curriculum and pedagogy": 46,
+        "Motivation and wellbeing": 39,
+        "Generative AI": 39,
         "Higher education": 36,
-        "Generative AI": 34,
-        "STEM education": 31,
-        "Assessment": 29,
-        "Equity and policy": 21,
-        "Teacher education": 6,
-        "Educational technology": 4,
-        "AI literacy": 2
+        "STEM education": 33,
+        "Assessment": 31,
+        "Equity and policy": 23,
+        "Teacher education": 7,
+        "AI literacy": 4,
+        "Educational technology": 4
       },
       "method_counts": {
-        "Mixed methods": 74,
+        "Mixed methods": 75,
         "RAG": 14,
         "Experiment": 13,
+        "Chatbot": 4,
         "Review": 4,
-        "Chatbot": 3,
         "Computer-supported collaboration": 1
       },
       "yearly_topics": [
         {
           "year": "2026",
           "topics": {
-            "Language learning": 89,
-            "Curriculum and pedagogy": 45,
-            "Motivation and wellbeing": 37,
-            "Higher education": 36,
-            "Generative AI": 34
+            "Language learning": 93,
+            "Curriculum and pedagogy": 46,
+            "Motivation and wellbeing": 39,
+            "Generative AI": 39,
+            "Higher education": 36
           }
         }
       ],
@@ -19006,33 +18982,33 @@
     ],
     "scope_id": "english-ssci-esci-scopus-v1",
     "article_refresh": {
-      "status": "not_scheduled",
-      "last_attempt_at": "2026-11-25T04:41:47+00:00",
-      "last_success_at": "2026-11-25T04:43:49+00:00",
-      "retained_article_count": 126
+      "status": "updated",
+      "last_attempt_at": "2026-11-27T03:52:40+00:00",
+      "last_success_at": "2026-11-27T03:54:13+00:00",
+      "retained_article_count": 0
     },
     "topic_hits": {
-      "Language learning": 93,
-      "AI literacy": 2,
-      "Generative AI": 34,
-      "Teacher education": 6,
-      "Assessment": 29,
-      "Equity and policy": 21,
-      "Motivation and wellbeing": 37,
-      "Curriculum and pedagogy": 45,
-      "STEM education": 31,
+      "Language learning": 97,
+      "AI literacy": 4,
+      "Generative AI": 39,
+      "Teacher education": 7,
+      "Assessment": 31,
+      "Equity and policy": 23,
+      "Motivation and wellbeing": 39,
+      "Curriculum and pedagogy": 46,
+      "STEM education": 33,
       "Higher education": 36,
       "Educational technology": 4
     },
     "method_hits": {
-      "Mixed methods": 74,
+      "Mixed methods": 75,
       "Review": 4,
       "RAG": 14,
       "Computer-supported collaboration": 1,
       "Experiment": 13,
-      "Chatbot": 3
+      "Chatbot": 4
     },
-    "article_count_crawled": 126,
+    "article_count_crawled": 130,
     "source_pages_crawled": 1
   },
   {
@@ -19229,10 +19205,10 @@
     ],
     "scope_id": "english-ssci-esci-scopus-v1",
     "article_refresh": {
-      "status": "not_scheduled",
-      "last_attempt_at": "2026-11-25T04:41:47+00:00",
-      "last_success_at": "2026-11-25T04:43:49+00:00",
-      "retained_article_count": 98
+      "status": "updated",
+      "last_attempt_at": "2026-11-27T03:52:40+00:00",
+      "last_success_at": "2026-11-27T03:54:12+00:00",
+      "retained_article_count": 0
     },
     "topic_hits": {
       "Teacher education": 3,
@@ -19430,10 +19406,10 @@
     ],
     "scope_id": "english-ssci-esci-scopus-v1",
     "article_refresh": {
-      "status": "not_scheduled",
-      "last_attempt_at": "2026-11-25T04:41:47+00:00",
-      "last_success_at": "2026-11-25T04:43:49+00:00",
-      "retained_article_count": 99
+      "status": "updated",
+      "last_attempt_at": "2026-11-27T03:52:40+00:00",
+      "last_success_at": "2026-11-27T03:54:12+00:00",
+      "retained_article_count": 0
     },
     "topic_hits": {
       "Equity and policy": 51,
@@ -19980,10 +19956,10 @@
     ],
     "scope_id": "english-ssci-esci-scopus-v1",
     "article_refresh": {
-      "status": "not_scheduled",
-      "last_attempt_at": "2026-11-25T04:41:47+00:00",
-      "last_success_at": "2026-11-25T04:43:49+00:00",
-      "retained_article_count": 93
+      "status": "updated",
+      "last_attempt_at": "2026-11-27T03:52:40+00:00",
+      "last_success_at": "2026-11-27T03:54:12+00:00",
+      "retained_article_count": 0
     },
     "topic_hits": {
       "Equity and policy": 82,
@@ -20049,7 +20025,7 @@
       "note": ""
     },
     "article_preferences": {
-      "article_sample_count": 98,
+      "article_sample_count": 99,
       "topic_counts": {
         "Language learning": 28,
         "Generative AI": 21,
@@ -20090,14 +20066,15 @@
         "year": "2027",
         "volume": "85",
         "issue": "",
-        "article_count": 2,
+        "article_count": 3,
         "top_topics": {
           "Generative AI": 1,
           "Equity and policy": 1
         },
         "sample_titles": [
           "Communicating language research to a broader audience: A multidimensional analysis of OASIS summaries and research article abstracts",
-          "Navigating the authenticity-accessibility tension: Disciplinary instructors' experiences with GenAI-assisted EAP-oriented materials adaptation"
+          "Navigating the authenticity-accessibility tension: Disciplinary instructors' experiences with GenAI-assisted EAP-oriented materials adaptation",
+          "Taking a stance: Medical research abstracts and plain language summaries"
         ]
       }
     },
@@ -20185,10 +20162,10 @@
     ],
     "scope_id": "english-ssci-esci-scopus-v1",
     "article_refresh": {
-      "status": "not_scheduled",
-      "last_attempt_at": "2026-11-25T04:41:47+00:00",
-      "last_success_at": "2026-11-25T04:43:51+00:00",
-      "retained_article_count": 98
+      "status": "updated",
+      "last_attempt_at": "2026-11-27T03:52:40+00:00",
+      "last_success_at": "2026-11-27T03:54:13+00:00",
+      "retained_article_count": 0
     },
     "topic_hits": {
       "Curriculum and pedagogy": 13,
@@ -20207,7 +20184,7 @@
       "Mixed methods": 7,
       "Experiment": 1
     },
-    "article_count_crawled": 98,
+    "article_count_crawled": 99,
     "source_pages_crawled": 2
   },
   {
@@ -20582,9 +20559,9 @@
       "note": "自动从公开编辑页面结构化条目抽取，投稿前请回官网核验。"
     },
     "article_preferences": {
-      "article_sample_count": 106,
+      "article_sample_count": 108,
       "topic_counts": {
-        "Higher education": 44,
+        "Higher education": 45,
         "Assessment": 9,
         "Motivation and wellbeing": 8,
         "STEM education": 8,
@@ -20604,7 +20581,7 @@
         {
           "year": "2026",
           "topics": {
-            "Higher education": 44,
+            "Higher education": 45,
             "Assessment": 9,
             "Motivation and wellbeing": 8,
             "STEM education": 8,
@@ -20616,9 +20593,9 @@
         "year": "2026",
         "volume": "",
         "issue": "",
-        "article_count": 87,
+        "article_count": 89,
         "top_topics": {
-          "Higher education": 36,
+          "Higher education": 37,
           "STEM education": 8,
           "Assessment": 7,
           "Motivation and wellbeing": 7,
@@ -20705,13 +20682,13 @@
     ],
     "scope_id": "english-ssci-esci-scopus-v1",
     "article_refresh": {
-      "status": "not_scheduled",
-      "last_attempt_at": "2026-11-25T04:41:47+00:00",
-      "last_success_at": "2026-11-25T04:43:50+00:00",
-      "retained_article_count": 106
+      "status": "updated",
+      "last_attempt_at": "2026-11-27T03:52:40+00:00",
+      "last_success_at": "2026-11-27T03:54:14+00:00",
+      "retained_article_count": 0
     },
     "topic_hits": {
-      "Higher education": 51,
+      "Higher education": 52,
       "Equity and policy": 4,
       "Curriculum and pedagogy": 4,
       "Generative AI": 4,
@@ -20727,7 +20704,7 @@
       "Mixed methods": 2,
       "RAG": 1
     },
-    "article_count_crawled": 106,
+    "article_count_crawled": 108,
     "source_pages_crawled": 2
   },
   {
@@ -20907,10 +20884,10 @@
     ],
     "scope_id": "english-ssci-esci-scopus-v1",
     "article_refresh": {
-      "status": "not_scheduled",
-      "last_attempt_at": "2026-11-25T04:41:47+00:00",
-      "last_success_at": "2026-11-25T04:43:52+00:00",
-      "retained_article_count": 84
+      "status": "updated",
+      "last_attempt_at": "2026-11-27T03:52:40+00:00",
+      "last_success_at": "2026-11-27T03:54:13+00:00",
+      "retained_article_count": 0
     },
     "topic_hits": {
       "STEM education": 16,
@@ -21123,10 +21100,10 @@
     ],
     "scope_id": "english-ssci-esci-scopus-v1",
     "article_refresh": {
-      "status": "not_scheduled",
-      "last_attempt_at": "2026-11-25T04:41:47+00:00",
-      "last_success_at": "2026-11-25T04:43:51+00:00",
-      "retained_article_count": 121
+      "status": "updated",
+      "last_attempt_at": "2026-11-27T03:52:40+00:00",
+      "last_success_at": "2026-11-27T03:54:15+00:00",
+      "retained_article_count": 0
     },
     "topic_hits": {
       "Higher education": 4,
@@ -21325,10 +21302,10 @@
     ],
     "scope_id": "english-ssci-esci-scopus-v1",
     "article_refresh": {
-      "status": "not_scheduled",
-      "last_attempt_at": "2026-11-25T04:41:47+00:00",
-      "last_success_at": "2026-11-25T04:43:51+00:00",
-      "retained_article_count": 85
+      "status": "updated",
+      "last_attempt_at": "2026-11-27T03:52:40+00:00",
+      "last_success_at": "2026-11-27T03:54:15+00:00",
+      "retained_article_count": 0
     },
     "topic_hits": {
       "Higher education": 21,
@@ -21596,10 +21573,10 @@
     ],
     "scope_id": "english-ssci-esci-scopus-v1",
     "article_refresh": {
-      "status": "not_scheduled",
-      "last_attempt_at": "2026-11-25T04:41:47+00:00",
-      "last_success_at": "2026-11-25T04:43:51+00:00",
-      "retained_article_count": 96
+      "status": "updated",
+      "last_attempt_at": "2026-11-27T03:52:40+00:00",
+      "last_success_at": "2026-11-27T03:54:13+00:00",
+      "retained_article_count": 0
     },
     "topic_hits": {
       "Higher education": 36,
@@ -21674,14 +21651,14 @@
       "note": ""
     },
     "article_preferences": {
-      "article_sample_count": 100,
+      "article_sample_count": 104,
       "topic_counts": {
         "Curriculum and pedagogy": 45,
         "Higher education": 43,
         "Assessment": 26,
         "STEM education": 25,
         "Generative AI": 20,
-        "Motivation and wellbeing": 11,
+        "Motivation and wellbeing": 12,
         "Equity and policy": 8,
         "Language learning": 2,
         "Educational technology": 2,
@@ -21858,16 +21835,16 @@
     ],
     "scope_id": "english-ssci-esci-scopus-v1",
     "article_refresh": {
-      "status": "not_scheduled",
-      "last_attempt_at": "2026-11-25T04:41:47+00:00",
-      "last_success_at": "2026-11-23T02:06:40+00:00",
-      "retained_article_count": 100
+      "status": "updated",
+      "last_attempt_at": "2026-11-27T03:52:40+00:00",
+      "last_success_at": "2026-11-27T03:54:14+00:00",
+      "retained_article_count": 0
     },
     "topic_hits": {
       "Assessment": 27,
       "Generative AI": 20,
       "Teacher education": 2,
-      "Motivation and wellbeing": 11,
+      "Motivation and wellbeing": 12,
       "Curriculum and pedagogy": 45,
       "Higher education": 43,
       "STEM education": 25,
@@ -21885,7 +21862,7 @@
       "Computer-supported collaboration": 2,
       "Learning analytics": 1
     },
-    "article_count_crawled": 100,
+    "article_count_crawled": 104,
     "source_pages_crawled": 2
   },
   {
@@ -22460,10 +22437,10 @@
     ],
     "scope_id": "english-ssci-esci-scopus-v1",
     "article_refresh": {
-      "status": "not_scheduled",
-      "last_attempt_at": "2026-11-25T04:41:47+00:00",
-      "last_success_at": "2026-11-25T04:43:52+00:00",
-      "retained_article_count": 121
+      "status": "updated",
+      "last_attempt_at": "2026-11-27T03:52:40+00:00",
+      "last_success_at": "2026-11-27T03:54:16+00:00",
+      "retained_article_count": 0
     },
     "topic_hits": {
       "STEM education": 11,
@@ -22680,10 +22657,10 @@
     ],
     "scope_id": "english-ssci-esci-scopus-v1",
     "article_refresh": {
-      "status": "not_scheduled",
-      "last_attempt_at": "2026-11-25T04:41:47+00:00",
-      "last_success_at": "2026-11-25T04:43:52+00:00",
-      "retained_article_count": 87
+      "status": "updated",
+      "last_attempt_at": "2026-11-27T03:52:40+00:00",
+      "last_success_at": "2026-11-27T03:54:15+00:00",
+      "retained_article_count": 0
     },
     "topic_hits": {
       "Language learning": 80,
@@ -22913,10 +22890,10 @@
     ],
     "scope_id": "english-ssci-esci-scopus-v1",
     "article_refresh": {
-      "status": "not_scheduled",
-      "last_attempt_at": "2026-11-25T04:41:47+00:00",
-      "last_success_at": "2026-11-25T04:43:53+00:00",
-      "retained_article_count": 92
+      "status": "updated",
+      "last_attempt_at": "2026-11-27T03:52:40+00:00",
+      "last_success_at": "2026-11-27T03:54:17+00:00",
+      "retained_article_count": 0
     },
     "topic_hits": {
       "STEM education": 10,
@@ -23451,10 +23428,10 @@
     ],
     "scope_id": "english-ssci-esci-scopus-v1",
     "article_refresh": {
-      "status": "not_scheduled",
-      "last_attempt_at": "2026-11-25T04:41:47+00:00",
-      "last_success_at": "2026-11-25T04:43:53+00:00",
-      "retained_article_count": 96
+      "status": "updated",
+      "last_attempt_at": "2026-11-27T03:52:40+00:00",
+      "last_success_at": "2026-11-27T03:54:15+00:00",
+      "retained_article_count": 0
     },
     "topic_hits": {
       "Equity and policy": 13,
@@ -23666,10 +23643,10 @@
     ],
     "scope_id": "english-ssci-esci-scopus-v1",
     "article_refresh": {
-      "status": "not_scheduled",
-      "last_attempt_at": "2026-11-25T04:41:47+00:00",
-      "last_success_at": "2026-11-25T04:43:55+00:00",
-      "retained_article_count": 90
+      "status": "updated",
+      "last_attempt_at": "2026-11-27T03:52:40+00:00",
+      "last_success_at": "2026-11-27T03:54:17+00:00",
+      "retained_article_count": 0
     },
     "topic_hits": {
       "Higher education": 117,
@@ -24132,10 +24109,10 @@
     ],
     "scope_id": "english-ssci-esci-scopus-v1",
     "article_refresh": {
-      "status": "not_scheduled",
-      "last_attempt_at": "2026-11-25T04:41:47+00:00",
-      "last_success_at": "2026-11-25T04:43:53+00:00",
-      "retained_article_count": 91
+      "status": "updated",
+      "last_attempt_at": "2026-11-27T03:52:40+00:00",
+      "last_success_at": "2026-11-27T03:54:15+00:00",
+      "retained_article_count": 0
     },
     "topic_hits": {
       "STEM education": 33,
@@ -24200,20 +24177,20 @@
       "note": ""
     },
     "article_preferences": {
-      "article_sample_count": 117,
+      "article_sample_count": 119,
       "topic_counts": {
-        "Higher education": 153,
+        "Higher education": 157,
         "Equity and policy": 53,
         "STEM education": 41,
+        "Motivation and wellbeing": 29,
         "Curriculum and pedagogy": 28,
         "Assessment": 28,
-        "Motivation and wellbeing": 28,
         "Teacher education": 6,
         "Language learning": 1,
         "Generative AI": 1
       },
       "method_counts": {
-        "Mixed methods": 69,
+        "Mixed methods": 73,
         "Experiment": 27,
         "RAG": 14,
         "Review": 11
@@ -24222,11 +24199,11 @@
         {
           "year": "2026",
           "topics": {
-            "Higher education": 153,
+            "Higher education": 157,
             "Equity and policy": 53,
             "STEM education": 41,
-            "Curriculum and pedagogy": 28,
-            "Assessment": 28
+            "Motivation and wellbeing": 29,
+            "Curriculum and pedagogy": 28
           }
         }
       ],
@@ -24338,29 +24315,29 @@
     ],
     "scope_id": "english-ssci-esci-scopus-v1",
     "article_refresh": {
-      "status": "not_scheduled",
-      "last_attempt_at": "2026-11-25T04:41:47+00:00",
-      "last_success_at": "2026-11-25T04:43:54+00:00",
-      "retained_article_count": 117
+      "status": "updated",
+      "last_attempt_at": "2026-11-27T03:52:40+00:00",
+      "last_success_at": "2026-11-27T03:54:16+00:00",
+      "retained_article_count": 0
     },
     "topic_hits": {
-      "Higher education": 157,
+      "Higher education": 161,
       "STEM education": 41,
       "Assessment": 28,
       "Equity and policy": 53,
-      "Motivation and wellbeing": 28,
+      "Motivation and wellbeing": 29,
       "Curriculum and pedagogy": 28,
       "Teacher education": 6,
       "Generative AI": 1,
       "Language learning": 1
     },
     "method_hits": {
-      "Mixed methods": 69,
+      "Mixed methods": 73,
       "Review": 11,
       "RAG": 14,
       "Experiment": 27
     },
-    "article_count_crawled": 117,
+    "article_count_crawled": 119,
     "source_pages_crawled": 1
   },
   {
@@ -24408,7 +24385,7 @@
       "note": ""
     },
     "article_preferences": {
-      "article_sample_count": 112,
+      "article_sample_count": 113,
       "topic_counts": {
         "Higher education": 17,
         "Motivation and wellbeing": 17,
@@ -24453,7 +24430,7 @@
         "year": "2027",
         "volume": "141",
         "issue": "",
-        "article_count": 55,
+        "article_count": 56,
         "top_topics": {
           "Motivation and wellbeing": 10,
           "Higher education": 7,
@@ -24541,10 +24518,10 @@
     ],
     "scope_id": "english-ssci-esci-scopus-v1",
     "article_refresh": {
-      "status": "not_scheduled",
-      "last_attempt_at": "2026-11-25T04:41:47+00:00",
-      "last_success_at": "2026-11-25T04:43:54+00:00",
-      "retained_article_count": 112
+      "status": "updated",
+      "last_attempt_at": "2026-11-27T03:52:40+00:00",
+      "last_success_at": "2026-11-27T03:54:17+00:00",
+      "retained_article_count": 0
     },
     "topic_hits": {
       "Language learning": 8,
@@ -24564,7 +24541,7 @@
       "Review": 4,
       "RAG": 2
     },
-    "article_count_crawled": 112,
+    "article_count_crawled": 113,
     "source_pages_crawled": 2
   },
   {
@@ -24755,10 +24732,10 @@
     ],
     "scope_id": "english-ssci-esci-scopus-v1",
     "article_refresh": {
-      "status": "not_scheduled",
-      "last_attempt_at": "2026-11-25T04:41:47+00:00",
-      "last_success_at": "2026-11-25T04:43:54+00:00",
-      "retained_article_count": 91
+      "status": "updated",
+      "last_attempt_at": "2026-11-27T03:52:40+00:00",
+      "last_success_at": "2026-11-27T03:54:18+00:00",
+      "retained_article_count": 0
     },
     "topic_hits": {
       "Teacher education": 26,
@@ -24966,10 +24943,10 @@
     ],
     "scope_id": "english-ssci-esci-scopus-v1",
     "article_refresh": {
-      "status": "not_scheduled",
-      "last_attempt_at": "2026-11-25T04:41:47+00:00",
-      "last_success_at": "2026-11-25T04:43:56+00:00",
-      "retained_article_count": 111
+      "status": "updated",
+      "last_attempt_at": "2026-11-27T03:52:40+00:00",
+      "last_success_at": "2026-11-27T03:54:17+00:00",
+      "retained_article_count": 0
     },
     "topic_hits": {
       "Assessment": 20,
@@ -25036,7 +25013,7 @@
       "note": ""
     },
     "article_preferences": {
-      "article_sample_count": 89,
+      "article_sample_count": 90,
       "topic_counts": {
         "Equity and policy": 50,
         "Motivation and wellbeing": 4,
@@ -25076,7 +25053,7 @@
         "year": "2026",
         "volume": "",
         "issue": "",
-        "article_count": 60,
+        "article_count": 61,
         "top_topics": {
           "Equity and policy": 29,
           "Motivation and wellbeing": 4,
@@ -25091,7 +25068,7 @@
           "Bourdieusian theory in policy: critical analysis of early years workers’ responses to Ofsted’s cultural capital",
           "Sugar dissolved in water: ideological constructions and contestations of critical thinking in China’s education reform",
           "Interrogating capitalism in education: critical perspectives in the digital age",
-          "From practice to policy: tracing policy conditions of research-practice partnership dynamics in two countries"
+          "The politics of possibility: school funding and the Australian social imaginary"
         ]
       }
     },
@@ -25165,10 +25142,10 @@
     ],
     "scope_id": "english-ssci-esci-scopus-v1",
     "article_refresh": {
-      "status": "not_scheduled",
-      "last_attempt_at": "2026-11-25T04:41:47+00:00",
-      "last_success_at": "2026-11-25T04:43:57+00:00",
-      "retained_article_count": 89
+      "status": "updated",
+      "last_attempt_at": "2026-11-27T03:52:40+00:00",
+      "last_success_at": "2026-11-27T03:54:17+00:00",
+      "retained_article_count": 0
     },
     "topic_hits": {
       "Equity and policy": 53,
@@ -25183,7 +25160,7 @@
       "RAG": 2,
       "Learning analytics": 1
     },
-    "article_count_crawled": 89,
+    "article_count_crawled": 90,
     "source_pages_crawled": 2
   },
   {
@@ -25574,13 +25551,13 @@
       "note": "自动从公开编辑页面结构化条目抽取，投稿前请回官网核验。"
     },
     "article_preferences": {
-      "article_sample_count": 88,
+      "article_sample_count": 89,
       "topic_counts": {
         "STEM education": 41,
         "Curriculum and pedagogy": 22,
         "Motivation and wellbeing": 15,
+        "Higher education": 11,
         "Assessment": 11,
-        "Higher education": 10,
         "Generative AI": 6,
         "Teacher education": 3,
         "Equity and policy": 2,
@@ -25600,8 +25577,8 @@
             "STEM education": 35,
             "Curriculum and pedagogy": 20,
             "Motivation and wellbeing": 14,
-            "Assessment": 11,
-            "Higher education": 10
+            "Higher education": 11,
+            "Assessment": 11
           }
         },
         {
@@ -25618,12 +25595,12 @@
         "year": "2026",
         "volume": "",
         "issue": "",
-        "article_count": 58,
+        "article_count": 59,
         "top_topics": {
           "STEM education": 28,
           "Curriculum and pedagogy": 15,
           "Motivation and wellbeing": 13,
-          "Higher education": 10,
+          "Higher education": 11,
           "Assessment": 8,
           "Generative AI": 5
         },
@@ -25632,8 +25609,8 @@
           "Science Teachers’ Inquiry Orientations Shaping Students’ Inquiry Trajectories and Conceptual Development: a Qualitative Case Study",
           "From Scientific Curiosity to Scientific Creativity: the Mediating Role of Classroom Climate in Primary Science Education",
           "Representation as Epistemic Practice: Reframing Multimodal Representational Competence in Science Education",
-          "Supporting Science Teachers to Embed Writing: Teacher Perspectives and Curriculum Redesign",
-          "An Expectancy-Value Model of Motivation, Engagement, and Physics Continuation Intentions in Senior Secondary Students"
+          "Who is a Geoscientist? Uncovering Conceptual Profiles in Undergraduate Student Drawings of Geoscientists",
+          "Supporting Science Teachers to Embed Writing: Teacher Perspectives and Curriculum Redesign"
         ]
       }
     },
@@ -25730,16 +25707,16 @@
     ],
     "scope_id": "english-ssci-esci-scopus-v1",
     "article_refresh": {
-      "status": "not_scheduled",
-      "last_attempt_at": "2026-11-25T04:41:47+00:00",
-      "last_success_at": "2026-11-25T04:43:55+00:00",
-      "retained_article_count": 88
+      "status": "updated",
+      "last_attempt_at": "2026-11-27T03:52:40+00:00",
+      "last_success_at": "2026-11-27T03:54:17+00:00",
+      "retained_article_count": 0
     },
     "topic_hits": {
       "STEM education": 47,
       "Equity and policy": 3,
       "Curriculum and pedagogy": 23,
-      "Higher education": 11,
+      "Higher education": 12,
       "Assessment": 11,
       "Motivation and wellbeing": 15,
       "Teacher education": 3,
@@ -25753,7 +25730,7 @@
       "Experiment": 11,
       "Chatbot": 1
     },
-    "article_count_crawled": 88,
+    "article_count_crawled": 89,
     "source_pages_crawled": 2
   },
   {
@@ -25944,10 +25921,10 @@
     ],
     "scope_id": "english-ssci-esci-scopus-v1",
     "article_refresh": {
-      "status": "not_scheduled",
-      "last_attempt_at": "2026-11-25T04:41:47+00:00",
-      "last_success_at": "2026-11-25T04:43:55+00:00",
-      "retained_article_count": 96
+      "status": "updated",
+      "last_attempt_at": "2026-11-27T03:52:40+00:00",
+      "last_success_at": "2026-11-27T03:54:19+00:00",
+      "retained_article_count": 0
     },
     "topic_hits": {
       "Curriculum and pedagogy": 8,
@@ -26179,10 +26156,10 @@
     ],
     "scope_id": "english-ssci-esci-scopus-v1",
     "article_refresh": {
-      "status": "not_scheduled",
-      "last_attempt_at": "2026-11-25T04:41:47+00:00",
-      "last_success_at": "2026-11-25T04:43:56+00:00",
-      "retained_article_count": 91
+      "status": "updated",
+      "last_attempt_at": "2026-11-27T03:52:40+00:00",
+      "last_success_at": "2026-11-27T03:54:17+00:00",
+      "retained_article_count": 0
     },
     "topic_hits": {
       "Assessment": 1,
@@ -26396,10 +26373,10 @@
     ],
     "scope_id": "english-ssci-esci-scopus-v1",
     "article_refresh": {
-      "status": "not_scheduled",
-      "last_attempt_at": "2026-11-25T04:41:47+00:00",
-      "last_success_at": "2026-11-25T04:43:56+00:00",
-      "retained_article_count": 92
+      "status": "updated",
+      "last_attempt_at": "2026-11-27T03:52:40+00:00",
+      "last_success_at": "2026-11-27T03:54:20+00:00",
+      "retained_article_count": 0
     },
     "topic_hits": {
       "Assessment": 8,
@@ -26595,10 +26572,10 @@
     ],
     "scope_id": "english-ssci-esci-scopus-v1",
     "article_refresh": {
-      "status": "not_scheduled",
-      "last_attempt_at": "2026-11-25T04:41:47+00:00",
-      "last_success_at": "2026-11-25T04:43:57+00:00",
-      "retained_article_count": 89
+      "status": "updated",
+      "last_attempt_at": "2026-11-27T03:52:40+00:00",
+      "last_success_at": "2026-11-27T03:54:19+00:00",
+      "retained_article_count": 0
     },
     "topic_hits": {
       "Curriculum and pedagogy": 22,
@@ -26664,7 +26641,7 @@
       "note": ""
     },
     "article_preferences": {
-      "article_sample_count": 93,
+      "article_sample_count": 96,
       "topic_counts": {
         "Curriculum and pedagogy": 15,
         "Language learning": 12,
@@ -26699,7 +26676,7 @@
         "year": "2026",
         "volume": "96",
         "issue": "",
-        "article_count": 22,
+        "article_count": 25,
         "top_topics": {
           "Curriculum and pedagogy": 4,
           "Higher education": 3,
@@ -26802,10 +26779,10 @@
     ],
     "scope_id": "english-ssci-esci-scopus-v1",
     "article_refresh": {
-      "status": "not_scheduled",
-      "last_attempt_at": "2026-11-25T04:41:47+00:00",
-      "last_success_at": "2026-11-25T04:43:58+00:00",
-      "retained_article_count": 93
+      "status": "updated",
+      "last_attempt_at": "2026-11-27T03:52:40+00:00",
+      "last_success_at": "2026-11-27T03:54:19+00:00",
+      "retained_article_count": 0
     },
     "topic_hits": {
       "Language learning": 12,
@@ -26825,7 +26802,7 @@
       "Chatbot": 2,
       "RAG": 2
     },
-    "article_count_crawled": 93,
+    "article_count_crawled": 96,
     "source_pages_crawled": 2
   },
   {
@@ -26873,13 +26850,13 @@
       "note": ""
     },
     "article_preferences": {
-      "article_sample_count": 88,
+      "article_sample_count": 90,
       "topic_counts": {
         "Higher education": 46,
         "Equity and policy": 13,
-        "STEM education": 4,
+        "STEM education": 5,
+        "Assessment": 3,
         "Curriculum and pedagogy": 3,
-        "Assessment": 2,
         "Motivation and wellbeing": 2,
         "Learning analytics": 1,
         "Teacher education": 1,
@@ -26895,8 +26872,8 @@
           "topics": {
             "Higher education": 32,
             "Equity and policy": 8,
-            "STEM education": 3,
-            "Assessment": 2,
+            "STEM education": 4,
+            "Assessment": 3,
             "Motivation and wellbeing": 2
           }
         },
@@ -26915,12 +26892,12 @@
         "year": "2026",
         "volume": "",
         "issue": "",
-        "article_count": 33,
+        "article_count": 35,
         "top_topics": {
           "Higher education": 21,
           "Equity and policy": 6,
-          "Assessment": 2,
-          "STEM education": 1,
+          "Assessment": 3,
+          "STEM education": 2,
           "Curriculum and pedagogy": 1,
           "Motivation and wellbeing": 1
         },
@@ -26929,8 +26906,8 @@
           "How do we know if it works? a review of approaches to the evaluation of higher education regulation",
           "Redefining higher education value: conceptualising the duality of learner-consumer orientations for college selection and institutional strategy",
           "Practitioners with disabilities in university disability services: implications for higher education managers and leaders",
-          "Research autonomy in a neoliberal system: a critical realist case study of New Zealand universities",
-          "Career satisfaction and ambitions in professional staff in United Kingdom higher education"
+          "Student evaluation of teaching in Russia: how SET functions within a system of quality control",
+          "Academic inbreeding and its consequences on teaching and research outcomes"
         ]
       }
     },
@@ -27027,18 +27004,18 @@
     ],
     "scope_id": "english-ssci-esci-scopus-v1",
     "article_refresh": {
-      "status": "not_scheduled",
-      "last_attempt_at": "2026-11-25T04:41:47+00:00",
-      "last_success_at": "2026-11-25T04:43:58+00:00",
-      "retained_article_count": 88
+      "status": "updated",
+      "last_attempt_at": "2026-11-27T03:52:40+00:00",
+      "last_success_at": "2026-11-27T03:54:20+00:00",
+      "retained_article_count": 0
     },
     "topic_hits": {
       "Higher education": 50,
       "Equity and policy": 17,
       "Motivation and wellbeing": 2,
       "Curriculum and pedagogy": 3,
-      "Assessment": 2,
-      "STEM education": 4,
+      "Assessment": 3,
+      "STEM education": 5,
       "Learning analytics": 1,
       "Teacher education": 1,
       "Generative AI": 1
@@ -27047,7 +27024,7 @@
       "Mixed methods": 4,
       "Experiment": 1
     },
-    "article_count_crawled": 88,
+    "article_count_crawled": 90,
     "source_pages_crawled": 2
   },
   {
@@ -27254,10 +27231,10 @@
     ],
     "scope_id": "english-ssci-esci-scopus-v1",
     "article_refresh": {
-      "status": "not_scheduled",
-      "last_attempt_at": "2026-11-25T04:41:47+00:00",
-      "last_success_at": "2026-11-25T04:43:57+00:00",
-      "retained_article_count": 81
+      "status": "updated",
+      "last_attempt_at": "2026-11-27T03:52:40+00:00",
+      "last_success_at": "2026-11-27T03:54:19+00:00",
+      "retained_article_count": 0
     },
     "topic_hits": {
       "Equity and policy": 9,
@@ -27374,20 +27351,14 @@
         "year": "2026",
         "volume": "",
         "issue": "",
-        "article_count": 8,
+        "article_count": 2,
         "top_topics": {
-          "Motivation and wellbeing": 2,
-          "STEM education": 2,
           "Higher education": 1,
-          "Language learning": 1
+          "Motivation and wellbeing": 1
         },
         "sample_titles": [
           "Higher education teacher well-being: an integrative review",
-          "How schools support pupils whose parents have mental health challenges",
-          "Effects of storytelling-based motor interventions: a systematic review",
-          "How do learning support staff work with pupils? The role of scaffolding",
-          "Inclusive teaching strategies: teachers’ practices and perspectives",
-          "The practice of using research well in schools"
+          "How schools support pupils whose parents have mental health challenges"
         ]
       }
     },
@@ -27461,10 +27432,10 @@
     ],
     "scope_id": "english-ssci-esci-scopus-v1",
     "article_refresh": {
-      "status": "not_scheduled",
-      "last_attempt_at": "2026-11-25T04:41:47+00:00",
-      "last_success_at": "2026-11-25T04:44:01+00:00",
-      "retained_article_count": 83
+      "status": "updated",
+      "last_attempt_at": "2026-11-27T03:52:40+00:00",
+      "last_success_at": "2026-11-27T03:54:19+00:00",
+      "retained_article_count": 0
     },
     "topic_hits": {
       "Motivation and wellbeing": 9,
@@ -27872,22 +27843,22 @@
       "note": "自动从公开编辑页面结构化条目抽取，投稿前请回官网核验。"
     },
     "article_preferences": {
-      "article_sample_count": 103,
+      "article_sample_count": 105,
       "topic_counts": {
         "Equity and policy": 47,
-        "Motivation and wellbeing": 43,
-        "STEM education": 37,
-        "Curriculum and pedagogy": 25,
-        "Higher education": 21,
-        "Teacher education": 16,
-        "Assessment": 10,
+        "Motivation and wellbeing": 45,
+        "STEM education": 38,
+        "Curriculum and pedagogy": 27,
+        "Higher education": 22,
+        "Teacher education": 17,
+        "Assessment": 11,
+        "Generative AI": 5,
         "Language learning": 4,
-        "Generative AI": 3,
         "Learning analytics": 1,
         "Educational technology": 1
       },
       "method_counts": {
-        "Mixed methods": 54,
+        "Mixed methods": 56,
         "Review": 13,
         "RAG": 8,
         "Experiment": 7
@@ -27897,10 +27868,10 @@
           "year": "2026",
           "topics": {
             "Equity and policy": 46,
-            "Motivation and wellbeing": 43,
-            "STEM education": 37,
-            "Curriculum and pedagogy": 25,
-            "Higher education": 20
+            "Motivation and wellbeing": 45,
+            "STEM education": 38,
+            "Curriculum and pedagogy": 27,
+            "Higher education": 21
           }
         },
         {
@@ -27916,14 +27887,14 @@
         "year": "2026",
         "volume": "54",
         "issue": "1",
-        "article_count": 14,
+        "article_count": 16,
         "top_topics": {
-          "Motivation and wellbeing": 12,
+          "Motivation and wellbeing": 14,
+          "STEM education": 7,
+          "Curriculum and pedagogy": 7,
           "Equity and policy": 6,
-          "STEM education": 6,
-          "Curriculum and pedagogy": 5,
-          "Teacher education": 4,
-          "Higher education": 4
+          "Teacher education": 5,
+          "Higher education": 5
         },
         "sample_titles": [
           "Wellbeing education for future teachers: A desktop review",
@@ -28005,31 +27976,31 @@
     ],
     "scope_id": "english-ssci-esci-scopus-v1",
     "article_refresh": {
-      "status": "not_scheduled",
-      "last_attempt_at": "2026-11-25T04:41:47+00:00",
-      "last_success_at": "2026-11-25T04:44:01+00:00",
-      "retained_article_count": 103
+      "status": "updated",
+      "last_attempt_at": "2026-11-27T03:52:40+00:00",
+      "last_success_at": "2026-11-27T03:54:20+00:00",
+      "retained_article_count": 0
     },
     "topic_hits": {
       "Equity and policy": 48,
-      "Curriculum and pedagogy": 26,
-      "Higher education": 22,
-      "Teacher education": 16,
-      "STEM education": 37,
-      "Motivation and wellbeing": 43,
-      "Generative AI": 3,
+      "Curriculum and pedagogy": 28,
+      "Higher education": 23,
+      "Teacher education": 17,
+      "STEM education": 38,
+      "Motivation and wellbeing": 45,
+      "Generative AI": 5,
       "Language learning": 4,
-      "Assessment": 10,
+      "Assessment": 11,
       "Learning analytics": 1,
       "Educational technology": 1
     },
     "method_hits": {
-      "Mixed methods": 54,
+      "Mixed methods": 56,
       "RAG": 8,
       "Review": 13,
       "Experiment": 7
     },
-    "article_count_crawled": 103,
+    "article_count_crawled": 105,
     "source_pages_crawled": 2
   },
   {
@@ -28076,7 +28047,7 @@
       "note": ""
     },
     "article_preferences": {
-      "article_sample_count": 104,
+      "article_sample_count": 105,
       "topic_counts": {
         "Teacher education": 15,
         "Curriculum and pedagogy": 14,
@@ -28109,7 +28080,7 @@
         "year": "2026",
         "volume": "",
         "issue": "",
-        "article_count": 90,
+        "article_count": 91,
         "top_topics": {
           "Curriculum and pedagogy": 14,
           "Teacher education": 13,
@@ -28198,10 +28169,10 @@
     ],
     "scope_id": "english-ssci-esci-scopus-v1",
     "article_refresh": {
-      "status": "not_scheduled",
-      "last_attempt_at": "2026-11-25T04:41:47+00:00",
-      "last_success_at": "2026-11-25T04:43:59+00:00",
-      "retained_article_count": 104
+      "status": "updated",
+      "last_attempt_at": "2026-11-27T03:52:40+00:00",
+      "last_success_at": "2026-11-27T03:54:21+00:00",
+      "retained_article_count": 0
     },
     "topic_hits": {
       "STEM education": 12,
@@ -28219,7 +28190,7 @@
       "Mixed methods": 6,
       "Experiment": 1
     },
-    "article_count_crawled": 104,
+    "article_count_crawled": 105,
     "source_pages_crawled": 2
   },
   {
@@ -28481,11 +28452,11 @@
         "year": "2026",
         "volume": "",
         "issue": "",
-        "article_count": 52,
+        "article_count": 51,
         "top_topics": {
           "Equity and policy": 20,
           "STEM education": 14,
-          "Higher education": 13,
+          "Higher education": 12,
           "Motivation and wellbeing": 8,
           "Assessment": 6,
           "Curriculum and pedagogy": 2
@@ -28623,10 +28594,10 @@
     ],
     "scope_id": "english-ssci-esci-scopus-v1",
     "article_refresh": {
-      "status": "not_scheduled",
-      "last_attempt_at": "2026-11-25T04:41:47+00:00",
-      "last_success_at": "2026-11-25T04:43:59+00:00",
-      "retained_article_count": 94
+      "status": "updated",
+      "last_attempt_at": "2026-11-27T03:52:40+00:00",
+      "last_success_at": "2026-11-27T03:54:20+00:00",
+      "retained_article_count": 0
     },
     "topic_hits": {
       "Equity and policy": 29,
@@ -28833,10 +28804,10 @@
     ],
     "scope_id": "english-ssci-esci-scopus-v1",
     "article_refresh": {
-      "status": "not_scheduled",
-      "last_attempt_at": "2026-11-25T04:41:47+00:00",
-      "last_success_at": "2026-11-25T04:44:02+00:00",
-      "retained_article_count": 82
+      "status": "updated",
+      "last_attempt_at": "2026-11-27T03:52:40+00:00",
+      "last_success_at": "2026-11-27T03:54:21+00:00",
+      "retained_article_count": 0
     },
     "topic_hits": {
       "Higher education": 70,
@@ -29387,10 +29358,10 @@
     ],
     "scope_id": "english-ssci-esci-scopus-v1",
     "article_refresh": {
-      "status": "not_scheduled",
-      "last_attempt_at": "2026-11-25T04:41:47+00:00",
-      "last_success_at": "2026-11-25T04:44:00+00:00",
-      "retained_article_count": 94
+      "status": "updated",
+      "last_attempt_at": "2026-11-27T03:52:40+00:00",
+      "last_success_at": "2026-11-27T03:54:20+00:00",
+      "retained_article_count": 0
     },
     "topic_hits": {
       "Equity and policy": 10,
@@ -29590,10 +29561,10 @@
     ],
     "scope_id": "english-ssci-esci-scopus-v1",
     "article_refresh": {
-      "status": "not_scheduled",
-      "last_attempt_at": "2026-11-25T04:41:47+00:00",
-      "last_success_at": "2026-11-25T04:44:00+00:00",
-      "retained_article_count": 87
+      "status": "updated",
+      "last_attempt_at": "2026-11-27T03:52:40+00:00",
+      "last_success_at": "2026-11-27T03:54:22+00:00",
+      "retained_article_count": 0
     },
     "topic_hits": {
       "Assessment": 19,
@@ -29818,10 +29789,10 @@
     ],
     "scope_id": "english-ssci-esci-scopus-v1",
     "article_refresh": {
-      "status": "not_scheduled",
-      "last_attempt_at": "2026-11-25T04:41:47+00:00",
-      "last_success_at": "2026-11-25T04:44:03+00:00",
-      "retained_article_count": 88
+      "status": "updated",
+      "last_attempt_at": "2026-11-27T03:52:40+00:00",
+      "last_success_at": "2026-11-27T03:54:21+00:00",
+      "retained_article_count": 0
     },
     "topic_hits": {
       "Higher education": 11,
@@ -29882,15 +29853,15 @@
       "note": ""
     },
     "article_preferences": {
-      "article_sample_count": 95,
+      "article_sample_count": 97,
       "topic_counts": {
-        "Assessment": 71,
+        "Assessment": 74,
         "Equity and policy": 12,
         "Higher education": 11,
-        "STEM education": 7,
+        "STEM education": 8,
         "Language learning": 5,
         "Curriculum and pedagogy": 4,
-        "Motivation and wellbeing": 2,
+        "Motivation and wellbeing": 3,
         "Teacher education": 1
       },
       "method_counts": {
@@ -29902,11 +29873,11 @@
         {
           "year": "2026",
           "topics": {
-            "Assessment": 41,
+            "Assessment": 44,
             "Equity and policy": 10,
             "Higher education": 10,
-            "STEM education": 5,
-            "Curriculum and pedagogy": 2
+            "STEM education": 6,
+            "Motivation and wellbeing": 2
           }
         },
         {
@@ -29931,14 +29902,14 @@
         "year": "2026",
         "volume": "",
         "issue": "",
-        "article_count": 22,
+        "article_count": 24,
         "top_topics": {
-          "Assessment": 13,
+          "Assessment": 16,
           "Higher education": 9,
           "Equity and policy": 8,
-          "Curriculum and pedagogy": 1,
-          "Teacher education": 1,
-          "STEM education": 1
+          "STEM education": 2,
+          "Motivation and wellbeing": 1,
+          "Curriculum and pedagogy": 1
         },
         "sample_titles": [
           "The moderating role of assessment diversity and load on student outcomes",
@@ -29946,7 +29917,7 @@
           "Test-optional admissions policy and the limits of access reform: a panel analysis",
           "Formative assessment and self-regulated learning in primary education: linking evidence from a cross-cultural comparative scoping review",
           "University admissions under pressure: equity demands, technical analyses and legitimacy",
-          "Towards responsible AI in workplace-based assessment: a scoping review using Downing’s framework"
+          "Interpreting non-graded assessment in Armenian primary education: teacher and parent perceptions of feedback clarity, communication, and system acceptance"
         ]
       }
     },
@@ -30020,19 +29991,19 @@
     ],
     "scope_id": "english-ssci-esci-scopus-v1",
     "article_refresh": {
-      "status": "not_scheduled",
-      "last_attempt_at": "2026-11-25T04:41:47+00:00",
-      "last_success_at": "2026-11-25T04:44:02+00:00",
-      "retained_article_count": 95
+      "status": "updated",
+      "last_attempt_at": "2026-11-27T03:52:40+00:00",
+      "last_success_at": "2026-11-27T03:54:21+00:00",
+      "retained_article_count": 0
     },
     "topic_hits": {
-      "Assessment": 74,
+      "Assessment": 77,
       "Equity and policy": 15,
       "Higher education": 11,
       "Curriculum and pedagogy": 4,
       "Teacher education": 1,
-      "STEM education": 7,
-      "Motivation and wellbeing": 2,
+      "STEM education": 8,
+      "Motivation and wellbeing": 3,
       "Language learning": 5
     },
     "method_hits": {
@@ -30040,7 +30011,7 @@
       "Review": 4,
       "Experiment": 1
     },
-    "article_count_crawled": 95,
+    "article_count_crawled": 97,
     "source_pages_crawled": 2
   },
   {
@@ -30087,11 +30058,11 @@
       "note": ""
     },
     "article_preferences": {
-      "article_sample_count": 105,
+      "article_sample_count": 106,
       "topic_counts": {
         "Teacher education": 38,
-        "Curriculum and pedagogy": 9,
-        "Equity and policy": 8,
+        "Curriculum and pedagogy": 10,
+        "Equity and policy": 9,
         "Higher education": 7,
         "STEM education": 6,
         "Language learning": 6,
@@ -30111,8 +30082,8 @@
           "year": "2026",
           "topics": {
             "Teacher education": 27,
-            "Equity and policy": 7,
-            "Curriculum and pedagogy": 6,
+            "Equity and policy": 8,
+            "Curriculum and pedagogy": 7,
             "Higher education": 5,
             "STEM education": 4
           }
@@ -30132,13 +30103,13 @@
         "year": "2026",
         "volume": "",
         "issue": "",
-        "article_count": 39,
+        "article_count": 40,
         "top_topics": {
           "Teacher education": 11,
-          "Curriculum and pedagogy": 5,
+          "Curriculum and pedagogy": 6,
+          "Equity and policy": 4,
           "Higher education": 4,
           "STEM education": 3,
-          "Equity and policy": 3,
           "Language learning": 3
         },
         "sample_titles": [
@@ -30244,19 +30215,19 @@
     ],
     "scope_id": "english-ssci-esci-scopus-v1",
     "article_refresh": {
-      "status": "not_scheduled",
-      "last_attempt_at": "2026-11-25T04:41:47+00:00",
-      "last_success_at": "2026-11-25T04:44:03+00:00",
-      "retained_article_count": 105
+      "status": "updated",
+      "last_attempt_at": "2026-11-27T03:52:40+00:00",
+      "last_success_at": "2026-11-27T03:54:24+00:00",
+      "retained_article_count": 0
     },
     "topic_hits": {
       "Teacher education": 42,
       "Motivation and wellbeing": 4,
-      "Equity and policy": 8,
+      "Equity and policy": 9,
       "STEM education": 6,
       "Generative AI": 4,
       "Higher education": 7,
-      "Curriculum and pedagogy": 9,
+      "Curriculum and pedagogy": 10,
       "Language learning": 6,
       "Assessment": 3,
       "Educational technology": 2
@@ -30267,7 +30238,7 @@
       "Experiment": 1,
       "Review": 1
     },
-    "article_count_crawled": 105,
+    "article_count_crawled": 106,
     "source_pages_crawled": 2
   },
   {
@@ -30468,10 +30439,10 @@
     ],
     "scope_id": "english-ssci-esci-scopus-v1",
     "article_refresh": {
-      "status": "not_scheduled",
-      "last_attempt_at": "2026-11-25T04:41:47+00:00",
-      "last_success_at": "2026-11-25T04:44:03+00:00",
-      "retained_article_count": 88
+      "status": "updated",
+      "last_attempt_at": "2026-11-27T03:52:40+00:00",
+      "last_success_at": "2026-11-27T03:54:21+00:00",
+      "retained_article_count": 0
     },
     "topic_hits": {
       "Equity and policy": 10,
@@ -30657,10 +30628,10 @@
     ],
     "scope_id": "english-ssci-esci-scopus-v1",
     "article_refresh": {
-      "status": "not_scheduled",
-      "last_attempt_at": "2026-11-25T04:41:47+00:00",
-      "last_success_at": "2026-11-25T04:44:05+00:00",
-      "retained_article_count": 104
+      "status": "updated",
+      "last_attempt_at": "2026-11-27T03:52:40+00:00",
+      "last_success_at": "2026-11-27T03:54:22+00:00",
+      "retained_article_count": 0
     },
     "topic_hits": {
       "STEM education": 4,
@@ -30872,10 +30843,10 @@
     ],
     "scope_id": "english-ssci-esci-scopus-v1",
     "article_refresh": {
-      "status": "not_scheduled",
-      "last_attempt_at": "2026-11-25T04:41:47+00:00",
-      "last_success_at": "2026-11-25T04:44:04+00:00",
-      "retained_article_count": 90
+      "status": "updated",
+      "last_attempt_at": "2026-11-27T03:52:40+00:00",
+      "last_success_at": "2026-11-27T03:54:22+00:00",
+      "retained_article_count": 0
     },
     "topic_hits": {
       "Curriculum and pedagogy": 12,
@@ -31271,13 +31242,13 @@
       "note": "自动从公开编辑页面结构化条目抽取，投稿前请回官网核验。"
     },
     "article_preferences": {
-      "article_sample_count": 93,
+      "article_sample_count": 95,
       "topic_counts": {
-        "STEM education": 47,
+        "STEM education": 48,
         "Curriculum and pedagogy": 22,
         "Assessment": 16,
+        "Motivation and wellbeing": 12,
         "Higher education": 10,
-        "Motivation and wellbeing": 10,
         "Generative AI": 8,
         "Equity and policy": 8,
         "Teacher education": 7,
@@ -31296,11 +31267,11 @@
         {
           "year": "2026",
           "topics": {
-            "STEM education": 47,
+            "STEM education": 48,
             "Curriculum and pedagogy": 22,
             "Assessment": 16,
-            "Higher education": 10,
-            "Motivation and wellbeing": 10
+            "Motivation and wellbeing": 12,
+            "Higher education": 10
           }
         }
       ],
@@ -31308,14 +31279,14 @@
         "year": "2026",
         "volume": "24",
         "issue": "8",
-        "article_count": 9,
+        "article_count": 11,
         "top_topics": {
-          "STEM education": 3,
+          "STEM education": 4,
           "Generative AI": 3,
+          "Motivation and wellbeing": 3,
           "Curriculum and pedagogy": 2,
           "Higher education": 1,
-          "AI literacy": 1,
-          "Teacher education": 1
+          "AI literacy": 1
         },
         "sample_titles": [
           "Exploring Middle School Mathematics Teachers’ Noticing Profiles Across Different Observer Research Tools",
@@ -31420,21 +31391,21 @@
     ],
     "scope_id": "english-ssci-esci-scopus-v1",
     "article_refresh": {
-      "status": "not_scheduled",
-      "last_attempt_at": "2026-11-25T04:41:47+00:00",
-      "last_success_at": "2026-11-25T04:44:04+00:00",
-      "retained_article_count": 93
+      "status": "updated",
+      "last_attempt_at": "2026-11-27T03:52:40+00:00",
+      "last_success_at": "2026-11-27T03:54:22+00:00",
+      "retained_article_count": 0
     },
     "topic_hits": {
       "Equity and policy": 9,
       "Curriculum and pedagogy": 23,
       "Higher education": 11,
-      "STEM education": 52,
+      "STEM education": 53,
       "Assessment": 16,
       "Language learning": 3,
       "Generative AI": 8,
       "Teacher education": 7,
-      "Motivation and wellbeing": 10,
+      "Motivation and wellbeing": 12,
       "AI literacy": 1
     },
     "method_hits": {
@@ -31445,7 +31416,7 @@
       "RAG": 4,
       "Experiment": 5
     },
-    "article_count_crawled": 93,
+    "article_count_crawled": 95,
     "source_pages_crawled": 2
   },
   {
@@ -31934,10 +31905,10 @@
     ],
     "scope_id": "english-ssci-esci-scopus-v1",
     "article_refresh": {
-      "status": "not_scheduled",
-      "last_attempt_at": "2026-11-25T04:41:47+00:00",
-      "last_success_at": "2026-11-25T04:44:07+00:00",
-      "retained_article_count": 93
+      "status": "updated",
+      "last_attempt_at": "2026-11-27T03:52:40+00:00",
+      "last_success_at": "2026-11-27T03:54:22+00:00",
+      "retained_article_count": 0
     },
     "topic_hits": {
       "STEM education": 19,
@@ -32011,11 +31982,11 @@
       "note": ""
     },
     "article_preferences": {
-      "article_sample_count": 92,
+      "article_sample_count": 93,
       "topic_counts": {
         "Equity and policy": 53,
         "STEM education": 27,
-        "Higher education": 21,
+        "Higher education": 22,
         "Motivation and wellbeing": 17,
         "Curriculum and pedagogy": 16,
         "Generative AI": 11,
@@ -32035,7 +32006,7 @@
           "topics": {
             "Equity and policy": 48,
             "STEM education": 24,
-            "Higher education": 19,
+            "Higher education": 20,
             "Motivation and wellbeing": 15,
             "Curriculum and pedagogy": 14
           }
@@ -32055,11 +32026,11 @@
         "year": "2026",
         "volume": "12",
         "issue": "",
-        "article_count": 81,
+        "article_count": 82,
         "top_topics": {
           "Equity and policy": 48,
           "STEM education": 24,
-          "Higher education": 19,
+          "Higher education": 20,
           "Motivation and wellbeing": 15,
           "Curriculum and pedagogy": 14,
           "Assessment": 10
@@ -32193,14 +32164,14 @@
     ],
     "scope_id": "english-ssci-esci-scopus-v1",
     "article_refresh": {
-      "status": "not_scheduled",
-      "last_attempt_at": "2026-11-25T04:41:47+00:00",
-      "last_success_at": "2026-11-24T05:41:49+00:00",
-      "retained_article_count": 92
+      "status": "updated",
+      "last_attempt_at": "2026-11-27T03:52:40+00:00",
+      "last_success_at": "2026-11-27T03:54:22+00:00",
+      "retained_article_count": 0
     },
     "topic_hits": {
       "Generative AI": 11,
-      "Higher education": 21,
+      "Higher education": 22,
       "Language learning": 6,
       "Motivation and wellbeing": 17,
       "Curriculum and pedagogy": 16,
@@ -32215,7 +32186,7 @@
       "Mixed methods": 39,
       "RAG": 19
     },
-    "article_count_crawled": 92,
+    "article_count_crawled": 93,
     "source_pages_crawled": 2
   },
   {
@@ -32393,10 +32364,10 @@
     ],
     "scope_id": "english-ssci-esci-scopus-v1",
     "article_refresh": {
-      "status": "not_scheduled",
-      "last_attempt_at": "2026-11-25T04:41:47+00:00",
-      "last_success_at": "2026-11-25T04:44:05+00:00",
-      "retained_article_count": 83
+      "status": "updated",
+      "last_attempt_at": "2026-11-27T03:52:40+00:00",
+      "last_success_at": "2026-11-27T03:54:22+00:00",
+      "retained_article_count": 0
     },
     "topic_hits": {
       "Equity and policy": 2,
@@ -32611,10 +32582,10 @@
     ],
     "scope_id": "english-ssci-esci-scopus-v1",
     "article_refresh": {
-      "status": "not_scheduled",
-      "last_attempt_at": "2026-11-25T04:41:47+00:00",
-      "last_success_at": "2026-11-25T04:44:05+00:00",
-      "retained_article_count": 84
+      "status": "updated",
+      "last_attempt_at": "2026-11-27T03:52:40+00:00",
+      "last_success_at": "2026-11-27T03:54:22+00:00",
+      "retained_article_count": 0
     },
     "topic_hits": {
       "Teacher education": 15,
@@ -32682,10 +32653,10 @@
       "note": ""
     },
     "article_preferences": {
-      "article_sample_count": 123,
+      "article_sample_count": 124,
       "topic_counts": {
         "Curriculum and pedagogy": 15,
-        "Equity and policy": 10,
+        "Equity and policy": 11,
         "Higher education": 6,
         "Motivation and wellbeing": 5,
         "Teacher education": 4,
@@ -32702,7 +32673,7 @@
           "year": "2026",
           "topics": {
             "Curriculum and pedagogy": 15,
-            "Equity and policy": 10,
+            "Equity and policy": 11,
             "Higher education": 6,
             "Motivation and wellbeing": 5,
             "Teacher education": 4
@@ -32713,10 +32684,10 @@
         "year": "2026",
         "volume": "",
         "issue": "",
-        "article_count": 121,
+        "article_count": 122,
         "top_topics": {
           "Curriculum and pedagogy": 15,
-          "Equity and policy": 10,
+          "Equity and policy": 11,
           "Higher education": 6,
           "Motivation and wellbeing": 5,
           "Teacher education": 4,
@@ -32817,14 +32788,14 @@
     ],
     "scope_id": "english-ssci-esci-scopus-v1",
     "article_refresh": {
-      "status": "not_scheduled",
-      "last_attempt_at": "2026-11-25T04:41:47+00:00",
-      "last_success_at": "2026-11-25T04:44:06+00:00",
-      "retained_article_count": 123
+      "status": "updated",
+      "last_attempt_at": "2026-11-27T03:52:40+00:00",
+      "last_success_at": "2026-11-27T03:54:25+00:00",
+      "retained_article_count": 0
     },
     "topic_hits": {
       "Motivation and wellbeing": 5,
-      "Equity and policy": 10,
+      "Equity and policy": 11,
       "STEM education": 3,
       "Curriculum and pedagogy": 15,
       "Teacher education": 4,
@@ -32836,7 +32807,7 @@
       "Review": 1,
       "RAG": 1
     },
-    "article_count_crawled": 123,
+    "article_count_crawled": 124,
     "source_pages_crawled": 2
   },
   {
@@ -32882,7 +32853,7 @@
       "note": ""
     },
     "article_preferences": {
-      "article_sample_count": 90,
+      "article_sample_count": 91,
       "topic_counts": {
         "Language learning": 17,
         "Curriculum and pedagogy": 11,
@@ -32927,7 +32898,7 @@
         "year": "2026",
         "volume": "",
         "issue": "",
-        "article_count": 17,
+        "article_count": 18,
         "top_topics": {
           "Curriculum and pedagogy": 3,
           "Language learning": 2,
@@ -33029,10 +33000,10 @@
     ],
     "scope_id": "english-ssci-esci-scopus-v1",
     "article_refresh": {
-      "status": "not_scheduled",
-      "last_attempt_at": "2026-11-25T04:41:47+00:00",
-      "last_success_at": "2026-11-25T04:44:08+00:00",
-      "retained_article_count": 90
+      "status": "updated",
+      "last_attempt_at": "2026-11-27T03:52:40+00:00",
+      "last_success_at": "2026-11-27T03:54:24+00:00",
+      "retained_article_count": 0
     },
     "topic_hits": {
       "Higher education": 1,
@@ -33047,7 +33018,7 @@
       "Experiment": 12,
       "Mixed methods": 1
     },
-    "article_count_crawled": 90,
+    "article_count_crawled": 91,
     "source_pages_crawled": 2
   },
   {
@@ -33094,18 +33065,18 @@
       "note": ""
     },
     "article_preferences": {
-      "article_sample_count": 83,
+      "article_sample_count": 85,
       "topic_counts": {
         "Equity and policy": 25,
+        "Motivation and wellbeing": 20,
         "STEM education": 20,
-        "Motivation and wellbeing": 19,
         "Curriculum and pedagogy": 14,
         "Higher education": 8,
         "Assessment": 7,
         "Teacher education": 4
       },
       "method_counts": {
-        "Mixed methods": 78,
+        "Mixed methods": 80,
         "RAG": 15,
         "Review": 4,
         "Experiment": 1,
@@ -33117,7 +33088,7 @@
           "topics": {
             "Equity and policy": 16,
             "STEM education": 15,
-            "Motivation and wellbeing": 12,
+            "Motivation and wellbeing": 13,
             "Curriculum and pedagogy": 8,
             "Higher education": 8
           }
@@ -33137,21 +33108,21 @@
         "year": "2026",
         "volume": "",
         "issue": "",
-        "article_count": 21,
+        "article_count": 23,
         "top_topics": {
+          "Motivation and wellbeing": 7,
           "STEM education": 7,
           "Equity and policy": 7,
-          "Motivation and wellbeing": 6,
           "Curriculum and pedagogy": 3,
           "Assessment": 1
         },
         "sample_titles": [
+          "School leaders' artificial intelligence self-efficacy: implications for workload and well-being",
+          "Resilience as leadership resource: insights from Aotearoa New Zealand",
           "A critical review of cross-cultural adaptation and psychometric validation studies of the principal instructional management rating scale (PIMRS)",
           "Data teams or data coaches? How school organisation relates to principals' and teachers' perceptions of data use culture",
           "Authority versus influence: institutional logics in the job competencies and role responsibilities of PK–12 equity directors",
-          "The intellectual structure and evolution of servant leadership research in educational organizations: a SciMAT-based bibliometric review, 1998–2025",
-          "Teacher leadership in China: a systematic literature review",
-          "Paternalistic leadership and teacher resilience in a collectivist context: a moderated-mediation model of collective teacher culture and principal support"
+          "The intellectual structure and evolution of servant leadership research in educational organizations: a SciMAT-based bibliometric review, 1998–2025"
         ]
       }
     },
@@ -33217,15 +33188,15 @@
     ],
     "scope_id": "english-ssci-esci-scopus-v1",
     "article_refresh": {
-      "status": "not_scheduled",
-      "last_attempt_at": "2026-11-25T04:41:47+00:00",
-      "last_success_at": "2026-11-24T05:41:50+00:00",
-      "retained_article_count": 83
+      "status": "updated",
+      "last_attempt_at": "2026-11-27T03:52:40+00:00",
+      "last_success_at": "2026-11-27T03:54:25+00:00",
+      "retained_article_count": 0
     },
     "topic_hits": {
       "STEM education": 20,
       "Equity and policy": 25,
-      "Motivation and wellbeing": 19,
+      "Motivation and wellbeing": 20,
       "Assessment": 7,
       "Curriculum and pedagogy": 14,
       "Higher education": 8,
@@ -33233,12 +33204,12 @@
     },
     "method_hits": {
       "Review": 4,
-      "Mixed methods": 78,
+      "Mixed methods": 80,
       "Experiment": 1,
       "RAG": 15,
       "Computer-supported collaboration": 1
     },
-    "article_count_crawled": 83,
+    "article_count_crawled": 85,
     "source_pages_crawled": 2
   },
   {
@@ -33440,10 +33411,10 @@
     ],
     "scope_id": "english-ssci-esci-scopus-v1",
     "article_refresh": {
-      "status": "not_scheduled",
-      "last_attempt_at": "2026-11-25T04:41:47+00:00",
-      "last_success_at": "2026-11-25T04:44:07+00:00",
-      "retained_article_count": 92
+      "status": "updated",
+      "last_attempt_at": "2026-11-27T03:52:40+00:00",
+      "last_success_at": "2026-11-27T03:54:27+00:00",
+      "retained_article_count": 0
     },
     "topic_hits": {
       "Curriculum and pedagogy": 40,
@@ -33653,10 +33624,10 @@
     ],
     "scope_id": "english-ssci-esci-scopus-v1",
     "article_refresh": {
-      "status": "not_scheduled",
-      "last_attempt_at": "2026-11-25T04:41:47+00:00",
-      "last_success_at": "2026-11-25T04:44:07+00:00",
-      "retained_article_count": 93
+      "status": "updated",
+      "last_attempt_at": "2026-11-27T03:52:40+00:00",
+      "last_success_at": "2026-11-27T03:54:26+00:00",
+      "retained_article_count": 0
     },
     "topic_hits": {
       "Language learning": 93,
@@ -34074,12 +34045,12 @@
       "note": "自动从公开编辑页面结构化条目抽取，投稿前请回官网核验。"
     },
     "article_preferences": {
-      "article_sample_count": 88,
+      "article_sample_count": 89,
       "topic_counts": {
         "Curriculum and pedagogy": 31,
         "Motivation and wellbeing": 29,
         "Assessment": 23,
-        "Higher education": 21,
+        "Higher education": 22,
         "STEM education": 19,
         "Language learning": 4,
         "Teacher education": 4,
@@ -34099,7 +34070,7 @@
           "topics": {
             "Motivation and wellbeing": 22,
             "Curriculum and pedagogy": 21,
-            "Higher education": 14,
+            "Higher education": 15,
             "Assessment": 14,
             "STEM education": 12
           }
@@ -34117,23 +34088,14 @@
       ],
       "latest_issue": {
         "year": "2026",
-        "volume": "54",
-        "issue": "3",
-        "article_count": 9,
+        "volume": "55",
+        "issue": "1",
+        "article_count": 1,
         "top_topics": {
-          "Motivation and wellbeing": 2,
-          "Curriculum and pedagogy": 2,
-          "Higher education": 2,
-          "STEM education": 1,
-          "Assessment": 1
+          "Higher education": 1
         },
         "sample_titles": [
-          "Pluralistic reasoning with different models: A case study of middle schoolers learning about viral spread",
-          "Conceptualizing cognitive load as motivational cost: a mixed methods perspective",
-          "Navigating digital and physical scaffolds in action: a mixed-methods study of teacher facilitation in a game-based environment",
-          "Correction: Pluralistic reasoning with different models: A case study of middle schoolers learning about viral spread",
-          "Deliberate erring improves scientific reasoning: Learning experimentation skills by intentionally designing invalid experiments",
-          "Learning the control-of-variables strategy through self-generated and vicarious errors: the mediating roles of affect, motivation, cognitive load, and error awareness"
+          "Thematic diversity of examples aids university students in recognizing instances of abstract concepts beyond the domains of the examples"
         ]
       }
     },
@@ -34245,17 +34207,17 @@
     ],
     "scope_id": "english-ssci-esci-scopus-v1",
     "article_refresh": {
-      "status": "not_scheduled",
-      "last_attempt_at": "2026-11-25T04:41:47+00:00",
-      "last_success_at": "2026-11-25T04:44:08+00:00",
-      "retained_article_count": 88
+      "status": "updated",
+      "last_attempt_at": "2026-11-27T03:52:40+00:00",
+      "last_success_at": "2026-11-27T03:54:25+00:00",
+      "retained_article_count": 0
     },
     "topic_hits": {
       "STEM education": 20,
       "Equity and policy": 4,
       "Curriculum and pedagogy": 38,
       "Generative AI": 3,
-      "Higher education": 22,
+      "Higher education": 23,
       "Assessment": 23,
       "Language learning": 4,
       "Motivation and wellbeing": 29,
@@ -34268,7 +34230,7 @@
       "RAG": 4,
       "Review": 1
     },
-    "article_count_crawled": 88,
+    "article_count_crawled": 89,
     "source_pages_crawled": 2
   },
   {
@@ -34468,10 +34430,10 @@
     ],
     "scope_id": "english-ssci-esci-scopus-v1",
     "article_refresh": {
-      "status": "not_scheduled",
-      "last_attempt_at": "2026-11-25T04:41:47+00:00",
-      "last_success_at": "2026-11-25T04:44:10+00:00",
-      "retained_article_count": 88
+      "status": "updated",
+      "last_attempt_at": "2026-11-27T03:52:40+00:00",
+      "last_success_at": "2026-11-27T03:54:25+00:00",
+      "retained_article_count": 0
     },
     "topic_hits": {
       "Higher education": 50,
@@ -34650,10 +34612,10 @@
     ],
     "scope_id": "english-ssci-esci-scopus-v1",
     "article_refresh": {
-      "status": "not_scheduled",
-      "last_attempt_at": "2026-11-25T04:41:47+00:00",
-      "last_success_at": "2026-11-25T04:44:08+00:00",
-      "retained_article_count": 100
+      "status": "updated",
+      "last_attempt_at": "2026-11-27T03:52:40+00:00",
+      "last_success_at": "2026-11-27T03:54:26+00:00",
+      "retained_article_count": 0
     },
     "topic_hits": {
       "Equity and policy": 19,
@@ -35024,15 +34986,15 @@
       "note": "自动从公开编辑页面结构化条目抽取，投稿前请回官网核验。"
     },
     "article_preferences": {
-      "article_sample_count": 100,
+      "article_sample_count": 102,
       "topic_counts": {
-        "Higher education": 74,
+        "Higher education": 76,
         "STEM education": 31,
         "Assessment": 27,
-        "Equity and policy": 25,
+        "Equity and policy": 26,
         "Motivation and wellbeing": 24,
         "Curriculum and pedagogy": 20,
-        "Generative AI": 9,
+        "Generative AI": 11,
         "AI literacy": 5,
         "Teacher education": 2,
         "Learning analytics": 2,
@@ -35040,7 +35002,7 @@
         "Language learning": 1
       },
       "method_counts": {
-        "Mixed methods": 70,
+        "Mixed methods": 72,
         "RAG": 12,
         "Experiment": 11,
         "Review": 10,
@@ -35051,10 +35013,10 @@
         {
           "year": "2026",
           "topics": {
-            "Higher education": 74,
+            "Higher education": 76,
             "STEM education": 31,
             "Assessment": 27,
-            "Equity and policy": 25,
+            "Equity and policy": 26,
             "Motivation and wellbeing": 24
           }
         }
@@ -35152,16 +35114,16 @@
     ],
     "scope_id": "english-ssci-esci-scopus-v1",
     "article_refresh": {
-      "status": "not_scheduled",
-      "last_attempt_at": "2026-11-25T04:41:47+00:00",
-      "last_success_at": "2026-11-24T05:41:50+00:00",
-      "retained_article_count": 100
+      "status": "updated",
+      "last_attempt_at": "2026-11-27T03:52:40+00:00",
+      "last_success_at": "2026-11-27T03:54:26+00:00",
+      "retained_article_count": 0
     },
     "topic_hits": {
-      "Higher education": 75,
-      "Equity and policy": 25,
+      "Higher education": 77,
+      "Equity and policy": 26,
       "AI literacy": 5,
-      "Generative AI": 9,
+      "Generative AI": 11,
       "Motivation and wellbeing": 24,
       "Assessment": 27,
       "Curriculum and pedagogy": 20,
@@ -35172,14 +35134,14 @@
       "Educational technology": 2
     },
     "method_hits": {
-      "Mixed methods": 70,
+      "Mixed methods": 72,
       "Chatbot": 2,
       "Experiment": 11,
       "Review": 10,
       "RAG": 12,
       "Computer-supported collaboration": 1
     },
-    "article_count_crawled": 100,
+    "article_count_crawled": 102,
     "source_pages_crawled": 2
   },
   {
@@ -35226,16 +35188,16 @@
       "note": ""
     },
     "article_preferences": {
-      "article_sample_count": 101,
+      "article_sample_count": 102,
       "topic_counts": {
         "Motivation and wellbeing": 16,
-        "Assessment": 4,
+        "Assessment": 5,
         "Curriculum and pedagogy": 2,
         "STEM education": 2,
         "Equity and policy": 2
       },
       "method_counts": {
-        "Experiment": 7,
+        "Experiment": 8,
         "Review": 3,
         "RAG": 2
       },
@@ -35243,8 +35205,8 @@
         {
           "year": "2027",
           "topics": {
+            "Assessment": 5,
             "Motivation and wellbeing": 4,
-            "Assessment": 4,
             "Curriculum and pedagogy": 2
           }
         },
@@ -35361,24 +35323,24 @@
     ],
     "scope_id": "english-ssci-esci-scopus-v1",
     "article_refresh": {
-      "status": "not_scheduled",
-      "last_attempt_at": "2026-11-25T04:41:47+00:00",
-      "last_success_at": "2026-11-25T04:44:09+00:00",
-      "retained_article_count": 101
+      "status": "updated",
+      "last_attempt_at": "2026-11-27T03:52:40+00:00",
+      "last_success_at": "2026-11-27T03:54:28+00:00",
+      "retained_article_count": 0
     },
     "topic_hits": {
       "Motivation and wellbeing": 16,
-      "Assessment": 4,
+      "Assessment": 5,
       "STEM education": 2,
       "Equity and policy": 2,
       "Curriculum and pedagogy": 2
     },
     "method_hits": {
       "RAG": 2,
-      "Experiment": 7,
+      "Experiment": 8,
       "Review": 3
     },
-    "article_count_crawled": 101,
+    "article_count_crawled": 102,
     "source_pages_crawled": 2
   },
   {
@@ -35569,10 +35531,10 @@
     ],
     "scope_id": "english-ssci-esci-scopus-v1",
     "article_refresh": {
-      "status": "not_scheduled",
-      "last_attempt_at": "2026-11-25T04:41:47+00:00",
-      "last_success_at": "2026-11-25T04:44:09+00:00",
-      "retained_article_count": 83
+      "status": "updated",
+      "last_attempt_at": "2026-11-27T03:52:40+00:00",
+      "last_success_at": "2026-11-27T03:54:26+00:00",
+      "retained_article_count": 0
     },
     "topic_hits": {
       "STEM education": 2,
@@ -35776,10 +35738,10 @@
     ],
     "scope_id": "english-ssci-esci-scopus-v1",
     "article_refresh": {
-      "status": "not_scheduled",
-      "last_attempt_at": "2026-11-25T04:41:47+00:00",
-      "last_success_at": "2026-11-25T04:44:09+00:00",
-      "retained_article_count": 127
+      "status": "updated",
+      "last_attempt_at": "2026-11-27T03:52:40+00:00",
+      "last_success_at": "2026-11-27T03:54:27+00:00",
+      "retained_article_count": 0
     },
     "topic_hits": {
       "Assessment": 44,
@@ -36324,10 +36286,10 @@
     ],
     "scope_id": "english-ssci-esci-scopus-v1",
     "article_refresh": {
-      "status": "not_scheduled",
-      "last_attempt_at": "2026-11-25T04:41:47+00:00",
-      "last_success_at": "2026-11-25T04:44:11+00:00",
-      "retained_article_count": 112
+      "status": "updated",
+      "last_attempt_at": "2026-11-27T03:52:40+00:00",
+      "last_success_at": "2026-11-27T03:54:26+00:00",
+      "retained_article_count": 0
     },
     "topic_hits": {
       "STEM education": 4,
@@ -36526,10 +36488,10 @@
     ],
     "scope_id": "english-ssci-esci-scopus-v1",
     "article_refresh": {
-      "status": "not_scheduled",
-      "last_attempt_at": "2026-11-25T04:41:47+00:00",
-      "last_success_at": "2026-11-25T04:44:11+00:00",
-      "retained_article_count": 92
+      "status": "updated",
+      "last_attempt_at": "2026-11-27T03:52:40+00:00",
+      "last_success_at": "2026-11-27T03:54:27+00:00",
+      "retained_article_count": 0
     },
     "topic_hits": {
       "Curriculum and pedagogy": 15,
@@ -36932,13 +36894,13 @@
       "note": "自动从公开编辑页面结构化条目抽取，投稿前请回官网核验。"
     },
     "article_preferences": {
-      "article_sample_count": 95,
+      "article_sample_count": 96,
       "topic_counts": {
-        "STEM education": 55,
+        "STEM education": 56,
         "Curriculum and pedagogy": 24,
         "Equity and policy": 17,
+        "Higher education": 10,
         "Assessment": 10,
-        "Higher education": 9,
         "Teacher education": 9,
         "Motivation and wellbeing": 8,
         "Generative AI": 4,
@@ -36954,7 +36916,7 @@
         {
           "year": "2026",
           "topics": {
-            "STEM education": 50,
+            "STEM education": 51,
             "Curriculum and pedagogy": 23,
             "Equity and policy": 13,
             "Assessment": 10,
@@ -36976,22 +36938,22 @@
         "year": "2026",
         "volume": "",
         "issue": "",
-        "article_count": 77,
+        "article_count": 78,
         "top_topics": {
-          "STEM education": 48,
+          "STEM education": 49,
           "Curriculum and pedagogy": 23,
           "Equity and policy": 11,
           "Assessment": 10,
           "Teacher education": 9,
-          "Higher education": 7
+          "Higher education": 8
         },
         "sample_titles": [
           "The Relationship Between Undergraduates’ Views of the Nature of Science, Interest in Science, and Scientific Competencies",
           "Conceptual Change as Domain Realignment: An Epistemic, Pluralist, and Symmetrical Approach",
           "Middle School Students’ Argumentation Quality, Informal Reasoning Modes, and Use of Sources Across Socioscientific Issues",
           "The Double-Edged Sword of Indirect Proof",
-          "Science Education vs. Religious Education in Democratic Society? A Belated Response to Mahner and Bunge (1996)",
-          "Amid an Epistemic Iteration: How AI Methodologies May Transform the Nature of Science Education Research"
+          "Development of the Science Mis/disinformation Perspectives Survey (SciMPS)",
+          "Science Education vs. Religious Education in Democratic Society? A Belated Response to Mahner and Bunge (1996)"
         ]
       }
     },
@@ -37088,16 +37050,16 @@
     ],
     "scope_id": "english-ssci-esci-scopus-v1",
     "article_refresh": {
-      "status": "not_scheduled",
-      "last_attempt_at": "2026-11-25T04:41:47+00:00",
-      "last_success_at": "2026-11-25T04:44:11+00:00",
-      "retained_article_count": 95
+      "status": "updated",
+      "last_attempt_at": "2026-11-27T03:52:40+00:00",
+      "last_success_at": "2026-11-27T03:54:27+00:00",
+      "retained_article_count": 0
     },
     "topic_hits": {
-      "STEM education": 56,
+      "STEM education": 57,
       "Equity and policy": 19,
       "Curriculum and pedagogy": 25,
-      "Higher education": 10,
+      "Higher education": 11,
       "Assessment": 10,
       "Generative AI": 4,
       "Motivation and wellbeing": 8,
@@ -37110,7 +37072,7 @@
       "Review": 4,
       "RAG": 1
     },
-    "article_count_crawled": 95,
+    "article_count_crawled": 96,
     "source_pages_crawled": 2
   },
   {
@@ -37158,10 +37120,10 @@
       "note": ""
     },
     "article_preferences": {
-      "article_sample_count": 83,
+      "article_sample_count": 84,
       "topic_counts": {
-        "Higher education": 88,
-        "Equity and policy": 42,
+        "Higher education": 90,
+        "Equity and policy": 43,
         "STEM education": 23,
         "Motivation and wellbeing": 16,
         "Generative AI": 6,
@@ -37169,7 +37131,7 @@
         "Curriculum and pedagogy": 3
       },
       "method_counts": {
-        "Mixed methods": 36,
+        "Mixed methods": 37,
         "RAG": 13,
         "Learning analytics": 2,
         "Experiment": 1
@@ -37185,8 +37147,8 @@
         {
           "year": "2026",
           "topics": {
-            "Higher education": 36,
-            "Equity and policy": 14,
+            "Higher education": 38,
+            "Equity and policy": 15,
             "STEM education": 6,
             "Motivation and wellbeing": 6,
             "Assessment": 1
@@ -37297,27 +37259,27 @@
     ],
     "scope_id": "english-ssci-esci-scopus-v1",
     "article_refresh": {
-      "status": "not_scheduled",
-      "last_attempt_at": "2026-11-25T04:41:47+00:00",
-      "last_success_at": "2026-11-25T04:44:12+00:00",
-      "retained_article_count": 83
+      "status": "updated",
+      "last_attempt_at": "2026-11-27T03:52:40+00:00",
+      "last_success_at": "2026-11-27T03:54:28+00:00",
+      "retained_article_count": 0
     },
     "topic_hits": {
-      "Higher education": 91,
+      "Higher education": 93,
       "Generative AI": 6,
-      "Equity and policy": 42,
+      "Equity and policy": 43,
       "Motivation and wellbeing": 16,
       "STEM education": 23,
       "Assessment": 4,
       "Curriculum and pedagogy": 3
     },
     "method_hits": {
-      "Mixed methods": 36,
+      "Mixed methods": 37,
       "RAG": 13,
       "Experiment": 1,
       "Learning analytics": 2
     },
-    "article_count_crawled": 83,
+    "article_count_crawled": 84,
     "source_pages_crawled": 2
   },
   {
@@ -37364,9 +37326,9 @@
       "note": ""
     },
     "article_preferences": {
-      "article_sample_count": 82,
+      "article_sample_count": 83,
       "topic_counts": {
-        "Higher education": 65,
+        "Higher education": 66,
         "Motivation and wellbeing": 6,
         "Equity and policy": 5,
         "STEM education": 3
@@ -37379,7 +37341,7 @@
         {
           "year": "2026",
           "topics": {
-            "Higher education": 7,
+            "Higher education": 8,
             "Equity and policy": 1
           }
         },
@@ -37419,18 +37381,18 @@
         "year": "2026",
         "volume": "",
         "issue": "",
-        "article_count": 9,
+        "article_count": 10,
         "top_topics": {
-          "Higher education": 7,
+          "Higher education": 8,
           "Equity and policy": 1
         },
         "sample_titles": [
+          "To brand or not to brand: linking employer awareness of a university brand and willingness to hire graduate job seekers",
           "Students’ choice of university in transnational education: the factors influencing their decision to study at a country-branded university",
           "Impacting college students’ sense of belonging and word-of-mouth intentions through students’ prevention focus. The mediating role of cognitive flexibility and social perceptiveness",
           "Brand signal mimicry in cross-border higher education partnerships",
           "Going Green online: how higher education institutions use Instagram to communicate sustainability",
-          "What you see is what you get: a university website eye-tracking analysis",
-          "Strengthening student recruitment success through a recruiter behavior training program: working on informativeness and affective delivery"
+          "What you see is what you get: a university website eye-tracking analysis"
         ]
       }
     },
@@ -37542,13 +37504,13 @@
     ],
     "scope_id": "english-ssci-esci-scopus-v1",
     "article_refresh": {
-      "status": "not_scheduled",
-      "last_attempt_at": "2026-11-25T04:41:47+00:00",
-      "last_success_at": "2026-11-25T04:44:12+00:00",
-      "retained_article_count": 82
+      "status": "updated",
+      "last_attempt_at": "2026-11-27T03:52:40+00:00",
+      "last_success_at": "2026-11-27T03:54:28+00:00",
+      "retained_article_count": 0
     },
     "topic_hits": {
-      "Higher education": 70,
+      "Higher education": 71,
       "Equity and policy": 5,
       "STEM education": 3,
       "Motivation and wellbeing": 6
@@ -37557,7 +37519,7 @@
       "Review": 4,
       "Mixed methods": 1
     },
-    "article_count_crawled": 82,
+    "article_count_crawled": 83,
     "source_pages_crawled": 2
   },
   {
@@ -37745,10 +37707,10 @@
     ],
     "scope_id": "english-ssci-esci-scopus-v1",
     "article_refresh": {
-      "status": "not_scheduled",
-      "last_attempt_at": "2026-11-25T04:41:47+00:00",
-      "last_success_at": "2026-11-25T04:44:11+00:00",
-      "retained_article_count": 93
+      "status": "updated",
+      "last_attempt_at": "2026-11-27T03:52:40+00:00",
+      "last_success_at": "2026-11-27T03:54:28+00:00",
+      "retained_article_count": 0
     },
     "topic_hits": {
       "Generative AI": 4,
@@ -38150,14 +38112,14 @@
       "note": "自动从公开编辑页面结构化条目抽取，投稿前请回官网核验。"
     },
     "article_preferences": {
-      "article_sample_count": 100,
+      "article_sample_count": 102,
       "topic_counts": {
         "STEM education": 41,
         "Curriculum and pedagogy": 18,
         "Assessment": 14,
         "Higher education": 13,
+        "Motivation and wellbeing": 9,
         "Teacher education": 8,
-        "Motivation and wellbeing": 8,
         "Equity and policy": 3,
         "Generative AI": 3,
         "Language learning": 1
@@ -38177,7 +38139,7 @@
             "Curriculum and pedagogy": 18,
             "Assessment": 14,
             "Higher education": 13,
-            "Teacher education": 8
+            "Motivation and wellbeing": 9
           }
         }
       ],
@@ -38185,14 +38147,14 @@
         "year": "2026",
         "volume": "",
         "issue": "",
-        "article_count": 65,
+        "article_count": 67,
         "top_topics": {
           "STEM education": 31,
           "Curriculum and pedagogy": 13,
           "Higher education": 10,
           "Assessment": 8,
-          "Teacher education": 6,
-          "Motivation and wellbeing": 6
+          "Motivation and wellbeing": 7,
+          "Teacher education": 6
         },
         "sample_titles": [
           "Framing mathematical errors and positioning students: empathetic care in a secondary mathematics classroom in Northern Mexico",
@@ -38297,10 +38259,10 @@
     ],
     "scope_id": "english-ssci-esci-scopus-v1",
     "article_refresh": {
-      "status": "not_scheduled",
-      "last_attempt_at": "2026-11-25T04:41:47+00:00",
-      "last_success_at": "2026-11-25T04:44:12+00:00",
-      "retained_article_count": 100
+      "status": "updated",
+      "last_attempt_at": "2026-11-27T03:52:40+00:00",
+      "last_success_at": "2026-11-27T03:54:29+00:00",
+      "retained_article_count": 0
     },
     "topic_hits": {
       "STEM education": 43,
@@ -38309,7 +38271,7 @@
       "Higher education": 14,
       "Assessment": 14,
       "Teacher education": 8,
-      "Motivation and wellbeing": 8,
+      "Motivation and wellbeing": 9,
       "Generative AI": 3,
       "Language learning": 1
     },
@@ -38320,7 +38282,7 @@
       "Mixed methods": 17,
       "Computer-supported collaboration": 1
     },
-    "article_count_crawled": 100,
+    "article_count_crawled": 102,
     "source_pages_crawled": 2
   },
   {
@@ -38515,10 +38477,10 @@
     ],
     "scope_id": "english-ssci-esci-scopus-v1",
     "article_refresh": {
-      "status": "not_scheduled",
-      "last_attempt_at": "2026-11-25T04:41:47+00:00",
-      "last_success_at": "2026-11-25T04:44:13+00:00",
-      "retained_article_count": 95
+      "status": "updated",
+      "last_attempt_at": "2026-11-27T03:52:40+00:00",
+      "last_success_at": "2026-11-27T03:54:28+00:00",
+      "retained_article_count": 0
     },
     "topic_hits": {
       "Language learning": 10,
@@ -38713,10 +38675,10 @@
     ],
     "scope_id": "english-ssci-esci-scopus-v1",
     "article_refresh": {
-      "status": "not_scheduled",
-      "last_attempt_at": "2026-11-25T04:41:47+00:00",
-      "last_success_at": "2026-11-25T04:44:14+00:00",
-      "retained_article_count": 93
+      "status": "updated",
+      "last_attempt_at": "2026-11-27T03:52:40+00:00",
+      "last_success_at": "2026-11-27T03:54:31+00:00",
+      "retained_article_count": 0
     },
     "topic_hits": {
       "Curriculum and pedagogy": 6,
